@@ -3,7 +3,7 @@
   "palettes": [
     {
       "id": "slate",
-      "label": "슬레이트 라이트",
+      "label": "블루 라이트",
       "resolvedRoles": {
         "surface": "#ffffff",
         "canvas": "#f8fafc",
@@ -15,27 +15,27 @@
         "inverseText": "#ffffff",
         "controlBorder": "#64748b",
         "subtleBorder": "#e2e8f0",
-        "focus": "#475569",
-        "primaryDefault": "#334155",
-        "primaryHover": "#1e293b",
-        "primaryPressed": "#0f172a",
+        "focus": "#2563eb",
+        "primaryDefault": "#2563eb",
+        "primaryHover": "#1d4ed8",
+        "primaryPressed": "#1e40af",
         "primaryText": "#ffffff",
         "secondarySurface": "#ffffff",
         "secondaryHover": "#f1f5f9",
-        "secondaryPressed": "#e2e8f0",
+        "secondaryPressed": "#eff6ff",
         "secondaryActionText": "#0f172a",
         "ghostSurface": "#ffffff",
-        "ghostHover": "#e2e8f0",
-        "ghostPressed": "#cbd5e1",
-        "ghostText": "#334155",
+        "ghostHover": "#eff6ff",
+        "ghostPressed": "#dbeafe",
+        "ghostText": "#1d4ed8",
         "destructiveSurface": "#be123c",
         "destructiveHover": "#9f1239",
         "destructivePressed": "#881337",
         "destructiveText": "#ffffff",
-        "selectedSurface": "#e2e8f0",
-        "selectedText": "#334155",
-        "infoSurface": "#f1f5f9",
-        "infoText": "#334155",
+        "selectedSurface": "#eff6ff",
+        "selectedText": "#1d4ed8",
+        "infoSurface": "#eff6ff",
+        "infoText": "#1e40af",
         "warningSurface": "#fffbeb",
         "warningText": "#854d0e",
         "successSurface": "#ecfdf5",
@@ -52,12 +52,12 @@
       "overrides": 88,
       "minima": {
         "text": {
-          "ratio": 5.721379238070055,
+          "ratio": 5.168555560022562,
           "threshold": 4.5,
           "pairs": [
             {
-              "foreground": "errorText",
-              "background": "errorSurface"
+              "foreground": "primaryText",
+              "background": "primaryDefault"
             }
           ]
         },
@@ -149,7 +149,7 @@
           "foreground": "ghostText",
           "background": "surface",
           "kind": "text",
-          "ratio": 10.35474573184942,
+          "ratio": 6.701618401398807,
           "threshold": 4.5,
           "passes": true
         },
@@ -157,7 +157,7 @@
           "foreground": "ghostText",
           "background": "canvas",
           "kind": "text",
-          "ratio": 9.896764973632585,
+          "ratio": 6.405212062099509,
           "threshold": 4.5,
           "passes": true
         },
@@ -165,7 +165,7 @@
           "foreground": "ghostText",
           "background": "subtle",
           "kind": "text",
-          "ratio": 9.451924418631656,
+          "ratio": 6.117310096538619,
           "threshold": 4.5,
           "passes": true
         },
@@ -197,7 +197,7 @@
           "foreground": "primaryText",
           "background": "primaryDefault",
           "kind": "text",
-          "ratio": 10.35474573184942,
+          "ratio": 5.168555560022562,
           "threshold": 4.5,
           "passes": true
         },
@@ -205,7 +205,7 @@
           "foreground": "primaryText",
           "background": "primaryHover",
           "kind": "text",
-          "ratio": 14.628718079350337,
+          "ratio": 6.701618401398807,
           "threshold": 4.5,
           "passes": true
         },
@@ -213,7 +213,7 @@
           "foreground": "primaryText",
           "background": "primaryPressed",
           "kind": "text",
-          "ratio": 17.85253496299567,
+          "ratio": 8.722410784954462,
           "threshold": 4.5,
           "passes": true
         },
@@ -237,7 +237,7 @@
           "foreground": "secondaryActionText",
           "background": "secondaryPressed",
           "kind": "text",
-          "ratio": 14.481508292066573,
+          "ratio": 16.404312965565975,
           "threshold": 4.5,
           "passes": true
         },
@@ -245,7 +245,7 @@
           "foreground": "ghostText",
           "background": "ghostSurface",
           "kind": "text",
-          "ratio": 10.35474573184942,
+          "ratio": 6.701618401398807,
           "threshold": 4.5,
           "passes": true
         },
@@ -253,7 +253,7 @@
           "foreground": "ghostText",
           "background": "ghostHover",
           "kind": "text",
-          "ratio": 8.39949824990323,
+          "ratio": 6.157973971775643,
           "threshold": 4.5,
           "passes": true
         },
@@ -261,7 +261,7 @@
           "foreground": "ghostText",
           "background": "ghostPressed",
           "kind": "text",
-          "ratio": 6.974291299318095,
+          "ratio": 5.4928674915472,
           "threshold": 4.5,
           "passes": true
         },
@@ -293,7 +293,7 @@
           "foreground": "selectedText",
           "background": "selectedSurface",
           "kind": "text",
-          "ratio": 8.39949824990323,
+          "ratio": 6.157973971775643,
           "threshold": 4.5,
           "passes": true
         },
@@ -309,7 +309,7 @@
           "foreground": "infoText",
           "background": "infoSurface",
           "kind": "text",
-          "ratio": 9.451924418631656,
+          "ratio": 8.014836919642205,
           "threshold": 4.5,
           "passes": true
         },
@@ -357,7 +357,7 @@
           "foreground": "text",
           "background": "infoSurface",
           "kind": "text",
-          "ratio": 16.295987899750777,
+          "ratio": 16.404312965565975,
           "threshold": 4.5,
           "passes": true
         },
@@ -397,7 +397,7 @@
           "foreground": "text",
           "background": "selectedSurface",
           "kind": "text",
-          "ratio": 14.481508292066573,
+          "ratio": 16.404312965565975,
           "threshold": 4.5,
           "passes": true
         },
@@ -405,7 +405,7 @@
           "foreground": "secondaryText",
           "background": "infoSurface",
           "kind": "text",
-          "ratio": 6.916973995632248,
+          "ratio": 6.962953513285813,
           "threshold": 4.5,
           "passes": true
         },
@@ -445,7 +445,7 @@
           "foreground": "secondaryText",
           "background": "selectedSurface",
           "kind": "text",
-          "ratio": 6.146802322753884,
+          "ratio": 6.962953513285813,
           "threshold": 4.5,
           "passes": true
         },
@@ -485,7 +485,7 @@
           "foreground": "focus",
           "background": "surface",
           "kind": "nontext",
-          "ratio": 7.577663953533317,
+          "ratio": 5.168555560022562,
           "threshold": 3,
           "passes": true
         },
@@ -493,7 +493,7 @@
           "foreground": "focus",
           "background": "canvas",
           "kind": "nontext",
-          "ratio": 7.242510935504382,
+          "ratio": 4.939955162140827,
           "threshold": 3,
           "passes": true
         },
@@ -501,7 +501,7 @@
           "foreground": "focus",
           "background": "subtle",
           "kind": "nontext",
-          "ratio": 6.916973995632248,
+          "ratio": 4.717913676679559,
           "threshold": 3,
           "passes": true
         },
@@ -509,7 +509,7 @@
           "foreground": "focus",
           "background": "errorSurface",
           "kind": "nontext",
-          "ratio": 6.89794018889585,
+          "ratio": 4.704931141660976,
           "threshold": 3,
           "passes": true
         },
@@ -517,7 +517,7 @@
           "foreground": "primaryDefault",
           "background": "surface",
           "kind": "nontext",
-          "ratio": 10.35474573184942,
+          "ratio": 5.168555560022562,
           "threshold": 3,
           "passes": true
         },
@@ -525,7 +525,7 @@
           "foreground": "primaryDefault",
           "background": "canvas",
           "kind": "nontext",
-          "ratio": 9.896764973632585,
+          "ratio": 4.939955162140827,
           "threshold": 3,
           "passes": true
         },
@@ -533,7 +533,7 @@
           "foreground": "primaryDefault",
           "background": "subtle",
           "kind": "nontext",
-          "ratio": 9.451924418631656,
+          "ratio": 4.717913676679559,
           "threshold": 3,
           "passes": true
         },
@@ -541,7 +541,7 @@
           "foreground": "primaryHover",
           "background": "surface",
           "kind": "nontext",
-          "ratio": 14.628718079350337,
+          "ratio": 6.701618401398807,
           "threshold": 3,
           "passes": true
         },
@@ -549,7 +549,7 @@
           "foreground": "primaryHover",
           "background": "canvas",
           "kind": "nontext",
-          "ratio": 13.981703505432394,
+          "ratio": 6.405212062099509,
           "threshold": 3,
           "passes": true
         },
@@ -557,7 +557,7 @@
           "foreground": "primaryHover",
           "background": "subtle",
           "kind": "nontext",
-          "ratio": 13.353252818386112,
+          "ratio": 6.117310096538619,
           "threshold": 3,
           "passes": true
         },
@@ -565,7 +565,7 @@
           "foreground": "primaryPressed",
           "background": "surface",
           "kind": "nontext",
-          "ratio": 17.85253496299567,
+          "ratio": 8.722410784954462,
           "threshold": 3,
           "passes": true
         },
@@ -573,7 +573,7 @@
           "foreground": "primaryPressed",
           "background": "canvas",
           "kind": "nontext",
-          "ratio": 17.062933971317335,
+          "ratio": 8.336626680909768,
           "threshold": 3,
           "passes": true
         },
@@ -581,7 +581,7 @@
           "foreground": "primaryPressed",
           "background": "subtle",
           "kind": "nontext",
-          "ratio": 16.295987899750777,
+          "ratio": 7.961911342165065,
           "threshold": 3,
           "passes": true
         },
@@ -685,7 +685,7 @@
           "foreground": "infoText",
           "background": "infoSurface",
           "kind": "nontext",
-          "ratio": 9.451924418631656,
+          "ratio": 8.014836919642205,
           "threshold": 3,
           "passes": true
         },

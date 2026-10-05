@@ -29,16 +29,16 @@ export const themes: readonly Theme[] = Object.freeze([
 ]);
 
 /** Current UI default; historical 107-token source remains immutable. */
-export const defaultTheme: Theme = Object.freeze({id:'slate',label:'슬레이트 라이트',roles:Object.freeze({...neutral,
-  primaryDefault:'#334155',primaryHover:'#1e293b',primaryPressed:'#0f172a',focus:'#475569',
-  secondaryPressed:'#e2e8f0',ghostText:'#334155',ghostHover:'#e2e8f0',ghostPressed:'#cbd5e1',
-  selectedSurface:'#e2e8f0',selectedText:'#334155',
-  infoSurface:'#f1f5f9',infoText:'#334155',successSurface:'#ecfdf5',successText:'#065f46',
+export const defaultTheme: Theme = Object.freeze({id:'slate',label:'블루 라이트',roles:Object.freeze({...neutral,
+  primaryDefault:'#2563eb',primaryHover:'#1d4ed8',primaryPressed:'#1e40af',focus:'#2563eb',
+  secondaryPressed:'#eff6ff',ghostText:'#1d4ed8',ghostHover:'#eff6ff',ghostPressed:'#dbeafe',
+  selectedSurface:'#eff6ff',selectedText:'#1d4ed8',
+  infoSurface:'#eff6ff',infoText:'#1e40af',successSurface:'#ecfdf5',successText:'#065f46',
   warningSurface:'#fffbeb',warningText:'#854d0e',errorSurface:'#fff1f2',errorText:'#be123c',
   destructiveSurface:'#be123c',destructiveHover:'#9f1239',destructivePressed:'#881337',
 })});
 export function renderDefaultThemeCss():string {
-  return '/* Generated default override; historical tokens stay unchanged. */\n.ds-core {\n'+Object.entries(themeVariables(defaultTheme)).map(([key,value])=>`  ${key}: ${value};`).join('\n')+'\n}\n';
+  return '/* Generated default override; historical tokens stay unchanged. */\n.ds-core {\n'+Object.entries(themeVariables(defaultTheme)).map(([key,value])=>`  ${key}: ${value};`).join('\n')+'\n  --font-size-body: 14px;\n  --font-line-body: 1.6;\n  --font-size-title: 20px;\n  --font-line-title: 1.4;\n  --font-size-label: 13px;\n  --font-size-caption: 12px;\n}\n';
 }
 
 /** Map semantic overrides to the variables existing components actually consume. */

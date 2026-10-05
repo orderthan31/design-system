@@ -87,14 +87,10 @@ export function CompositionExample() {
   const [saved, setSaved] = useState(false);
   return (
     <Container>
-      <p className="help">
-        템플릿 → Container/Grid → FormSection/ListPanel →
-        FormField/SearchField/ActionGroup → Input/Button. 공통 슬롯이며
-        제품별 정책을 포함하지 않습니다.
-      </p>
+
       <Grid>
         <FormSection
-          title="공통 폼 섹션"
+          title="Form"
           actions={
             <>
               <Button onClick={() => setSaved(true)}>예시 저장</Button>
@@ -106,12 +102,12 @@ export function CompositionExample() {
         >
           <FormField
             label="표시 이름"
-            description="재사용 가능한 범용 레이블입니다."
+
           />
           {saved && <p role="status">예시를 메모리에만 저장했습니다.</p>}
         </FormSection>
         <ListPanel
-          title="공통 목록 패널"
+          title="List"
           toolbar={
             <SearchField
               id={listSearchId}
@@ -130,7 +126,7 @@ export function CompositionExample() {
         </ListPanel>
       </Grid>
       {showDetail && <DetailTemplate
-        title="범용 상세"
+        title="Detail"
         summary={<p>선택 정보</p>}
         content={
           <FormSection title="상세 내용">

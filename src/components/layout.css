@@ -4,6 +4,7 @@
   margin-inline: auto;
   min-width: 0;
 }
+.ds-core .ds-grid > *, .ds-core .ds-actions > *, .ds-core .ds-shell > * { min-width: 0; max-width: 100%; }
 .ds-core .ds-stack {
   display: grid;
   gap: var(--space-4, 16px);
@@ -12,7 +13,7 @@
 .ds-core .ds-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
-  gap: 24px;
+  gap: 16px;
   min-width: 0;
 }
 .ds-core .ds-shell {

@@ -54,11 +54,11 @@ export const pages = [
 type Page = (typeof pages)[number];
 const pageLabels: Record<Page, string> = {
   Overview: "개요",
-  Foundations: "기초 (Foundations)",
-  Atoms: "아톰 (Atoms)",
-  Molecules: "몰리큘 (Molecules)",
-  Organisms: "오가니즘 (Organisms)",
-  Templates: "템플릿 (Templates)",
+  Foundations: "Foundations",
+  Atoms: "Atoms",
+  Molecules: "Molecules",
+  Organisms: "Organisms",
+  Templates: "Templates",
 };
 const toneLabels: Record<Tone, string> = {
   neutral: "기본",
@@ -470,16 +470,13 @@ function Demo({ name }: { name: string }) {
     </>
   );
 }
-function ComponentCard({ name, index }: { name: string; index: number }) {
+function ComponentCard({ name }: { name: string; index: number }) {
   const [view, setView] = useState("Preview");
   const historical = (contracts as Record<string, { states: string[] }>)[name];
   return (
     <article className="component-card" id={name.toLowerCase()}>
       <div className="card-title">
         <div>
-          <span className="eyebrow">
-            컴포넌트 {String(index + 1).padStart(2, "0")}
-          </span>
           <h2>{name}</h2>
         </div>
         <span className="component-tag">React</span>
@@ -525,8 +522,7 @@ function Overview({ navigate }: { navigate: (p: Page) => void }) {
   return (
     <>
       <header className="hero">
-        <span className="eyebrow">공유 디자인 시스템</span>
-        <h1>함께 쓰는 언어.</h1>
+        <h1>Components</h1>
         <div className="wrap">
           <Button onClick={() => navigate("Atoms")}>컴포넌트 둘러보기</Button>
           <Button variant="secondary" onClick={() => navigate("Foundations")}>
@@ -536,10 +532,7 @@ function Overview({ navigate }: { navigate: (p: Page) => void }) {
             PC · 모바일 템플릿
           </Button>
         </div>
-        <div className="hero-meta">
-          <span>Pretendard</span>
-          <span>React + TypeScript</span>
-        </div>
+
       </header>
       <section className="stack" aria-label="공통 입력 데모">
         <h2>FormField · Button · Badge</h2>
@@ -565,17 +558,14 @@ function Foundations() {
   );
   return (
     <>
-      <PageHeader title="기초 (Foundations)" eyebrow="01 / 단일 기준 원본" />
+      <PageHeader title="Foundations" eyebrow="" />
       <div className="foundation-grid">
         <article className="feature-card">
           <span className="eyebrow">타이포그래피</span>
           <h2 className="type-sample">Aa 가나</h2>
           <h3>Pretendard</h3>
           <p>본문 400 · 레이블 500 · 제목 600 · 강조 700</p>
-          <p className="help">
-            원본 WOFF2·라이선스·출처를 유지합니다. 일본어 대체 글꼴은 별도로
-            검증하지 않았습니다.
-          </p>
+
           <a href="/source/fonts/LICENSE">글꼴 라이선스 ↗</a>
         </article>
         <article className="feature-card">
@@ -585,14 +575,8 @@ function Foundations() {
             <div>44</div>
             <div>8</div>
           </div>
-          <h3>편안한 기본 크기</h3>
-          <p>
-            주요 동작 48px · 컨트롤 44px · 모서리 8px. 긴 내용도 글자를 강제로
-            줄이지 않고 표시합니다.
-          </p>
-          <p className="help">
-            4px 간격 척도로 명확하고 일관된 리듬을 만듭니다.
-          </p>
+          <h3>Controls</h3>
+<p>버튼 48px · 입력 44px · 모서리 8px</p>
         </article>
       </div>
       <ThemeGallery />
@@ -656,8 +640,8 @@ function Foundations() {
       {entries.length === 0 && (
         <p role="status">검색과 일치하는 토큰이 없습니다.</p>
       )}
-      <div className="note">
-        <strong>전체 통과 선언이 아닌 사용 계약.</strong>
+      <details className="note"><summary>토큰 · 대비 문서</summary>
+        <strong>사용 계약</strong>
         <p>
           원본 명암 대비 허용 목록과 금지 조합을 유지합니다. 수치 근거는
           애플리케이션 접근성 인증이 아닙니다. 테마를 교체하면 다시 평가해야
@@ -670,14 +654,14 @@ function Foundations() {
           </a>
           <a href="/source/contracts/components.json">기준 계약 ↗</a>
         </div>
-      </div>
+      </details>
     </>
   );
 }
 function PageHeader({ title, eyebrow }: { title: string; eyebrow: string }) {
   return (
     <header className="page-heading">
-      <span className="eyebrow">{eyebrow}</span>
+      {eyebrow && <span className="eyebrow">{eyebrow}</span>}
       <h1>{title}</h1>
     </header>
   );
@@ -691,13 +675,11 @@ function TemplatePreviews() {
   const [filter, setFilter] = useState("");
   return (
     <>
-      <PageHeader title="템플릿 (Templates)" eyebrow="05 / 조합을 위한 공간" />
+      <PageHeader title="Templates" eyebrow="" />
       <div className="section-heading">
         <div>
           <h2>템플릿 미리보기</h2>
-          <p className="help">
-            같은 React 조합을 두 가지 미리보기 너비로 확인합니다.
-          </p>
+
         </div>
       </div>
       <div className="template-controls">
@@ -983,15 +965,7 @@ export function App() {
           ))}
         </nav>
         <GalleryNavigation selected={entry?.id} onNavigate={navigateHash}/>
-        <div className="sidebar-note">
-          <span className="status-dot" /> 공통 코어{" "}
-          <p>
-            범용성을 위한 설계.
-            <br />
-            조합을 기본으로.
-          </p>
-          <span className="sidebar-version">v0.1 · React + TypeScript</span>
-        </div>
+
       </aside>
       {navOpen && <Dialog open title="컴포넌트 탐색" onClose={()=>setNavOpen(false)}><GalleryNavigation selected={entry?.id} onNavigate={navigateHash}/></Dialog>}
       <div className="workspace">
@@ -1033,7 +1007,7 @@ export function App() {
             <>
               <PageHeader
                 title={pageLabels[page]}
-                eyebrow={`${page === "Atoms" ? "02" : page === "Molecules" ? "03" : "04"} / ${page === "Atoms" ? "재사용 기본 요소" : page === "Molecules" ? "의미 있는 조합" : "조합된 상호작용"}`}
+                eyebrow=""
               />
               <div className="component-index">
                 {group?.map((n) => (
@@ -1063,7 +1037,7 @@ export function App() {
           )}
           <footer className="page-footer">
             <span>common / 공유 디자인 시스템</span>
-            <span>하나의 원본에서 시작해 자유롭게 조합합니다.</span>
+
           </footer>
         </main>
       </div>

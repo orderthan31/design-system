@@ -25,7 +25,7 @@ export function ThemeGallery() {
       <p role="status" aria-live="polite">{theme?.label ?? '기본 코어'} 미리보기가 활성화되었습니다. 변경은 아래 미리보기에만 적용됩니다.</p>
       <section aria-label="범위 한정 테마 미리보기" data-ds-theme={theme?.id} className="stack"
         style={{...(theme ? themeVariables(theme) : {}), background: 'var(--color-bg-canvas)', color: 'var(--color-text-primary)', padding: 'var(--space-6)', borderRadius: 'var(--radius-lg)', minWidth: 0} as React.CSSProperties}>
-        <h3>재사용 입력 폼과 작업 버튼</h3>
+        <h3>Form</h3>
         <div className="stack" style={{background: 'var(--color-bg-surface)', padding: 'var(--space-4)', borderRadius: 'var(--radius-md)'}}>
           <FormField label="표시 이름" />
           <div className="wrap">
@@ -42,7 +42,7 @@ export function ThemeGallery() {
           <div style={{background: 'var(--color-bg-surface)', borderRadius: 'var(--radius-md)'}}>
             <div aria-hidden="true" style={{background: 'var(--color-scrim)', height: 48, borderRadius: 'var(--radius-md)'}} />
           </div>
-          <p>스크림 합성 결과: {compositeColor(theme.roles.scrim, theme.roles.surface)} (배경 {theme.roles.surface}). 장식용 어둡게 처리한 예시이며, 모든 명암비나 텍스트 배치를 허용하는 검증 결과가 아닙니다.</p>
+          <details><summary>스크림</summary><p>합성 색상: {compositeColor(theme.roles.scrim, theme.roles.surface)}. 텍스트 배치의 대비 검증과는 별개입니다.</p></details>
         </>}
       </section>
       {theme ? <details><summary>대비 계약</summary><div style={{maxWidth: '100%', overflowX: 'auto'}}>
