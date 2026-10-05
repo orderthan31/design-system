@@ -1,0 +1,465 @@
+{
+  "format": "neutral-typed-token-registry/v1; not a Penpot import assertion",
+  "temporary_artifact_name": "Shared Design System — T-DES-002",
+  "scope": "generic core",
+  "primitive": {
+    "color.palette.0f172a": {
+      "$type": "color",
+      "$value": "#0F172A"
+    },
+    "color.palette.166534": {
+      "$type": "color",
+      "$value": "#166534"
+    },
+    "color.palette.1d4ed8": {
+      "$type": "color",
+      "$value": "#1D4ED8"
+    },
+    "color.palette.1e40af": {
+      "$type": "color",
+      "$value": "#1E40AF"
+    },
+    "color.palette.2563eb": {
+      "$type": "color",
+      "$value": "#2563EB"
+    },
+    "color.palette.475569": {
+      "$type": "color",
+      "$value": "#475569"
+    },
+    "color.palette.64748b": {
+      "$type": "color",
+      "$value": "#64748B"
+    },
+    "color.palette.92400e": {
+      "$type": "color",
+      "$value": "#92400E"
+    },
+    "color.palette.b91c1c": {
+      "$type": "color",
+      "$value": "#B91C1C"
+    },
+    "color.palette.e2e8f0": {
+      "$type": "color",
+      "$value": "#E2E8F0"
+    },
+    "color.palette.eff6ff": {
+      "$type": "color",
+      "$value": "#EFF6FF"
+    },
+    "color.palette.f0fdf4": {
+      "$type": "color",
+      "$value": "#F0FDF4"
+    },
+    "color.palette.f1f5f9": {
+      "$type": "color",
+      "$value": "#F1F5F9"
+    },
+    "color.palette.f8fafc": {
+      "$type": "color",
+      "$value": "#F8FAFC"
+    },
+    "color.palette.fef2f2": {
+      "$type": "color",
+      "$value": "#FEF2F2"
+    },
+    "color.palette.fffbeb": {
+      "$type": "color",
+      "$value": "#FFFBEB"
+    },
+    "color.palette.ffffff": {
+      "$type": "color",
+      "$value": "#FFFFFF"
+    },
+    "space.1": {
+      "$type": "number",
+      "$value": 4,
+      "unit": "px"
+    },
+    "space.2": {
+      "$type": "number",
+      "$value": 8,
+      "unit": "px"
+    },
+    "space.3": {
+      "$type": "number",
+      "$value": 12,
+      "unit": "px"
+    },
+    "space.4": {
+      "$type": "number",
+      "$value": 16,
+      "unit": "px"
+    },
+    "space.6": {
+      "$type": "number",
+      "$value": 24,
+      "unit": "px"
+    },
+    "space.8": {
+      "$type": "number",
+      "$value": 32,
+      "unit": "px"
+    },
+    "radius.md": {
+      "$type": "number",
+      "$value": 8,
+      "unit": "px"
+    },
+    "radius.lg": {
+      "$type": "number",
+      "$value": 12,
+      "unit": "px"
+    },
+    "size.control": {
+      "$type": "number",
+      "$value": 44,
+      "unit": "px"
+    },
+    "size.control.primary": {
+      "$type": "number",
+      "$value": 48,
+      "unit": "px"
+    },
+    "layout.maxWidth": {
+      "$type": "number",
+      "$value": 1280,
+      "unit": "px"
+    },
+    "font.size.body": {
+      "$type": "number",
+      "$value": 16,
+      "unit": "px"
+    },
+    "font.line.body": {
+      "$type": "number",
+      "$value": 24,
+      "unit": "px"
+    },
+    "font.size.label": {
+      "$type": "number",
+      "$value": 14,
+      "unit": "px"
+    },
+    "font.line.label": {
+      "$type": "number",
+      "$value": 20,
+      "unit": "px"
+    },
+    "font.size.caption": {
+      "$type": "number",
+      "$value": 12,
+      "unit": "px"
+    },
+    "font.line.caption": {
+      "$type": "number",
+      "$value": 18,
+      "unit": "px"
+    },
+    "font.size.title": {
+      "$type": "number",
+      "$value": 24,
+      "unit": "px"
+    },
+    "font.line.title": {
+      "$type": "number",
+      "$value": 32,
+      "unit": "px"
+    },
+    "motion.fast": {
+      "$type": "number",
+      "$value": 120,
+      "unit": "ms"
+    },
+    "motion.normal": {
+      "$type": "number",
+      "$value": 180,
+      "unit": "ms"
+    },
+    "font.family.base": {
+      "$type": "fontFamily",
+      "$value": "Pretendard"
+    }
+  },
+  "semantic": {
+    "color.bg.surface": {
+      "$type": "color",
+      "$value": "{color.palette.ffffff}"
+    },
+    "color.bg.canvas": {
+      "$type": "color",
+      "$value": "{color.palette.f8fafc}"
+    },
+    "color.bg.subtle": {
+      "$type": "color",
+      "$value": "{color.palette.f1f5f9}"
+    },
+    "color.text.primary": {
+      "$type": "color",
+      "$value": "{color.palette.0f172a}"
+    },
+    "color.text.secondary": {
+      "$type": "color",
+      "$value": "{color.palette.475569}"
+    },
+    "color.text.muted": {
+      "$type": "color",
+      "$value": "{color.palette.64748b}"
+    },
+    "color.text.muted.onSubtle": {
+      "$type": "color",
+      "$value": "{color.text.secondary}"
+    },
+    "color.text.inverse": {
+      "$type": "color",
+      "$value": "{color.palette.ffffff}"
+    },
+    "color.link": {
+      "$type": "color",
+      "$value": "{color.palette.1d4ed8}"
+    },
+    "color.focus": {
+      "$type": "color",
+      "$value": "{color.palette.1d4ed8}"
+    },
+    "color.border.control": {
+      "$type": "color",
+      "$value": "{color.palette.64748b}"
+    },
+    "color.border.subtle": {
+      "$type": "color",
+      "$value": "{color.palette.e2e8f0}"
+    },
+    "color.action.primary.bg.default": {
+      "$type": "color",
+      "$value": "{color.palette.2563eb}"
+    },
+    "color.action.primary.bg.hover": {
+      "$type": "color",
+      "$value": "{color.palette.1d4ed8}"
+    },
+    "color.action.primary.bg.pressed": {
+      "$type": "color",
+      "$value": "{color.palette.1e40af}"
+    },
+    "color.selected.bg": {
+      "$type": "color",
+      "$value": "{color.palette.eff6ff}"
+    },
+    "color.selected.fg": {
+      "$type": "color",
+      "$value": "{color.palette.1d4ed8}"
+    },
+    "color.status.running.bg": {
+      "$type": "color",
+      "$value": "{color.palette.eff6ff}"
+    },
+    "color.status.running.fg": {
+      "$type": "color",
+      "$value": "{color.palette.1d4ed8}"
+    },
+    "color.status.success.bg": {
+      "$type": "color",
+      "$value": "{color.palette.f0fdf4}"
+    },
+    "color.status.success.fg": {
+      "$type": "color",
+      "$value": "{color.palette.166534}"
+    },
+    "color.status.review.bg": {
+      "$type": "color",
+      "$value": "{color.palette.fffbeb}"
+    },
+    "color.status.review.fg": {
+      "$type": "color",
+      "$value": "{color.palette.92400e}"
+    },
+    "color.status.error.bg": {
+      "$type": "color",
+      "$value": "{color.palette.fef2f2}"
+    },
+    "color.status.error.fg": {
+      "$type": "color",
+      "$value": "{color.palette.b91c1c}"
+    },
+    "color.status.neutral.bg": {
+      "$type": "color",
+      "$value": "{color.palette.f1f5f9}"
+    },
+    "color.status.neutral.fg": {
+      "$type": "color",
+      "$value": "{color.palette.475569}"
+    },
+    "color.disabled.bg": {
+      "$type": "color",
+      "$value": "{color.palette.f1f5f9}"
+    },
+    "color.disabled.fg": {
+      "$type": "color",
+      "$value": "{color.palette.64748b}"
+    }
+  },
+  "component": {
+    "button.bg.default": {
+      "$type": "color",
+      "$value": "{color.action.primary.bg.default}"
+    },
+    "button.bg.hover": {
+      "$type": "color",
+      "$value": "{color.action.primary.bg.hover}"
+    },
+    "button.bg.pressed": {
+      "$type": "color",
+      "$value": "{color.action.primary.bg.pressed}"
+    },
+    "button.fg": {
+      "$type": "color",
+      "$value": "{color.text.inverse}"
+    },
+    "button.disabled.bg": {
+      "$type": "color",
+      "$value": "{color.disabled.bg}"
+    },
+    "button.disabled.fg": {
+      "$type": "color",
+      "$value": "{color.disabled.fg}"
+    },
+    "field.bg": {
+      "$type": "color",
+      "$value": "{color.bg.surface}"
+    },
+    "field.fg": {
+      "$type": "color",
+      "$value": "{color.text.primary}"
+    },
+    "field.border": {
+      "$type": "color",
+      "$value": "{color.border.control}"
+    },
+    "field.focus": {
+      "$type": "color",
+      "$value": "{color.focus}"
+    },
+    "field.description": {
+      "$type": "color",
+      "$value": "{color.text.muted}"
+    },
+    "field.error.fg": {
+      "$type": "color",
+      "$value": "{color.status.error.fg}"
+    },
+    "field.error.bg": {
+      "$type": "color",
+      "$value": "{color.status.error.bg}"
+    },
+    "dialog.bg": {
+      "$type": "color",
+      "$value": "{color.bg.surface}"
+    },
+    "dialog.fg": {
+      "$type": "color",
+      "$value": "{color.text.primary}"
+    },
+    "empty.bg": {
+      "$type": "color",
+      "$value": "{color.bg.surface}"
+    },
+    "empty.fg": {
+      "$type": "color",
+      "$value": "{color.text.secondary}"
+    },
+    "progress.track": {
+      "$type": "color",
+      "$value": "{color.bg.subtle}"
+    },
+    "progress.fill": {
+      "$type": "color",
+      "$value": "{color.action.primary.bg.default}"
+    },
+    "badge.running.bg": {
+      "$type": "color",
+      "$value": "{color.status.running.bg}"
+    },
+    "alert.running.bg": {
+      "$type": "color",
+      "$value": "{color.status.running.bg}"
+    },
+    "badge.running.fg": {
+      "$type": "color",
+      "$value": "{color.status.running.fg}"
+    },
+    "alert.running.fg": {
+      "$type": "color",
+      "$value": "{color.status.running.fg}"
+    },
+    "badge.success.bg": {
+      "$type": "color",
+      "$value": "{color.status.success.bg}"
+    },
+    "alert.success.bg": {
+      "$type": "color",
+      "$value": "{color.status.success.bg}"
+    },
+    "badge.success.fg": {
+      "$type": "color",
+      "$value": "{color.status.success.fg}"
+    },
+    "alert.success.fg": {
+      "$type": "color",
+      "$value": "{color.status.success.fg}"
+    },
+    "badge.review.bg": {
+      "$type": "color",
+      "$value": "{color.status.review.bg}"
+    },
+    "alert.review.bg": {
+      "$type": "color",
+      "$value": "{color.status.review.bg}"
+    },
+    "badge.review.fg": {
+      "$type": "color",
+      "$value": "{color.status.review.fg}"
+    },
+    "alert.review.fg": {
+      "$type": "color",
+      "$value": "{color.status.review.fg}"
+    },
+    "badge.error.bg": {
+      "$type": "color",
+      "$value": "{color.status.error.bg}"
+    },
+    "alert.error.bg": {
+      "$type": "color",
+      "$value": "{color.status.error.bg}"
+    },
+    "badge.error.fg": {
+      "$type": "color",
+      "$value": "{color.status.error.fg}"
+    },
+    "alert.error.fg": {
+      "$type": "color",
+      "$value": "{color.status.error.fg}"
+    },
+    "badge.neutral.bg": {
+      "$type": "color",
+      "$value": "{color.status.neutral.bg}"
+    },
+    "alert.neutral.bg": {
+      "$type": "color",
+      "$value": "{color.status.neutral.bg}"
+    },
+    "badge.neutral.fg": {
+      "$type": "color",
+      "$value": "{color.status.neutral.fg}"
+    },
+    "alert.neutral.fg": {
+      "$type": "color",
+      "$value": "{color.status.neutral.fg}"
+    }
+  },
+  "provenance": {
+    "planning": "v0.3 plus approval appendix 1556544283375304788",
+    "source_SHA_historical": "57d34e9995edf5e322dfa26acdd899513f4038d5",
+    "repo_read_this_run": false
+  }
+}

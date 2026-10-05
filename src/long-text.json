@@ -1,0 +1,5 @@
+{
+  "ko": "아직 표시할 항목이 없습니다. 새로운 항목을 추가하거나 기존 내용을 다시 확인하면 이 영역에 결과가 나타납니다. 설명이 길어지는 경우에도 중요한 안내와 다음 작업의 의미를 생략하지 않고 여러 줄로 읽을 수 있게 유지합니다. 네트워크 연결이 늦어지거나 작업이 실패하더라도 입력한 정보는 보존되며, 사용자는 현재 상태와 다시 시도할 수 있는 방법을 확인할 수 있습니다.",
+  "en": "There are no items to display yet. Add a new item or review the existing information to populate this area. When an explanation becomes longer, keep the entire message readable across multiple lines rather than truncating the context or shrinking the type. If the connection is delayed or the operation fails, preserve the information already entered and explain the current state and the available next step before asking the person to continue.",
+  "ja": "表示できる項目はまだありません。新しい項目を追加するか、既存の内容を確認すると、この領域に結果が表示されます。説明が長くなっても、大切な案内や次の操作の意味を省略せず、複数の行に折り返して読みやすく保ちます。接続に時間がかかる場合や操作に失敗した場合も、入力した情報は保持され、現在の状態と再試行する方法を確認できます。"
+}
