@@ -1,0 +1,2099 @@
+{
+  "scope": "Closed opaque semantic pair allowlist; not application accessibility certification",
+  "palettes": [
+    {
+      "id": "slate",
+      "label": "슬레이트 라이트",
+      "resolvedRoles": {
+        "surface": "#ffffff",
+        "canvas": "#f8fafc",
+        "subtle": "#f1f5f9",
+        "text": "#0f172a",
+        "secondaryText": "#475569",
+        "mutedText": "#475569",
+        "inverseSurface": "#0f172a",
+        "inverseText": "#ffffff",
+        "controlBorder": "#64748b",
+        "subtleBorder": "#e2e8f0",
+        "focus": "#475569",
+        "primaryDefault": "#334155",
+        "primaryHover": "#1e293b",
+        "primaryPressed": "#0f172a",
+        "primaryText": "#ffffff",
+        "secondarySurface": "#ffffff",
+        "secondaryHover": "#f1f5f9",
+        "secondaryPressed": "#e2e8f0",
+        "secondaryActionText": "#0f172a",
+        "ghostSurface": "#ffffff",
+        "ghostHover": "#e2e8f0",
+        "ghostPressed": "#cbd5e1",
+        "ghostText": "#334155",
+        "destructiveSurface": "#be123c",
+        "destructiveHover": "#9f1239",
+        "destructivePressed": "#881337",
+        "destructiveText": "#ffffff",
+        "selectedSurface": "#e2e8f0",
+        "selectedText": "#334155",
+        "infoSurface": "#f1f5f9",
+        "infoText": "#334155",
+        "warningSurface": "#fffbeb",
+        "warningText": "#854d0e",
+        "successSurface": "#ecfdf5",
+        "successText": "#065f46",
+        "errorSurface": "#fff1f2",
+        "errorText": "#be123c",
+        "neutralSurface": "#f1f5f9",
+        "neutralText": "#475569",
+        "disabledSurface": "#f1f5f9",
+        "disabledText": "#475569",
+        "scrim": "#0f172a66"
+      },
+      "roles": 42,
+      "overrides": 88,
+      "minima": {
+        "text": {
+          "ratio": 5.721379238070055,
+          "threshold": 4.5,
+          "pairs": [
+            {
+              "foreground": "errorText",
+              "background": "errorSurface"
+            }
+          ]
+        },
+        "nontext": {
+          "ratio": 4.331970000302035,
+          "threshold": 3,
+          "pairs": [
+            {
+              "foreground": "controlBorder",
+              "background": "errorSurface"
+            }
+          ]
+        }
+      },
+      "assessments": [
+        {
+          "foreground": "text",
+          "background": "surface",
+          "kind": "text",
+          "ratio": 17.85253496299567,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "text",
+          "background": "canvas",
+          "kind": "text",
+          "ratio": 17.062933971317335,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "text",
+          "background": "subtle",
+          "kind": "text",
+          "ratio": 16.295987899750777,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "secondaryText",
+          "background": "surface",
+          "kind": "text",
+          "ratio": 7.577663953533317,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "secondaryText",
+          "background": "canvas",
+          "kind": "text",
+          "ratio": 7.242510935504382,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "secondaryText",
+          "background": "subtle",
+          "kind": "text",
+          "ratio": 6.916973995632248,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "mutedText",
+          "background": "surface",
+          "kind": "text",
+          "ratio": 7.577663953533317,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "mutedText",
+          "background": "canvas",
+          "kind": "text",
+          "ratio": 7.242510935504382,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "mutedText",
+          "background": "subtle",
+          "kind": "text",
+          "ratio": 6.916973995632248,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "ghostText",
+          "background": "surface",
+          "kind": "text",
+          "ratio": 10.35474573184942,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "ghostText",
+          "background": "canvas",
+          "kind": "text",
+          "ratio": 9.896764973632585,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "ghostText",
+          "background": "subtle",
+          "kind": "text",
+          "ratio": 9.451924418631656,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "errorText",
+          "background": "surface",
+          "kind": "text",
+          "ratio": 6.285164560662439,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "errorText",
+          "background": "canvas",
+          "kind": "text",
+          "ratio": 6.007177586809857,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "errorText",
+          "background": "subtle",
+          "kind": "text",
+          "ratio": 5.737166505529748,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "primaryText",
+          "background": "primaryDefault",
+          "kind": "text",
+          "ratio": 10.35474573184942,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "primaryText",
+          "background": "primaryHover",
+          "kind": "text",
+          "ratio": 14.628718079350337,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "primaryText",
+          "background": "primaryPressed",
+          "kind": "text",
+          "ratio": 17.85253496299567,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "secondaryActionText",
+          "background": "secondarySurface",
+          "kind": "text",
+          "ratio": 17.85253496299567,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "secondaryActionText",
+          "background": "secondaryHover",
+          "kind": "text",
+          "ratio": 16.295987899750777,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "secondaryActionText",
+          "background": "secondaryPressed",
+          "kind": "text",
+          "ratio": 14.481508292066573,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "ghostText",
+          "background": "ghostSurface",
+          "kind": "text",
+          "ratio": 10.35474573184942,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "ghostText",
+          "background": "ghostHover",
+          "kind": "text",
+          "ratio": 8.39949824990323,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "ghostText",
+          "background": "ghostPressed",
+          "kind": "text",
+          "ratio": 6.974291299318095,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "destructiveText",
+          "background": "destructiveSurface",
+          "kind": "text",
+          "ratio": 6.285164560662439,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "destructiveText",
+          "background": "destructiveHover",
+          "kind": "text",
+          "ratio": 8.015910591562179,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "destructiveText",
+          "background": "destructivePressed",
+          "kind": "text",
+          "ratio": 9.566482977634895,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "selectedText",
+          "background": "selectedSurface",
+          "kind": "text",
+          "ratio": 8.39949824990323,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "inverseText",
+          "background": "inverseSurface",
+          "kind": "text",
+          "ratio": 17.85253496299567,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "infoText",
+          "background": "infoSurface",
+          "kind": "text",
+          "ratio": 9.451924418631656,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "warningText",
+          "background": "warningSurface",
+          "kind": "text",
+          "ratio": 6.60658223464378,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "successText",
+          "background": "successSurface",
+          "kind": "text",
+          "ratio": 7.294077894689702,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "errorText",
+          "background": "errorSurface",
+          "kind": "text",
+          "ratio": 5.721379238070055,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "neutralText",
+          "background": "neutralSurface",
+          "kind": "text",
+          "ratio": 6.916973995632248,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "disabledText",
+          "background": "disabledSurface",
+          "kind": "text",
+          "ratio": 6.916973995632248,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "text",
+          "background": "infoSurface",
+          "kind": "text",
+          "ratio": 16.295987899750777,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "text",
+          "background": "warningSurface",
+          "kind": "text",
+          "ratio": 17.21537271257024,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "text",
+          "background": "successSurface",
+          "kind": "text",
+          "ratio": 16.947326192881903,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "text",
+          "background": "errorSurface",
+          "kind": "text",
+          "ratio": 16.25114535957954,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "text",
+          "background": "neutralSurface",
+          "kind": "text",
+          "ratio": 16.295987899750777,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "text",
+          "background": "selectedSurface",
+          "kind": "text",
+          "ratio": 14.481508292066573,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "secondaryText",
+          "background": "infoSurface",
+          "kind": "text",
+          "ratio": 6.916973995632248,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "secondaryText",
+          "background": "warningSurface",
+          "kind": "text",
+          "ratio": 7.307214886910076,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "secondaryText",
+          "background": "successSurface",
+          "kind": "text",
+          "ratio": 7.193440207049624,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "secondaryText",
+          "background": "errorSurface",
+          "kind": "text",
+          "ratio": 6.89794018889585,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "secondaryText",
+          "background": "neutralSurface",
+          "kind": "text",
+          "ratio": 6.916973995632248,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "secondaryText",
+          "background": "selectedSurface",
+          "kind": "text",
+          "ratio": 6.146802322753884,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "controlBorder",
+          "background": "surface",
+          "kind": "nontext",
+          "ratio": 4.758842787868666,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "controlBorder",
+          "background": "canvas",
+          "kind": "nontext",
+          "ratio": 4.548363604249587,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "controlBorder",
+          "background": "subtle",
+          "kind": "nontext",
+          "ratio": 4.343923406321176,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "controlBorder",
+          "background": "errorSurface",
+          "kind": "nontext",
+          "ratio": 4.331970000302035,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "focus",
+          "background": "surface",
+          "kind": "nontext",
+          "ratio": 7.577663953533317,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "focus",
+          "background": "canvas",
+          "kind": "nontext",
+          "ratio": 7.242510935504382,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "focus",
+          "background": "subtle",
+          "kind": "nontext",
+          "ratio": 6.916973995632248,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "focus",
+          "background": "errorSurface",
+          "kind": "nontext",
+          "ratio": 6.89794018889585,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "primaryDefault",
+          "background": "surface",
+          "kind": "nontext",
+          "ratio": 10.35474573184942,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "primaryDefault",
+          "background": "canvas",
+          "kind": "nontext",
+          "ratio": 9.896764973632585,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "primaryDefault",
+          "background": "subtle",
+          "kind": "nontext",
+          "ratio": 9.451924418631656,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "primaryHover",
+          "background": "surface",
+          "kind": "nontext",
+          "ratio": 14.628718079350337,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "primaryHover",
+          "background": "canvas",
+          "kind": "nontext",
+          "ratio": 13.981703505432394,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "primaryHover",
+          "background": "subtle",
+          "kind": "nontext",
+          "ratio": 13.353252818386112,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "primaryPressed",
+          "background": "surface",
+          "kind": "nontext",
+          "ratio": 17.85253496299567,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "primaryPressed",
+          "background": "canvas",
+          "kind": "nontext",
+          "ratio": 17.062933971317335,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "primaryPressed",
+          "background": "subtle",
+          "kind": "nontext",
+          "ratio": 16.295987899750777,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "destructiveSurface",
+          "background": "surface",
+          "kind": "nontext",
+          "ratio": 6.285164560662439,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "destructiveSurface",
+          "background": "canvas",
+          "kind": "nontext",
+          "ratio": 6.007177586809857,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "destructiveSurface",
+          "background": "subtle",
+          "kind": "nontext",
+          "ratio": 5.737166505529748,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "destructiveHover",
+          "background": "surface",
+          "kind": "nontext",
+          "ratio": 8.015910591562179,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "destructiveHover",
+          "background": "canvas",
+          "kind": "nontext",
+          "ratio": 7.661374332962391,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "destructiveHover",
+          "background": "subtle",
+          "kind": "nontext",
+          "ratio": 7.3170102888101,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "destructivePressed",
+          "background": "surface",
+          "kind": "nontext",
+          "ratio": 9.566482977634895,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "destructivePressed",
+          "background": "canvas",
+          "kind": "nontext",
+          "ratio": 9.143366346765857,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "destructivePressed",
+          "background": "subtle",
+          "kind": "nontext",
+          "ratio": 8.732389611326697,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "errorText",
+          "background": "surface",
+          "kind": "nontext",
+          "ratio": 6.285164560662439,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "errorText",
+          "background": "canvas",
+          "kind": "nontext",
+          "ratio": 6.007177586809857,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "errorText",
+          "background": "subtle",
+          "kind": "nontext",
+          "ratio": 5.737166505529748,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "infoText",
+          "background": "infoSurface",
+          "kind": "nontext",
+          "ratio": 9.451924418631656,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "warningText",
+          "background": "warningSurface",
+          "kind": "nontext",
+          "ratio": 6.60658223464378,
+          "threshold": 3,
+          "passes": true
+        }
+      ]
+    },
+    {
+      "id": "indigo",
+      "label": "인디고 라이트",
+      "resolvedRoles": {
+        "surface": "#ffffff",
+        "canvas": "#f8fafc",
+        "subtle": "#f1f5f9",
+        "text": "#0f172a",
+        "secondaryText": "#475569",
+        "mutedText": "#475569",
+        "inverseSurface": "#0f172a",
+        "inverseText": "#ffffff",
+        "controlBorder": "#64748b",
+        "subtleBorder": "#e2e8f0",
+        "focus": "#3730a3",
+        "primaryDefault": "#4338ca",
+        "primaryHover": "#3730a3",
+        "primaryPressed": "#312e81",
+        "primaryText": "#ffffff",
+        "secondarySurface": "#ffffff",
+        "secondaryHover": "#f1f5f9",
+        "secondaryPressed": "#eef2ff",
+        "secondaryActionText": "#0f172a",
+        "ghostSurface": "#ffffff",
+        "ghostHover": "#eef2ff",
+        "ghostPressed": "#e0e7ff",
+        "ghostText": "#3730a3",
+        "destructiveSurface": "#b91c1c",
+        "destructiveHover": "#991b1b",
+        "destructivePressed": "#7f1d1d",
+        "destructiveText": "#ffffff",
+        "selectedSurface": "#eef2ff",
+        "selectedText": "#3730a3",
+        "infoSurface": "#eff6ff",
+        "infoText": "#1e40af",
+        "warningSurface": "#fffbeb",
+        "warningText": "#92400e",
+        "successSurface": "#f0fdf4",
+        "successText": "#166534",
+        "errorSurface": "#fef2f2",
+        "errorText": "#b91c1c",
+        "neutralSurface": "#f1f5f9",
+        "neutralText": "#475569",
+        "disabledSurface": "#f1f5f9",
+        "disabledText": "#475569",
+        "scrim": "#0f172a66"
+      },
+      "roles": 42,
+      "overrides": 88,
+      "minima": {
+        "text": {
+          "ratio": 5.905927118870345,
+          "threshold": 4.5,
+          "pairs": [
+            {
+              "foreground": "errorText",
+              "background": "subtle"
+            }
+          ]
+        },
+        "nontext": {
+          "ratio": 4.343923406321176,
+          "threshold": 3,
+          "pairs": [
+            {
+              "foreground": "controlBorder",
+              "background": "subtle"
+            }
+          ]
+        }
+      },
+      "assessments": [
+        {
+          "foreground": "text",
+          "background": "surface",
+          "kind": "text",
+          "ratio": 17.85253496299567,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "text",
+          "background": "canvas",
+          "kind": "text",
+          "ratio": 17.062933971317335,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "text",
+          "background": "subtle",
+          "kind": "text",
+          "ratio": 16.295987899750777,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "secondaryText",
+          "background": "surface",
+          "kind": "text",
+          "ratio": 7.577663953533317,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "secondaryText",
+          "background": "canvas",
+          "kind": "text",
+          "ratio": 7.242510935504382,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "secondaryText",
+          "background": "subtle",
+          "kind": "text",
+          "ratio": 6.916973995632248,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "mutedText",
+          "background": "surface",
+          "kind": "text",
+          "ratio": 7.577663953533317,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "mutedText",
+          "background": "canvas",
+          "kind": "text",
+          "ratio": 7.242510935504382,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "mutedText",
+          "background": "subtle",
+          "kind": "text",
+          "ratio": 6.916973995632248,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "ghostText",
+          "background": "surface",
+          "kind": "text",
+          "ratio": 9.933329874512658,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "ghostText",
+          "background": "canvas",
+          "kind": "text",
+          "ratio": 9.49398794711463,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "ghostText",
+          "background": "subtle",
+          "kind": "text",
+          "ratio": 9.067251444952706,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "errorText",
+          "background": "surface",
+          "kind": "text",
+          "ratio": 6.4700447145121895,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "errorText",
+          "background": "canvas",
+          "kind": "text",
+          "ratio": 6.183880663671718,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "errorText",
+          "background": "subtle",
+          "kind": "text",
+          "ratio": 5.905927118870345,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "primaryText",
+          "background": "primaryDefault",
+          "kind": "text",
+          "ratio": 7.9031114800249425,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "primaryText",
+          "background": "primaryHover",
+          "kind": "text",
+          "ratio": 9.933329874512658,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "primaryText",
+          "background": "primaryPressed",
+          "kind": "text",
+          "ratio": 11.423054611243986,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "secondaryActionText",
+          "background": "secondarySurface",
+          "kind": "text",
+          "ratio": 17.85253496299567,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "secondaryActionText",
+          "background": "secondaryHover",
+          "kind": "text",
+          "ratio": 16.295987899750777,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "secondaryActionText",
+          "background": "secondaryPressed",
+          "kind": "text",
+          "ratio": 15.965505735833835,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "ghostText",
+          "background": "ghostSurface",
+          "kind": "text",
+          "ratio": 9.933329874512658,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "ghostText",
+          "background": "ghostHover",
+          "kind": "text",
+          "ratio": 8.883367847545715,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "ghostText",
+          "background": "ghostPressed",
+          "kind": "text",
+          "ratio": 8.061996606324048,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "destructiveText",
+          "background": "destructiveSurface",
+          "kind": "text",
+          "ratio": 6.4700447145121895,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "destructiveText",
+          "background": "destructiveHover",
+          "kind": "text",
+          "ratio": 8.310050481211189,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "destructiveText",
+          "background": "destructivePressed",
+          "kind": "text",
+          "ratio": 10.019596426078444,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "selectedText",
+          "background": "selectedSurface",
+          "kind": "text",
+          "ratio": 8.883367847545715,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "inverseText",
+          "background": "inverseSurface",
+          "kind": "text",
+          "ratio": 17.85253496299567,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "infoText",
+          "background": "infoSurface",
+          "kind": "text",
+          "ratio": 8.014836919642205,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "warningText",
+          "background": "warningSurface",
+          "kind": "text",
+          "ratio": 6.837002380367332,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "successText",
+          "background": "successSurface",
+          "kind": "text",
+          "ratio": 6.811651629293788,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "errorText",
+          "background": "errorSurface",
+          "kind": "text",
+          "ratio": 5.914600426850339,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "neutralText",
+          "background": "neutralSurface",
+          "kind": "text",
+          "ratio": 6.916973995632248,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "disabledText",
+          "background": "disabledSurface",
+          "kind": "text",
+          "ratio": 6.916973995632248,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "text",
+          "background": "infoSurface",
+          "kind": "text",
+          "ratio": 16.404312965565975,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "text",
+          "background": "warningSurface",
+          "kind": "text",
+          "ratio": 17.21537271257024,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "text",
+          "background": "successSurface",
+          "kind": "text",
+          "ratio": 17.054692932587127,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "text",
+          "background": "errorSurface",
+          "kind": "text",
+          "ratio": 16.31991981070193,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "text",
+          "background": "neutralSurface",
+          "kind": "text",
+          "ratio": 16.295987899750777,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "text",
+          "background": "selectedSurface",
+          "kind": "text",
+          "ratio": 15.965505735833835,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "secondaryText",
+          "background": "infoSurface",
+          "kind": "text",
+          "ratio": 6.962953513285813,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "secondaryText",
+          "background": "warningSurface",
+          "kind": "text",
+          "ratio": 7.307214886910076,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "secondaryText",
+          "background": "successSurface",
+          "kind": "text",
+          "ratio": 7.239012954839171,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "secondaryText",
+          "background": "errorSurface",
+          "kind": "text",
+          "ratio": 6.927132103672905,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "secondaryText",
+          "background": "neutralSurface",
+          "kind": "text",
+          "ratio": 6.916973995632248,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "secondaryText",
+          "background": "selectedSurface",
+          "kind": "text",
+          "ratio": 6.7766979627892985,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "controlBorder",
+          "background": "surface",
+          "kind": "nontext",
+          "ratio": 4.758842787868666,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "controlBorder",
+          "background": "canvas",
+          "kind": "nontext",
+          "ratio": 4.548363604249587,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "controlBorder",
+          "background": "subtle",
+          "kind": "nontext",
+          "ratio": 4.343923406321176,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "controlBorder",
+          "background": "errorSurface",
+          "kind": "nontext",
+          "ratio": 4.350302791773487,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "focus",
+          "background": "surface",
+          "kind": "nontext",
+          "ratio": 9.933329874512658,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "focus",
+          "background": "canvas",
+          "kind": "nontext",
+          "ratio": 9.49398794711463,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "focus",
+          "background": "subtle",
+          "kind": "nontext",
+          "ratio": 9.067251444952706,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "focus",
+          "background": "errorSurface",
+          "kind": "nontext",
+          "ratio": 9.080567400725823,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "primaryDefault",
+          "background": "surface",
+          "kind": "nontext",
+          "ratio": 7.9031114800249425,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "primaryDefault",
+          "background": "canvas",
+          "kind": "nontext",
+          "ratio": 7.553564221055453,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "primaryDefault",
+          "background": "subtle",
+          "kind": "nontext",
+          "ratio": 7.214046034124502,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "primaryHover",
+          "background": "surface",
+          "kind": "nontext",
+          "ratio": 9.933329874512658,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "primaryHover",
+          "background": "canvas",
+          "kind": "nontext",
+          "ratio": 9.49398794711463,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "primaryHover",
+          "background": "subtle",
+          "kind": "nontext",
+          "ratio": 9.067251444952706,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "primaryPressed",
+          "background": "surface",
+          "kind": "nontext",
+          "ratio": 11.423054611243986,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "primaryPressed",
+          "background": "canvas",
+          "kind": "nontext",
+          "ratio": 10.917823546427154,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "primaryPressed",
+          "background": "subtle",
+          "kind": "nontext",
+          "ratio": 10.427088371980323,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "destructiveSurface",
+          "background": "surface",
+          "kind": "nontext",
+          "ratio": 6.4700447145121895,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "destructiveSurface",
+          "background": "canvas",
+          "kind": "nontext",
+          "ratio": 6.183880663671718,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "destructiveSurface",
+          "background": "subtle",
+          "kind": "nontext",
+          "ratio": 5.905927118870345,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "destructiveHover",
+          "background": "surface",
+          "kind": "nontext",
+          "ratio": 8.310050481211189,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "destructiveHover",
+          "background": "canvas",
+          "kind": "nontext",
+          "ratio": 7.94250468928516,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "destructiveHover",
+          "background": "subtle",
+          "kind": "nontext",
+          "ratio": 7.585504376203838,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "destructivePressed",
+          "background": "surface",
+          "kind": "nontext",
+          "ratio": 10.019596426078444,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "destructivePressed",
+          "background": "canvas",
+          "kind": "nontext",
+          "ratio": 9.57643900946243,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "destructivePressed",
+          "background": "subtle",
+          "kind": "nontext",
+          "ratio": 9.14599649059374,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "errorText",
+          "background": "surface",
+          "kind": "nontext",
+          "ratio": 6.4700447145121895,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "errorText",
+          "background": "canvas",
+          "kind": "nontext",
+          "ratio": 6.183880663671718,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "errorText",
+          "background": "subtle",
+          "kind": "nontext",
+          "ratio": 5.905927118870345,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "infoText",
+          "background": "infoSurface",
+          "kind": "nontext",
+          "ratio": 8.014836919642205,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "warningText",
+          "background": "warningSurface",
+          "kind": "nontext",
+          "ratio": 6.837002380367332,
+          "threshold": 3,
+          "passes": true
+        }
+      ]
+    },
+    {
+      "id": "teal",
+      "label": "틸 라이트",
+      "resolvedRoles": {
+        "surface": "#ffffff",
+        "canvas": "#f8fafc",
+        "subtle": "#f1f5f9",
+        "text": "#0f172a",
+        "secondaryText": "#475569",
+        "mutedText": "#475569",
+        "inverseSurface": "#0f172a",
+        "inverseText": "#ffffff",
+        "controlBorder": "#64748b",
+        "subtleBorder": "#e2e8f0",
+        "focus": "#115e59",
+        "primaryDefault": "#0f766e",
+        "primaryHover": "#115e59",
+        "primaryPressed": "#134e4a",
+        "primaryText": "#ffffff",
+        "secondarySurface": "#ffffff",
+        "secondaryHover": "#f1f5f9",
+        "secondaryPressed": "#f0fdfa",
+        "secondaryActionText": "#0f172a",
+        "ghostSurface": "#ffffff",
+        "ghostHover": "#f0fdfa",
+        "ghostPressed": "#ccfbf1",
+        "ghostText": "#115e59",
+        "destructiveSurface": "#b91c1c",
+        "destructiveHover": "#991b1b",
+        "destructivePressed": "#7f1d1d",
+        "destructiveText": "#ffffff",
+        "selectedSurface": "#f0fdfa",
+        "selectedText": "#115e59",
+        "infoSurface": "#eff6ff",
+        "infoText": "#1e40af",
+        "warningSurface": "#fffbeb",
+        "warningText": "#92400e",
+        "successSurface": "#f0fdf4",
+        "successText": "#166534",
+        "errorSurface": "#fef2f2",
+        "errorText": "#b91c1c",
+        "neutralSurface": "#f1f5f9",
+        "neutralText": "#475569",
+        "disabledSurface": "#f1f5f9",
+        "disabledText": "#475569",
+        "scrim": "#0f172a66"
+      },
+      "roles": 42,
+      "overrides": 88,
+      "minima": {
+        "text": {
+          "ratio": 5.473250081210842,
+          "threshold": 4.5,
+          "pairs": [
+            {
+              "foreground": "primaryText",
+              "background": "primaryDefault"
+            }
+          ]
+        },
+        "nontext": {
+          "ratio": 4.343923406321176,
+          "threshold": 3,
+          "pairs": [
+            {
+              "foreground": "controlBorder",
+              "background": "subtle"
+            }
+          ]
+        }
+      },
+      "assessments": [
+        {
+          "foreground": "text",
+          "background": "surface",
+          "kind": "text",
+          "ratio": 17.85253496299567,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "text",
+          "background": "canvas",
+          "kind": "text",
+          "ratio": 17.062933971317335,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "text",
+          "background": "subtle",
+          "kind": "text",
+          "ratio": 16.295987899750777,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "secondaryText",
+          "background": "surface",
+          "kind": "text",
+          "ratio": 7.577663953533317,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "secondaryText",
+          "background": "canvas",
+          "kind": "text",
+          "ratio": 7.242510935504382,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "secondaryText",
+          "background": "subtle",
+          "kind": "text",
+          "ratio": 6.916973995632248,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "mutedText",
+          "background": "surface",
+          "kind": "text",
+          "ratio": 7.577663953533317,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "mutedText",
+          "background": "canvas",
+          "kind": "text",
+          "ratio": 7.242510935504382,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "mutedText",
+          "background": "subtle",
+          "kind": "text",
+          "ratio": 6.916973995632248,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "ghostText",
+          "background": "surface",
+          "kind": "text",
+          "ratio": 7.583501565900062,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "ghostText",
+          "background": "canvas",
+          "kind": "text",
+          "ratio": 7.248090355713914,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "ghostText",
+          "background": "subtle",
+          "kind": "text",
+          "ratio": 6.922302631632071,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "errorText",
+          "background": "surface",
+          "kind": "text",
+          "ratio": 6.4700447145121895,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "errorText",
+          "background": "canvas",
+          "kind": "text",
+          "ratio": 6.183880663671718,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "errorText",
+          "background": "subtle",
+          "kind": "text",
+          "ratio": 5.905927118870345,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "primaryText",
+          "background": "primaryDefault",
+          "kind": "text",
+          "ratio": 5.473250081210842,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "primaryText",
+          "background": "primaryHover",
+          "kind": "text",
+          "ratio": 7.583501565900062,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "primaryText",
+          "background": "primaryPressed",
+          "kind": "text",
+          "ratio": 9.475133618093725,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "secondaryActionText",
+          "background": "secondarySurface",
+          "kind": "text",
+          "ratio": 17.85253496299567,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "secondaryActionText",
+          "background": "secondaryHover",
+          "kind": "text",
+          "ratio": 16.295987899750777,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "secondaryActionText",
+          "background": "secondaryPressed",
+          "kind": "text",
+          "ratio": 17.11768244508624,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "ghostText",
+          "background": "ghostSurface",
+          "kind": "text",
+          "ratio": 7.583501565900062,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "ghostText",
+          "background": "ghostHover",
+          "kind": "text",
+          "ratio": 7.2713467244827035,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "ghostText",
+          "background": "ghostPressed",
+          "kind": "text",
+          "ratio": 6.730003987041355,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "destructiveText",
+          "background": "destructiveSurface",
+          "kind": "text",
+          "ratio": 6.4700447145121895,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "destructiveText",
+          "background": "destructiveHover",
+          "kind": "text",
+          "ratio": 8.310050481211189,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "destructiveText",
+          "background": "destructivePressed",
+          "kind": "text",
+          "ratio": 10.019596426078444,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "selectedText",
+          "background": "selectedSurface",
+          "kind": "text",
+          "ratio": 7.2713467244827035,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "inverseText",
+          "background": "inverseSurface",
+          "kind": "text",
+          "ratio": 17.85253496299567,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "infoText",
+          "background": "infoSurface",
+          "kind": "text",
+          "ratio": 8.014836919642205,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "warningText",
+          "background": "warningSurface",
+          "kind": "text",
+          "ratio": 6.837002380367332,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "successText",
+          "background": "successSurface",
+          "kind": "text",
+          "ratio": 6.811651629293788,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "errorText",
+          "background": "errorSurface",
+          "kind": "text",
+          "ratio": 5.914600426850339,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "neutralText",
+          "background": "neutralSurface",
+          "kind": "text",
+          "ratio": 6.916973995632248,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "disabledText",
+          "background": "disabledSurface",
+          "kind": "text",
+          "ratio": 6.916973995632248,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "text",
+          "background": "infoSurface",
+          "kind": "text",
+          "ratio": 16.404312965565975,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "text",
+          "background": "warningSurface",
+          "kind": "text",
+          "ratio": 17.21537271257024,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "text",
+          "background": "successSurface",
+          "kind": "text",
+          "ratio": 17.054692932587127,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "text",
+          "background": "errorSurface",
+          "kind": "text",
+          "ratio": 16.31991981070193,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "text",
+          "background": "neutralSurface",
+          "kind": "text",
+          "ratio": 16.295987899750777,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "text",
+          "background": "selectedSurface",
+          "kind": "text",
+          "ratio": 17.11768244508624,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "secondaryText",
+          "background": "infoSurface",
+          "kind": "text",
+          "ratio": 6.962953513285813,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "secondaryText",
+          "background": "warningSurface",
+          "kind": "text",
+          "ratio": 7.307214886910076,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "secondaryText",
+          "background": "successSurface",
+          "kind": "text",
+          "ratio": 7.239012954839171,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "secondaryText",
+          "background": "errorSurface",
+          "kind": "text",
+          "ratio": 6.927132103672905,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "secondaryText",
+          "background": "neutralSurface",
+          "kind": "text",
+          "ratio": 6.916973995632248,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "secondaryText",
+          "background": "selectedSurface",
+          "kind": "text",
+          "ratio": 7.265749402033058,
+          "threshold": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "controlBorder",
+          "background": "surface",
+          "kind": "nontext",
+          "ratio": 4.758842787868666,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "controlBorder",
+          "background": "canvas",
+          "kind": "nontext",
+          "ratio": 4.548363604249587,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "controlBorder",
+          "background": "subtle",
+          "kind": "nontext",
+          "ratio": 4.343923406321176,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "controlBorder",
+          "background": "errorSurface",
+          "kind": "nontext",
+          "ratio": 4.350302791773487,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "focus",
+          "background": "surface",
+          "kind": "nontext",
+          "ratio": 7.583501565900062,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "focus",
+          "background": "canvas",
+          "kind": "nontext",
+          "ratio": 7.248090355713914,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "focus",
+          "background": "subtle",
+          "kind": "nontext",
+          "ratio": 6.922302631632071,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "focus",
+          "background": "errorSurface",
+          "kind": "nontext",
+          "ratio": 6.932468565184322,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "primaryDefault",
+          "background": "surface",
+          "kind": "nontext",
+          "ratio": 5.473250081210842,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "primaryDefault",
+          "background": "canvas",
+          "kind": "nontext",
+          "ratio": 5.23117332848158,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "primaryDefault",
+          "background": "subtle",
+          "kind": "nontext",
+          "ratio": 4.996042146428898,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "primaryHover",
+          "background": "surface",
+          "kind": "nontext",
+          "ratio": 7.583501565900062,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "primaryHover",
+          "background": "canvas",
+          "kind": "nontext",
+          "ratio": 7.248090355713914,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "primaryHover",
+          "background": "subtle",
+          "kind": "nontext",
+          "ratio": 6.922302631632071,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "primaryPressed",
+          "background": "surface",
+          "kind": "nontext",
+          "ratio": 9.475133618093725,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "primaryPressed",
+          "background": "canvas",
+          "kind": "nontext",
+          "ratio": 9.056057284304762,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "primaryPressed",
+          "background": "subtle",
+          "kind": "nontext",
+          "ratio": 8.649004923335974,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "destructiveSurface",
+          "background": "surface",
+          "kind": "nontext",
+          "ratio": 6.4700447145121895,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "destructiveSurface",
+          "background": "canvas",
+          "kind": "nontext",
+          "ratio": 6.183880663671718,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "destructiveSurface",
+          "background": "subtle",
+          "kind": "nontext",
+          "ratio": 5.905927118870345,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "destructiveHover",
+          "background": "surface",
+          "kind": "nontext",
+          "ratio": 8.310050481211189,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "destructiveHover",
+          "background": "canvas",
+          "kind": "nontext",
+          "ratio": 7.94250468928516,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "destructiveHover",
+          "background": "subtle",
+          "kind": "nontext",
+          "ratio": 7.585504376203838,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "destructivePressed",
+          "background": "surface",
+          "kind": "nontext",
+          "ratio": 10.019596426078444,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "destructivePressed",
+          "background": "canvas",
+          "kind": "nontext",
+          "ratio": 9.57643900946243,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "destructivePressed",
+          "background": "subtle",
+          "kind": "nontext",
+          "ratio": 9.14599649059374,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "errorText",
+          "background": "surface",
+          "kind": "nontext",
+          "ratio": 6.4700447145121895,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "errorText",
+          "background": "canvas",
+          "kind": "nontext",
+          "ratio": 6.183880663671718,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "errorText",
+          "background": "subtle",
+          "kind": "nontext",
+          "ratio": 5.905927118870345,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "infoText",
+          "background": "infoSurface",
+          "kind": "nontext",
+          "ratio": 8.014836919642205,
+          "threshold": 3,
+          "passes": true
+        },
+        {
+          "foreground": "warningText",
+          "background": "warningSurface",
+          "kind": "nontext",
+          "ratio": 6.837002380367332,
+          "threshold": 3,
+          "passes": true
+        }
+      ]
+    }
+  ]
+}

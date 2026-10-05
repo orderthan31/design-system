@@ -16,6 +16,7 @@ test('기초 문서에서 실제 공통 컴포넌트의 테마를 바꾸고 코�
   expect(preview).toHaveAttribute('data-ds-theme', 'teal');
   expect(field).toHaveValue('그대로 유지');
   expect(document.documentElement.getAttribute('style')).toBe(rootBefore);
+  await userEvent.click(within(gallery).getByText('대비 계약'));
   expect(within(gallery).getByRole('table', {name: '다시 계산한 명암비 조합'})).toBeVisible();
   await userEvent.click(within(gallery).getByRole('button', {name: '기본 코어로 복원'}));
   expect(preview).not.toHaveAttribute('data-ds-theme');

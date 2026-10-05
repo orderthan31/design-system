@@ -1,4 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
+import { GalleryNavigation } from "./gallery/navigation";
+import { BottomCTADetail } from "./gallery/bottom-cta-detail";
+import { RangeSelectionDetail } from "./gallery/range-selection-detail";
+import { ProgressResultDetail } from "./gallery/progress-result-detail";
+import { SegmentedDetail } from "./gallery/segmented-detail";
+import { InputDetail } from "./gallery/input-detail";
+import { ListDetail } from "./gallery/list-detail";
+import { OverlayDetail } from "./gallery/overlay-detail";
+import { galleryRegistry, resolveGalleryHash, type GalleryRoute } from "./gallery/registry";
 import { Button, Input } from "./components/atoms";
 import {
   Badge,
@@ -18,6 +27,13 @@ import { Dialog, Confirm } from "./components/organisms";
 import { CompositionExample } from "./components/composition";
 import { StateGallery } from "./components/state-gallery";
 import { ThemeGallery } from "./components/theme-gallery";
+import { WorkspaceTemplatesGallery } from "./components/workspace-templates";
+import { IconGallery } from "./components/icons";
+import { FeedbackGallery } from "./components/feedback-controls";
+import { FormControlsGallery } from "./components/form-controls";
+import { DateControlsGallery } from "./components/date-controls";
+import { DataDisplayGallery } from "./components/data-display";
+import { NavigationRegionsGallery } from "./components/navigation-regions";
 import {
   FormTemplate,
   ListTemplate,
@@ -36,8 +52,21 @@ export const pages = [
   "Templates",
 ] as const;
 type Page = (typeof pages)[number];
-const pageLabels: Record<Page, string> = { Overview: "개요", Foundations: "기초 (Foundations)", Atoms: "아톰 (Atoms)", Molecules: "몰리큘 (Molecules)", Organisms: "오가니즘 (Organisms)", Templates: "템플릿 (Templates)" };
-const toneLabels: Record<Tone, string> = { neutral: "기본", running: "진행 중", success: "완료", review: "검토", error: "오류" };
+const pageLabels: Record<Page, string> = {
+  Overview: "개요",
+  Foundations: "기초 (Foundations)",
+  Atoms: "아톰 (Atoms)",
+  Molecules: "몰리큘 (Molecules)",
+  Organisms: "오가니즘 (Organisms)",
+  Templates: "템플릿 (Templates)",
+};
+const toneLabels: Record<Tone, string> = {
+  neutral: "기본",
+  running: "진행 중",
+  success: "완료",
+  review: "검토",
+  error: "오류",
+};
 type Language = keyof typeof longText;
 const families = {
   Atoms: [
@@ -54,31 +83,6 @@ const families = {
   ],
   Molecules: ["FormField", "Alert", "EmptyState", "Menu", "Tabs", "Tooltip"],
   Organisms: ["Dialog", "Confirm"],
-};
-const descriptions: Record<string, string> = {
-  Button: "결과가 분명한 동작입니다. 처리 중에도 레이블을 읽을 수 있습니다.",
-  IconButton: "접근 가능한 이름이 명확한 작은 동작 버튼입니다.",
-  Input: "브라우저 기본 텍스트 입력입니다. 읽기 전용 내용도 선택할 수 있습니다.",
-  Textarea: "글자 크기를 줄이지 않고 줄바꿈하는 여러 줄 입력입니다.",
-  Select: "플랫폼의 익숙한 키보드 동작을 따르는 기본 선택 컨트롤입니다.",
-  Checkbox: "선택·미선택·일부 선택 상태를 레이블과 함께 제공합니다.",
-  Badge: "상태를 간결하게 표시하며, 의미는 항상 텍스트로 전달합니다.",
-  Progress: "진행률이 있는 작업과 대기 작업을 읽을 수 있는 레이블로 표시합니다.",
-  Skeleton:
-    "로딩 안내를 제공하는 비대화형 자리 표시자입니다.",
-  Separator: "관련 콘텐츠 사이의 의미 있는 경계입니다.",
-  FormField:
-    "레이블·입력·도움말·오류를 연결한 하나의 필드입니다.",
-  Alert: "Badge와 콘텐츠 슬롯을 조합한 인라인 안내입니다.",
-  EmptyState: "내용에 맞춰 늘어나는 설명과 재사용 가능한 주요 동작입니다.",
-  Menu: "방향키·Home·End·Escape로 조작하는 동작 목록입니다.",
-  Tabs: "키보드 초점 이동과 자동 활성화를 지원하는 관련 보기입니다.",
-  Tooltip:
-    "마우스 올림과 초점에 추가 정보를 제공합니다. 접근 가능한 이름을 대신하지 않습니다.",
-  Dialog:
-    "제목·본문·IconButton·동작 슬롯을 조합한 기본 모달 대화상자입니다.",
-  Confirm:
-    "Dialog와 재사용 가능한 Button으로 명확한 결정을 돕습니다.",
 };
 const snippets: Record<string, string> = {
   Button: "<Button loading={saving} onClick={save}>변경 사항 저장</Button>",
@@ -157,14 +161,16 @@ function Demo({ name }: { name: string }) {
             <Button disabled>사용 불가</Button>
           </div>
           <p className="help">
-            유효한 선택이 있어야 사용할 수 있습니다. 처리 중인 동작도
-            초점을 받을 수 있습니다.
+            유효한 선택이 있어야 사용할 수 있습니다. 처리 중인 동작도 초점을
+            받을 수 있습니다.
           </p>
           <div className="wrap">
             <Button
               variant="destructive"
               onClick={() =>
-                setMessage("삭제 동작 예시입니다. 데이터는 변경되지 않았습니다.")
+                setMessage(
+                  "삭제 동작 예시입니다. 데이터는 변경되지 않았습니다.",
+                )
               }
             >
               항목 삭제
@@ -201,11 +207,7 @@ function Demo({ name }: { name: string }) {
     case "Input":
       example = (
         <div className="demo-fields">
-          <FormField
-            label="편집 가능한 입력"
-            description="직접 값을 입력해 보세요."
-            placeholder="이름을 입력하세요"
-          />
+          <FormField label="편집 가능한 입력" placeholder="이름을 입력하세요" />
           <FormField
             label="읽기 전용 입력"
             defaultValue="이 값은 선택할 수 있습니다"
@@ -222,10 +224,7 @@ function Demo({ name }: { name: string }) {
       break;
     case "Textarea":
       example = (
-        <FormField
-          label="메모"
-          description="여러 줄 내용도 읽기 쉽게 유지됩니다."
-        >
+        <FormField label="메모">
           <Textarea
             rows={4}
             defaultValue="A common language for every interface.\n함께 만드는 일관된 경험."
@@ -235,7 +234,7 @@ function Demo({ name }: { name: string }) {
       break;
     case "Select":
       example = (
-        <FormField label="분류" description="방향키로 선택하세요.">
+        <FormField label="분류">
           <Select defaultValue="general">
             <option value="general">일반</option>
             <option value="other">기타</option>
@@ -308,14 +307,9 @@ function Demo({ name }: { name: string }) {
     case "FormField":
       example = (
         <div className="demo-fields">
-          <FormField
-            label="표시 이름"
-            description="명확하고 구체적인 이름을 사용하세요."
-            required
-          />
+          <FormField label="표시 이름" required />
           <FormField
             label="오류가 있는 이름"
-            description="입력한 내용은 유지됩니다."
             error="두 글자 이상 입력하세요."
             defaultValue="A"
           />
@@ -333,14 +327,13 @@ function Demo({ name }: { name: string }) {
               onChange={(e) => setTone(e.target.value as Tone)}
             >
               {["running", "success", "review", "error", "neutral"].map((t) => (
-                <option key={t} value={t}>{toneLabels[t as Tone]}</option>
+                <option key={t} value={t}>
+                  {toneLabels[t as Tone]}
+                </option>
               ))}
             </Select>
           </label>
-          <Alert
-            title={tone === "error" ? "조치 필요" : "안내"}
-            tone={tone}
-          >
+          <Alert title={tone === "error" ? "조치 필요" : "안내"} tone={tone}>
             입력한 정보는 유지됩니다. 계속하기 전에 안내를 확인하세요.
           </Alert>
           {langControl}
@@ -371,7 +364,15 @@ function Demo({ name }: { name: string }) {
       break;
     case "Menu":
       example = (
-        <Menu label="옵션" items={["복제", "보관"]} onSelect={(v) => setMessage(`${v} 동작을 선택했습니다. 데이터는 변경되지 않았습니다.`)} />
+        <Menu
+          label="옵션"
+          items={["복제", "보관"]}
+          onSelect={(v) =>
+            setMessage(
+              `${v} 동작을 선택했습니다. 데이터는 변경되지 않았습니다.`,
+            )
+          }
+        />
       );
       break;
     case "Tabs":
@@ -393,9 +394,7 @@ function Demo({ name }: { name: string }) {
             },
             {
               label: "사용법",
-              content: (
-                <p>방향키·Home·End로 보기 사이를 이동하세요.</p>
-              ),
+              content: <p>방향키·Home·End로 보기 사이를 이동하세요.</p>,
             },
           ]}
         />
@@ -403,10 +402,7 @@ function Demo({ name }: { name: string }) {
       break;
     case "Tooltip":
       example = (
-        <Tooltip
-          label="간격 안내"
-          text="기준 4px 간격 척도를 사용하세요."
-        />
+        <Tooltip label="간격 안내" text="기준 4px 간격 척도를 사용하세요." />
       );
       break;
     case "Dialog":
@@ -453,10 +449,7 @@ function Demo({ name }: { name: string }) {
               setMessage("변경 사항을 확인했습니다.");
             }}
           >
-            <p>
-              범용 확인 창 예시입니다. 제품 데이터는
-              변경되지 않습니다.
-            </p>
+            <p>범용 확인 창 예시입니다. 제품 데이터는 변경되지 않습니다.</p>
           </Confirm>
         </>
       );
@@ -488,7 +481,6 @@ function ComponentCard({ name, index }: { name: string; index: number }) {
             컴포넌트 {String(index + 1).padStart(2, "0")}
           </span>
           <h2>{name}</h2>
-          <p>{descriptions[name]}</p>
         </div>
         <span className="component-tag">React</span>
       </div>
@@ -508,8 +500,8 @@ function ComponentCard({ name, index }: { name: string; index: number }) {
       ) : (
         <div className="contract">
           <p>
-            <strong>기준 상태 계약</strong> (원본 유지, 실행 시
-            통과를 보장하지 않음)
+            <strong>기준 상태 계약</strong> (원본 유지, 실행 시 통과를 보장하지
+            않음)
           </p>
           <div className="wrap">
             {historical.states.map((s) => (
@@ -520,162 +512,45 @@ function ComponentCard({ name, index }: { name: string; index: number }) {
           </div>
           <p>
             텍스트는 줄바꿈하고 컨테이너는 늘어납니다. 초점은 처리 중·오류·선택
-            상태와 독립적입니다. 범위별 예외는
-            원본 계약에서 확인하세요.
+            상태와 독립적입니다. 범위별 예외는 원본 계약에서 확인하세요.
           </p>
-          <a href="/source/contracts/components.json">
-            원본 계약 보기 ↗
-          </a>
+          <a href="/source/contracts/components.json">원본 계약 보기 ↗</a>
         </div>
       )}
     </article>
   );
 }
 function Overview({ navigate }: { navigate: (p: Page) => void }) {
+  const [saved, setSaved] = useState(false);
   return (
     <>
-      <div className="hero">
-        <span className="eyebrow">공유 디자인 시스템 / 0.1</span>
-        <h1>
-          함께 쓰는 언어.
-          <br />
-          <span>더 넓은 조합의 가능성.</span>
-        </h1>
-        <p>
-          작은 화면부터 넓은 작업 공간까지 일관된 경험을 만드는
-          기초와 조합 가능한 컴포넌트를 제공합니다.
-        </p>
+      <header className="hero">
+        <span className="eyebrow">공유 디자인 시스템</span>
+        <h1>함께 쓰는 언어.</h1>
         <div className="wrap">
-          <Button onClick={() => navigate("Atoms")}>
-            컴포넌트 둘러보기 <span aria-hidden="true">→</span>
-          </Button>
+          <Button onClick={() => navigate("Atoms")}>컴포넌트 둘러보기</Button>
           <Button variant="secondary" onClick={() => navigate("Foundations")}>
             기초 살펴보기
           </Button>
+          <Button variant="secondary" onClick={() => navigate("Templates")}>
+            PC · 모바일 템플릿
+          </Button>
         </div>
         <div className="hero-meta">
-          <span>React + TypeScript</span>
           <span>Pretendard</span>
-          <span>PC 및 모바일</span>
+          <span>React + TypeScript</span>
         </div>
-      </div>
-      <div className="stats">
-        <div>
-          <strong>107</strong>
-          <span>기준 토큰</span>
+      </header>
+      <section className="stack" aria-label="공통 입력 데모">
+        <h2>FormField · Button · Badge</h2>
+        <FormField label="표시 이름" defaultValue="공통 기초" />
+        <div className="wrap">
+          <Button onClick={() => setSaved(true)}>변경 사항 저장</Button>
+          <Badge tone="success">준비 완료</Badge>
         </div>
-        <div>
-          <strong>18</strong>
-          <span>컴포넌트 계열</span>
-        </div>
-        <div>
-          <strong>3</strong>
-          <span>범용 템플릿</span>
-        </div>
-      </div>
-      <div className="section-heading">
-        <div>
-          <span className="eyebrow">구성의 기초</span>
-          <h2>작은 요소, 단단한 연결.</h2>
-        </div>
-        <span className="help">기초 → 조합 → 레이아웃</span>
-      </div>
-      <div className="overview-grid">
-        <article className="feature-card">
-          <span className="feature-icon" aria-hidden="true">
-            ◈
-          </span>
-          <h3>기초부터 시작하기</h3>
-          <p>
-            색상·글꼴·간격·크기의 단일 원본입니다. 기본값 →
-            의미 역할 → 컴포넌트 별칭을 추적할 수 있습니다.
-          </p>
-          <div className="mini-palette">
-            <span />
-            <span />
-            <span />
-            <span />
-            <span />
-          </div>
-          <button className="text-link" onClick={() => navigate("Foundations")}>
-            토큰 살펴보기 →
-          </button>
-        </article>
-        <article className="feature-card">
-          <span className="feature-icon" aria-hidden="true">
-            ▦
-          </span>
-          <h3>복제 대신 조합하기</h3>
-          <p>
-            아톰을 필드·피드백·대화상자로 조합합니다. 정적인 이미지가 아니라
-            실제 React 컴포넌트입니다.
-          </p>
-          <div className="wrap miniature">
-            <Badge tone="success">조합 준비 완료</Badge>
-            <Badge>재사용 가능</Badge>
-          </div>
-          <button className="text-link" onClick={() => navigate("Molecules")}>
-            조합 살펴보기 →
-          </button>
-        </article>
-        <article className="feature-card">
-          <span className="feature-icon" aria-hidden="true">
-            ▤
-          </span>
-          <h3>콘텐츠를 위한 공간</h3>
-          <p>
-            교체 가능한 슬롯과 반응형 배치를 갖춘
-            범용 폼·목록·피드백 레이아웃입니다.
-          </p>
-          <div className="mini-layout" aria-hidden="true">
-            <span />
-            <span />
-            <span />
-          </div>
-          <button className="text-link" onClick={() => navigate("Templates")}>
-            템플릿 미리보기 →
-          </button>
-        </article>
-      </div>
-      <div className="section-heading">
-        <div>
-          <span className="eyebrow">직접 사용하기</span>
-          <h2>믿을 수 있는 기본값과 유용한 세부 기능.</h2>
-        </div>
-        <Badge tone="running">대화형 미리보기</Badge>
-      </div>
-      <div className="overview-practice">
-        <div>
-          <h3>실제 콘텐츠를 위한 설계</h3>
-          <p>
-            읽기 쉬운 레이블, 명확한 로딩 상태, 누르기 편한 주요 동작을 제공합니다.
-            모든 예시는 같은 컴포넌트를 사용합니다.
-          </p>
-          <ul className="check-list">
-            <li>주요 동작 48px · 일반 컨트롤 44px</li>
-            <li>키보드로 조작하는 대화상자·메뉴·탭</li>
-            <li>한국어·영어·일본어 긴 텍스트 예시</li>
-          </ul>
-        </div>
-        <div className="practice-preview">
-          <FormField
-            label="표시 이름"
-            description="바로 재사용할 수 있는 공통 필드입니다."
-            defaultValue="공통 기초"
-          />
-          <div className="wrap">
-            <Button>변경 사항 저장</Button>
-            <Badge tone="success">준비 완료</Badge>
-          </div>
-        </div>
-      </div>
-      <div className="note">
-        <strong>특정 제품에 종속되지 않는 공통 요소.</strong>
-        <p>
-          범용 UI 구성 요소를 제공합니다. 제품별 작업 흐름·
-          권한·모바일 기능 동등성은 이 라이브러리의 범위가 아닙니다.
-        </p>
-      </div>
+        {saved && <p role="status">변경 사항을 저장했습니다.</p>}
+      </section>
+      <CompositionExample />
     </>
   );
 }
@@ -690,11 +565,7 @@ function Foundations() {
   );
   return (
     <>
-      <PageHeader
-        title="기초 (Foundations)"
-        eyebrow="01 / 단일 기준 원본"
-        text="추적 가능한 토큰 체계입니다. 기본 토큰은 값을, 의미 역할은 의도를 나타내며, 컴포넌트 별칭은 이를 UI와 연결합니다."
-      />
+      <PageHeader title="기초 (Foundations)" eyebrow="01 / 단일 기준 원본" />
       <div className="foundation-grid">
         <article className="feature-card">
           <span className="eyebrow">타이포그래피</span>
@@ -702,8 +573,8 @@ function Foundations() {
           <h3>Pretendard</h3>
           <p>본문 400 · 레이블 500 · 제목 600 · 강조 700</p>
           <p className="help">
-            원본 WOFF2·라이선스·출처를 유지합니다. 일본어
-            대체 글꼴은 별도로 검증하지 않았습니다.
+            원본 WOFF2·라이선스·출처를 유지합니다. 일본어 대체 글꼴은 별도로
+            검증하지 않았습니다.
           </p>
           <a href="/source/fonts/LICENSE">글꼴 라이선스 ↗</a>
         </article>
@@ -716,8 +587,8 @@ function Foundations() {
           </div>
           <h3>편안한 기본 크기</h3>
           <p>
-            주요 동작 48px · 컨트롤 44px · 모서리 8px. 긴 내용도
-            글자를 강제로 줄이지 않고 표시합니다.
+            주요 동작 48px · 컨트롤 44px · 모서리 8px. 긴 내용도 글자를 강제로
+            줄이지 않고 표시합니다.
           </p>
           <p className="help">
             4px 간격 척도로 명확하고 일관된 리듬을 만듭니다.
@@ -725,6 +596,7 @@ function Foundations() {
         </article>
       </div>
       <ThemeGallery />
+      <IconGallery />
       <div className="section-heading">
         <div>
           <span className="eyebrow">기본값 → 의미 역할 → 컴포넌트</span>
@@ -740,7 +612,14 @@ function Foundations() {
               key={l}
               onClick={() => setLayer(l)}
             >
-              {{ primitive: "기본값", semantic: "의미 역할", component: "컴포넌트" }[l]} <span>{Object.keys(core[l]).length}</span>
+              {
+                {
+                  primitive: "기본값",
+                  semantic: "의미 역할",
+                  component: "컴포넌트",
+                }[l]
+              }{" "}
+              <span>{Object.keys(core[l]).length}</span>
             </button>
           ))}
         </div>
@@ -780,48 +659,39 @@ function Foundations() {
       <div className="note">
         <strong>전체 통과 선언이 아닌 사용 계약.</strong>
         <p>
-          원본 명암 대비 허용 목록과 금지 조합을 유지합니다.
-          수치 근거는 애플리케이션 접근성 인증이 아닙니다.
-          테마를 교체하면 다시 평가해야 합니다.
+          원본 명암 대비 허용 목록과 금지 조합을 유지합니다. 수치 근거는
+          애플리케이션 접근성 인증이 아닙니다. 테마를 교체하면 다시 평가해야
+          합니다.
         </p>
         <div className="wrap">
           <a href="/source/tokens/core.json">기준 원본 ↗</a>
-          <a href="/source/contracts/color-pairs.json">명암 대비 허용 목록 ↗</a>
+          <a href="/source/contracts/color-pairs.json">
+            명암 대비 허용 목록 ↗
+          </a>
           <a href="/source/contracts/components.json">기준 계약 ↗</a>
         </div>
       </div>
     </>
   );
 }
-function PageHeader({
-  title,
-  text,
-  eyebrow,
-}: {
-  title: string;
-  text: string;
-  eyebrow: string;
-}) {
+function PageHeader({ title, eyebrow }: { title: string; eyebrow: string }) {
   return (
     <header className="page-heading">
       <span className="eyebrow">{eyebrow}</span>
       <h1>{title}</h1>
-      <p>{text}</p>
     </header>
   );
 }
 function TemplatePreviews() {
+  const [exampleRows, setExampleRows] = useState(["첫 번째 항목", "두 번째 항목", "세 번째 항목"]);
+  const [copyNumber, setCopyNumber] = useState(4);
   const [viewport, setViewport] = useState("PC");
   const [kind, setKind] = useState("Form");
   const [saved, setSaved] = useState(false);
   const [filter, setFilter] = useState("");
   return (
     <>
-      <PageHeader
-        title="템플릿 (Templates)"
-        eyebrow="05 / 조합을 위한 공간"
-        text="제품 화면이 아닌 범용 레이아웃입니다. 공통 코어를 바꾸지 않고 제목·필드·콘텐츠·동작 슬롯을 교체하세요."
-      />
+      <PageHeader title="템플릿 (Templates)" eyebrow="05 / 조합을 위한 공간" />
       <div className="section-heading">
         <div>
           <h2>템플릿 미리보기</h2>
@@ -838,7 +708,15 @@ function TemplatePreviews() {
               aria-pressed={kind === t}
               onClick={() => setKind(t)}
             >
-              {{ Form: "폼", List: "목록", Feedback: "피드백", PC: "PC", Mobile: "모바일" }[t]}
+              {
+                {
+                  Form: "폼",
+                  List: "목록",
+                  Feedback: "피드백",
+                  PC: "PC",
+                  Mobile: "모바일",
+                }[t]
+              }
             </button>
           ))}
         </div>
@@ -849,7 +727,15 @@ function TemplatePreviews() {
               aria-pressed={viewport === t}
               onClick={() => setViewport(t)}
             >
-              {{ Form: "폼", List: "목록", Feedback: "피드백", PC: "PC", Mobile: "모바일" }[t]}
+              {
+                {
+                  Form: "폼",
+                  List: "목록",
+                  Feedback: "피드백",
+                  PC: "PC",
+                  Mobile: "모바일",
+                }[t]
+              }
             </button>
           ))}
         </div>
@@ -898,7 +784,9 @@ function TemplatePreviews() {
                 }
                 actions={
                   <>
-                    <Button onClick={() => setSaved(true)}>변경 사항 저장</Button>
+                    <Button onClick={() => setSaved(true)}>
+                      변경 사항 저장
+                    </Button>
                     <Button variant="secondary" onClick={() => setSaved(false)}>
                       상태 초기화
                     </Button>
@@ -908,8 +796,8 @@ function TemplatePreviews() {
                   <>
                     <h4>보조 콘텐츠</h4>
                     <p>
-                      교체 가능한 보조 슬롯입니다. 작은 화면에서는
-                      폼 아래로 이동합니다.
+                      교체 가능한 보조 슬롯입니다. 작은 화면에서는 폼 아래로
+                      이동합니다.
                     </p>
                     <Badge>선택 슬롯</Badge>
                   </>
@@ -926,12 +814,12 @@ function TemplatePreviews() {
                       onChange={(e) => setFilter(e.target.value)}
                       placeholder="항목 검색…"
                     />
-                    <Menu label="목록 옵션" items={["복제", "보관"]} />
+                    <Menu label="목록 옵션" items={["첫 항목 복제", "첫 항목 보관"]} onSelect={action=>{if(action==="첫 항목 복제"){setExampleRows(rows=>[...rows,`복제 항목 ${copyNumber}`]);setCopyNumber(value=>value+1);}else setExampleRows(rows=>rows.slice(1));}} />
                   </>
                 }
                 rows={
                   <>
-                    {["첫 번째 항목", "두 번째 항목", "세 번째 항목"]
+                    {exampleRows
                       .filter((t) =>
                         t.toLowerCase().includes(filter.toLowerCase()),
                       )
@@ -965,14 +853,13 @@ function TemplatePreviews() {
                     action="항목 추가"
                     onAction={() => setSaved(true)}
                   >
-                    <p>
-                      제품별 작업 흐름 대신
-                      유용한 설명을 넣는 슬롯입니다.
-                    </p>
+                    <p>제품별 작업 흐름 대신 유용한 설명을 넣는 슬롯입니다.</p>
                   </EmptyState>
                 }
                 actions={
-                  saved && <Badge tone="success">예시 동작을 선택했습니다</Badge>
+                  saved && (
+                    <Badge tone="success">예시 동작을 선택했습니다</Badge>
+                  )
                 }
               />
             )}
@@ -1005,39 +892,53 @@ function TemplatePreviews() {
     </>
   );
 }
-function pageFromHash(hash: string): Page | undefined {
-  try {
-    const page = decodeURIComponent(hash.slice(1));
-    return pages.includes(page as Page) ? (page as Page) : undefined;
-  } catch {
-    return undefined;
-  }
-}
 export function App() {
-  const [page, setPage] = useState<Page>(
-    () => pageFromHash(window.location.hash) ?? "Overview",
-  );
+  const [route, setRoute] = useState<GalleryRoute>(() => resolveGalleryHash(window.location.hash));
   const [navOpen, setNavOpen] = useState(false);
-  function navigate(p: Page) {
-    setPage(p);
-    window.location.hash = p;
+  const pendingHeadingFocus = useRef(false);
+  const entry = route.kind === "component" ? galleryRegistry.find(item => item.id === route.id) : undefined;
+  const page:Page = route.kind === "page" ? route.page : "Overview";
+  function navigateHash(hash:string) {
+    pendingHeadingFocus.current = true;
+    setRoute(resolveGalleryHash(hash));
+    if(window.location.hash !== hash) window.location.hash = hash;
     setNavOpen(false);
     window.scrollTo?.({ top: 0, behavior: "instant" });
   }
+  function navigate(p:Page) { navigateHash(`#${p}`); }
   useEffect(() => {
     function sync() {
-      const p = pageFromHash(window.location.hash);
-      if (p) setPage(p);
+      const next = resolveGalleryHash(window.location.hash);
+      // Preserve the existing live-fragment contract: reject invalid changes without replacing the current view.
+      // An invalid direct entry still resolves to Overview in the initial state.
+      if(next.kind === "page" && next.invalid)return;
+      // History events only read the URL: never push/replace from this handler.
+      setRoute(previous => {
+        if(JSON.stringify(previous)===JSON.stringify(next))return previous;
+        pendingHeadingFocus.current=true;
+        return next;
+      });
+      setNavOpen(false);
     }
     window.addEventListener("hashchange", sync);
     return () => window.removeEventListener("hashchange", sync);
   }, []);
+  useEffect(() => {
+    if(navOpen || !pendingHeadingFocus.current)return;
+    // Run after Dialog's layout cleanup restores its opener; selection wins afterwards.
+    const frame=requestAnimationFrame(()=>{
+      const heading=document.querySelector<HTMLElement>("#main h1");
+      if(heading){heading.tabIndex=-1;heading.focus();}
+      pendingHeadingFocus.current=false;
+    });
+    return ()=>cancelAnimationFrame(frame);
+  }, [route,navOpen]);
   const group =
     page === "Atoms" || page === "Molecules" || page === "Organisms"
       ? families[page]
       : null;
   return (
-    <div className="app">
+    <div className="app ds-core">
       <a className="skip-link" href="#main">
         본문으로 건너뛰기
       </a>
@@ -1063,7 +964,7 @@ export function App() {
             <a
               key={p}
               href={`#${p}`}
-              aria-current={page === p ? "page" : undefined}
+              aria-current={!entry && page === p ? "page" : undefined}
               onClick={(e) => {
                 e.preventDefault();
                 navigate(p);
@@ -1081,6 +982,7 @@ export function App() {
             </a>
           ))}
         </nav>
+        <GalleryNavigation selected={entry?.id} onNavigate={navigateHash}/>
         <div className="sidebar-note">
           <span className="status-dot" /> 공통 코어{" "}
           <p>
@@ -1091,6 +993,7 @@ export function App() {
           <span className="sidebar-version">v0.1 · React + TypeScript</span>
         </div>
       </aside>
+      {navOpen && <Dialog open title="컴포넌트 탐색" onClose={()=>setNavOpen(false)}><GalleryNavigation selected={entry?.id} onNavigate={navigateHash}/></Dialog>}
       <div className="workspace">
         <header className="topbar">
           <button
@@ -1102,31 +1005,35 @@ export function App() {
             ☰
           </button>
           <span className="breadcrumb">
-            문서 <span>/</span> <strong>{pageLabels[page]}</strong>
+            문서 <span>/</span> <strong>{entry?.label ?? pageLabels[page]}</strong>
           </span>
           <a className="source-link" href="/source/tokens/core.json">
             원본 토큰 <span aria-hidden="true">↗</span>
           </a>
         </header>
         <main id="main" tabIndex={-1}>
-          {page === "Overview" ? (
+          {entry ? (
+            <section className="component-detail" key={entry.id}>
+              <div className="page-heading"><span className="eyebrow">{entry.atomic} / {entry.group}</span><h1 tabIndex={-1}>{entry.label} · {entry.name}</h1></div>
+              {entry.name==="BottomCTA" ? <BottomCTADetail/> : ["Slider","Rating"].includes(entry.name) ? <RangeSelectionDetail kind={entry.name==="Slider"?"slider":"rating"}/> : ["ProgressStepper","Result"].includes(entry.name) ? <ProgressResultDetail kind={entry.name==="ProgressStepper"?"progress-stepper":"result"}/> : entry.name==="SegmentedControl" ? <SegmentedDetail/> : entry.name==="TextField" ? <InputDetail/> : ["ListRow","ListHeader","ListFooter"].includes(entry.name) ? <ListDetail/> : ["BottomSheet","Dialog"].includes(entry.name) ? <OverlayDetail kind={entry.name==="BottomSheet"?"bottom-sheet":"dialog"}/> : <>
+                <Demo name={entry.name}/>
+                <details><summary>코드 · API · 접근성</summary><pre className="code-block">{snippets[entry.name]}</pre></details>
+              </>}
+            </section>
+          ) : page === "Overview" ? (
             <Overview navigate={navigate} />
           ) : page === "Foundations" ? (
             <Foundations />
           ) : page === "Templates" ? (
-            <TemplatePreviews />
+            <>
+              <TemplatePreviews />
+              <WorkspaceTemplatesGallery />
+            </>
           ) : (
             <>
               <PageHeader
                 title={pageLabels[page]}
                 eyebrow={`${page === "Atoms" ? "02" : page === "Molecules" ? "03" : "04"} / ${page === "Atoms" ? "재사용 기본 요소" : page === "Molecules" ? "의미 있는 조합" : "조합된 상호작용"}`}
-                text={
-                  page === "Atoms"
-                    ? "목적이 명확한 재사용 컨트롤과 시각 요소입니다. 실제 예시·코드·기준 상태 계약을 확인하세요."
-                    : page === "Molecules"
-                      ? "작지만 목적이 분명한 조합입니다. 재사용 아톰과 기본 의미 구조로 필드·피드백·탐색을 구성합니다."
-                      : "집중해서 결정할 수 있는 큰 조합입니다. 기본 모달 동작에 재사용 필드·피드백·동작 슬롯을 결합합니다."
-                }
               />
               <div className="component-index">
                 {group?.map((n) => (
@@ -1140,7 +1047,20 @@ export function App() {
               ))}
             </>
           )}
-          {page === "Atoms" && <StateGallery />}
+          {!entry && page === "Atoms" && <StateGallery />}
+          {!entry && page === "Molecules" && (
+            <>
+              <FormControlsGallery />
+              <FeedbackGallery />
+            </>
+          )}
+          {!entry && page === "Organisms" && (
+            <>
+              <NavigationRegionsGallery />
+              <DataDisplayGallery />
+              <DateControlsGallery />
+            </>
+          )}
           <footer className="page-footer">
             <span>common / 공유 디자인 시스템</span>
             <span>하나의 원본에서 시작해 자유롭게 조합합니다.</span>

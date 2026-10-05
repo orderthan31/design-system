@@ -2,6 +2,12 @@
 
 Vite·React·TypeScript 기반의 **한국어 문서와 실제 동작하는 컴포넌트 플레이그라운드**입니다. 제품 화면이나 SVG 이미지 갤러리가 아닌 독립 공통 DS입니다.
 
+## 프리뷰 공유 checkpoint와 최종 수락
+
+현재 checkpoint는 build/TypeScript 오류가 없는 구현을 먼저 Git으로 공유하고, 동일 commit의 프리뷰에서 기능을 점검하는 중간 검수본입니다. 전체 테스트·coverage·최종 독립 수락 완료를 의미하지 않으며, 프리뷰 공유와 최종 디자인 시스템 승인은 별도입니다.
+
+남은 범위는 GridList/Highlight/Bubble과 기존 API의 일부 전용 상세, 최종 전체 브라우저·동일 트리 독립 수락입니다. Chart/keypad/SDK 전용 기능, Safari/Firefox·실기기 보조기술·외부 주소 provider·소프트키보드 계약은 미구현 또는 미검증입니다. 현재 확인·교정된 결함과 범위별 근거는 기능 inventory에 구분해 기록합니다.
+
 ## 설치·실행·검증
 
 Node 22.12 이상이 필요하며 검증에 사용한 버전은 `.nvmrc`에 기록했습니다. 저장소 루트에서 실행합니다.
@@ -15,7 +21,7 @@ npm run check:browser
 npm run dev
 ```
 
-`npm run build`는 기준 토큰에서 CSS를 다시 생성하고 TypeScript 검사 후 production build를 만듭니다. 브라우저 검사는 production preview를 loopback 4173 포트에서 일시 실행하고 종료합니다. 다른 프로세스가 해당 포트를 사용하고 있다면 테스트 전에 충돌을 해소해야 합니다. 개발 서버도 loopback에만 바인딩합니다.
+`npm run build`는 기준 토큰과 현재 slate/예시 테마 CSS·대비 JSON을 다시 생성하고 TypeScript 검사 후 production build를 만듭니다. `npm run themes`로 테마 출력만 재생성할 수 있습니다. 브라우저 검사는 production preview를 loopback 4173 포트에서 일시 실행하고 종료합니다. 다른 프로세스가 해당 포트를 사용하고 있다면 테스트 전에 충돌을 해소해야 합니다. 개발 서버도 loopback에만 바인딩합니다.
 
 ## 문서 구조
 
@@ -32,20 +38,25 @@ npm run dev
 
 ```tsx
 import { Button, FormField, FormTemplate } from "./src";
-import "./src/generated/tokens.css";
-import "./src/styles.css";
+import "./src/core.css";
 
-<FormTemplate
-  title="공통 입력 폼"
-  fields={<FormField label="이름" description="표시할 이름입니다." />}
-  actions={<Button onClick={save}>변경 사항 저장</Button>}
-  aside={<p>소비 앱이 제공하는 도움말 슬롯</p>}
-/>;
+<div className="ds-core">
+  <FormTemplate
+    title="공통 입력 폼"
+    fields={<FormField label="이름" description="표시할 이름입니다." />}
+    actions={<Button onClick={save}>변경 사항 저장</Button>}
+    aside={<p>소비 앱이 제공하는 도움말 슬롯</p>}
+  />
+</div>;
 ```
 
-`src/index.ts`가 기본 18종과 레이아웃·조합 도우미를 export합니다. npm 배포 패키지는 아닙니다. 글꼴 파일은 `/source/fonts/`에서 제공해야 합니다. 문서용 CSS에는 전역 규칙이 있으므로 소비 앱 통합 시 core 스타일을 분리하거나 scope를 적용해야 합니다.
+`src/index.ts`가 기존 18종과 추가 날짜/한국형 폼/탐색/데이터/펼침/아이콘/레이아웃/PC·모바일 템플릿을 export합니다. 기존 `componentFamilies` 18종 레지스트리는 역사 기준이며 전체 public API 목록이 아닙니다. npm 배포 패키지는 아닙니다. `core.css`는 `.ds-core` 조상 범위 안의 컴포넌트와 의미 역할만 스타일링하며, 동일 원본에서 생성한 107개 기본 토큰도 그 범위에 선언합니다. 소비 앱에서 전역 `generated/tokens.css`, `gallery.css`, `styles.css`를 import할 필요가 없습니다. 글꼴 파일은 `/source/fonts/`에서 제공해야 합니다. Pretendard font-face 등록과 `ds-core-*` 애니메이션 정의는 포함하지만 외부 일반 요소에 reset·폰트·focus 규칙을 적용하지 않습니다.
 
-테마는 미리보기 컨테이너의 CSS 변수만 교체하며 root와 기준 토큰을 변경하지 않습니다. 정보/주의/반전 배경/스크림 예시와 현재 조합의 명암비를 표시합니다. 기본 코어로 복원하면 교체 테마의 대비 결과를 기본 코어의 통과 근거로 승계하지 않습니다.
+문서 앱은 명시적으로 `gallery.css`를 사용합니다. 이 파일의 문서 reset·탐색·데모 배치는 **gallery 전용 opt-in**이며 소비 core에 포함되지 않습니다. 이전 `styles.css` 경로는 gallery 호환 진입점일 뿐 core 소비 경로가 아닙니다.
+
+현재 `.ds-core` 기본값은 white/slate입니다. 원본 107개 토큰은 역사 증적으로 보존하고 `default-theme.css`가 실제 공통 상태·semantic 색을 덮어씁니다. Indigo/Teal 전환은 지정 컨테이너만 바꾸며 root·형제·기준 토큰은 변경하지 않습니다. 복원 대상은 역사 색이 아닌 현재 slate 기본값이고, 세 팔레트의 대비는 각각 다시 계산합니다. 상세 표는 “대비 계약”에 접어 두었습니다.
+
+현재 기능·조합·상태·테스트·미검증 정본: `docs/component-inventory-v1.md`, `docs/theme-contract-v1.md`, `docs/theme-contrast.json`, `docs/icons-contract.md`. 버전 없는 기존 inventory/theme 문서는 역사 이력입니다. 주소 검색 예시는 로컬 fixture이며 provider/API가 아닙니다.
 
 ## 원본과 검증 근거
 

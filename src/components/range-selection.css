@@ -1,0 +1,140 @@
+.ds-core .rs-slider,
+.ds-core .rs-rating,
+.ds-core .rs-detail {
+  min-width: 0;
+  max-width: 100%;
+  color: var(--field-fg);
+  font-family: Pretendard, "Apple SD Gothic Neo", system-ui, sans-serif;
+  overflow-wrap: anywhere;
+}
+.ds-core .rs-slider {
+  display: grid;
+  gap: 8px;
+}
+.ds-core .rs-slider > label,
+.ds-core .rs-rating > legend {
+  font-size: var(--font-size-label);
+  font-weight: 500;
+}
+.ds-core .rs-slider > input {
+  width: 100%;
+  min-width: 0;
+  min-height: 44px;
+  margin: 0;
+  accent-color: var(--color-selected-fg);
+  cursor: pointer;
+}
+.ds-core .rs-slider:has(input:disabled) > label,
+.ds-core .rs-slider > input:disabled {
+  color: var(--color-disabled-fg);
+  accent-color: var(--color-disabled-fg);
+  cursor: not-allowed;
+}
+.ds-core .rs-rating {
+  margin: 0;
+  padding: 12px;
+  border: 1px solid var(--field-border);
+  border-radius: var(--radius-md);
+  background: var(--field-bg);
+}
+.ds-core .rs-rating > legend {
+  padding: 0 4px;
+}
+.ds-core .rs-scores {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.ds-core .rs-score {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  padding: 6px 8px;
+  border: 1px solid var(--field-border);
+  border-radius: var(--radius-md);
+  background: var(--field-bg);
+  color: var(--field-fg);
+  cursor: pointer;
+}
+.ds-core .rs-score > input {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  flex-shrink: 0;
+  accent-color: var(--color-selected-fg);
+}
+.ds-core .rs-score:has(input:checked) {
+  background: var(--color-selected-bg);
+  color: var(--color-selected-fg);
+  border-color: var(--color-selected-fg);
+  font-weight: 600;
+}
+.ds-core .rs-score:has(input:disabled) {
+  background: var(--color-disabled-bg);
+  color: var(--color-disabled-fg);
+  border-color: var(--field-border);
+  cursor: not-allowed;
+}
+.ds-core .rs-score > input:disabled {
+  accent-color: var(--color-disabled-fg);
+}
+.ds-core .rs-clear,
+.ds-core .rs-action {
+  min-height: 44px;
+  max-width: 100%;
+  padding: 8px 12px;
+  border: 1px solid var(--field-border);
+  border-radius: var(--radius-md);
+  background: var(--field-bg);
+  color: var(--field-fg);
+  font: inherit;
+  overflow-wrap: anywhere;
+}
+.ds-core .rs-clear {
+  margin-top: 12px;
+}
+.ds-core .rs-clear:disabled,
+.ds-core .rs-action:disabled {
+  background: var(--color-disabled-bg);
+  color: var(--color-disabled-fg);
+  cursor: not-allowed;
+}
+.ds-core .rs-slider > input:focus-visible,
+.ds-core .rs-score:has(input:focus-visible),
+.ds-core .rs-clear:focus-visible,
+.ds-core .rs-action:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 3px;
+}
+.ds-core .rs-detail,
+.ds-core .rs-detail > section,
+.ds-core .rs-demo-form {
+  display: grid;
+  gap: 16px;
+}
+.ds-core .rs-detail pre,
+.ds-core .rs-api {
+  max-width: 100%;
+  min-width: 0;
+  overflow-x: auto;
+}
+.ds-core .rs-detail pre {
+  padding: 12px;
+  border-radius: var(--radius-md);
+  background: var(--field-bg);
+  color: var(--field-fg);
+}
+.ds-core .rs-detail table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.ds-core .rs-detail th,
+.ds-core .rs-detail td {
+  text-align: left;
+  padding: 8px;
+  border-bottom: 1px solid var(--field-border);
+}
+.ds-core .rs-demo-form > .rs-action {
+  justify-self: start;
+}

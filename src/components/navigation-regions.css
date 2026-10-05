@@ -1,0 +1,249 @@
+/* Opt-in component styles; baseline tokens and typography remain unchanged. */
+.ds-core .nr-gallery {
+  display: grid;
+  gap: var(--space-6);
+  min-width: 0;
+}
+.ds-core .nr-gallery-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+.ds-core .nr-eyebrow,
+.ds-core .nr-note,
+.ds-core .nr-description {
+  color: var(--color-text-secondary);
+}
+.ds-core .nr-eyebrow {
+  margin-bottom: var(--space-2);
+  font-size: var(--font-size-label);
+}
+.ds-core .nr-preview {
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-lg);
+  background: var(--color-bg-surface);
+  min-width: 0;
+}
+.ds-core .nr-gnb {
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+.ds-core .nr-gnb ul,
+.ds-core .nr-lnb ul,
+.ds-core .nr-breadcrumb ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.ds-core .nr-gnb ul,
+.ds-core .nr-breadcrumb ol {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+.ds-core .nr-gnb .nr-mobile-toggle {
+  display: none;
+}
+.ds-core .nr-gnb [aria-current="page"],
+.ds-core .nr-lnb [aria-current="page"] {
+  background: var(--color-selected-bg);
+  color: var(--color-selected-fg);
+  box-shadow: inset 0 -2px var(--color-selected-fg);
+  font-weight: 600;
+}
+.ds-core .nr-gnb button:not(:disabled):hover,
+.ds-core .nr-lnb button:not(:disabled):hover {
+  background: var(--color-action-ghost-hover, var(--color-selected-bg));
+  color: var(--color-action-ghost-text, var(--color-selected-fg));
+}
+.ds-core .nr-gnb button:not(:disabled):active,
+.ds-core .nr-lnb button:not(:disabled):active {
+  background: var(--color-action-ghost-pressed, var(--color-selected-bg));
+}
+.ds-core .nr-gnb button:disabled,
+.ds-core .nr-lnb button:disabled {
+  background: var(--color-disabled-bg);
+  color: var(--color-disabled-fg);
+  cursor: not-allowed;
+}
+.ds-core .nr-gnb button:focus-visible,
+.ds-core .nr-lnb button:focus-visible,
+.ds-core .nr-popover button:focus-visible,
+.ds-core .nr-breadcrumb a:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+.ds-core .nr-workspace {
+  display: grid;
+  grid-template-columns: minmax(180px, 220px) minmax(0, 1fr);
+}
+.ds-core .nr-lnb {
+  padding: var(--space-4);
+  border-right: 1px solid var(--color-border-subtle);
+  background: var(--color-bg-canvas);
+  border-bottom-left-radius: var(--radius-lg);
+}
+.ds-core .nr-lnb section {
+  margin-top: var(--space-4);
+}
+.ds-core .nr-lnb button {
+  width: 100%;
+  justify-content: flex-start;
+  text-align: start;
+  white-space: normal;
+}
+.ds-core .nr-lnb ul {
+  display: grid;
+  gap: var(--space-1);
+  margin-top: var(--space-2);
+}
+.ds-core .nr-lnb [hidden] {
+  display: none;
+}
+.ds-core .nr-content {
+  min-width: 0;
+  padding: var(--space-6);
+}
+.ds-core .nr-content > h3 {
+  margin-top: var(--space-6);
+  margin-bottom: var(--space-2);
+}
+.ds-core .nr-breadcrumb {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-label);
+  line-height: var(--font-line-label);
+  overflow-wrap: anywhere;
+}
+.ds-core .nr-breadcrumb li + li::before {
+  content: "/";
+  margin-inline-end: var(--space-2);
+  color: var(--color-text-secondary);
+}
+.ds-core .nr-breadcrumb [aria-current="page"] {
+  color: var(--color-text-primary);
+  font-weight: 600;
+}
+.ds-core .nr-demo-body {
+  padding-block: var(--space-6);
+}
+.ds-core .nr-actions {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+.ds-core .nr-note {
+  margin-top: var(--space-4);
+  margin-bottom: 0;
+  font-size: var(--font-size-label);
+}
+.ds-core .nr-status {
+  margin: 0;
+  border-radius: var(--radius-md);
+  background: var(--color-bg-subtle);
+  color: var(--color-text-muted-onSubtle);
+  padding: var(--space-3) var(--space-4);
+  overflow-wrap: anywhere;
+}
+.ds-core .nr-popover {
+  position: relative;
+  max-width: 100%;
+}
+.ds-core .nr-popover-panel {
+  position: absolute;
+  inset-block-start: calc(100% + var(--space-2));
+  inset-inline-end: 0;
+  width: min(320px, calc(100vw - var(--space-8)));
+  max-height: min(480px, 70dvh);
+  overflow: auto;
+  z-index: 20;
+  border: 1px solid var(--color-border-control);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  background: var(--color-bg-surface);
+  color: var(--color-text-primary);
+  box-shadow: 0 var(--space-2) var(--space-6)
+    var(--color-scrim, var(--color-border-subtle));
+  overflow-wrap: anywhere;
+}
+.ds-core .nr-popover-panel h3 {
+  margin-bottom: var(--space-3);
+}
+.ds-core .nr-modal > dialog {
+  position: fixed;
+  box-sizing: border-box;
+  padding: 0;
+  background: var(--dialog-bg);
+  color: var(--dialog-fg);
+  border: 1px solid var(--color-border-subtle);
+  box-shadow: 0 var(--space-4) var(--space-8)
+    var(--color-scrim, var(--color-border-subtle));
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+.ds-core .nr-modal > dialog::backdrop {
+  background: var(--color-scrim, var(--color-border-control));
+}
+.ds-core .nr-drawer > dialog {
+  inset-block: 0;
+  inset-inline-start: auto;
+  inset-inline-end: 0;
+  margin: 0;
+  width: min(440px, 100vw);
+  max-width: 100vw;
+  height: 100dvh;
+  max-height: 100dvh;
+  border-radius: var(--radius-lg) 0 0 var(--radius-lg);
+}
+.ds-core .nr-sheet > dialog {
+  inset-block-start: auto;
+  inset-block-end: 0;
+  inset-inline: 0;
+  margin: 0 auto;
+  width: min(720px, 100vw);
+  max-width: 100vw;
+  max-height: 85dvh;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+@media (max-width: 640px) {
+  .ds-core .nr-gnb .nr-mobile-toggle {
+    display: inline-flex;
+  }
+  .ds-core .nr-gnb[data-expanded="false"] ul {
+    display: none;
+  }
+  .ds-core .nr-gnb[data-expanded="true"] ul {
+    display: grid;
+    margin-top: var(--space-3);
+  }
+  .ds-core .nr-gnb ul button {
+    width: 100%;
+    justify-content: flex-start;
+  }
+  .ds-core .nr-workspace {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .ds-core .nr-lnb {
+    border-right: 0;
+    border-bottom: 1px solid var(--color-border-subtle);
+    border-bottom-left-radius: 0;
+  }
+  .ds-core .nr-content {
+    padding: var(--space-4);
+  }
+  .ds-core .nr-actions {
+    flex-direction: column;
+  }
+  .ds-core .nr-popover-panel {
+    inset-inline-start: 0;
+    inset-inline-end: auto;
+  }
+  .ds-core .nr-drawer > dialog {
+    width: 100vw;
+    border-radius: 0;
+  }
+}

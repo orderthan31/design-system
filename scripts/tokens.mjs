@@ -24,6 +24,15 @@ fs.writeFileSync(
       .join("\n") +
     "\n}\n",
 );
+// Scoped defaults are generated from the same immutable 107-token source.
+fs.writeFileSync(
+  "src/generated/scoped-tokens.css",
+  ".ds-core {\n" +
+    Object.entries(values)
+      .map(([k, v]) => `  --${k.replaceAll(".", "-")}: ${v};`)
+      .join("\n") +
+    "\n}\n",
+);
 fs.writeFileSync(
   "public/source/tokens/resolved.json",
   JSON.stringify(values, null, 2) + "\n",

@@ -18,7 +18,7 @@ test('한국어 기초 문서에서 테마 전환은 실제 버튼 색상만 범
     await select.selectOption(id);
     await expect(field).toHaveValue('테마를 바꿔도 입력 유지');
     expect(await page.evaluate(() => document.documentElement.getAttribute('style'))).toBe(rootBefore);
-    const expected = {indigo:'rgb(67, 56, 202)',teal:'rgb(15, 118, 110)',baseline:'rgb(37, 99, 235)'}[id];
+    const expected = {indigo:'rgb(67, 56, 202)',teal:'rgb(15, 118, 110)',baseline:'rgb(51, 65, 85)'}[id];
     // CSS transitions expose intermediate colors; wait for the final rendered value.
     await expect(primary).toHaveCSS('background-color', expected!);
     const background = await primary.evaluate(element => getComputedStyle(element).backgroundColor);

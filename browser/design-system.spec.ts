@@ -21,6 +21,15 @@ async function overflow(page: Page) {
     offenders: [...document.querySelectorAll("main *")]
       .filter((e) => {
         const b = e.getBoundingClientRect();
+        const clipped = e.closest('.ds-table-scroll');
+        if (clipped && clipped !== e) {
+          const c = clipped.getBoundingClientRect();
+          // Horizontal table panning is permitted only inside an in-viewport,
+          // keyboard-focusable scrolling boundary, never document overflow.
+          if (c.left >= 0 && c.right <= innerWidth + 1 &&
+              (clipped as HTMLElement).tabIndex >= 0 &&
+              getComputedStyle(clipped).overflowX === 'auto') return false;
+        }
         return b.width > 0 && (b.right > innerWidth + 1 || b.left < -1);
       })
       .map((e) => ({

@@ -12,7 +12,7 @@ export function ThemeGallery() {
   return (
     <section className="stack" aria-label="테마 라이브러리" lang="ko">
       <h2>테마 교체</h2>
-      <p>라이트 팔레트는 이 미리보기 안의 의미 색상만 교체합니다. 코어 토큰과 Pretendard는 그대로 유지합니다.</p>
+
       <div className="wrap">
         <label htmlFor={selectId}>미리보기 테마</label>
         <select id={selectId} className="control" style={{width: 'auto', maxWidth: '100%'}} value={selection}
@@ -27,7 +27,7 @@ export function ThemeGallery() {
         style={{...(theme ? themeVariables(theme) : {}), background: 'var(--color-bg-canvas)', color: 'var(--color-text-primary)', padding: 'var(--space-6)', borderRadius: 'var(--radius-lg)', minWidth: 0} as React.CSSProperties}>
         <h3>재사용 입력 폼과 작업 버튼</h3>
         <div className="stack" style={{background: 'var(--color-bg-surface)', padding: 'var(--space-4)', borderRadius: 'var(--radius-md)'}}>
-          <FormField label="표시 이름" description="레이블과 설명이 실제로 연결된 공통 입력 필드입니다." />
+          <FormField label="표시 이름" />
           <div className="wrap">
             <Button>기본 작업</Button><Button variant="secondary">보조 작업</Button>
             <Button variant="ghost">고스트 작업</Button><Button variant="destructive">삭제 작업</Button>
@@ -45,7 +45,7 @@ export function ThemeGallery() {
           <p>스크림 합성 결과: {compositeColor(theme.roles.scrim, theme.roles.surface)} (배경 {theme.roles.surface}). 장식용 어둡게 처리한 예시이며, 모든 명암비나 텍스트 배치를 허용하는 검증 결과가 아닙니다.</p>
         </>}
       </section>
-      {theme ? <div style={{maxWidth: '100%', overflowX: 'auto'}}>
+      {theme ? <details><summary>대비 계약</summary><div style={{maxWidth: '100%', overflowX: 'auto'}}>
         <table aria-label="다시 계산한 명암비 조합" style={{width: '100%', fontSize: 'var(--font-size-caption)', borderCollapse: 'collapse'}}>
           <caption>{theme.label}: 현재 불투명 색상 조합의 계산 결과입니다. 앱 전체의 접근성 적합성을 의미하지 않습니다.</caption>
           <thead><tr><th scope="col">허용 조합</th><th scope="col">용도</th><th scope="col">명암비</th><th scope="col">최소 기준</th></tr></thead>
@@ -54,7 +54,7 @@ export function ThemeGallery() {
             <td>{row.kind === 'text' ? '텍스트' : '비텍스트'}</td><td>{row.ratio.toFixed(2)}</td><td>{row.threshold}:1</td>
           </tr>)}</tbody>
         </table>
-      </div> : <p>복원한 기본 코어에는 교체 테마의 명암비 검증 결과를 적용하지 않습니다.</p>}
+      </div></details> : <p>복원한 기본 코어에는 교체 테마의 명암비 검증 결과를 적용하지 않습니다.</p>}
     </section>
   );
 }

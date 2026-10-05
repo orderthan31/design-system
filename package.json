@@ -9,12 +9,14 @@
   "scripts": {
     "dev": "vite --host 127.0.0.1",
     "tokens": "node scripts/tokens.mjs",
+    "themes": "node --experimental-strip-types scripts/themes.mjs",
     "test": "vitest run",
-    "build": "npm run tokens && tsc -b && vite build",
+    "build": "npm run tokens && npm run themes && tsc -b && vite build",
     "check:browser": "playwright test",
     "preview": "vite preview --host 127.0.0.1"
   },
   "dependencies": {
+    "lucide-react": "1.52.0",
     "react": "19.2.0",
     "react-dom": "19.2.0"
   },

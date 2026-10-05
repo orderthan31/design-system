@@ -1,0 +1,120 @@
+.ds-core .dc-picker {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+  align-content: start;
+}
+.ds-core .dc-picker > .button {
+  justify-self: start;
+}
+.ds-core .dc-calendar {
+  width: 100%;
+  max-width: 360px;
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 8px;
+  background: var(--color-bg-surface);
+  color: var(--color-text-primary);
+}
+.ds-core .dc-calendar-heading {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  align-items: center;
+}
+.ds-core .dc-calendar-heading .control {
+  width: auto;
+  flex: 1 1 72px;
+  min-width: 0;
+  padding-inline: 4px;
+}
+.ds-core .dc-month-title {
+  text-align: center;
+  margin-block: 12px;
+}
+.ds-core .dc-days {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 2px;
+}
+.ds-core .dc-weekday {
+  text-align: center;
+  padding-block: 4px;
+  color: var(--color-text-secondary);
+}
+.ds-core .dc-day.button {
+  min-width: 0;
+  width: 100%;
+  min-height: 36px;
+  padding: 4px 0;
+}
+.ds-core .dc-calendar .button.quiet[aria-pressed="true"] {
+  background: var(--color-action-primary-bg-default);
+  color: var(--color-text-inverse);
+}
+.ds-core
+  .dc-calendar
+  .button.quiet[aria-pressed="true"]:hover:not(:disabled):not(
+    [aria-busy="true"]
+  ) {
+  background: var(--color-action-primary-bg-hover);
+}
+.ds-core
+  .dc-calendar
+  .button.quiet[aria-pressed="true"]:active:not(:disabled):not(
+    [aria-busy="true"]
+  ) {
+  background: var(--color-action-primary-bg-pressed);
+}
+.ds-core .dc-calendar .button.quiet[aria-pressed="true"]:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 3px;
+}
+.ds-core .dc-calendar .button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.ds-core .dc-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+.ds-core .dc-range {
+  min-width: 0;
+  margin: 0;
+  padding: 12px;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 8px;
+}
+.ds-core .dc-range legend {
+  padding-inline: 4px;
+}
+.ds-core .dc-pair {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.ds-core .dc-pair > .dc-picker {
+  flex: 1 1 220px;
+}
+.ds-core .dc-months {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 4px;
+  margin-block: 12px;
+}
+.ds-core .dc-gallery,
+.ds-core .dc-state-stack {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+  gap: 24px;
+  min-width: 0;
+}
+.ds-core .dc-gallery section {
+  min-width: 0;
+}
+.ds-core .dc-gallery h3 {
+  margin-bottom: 12px;
+}

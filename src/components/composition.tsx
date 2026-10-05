@@ -81,6 +81,8 @@ export function DetailTemplate({
   );
 }
 export function CompositionExample() {
+  const [showDetail, setShowDetail] = useState(true);
+  const listSearchId = useId();
   const [query, setQuery] = useState("");
   const [saved, setSaved] = useState(false);
   return (
@@ -112,6 +114,7 @@ export function CompositionExample() {
           title="공통 목록 패널"
           toolbar={
             <SearchField
+              id={listSearchId}
               aria-label="항목 검색"
               placeholder="예시 항목 검색"
               value={query}
@@ -126,7 +129,7 @@ export function CompositionExample() {
             ))}
         </ListPanel>
       </Grid>
-      <DetailTemplate
+      {showDetail && <DetailTemplate
         title="범용 상세"
         summary={<p>선택 정보</p>}
         content={
@@ -134,8 +137,8 @@ export function CompositionExample() {
             <FormField label="상세 레이블" />
           </FormSection>
         }
-        actions={<Button variant="secondary">목록으로 돌아가기</Button>}
-      />
+        actions={<Button variant="secondary" onClick={()=>{setShowDetail(false);document.getElementById(listSearchId)?.focus();}}>목록으로 돌아가기</Button>}
+      />}
     </Container>
   );
 }

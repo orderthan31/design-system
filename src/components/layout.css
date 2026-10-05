@@ -1,48 +1,48 @@
-.ds-container {
+.ds-core .ds-container {
   width: 100%;
   max-width: 1200px;
   margin-inline: auto;
   min-width: 0;
 }
-.ds-stack {
+.ds-core .ds-stack {
   display: grid;
   gap: var(--space-4, 16px);
   min-width: 0;
 }
-.ds-grid {
+.ds-core .ds-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
   gap: 24px;
   min-width: 0;
 }
-.ds-shell {
+.ds-core .ds-shell {
   display: grid;
   grid-template-columns: minmax(160px, 240px) minmax(0, 1fr);
 }
-.ds-shell main {
+.ds-core .ds-shell .ds-shell-content {
   padding: 24px;
 }
-.ds-section {
+.ds-core .ds-section {
   background: var(--color-bg-surface);
   border: 1px solid var(--color-border-subtle);
   padding: 20px;
   border-radius: 8px;
   min-width: 0;
 }
-.ds-section h3 {
+.ds-core .ds-section h3 {
   margin-bottom: 16px;
 }
-.ds-actions {
+.ds-core .ds-actions {
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
   margin-top: 20px;
 }
-.ds-container > section {
+.ds-core .ds-container > section {
   margin-top: 24px;
 }
 @media (max-width: 700px) {
-  .ds-shell {
+  .ds-core .ds-shell {
     grid-template-columns: 1fr;
   }
 }

@@ -91,6 +91,13 @@ export function Menu({
     <div
       className="menu-wrap"
       ref={root}
+      onKeyDown={(e) => {
+        if (open && e.key === "Escape" && !e.defaultPrevented) {
+          e.preventDefault();
+          e.stopPropagation();
+          close();
+        }
+      }}
       onBlur={(e) => {
         if (!e.currentTarget.contains(e.relatedTarget as Node)) setOpen(false);
       }}
@@ -136,10 +143,6 @@ export function Menu({
               e.preventDefault();
               focus(n);
             }
-            if (e.key === "Escape") {
-              e.preventDefault();
-              close();
-            }
           }}
         >
           {items.map((item) => (
@@ -175,7 +178,11 @@ export function Tooltip({ label, text }: { label: string; text: string }) {
         onFocus={() => setOpen(true)}
         onBlur={() => setOpen(false)}
         onKeyDown={(e) => {
-          if (e.key === "Escape") setOpen(false);
+          if (open && e.key === "Escape" && !e.defaultPrevented) {
+            e.preventDefault();
+            e.stopPropagation();
+            setOpen(false);
+          }
         }}
       >
         {label}

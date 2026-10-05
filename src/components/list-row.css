@@ -1,0 +1,122 @@
+.ds-core .ds-list-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px;
+  min-width: 0;
+  color: var(--color-text-primary);
+  background: var(--color-bg-surface);
+  overflow-wrap: anywhere;
+}
+.ds-core .ds-list-row + .ds-list-row {
+  border-block-start: 1px solid var(--color-border-subtle);
+}
+.ds-core .ds-list-row[data-selected] {
+  background: var(--color-selected-bg);
+  color: var(--color-selected-fg);
+}
+.ds-core .ds-list-row-content {
+  flex: 1 1 160px;
+  min-width: 0;
+  line-height: 1.6;
+}
+.ds-core .ds-list-row-description {
+  margin-block-start: 4px;
+  color: var(--color-text-secondary);
+  font-size: 14px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+.ds-core .ds-list-row-leading {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  max-width: 100%;
+}
+.ds-core .ds-list-row-trailing {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  min-width: 0;
+  max-width: 100%;
+  margin-inline-start: auto;
+}
+.ds-core .ds-list-row .checkbox {
+  min-width: 0;
+  min-height: 44px;
+  align-items: center;
+}
+.ds-core .ds-list-row .checkbox span {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.ds-core .ds-list-row-trailing .button {
+  min-height: 44px;
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+.ds-core .ds-list-header,
+.ds-core .ds-list-footer {
+  display: grid;
+  gap: 12px;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.ds-core .ds-list-header-top,
+.ds-core .ds-list-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.ds-core .ds-list-header h3 {
+  margin: 0;
+}
+.ds-core .ds-list-detail,
+.ds-core .ds-list-detail .ds-stack {
+  min-width: 0;
+  max-width: 100%;
+}
+.ds-core .ds-list-detail-tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.ds-core .ds-list-detail-tools > label {
+  display: grid;
+  flex: 1 1 160px;
+  gap: 4px;
+  min-width: 0;
+}
+.ds-core .ds-list-detail-tools .control {
+  width: 100%;
+  min-width: 0;
+}
+.ds-core .ds-list-detail details {
+  min-width: 0;
+  padding-block: 12px;
+  border-block-start: 1px solid var(--color-border-subtle);
+  overflow-wrap: anywhere;
+}
+.ds-core .ds-list-detail pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+@media (max-width: 480px) {
+  .ds-core .ds-list-row {
+    padding: 12px;
+    gap: 8px;
+  }
+  .ds-core .ds-list-row-trailing {
+    flex-basis: 100%;
+  }
+}

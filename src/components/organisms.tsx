@@ -1,4 +1,4 @@
-import React, { useEffect, useId, useRef } from "react";
+import React, { useEffect, useLayoutEffect, useId, useRef } from "react";
 import { Button } from "./atoms";
 import { IconButton } from "./primitives";
 export type DialogProps = {
@@ -8,6 +8,20 @@ export type DialogProps = {
   onClose: () => void;
   footer?: React.ReactNode;
 };
+// Shared ownership for every modal shape; parent DOM order precedes initially open children.
+const modalOwners: HTMLDialogElement[] = [];
+let savedOverflow = "", savedPriority = "";
+function focusFirst(dialog: HTMLDialogElement) {
+  dialog.querySelector<HTMLElement>('button:not(:disabled),input:not(:disabled),a[href],[tabindex="0"]')?.focus();
+}
+function showAncestorsFirst(dialog: HTMLDialogElement) {
+  const ancestors: HTMLDialogElement[] = [];
+  let parent = dialog.parentElement?.closest<HTMLDialogElement>('dialog[data-modal-requested="true"]');
+  while (parent) {ancestors.unshift(parent);parent = parent.parentElement?.closest<HTMLDialogElement>('dialog[data-modal-requested="true"]');}
+  for (const current of [...ancestors, dialog]) if (!current.open) {
+    if (typeof current.showModal === "function") current.showModal();else current.setAttribute("open", "");
+  }
+}
 export function Dialog({
   open,
   title,
@@ -17,13 +31,25 @@ export function Dialog({
 }: DialogProps) {
   const ref = useRef<HTMLDialogElement>(null);
   const id = useId();
+  useLayoutEffect(() => {
+    const dialog = ref.current;if (!open || !dialog) return;
+    const opener = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    if (!modalOwners.length) {savedOverflow = document.body.style.getPropertyValue("overflow");savedPriority = document.body.style.getPropertyPriority("overflow");document.body.style.setProperty("overflow", "hidden", "important");}
+    const nested = modalOwners.findIndex(node => dialog.contains(node));
+    modalOwners.splice(nested < 0 ? modalOwners.length : nested, 0, dialog);
+    return () => {
+      const wasTop = modalOwners.at(-1) === dialog;const index = modalOwners.indexOf(dialog);if(index>=0)modalOwners.splice(index,1);
+      if (!modalOwners.length) {if(savedOverflow)document.body.style.setProperty("overflow",savedOverflow,savedPriority);else document.body.style.removeProperty("overflow");}
+      if (dialog.open) {if(typeof dialog.close === "function")dialog.close();else dialog.removeAttribute("open");}
+      if (wasTop) {const remaining = modalOwners.at(-1);if(opener?.isConnected && (!remaining || remaining.contains(opener)))opener.focus();else if(remaining)focusFirst(remaining);}
+    };
+  }, [open]);
   useEffect(() => {
     const dialog = ref.current;
     if (!dialog) return;
     if (open) {
-      if (typeof dialog.showModal === "function" && !dialog.open)
-        dialog.showModal();
-      else dialog.setAttribute("open", "");
+      showAncestorsFirst(dialog);
+      if (modalOwners.at(-1) === dialog) focusFirst(dialog);
     } else if (dialog.open) {
       if (typeof dialog.close === "function") dialog.close();
       else dialog.removeAttribute("open");
@@ -34,7 +60,10 @@ export function Dialog({
       ref={ref}
       aria-labelledby={`${id}-title`}
       aria-modal="true"
+      data-modal-requested={open ? "true" : undefined}
       onKeyDown={(e) => {
+        if (e.defaultPrevented || (e.target as Element).closest("dialog") !== e.currentTarget) return;
+        if(e.key === "Escape" && modalOwners.at(-1) === e.currentTarget){e.preventDefault();e.stopPropagation();onClose();return;}
         if (e.key !== "Tab") return;
         const items = Array.from(
           e.currentTarget.querySelectorAll<HTMLElement>(
@@ -53,6 +82,7 @@ export function Dialog({
       }}
       onCancel={(e) => {
         e.preventDefault();
+        e.stopPropagation();
         onClose();
       }}
       onClick={(e) => {

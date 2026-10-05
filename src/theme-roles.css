@@ -45,6 +45,10 @@
   --color-inverse-surface: #0f172a;
   --color-inverse-text: #ffffff;
   --color-scrim: #0f172a66;
+  --color-action-secondary-pressed: #eef2ff;
+  --color-action-ghost-pressed: #e0e7ff;
+  --color-action-destructive-hover: #991b1b;
+  --color-action-destructive-pressed: #7f1d1d;
   --color-action-primary-text: #ffffff;
   --color-action-secondary-surface: #ffffff;
   --color-action-secondary-hover: #f1f5f9;
@@ -132,6 +136,10 @@
   --color-inverse-surface: #0f172a;
   --color-inverse-text: #ffffff;
   --color-scrim: #0f172a66;
+  --color-action-secondary-pressed: #f0fdfa;
+  --color-action-ghost-pressed: #ccfbf1;
+  --color-action-destructive-hover: #991b1b;
+  --color-action-destructive-pressed: #7f1d1d;
   --color-action-primary-text: #ffffff;
   --color-action-secondary-surface: #ffffff;
   --color-action-secondary-hover: #f1f5f9;

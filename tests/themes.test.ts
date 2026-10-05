@@ -3,6 +3,8 @@ import { contrastRatio, compositeColor, themes, themeRoles, themeVariables, asse
 import fs from 'node:fs';
 import { createHash } from 'node:crypto';
 
+test('ErrorState retry boundary and offset focus include actual error surface adjacency',()=>{for(const foreground of ['controlBorder','focus'])expect(nonTextPairs).toContainEqual({foreground,background:'errorSurface',kind:'nontext'});});
+
 test('theme work preserves the immutable 107-token source and Pretendard baseline', () => {
   const bytes = fs.readFileSync('public/source/tokens/core.json');
   const core = JSON.parse(bytes.toString());
@@ -88,6 +90,23 @@ test('replacement rejects unsupported alias divergence and failing contrast befo
   expect(scope.hasAttribute('data-ds-theme')).toBe(false);
   const missingScrim = {...themes[0], roles: {...themes[0].roles, scrim: '#nope' as const}};
   expect(() => themeVariables(missingScrim)).toThrow(/hex/i);
+});
+
+test('new pointer-state surfaces resolve per palette and receive fresh text and non-text assessments', () => {
+  for (const theme of themes) {
+    const variables = themeVariables(theme);
+    for (const suffix of ['secondary-pressed','ghost-pressed','destructive-hover','destructive-pressed']) {
+      expect(variables[`--color-action-${suffix}`]).toMatch(/^#[\da-f]{6}$/i);
+    }
+    const rows = assessTheme(theme);
+    for (const background of ['secondaryPressed','ghostPressed','destructiveHover','destructivePressed']) {
+      expect(rows.some(row => row.kind === 'text' && row.background === background)).toBe(true);
+    }
+    for (const foreground of ['destructiveHover','destructivePressed']) {
+      expect(rows.filter(row => row.kind === 'nontext' && row.foreground === foreground)).toHaveLength(3);
+    }
+    expect(rows.every(row => row.passes)).toBe(true);
+  }
 });
 
 test('opaque sRGB contrast is symmetric and uses full precision', () => {

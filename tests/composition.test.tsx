@@ -3,6 +3,8 @@ import userEvent from "@testing-library/user-event";
 import { render, screen } from "@testing-library/react";
 import { test, expect } from "vitest";
 import { CompositionExample } from "../src/components/composition";
+test("detail return action restores list search focus and closes the detail",async()=>{render(<CompositionExample/>);await userEvent.click(screen.getByRole("button",{name:"목록으로 돌아가기"}));expect(screen.queryByRole("region",{name:"범용 상세"})).toBeNull();expect(screen.getByRole("searchbox",{name:"항목 검색"})).toHaveFocus();});
+
 test("neutral composition exposes field, section, actions and detail slots", async () => {
   render(<CompositionExample />);
   expect(

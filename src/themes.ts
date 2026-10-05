@@ -1,21 +1,21 @@
 export const themeRoles = [
   'surface', 'canvas', 'subtle', 'text', 'secondaryText', 'mutedText', 'inverseSurface', 'inverseText',
   'controlBorder', 'subtleBorder', 'focus', 'primaryDefault', 'primaryHover', 'primaryPressed', 'primaryText',
-  'secondarySurface', 'secondaryHover', 'secondaryActionText', 'ghostSurface', 'ghostHover', 'ghostText',
-  'destructiveSurface', 'destructiveText', 'selectedSurface', 'selectedText',
+  'secondarySurface', 'secondaryHover', 'secondaryPressed', 'secondaryActionText', 'ghostSurface', 'ghostHover', 'ghostPressed', 'ghostText',
+  'destructiveSurface', 'destructiveHover', 'destructivePressed', 'destructiveText', 'selectedSurface', 'selectedText',
   'infoSurface', 'infoText', 'warningSurface', 'warningText', 'successSurface', 'successText',
   'errorSurface', 'errorText', 'neutralSurface', 'neutralText', 'disabledSurface', 'disabledText', 'scrim',
 ] as const;
 export type ThemeRole = typeof themeRoles[number];
-export type ThemeId = 'indigo' | 'teal';
+export type ThemeId = 'slate' | 'indigo' | 'teal';
 export interface Theme { readonly id: ThemeId; readonly label: string; readonly roles: Readonly<Record<ThemeRole, HexColor>> }
 const neutral: Record<ThemeRole, HexColor> = {
   surface: '#ffffff', canvas: '#f8fafc', subtle: '#f1f5f9', text: '#0f172a', secondaryText: '#475569', mutedText: '#475569',
   inverseSurface: '#0f172a', inverseText: '#ffffff', controlBorder: '#64748b', subtleBorder: '#e2e8f0', focus: '#3730a3',
   primaryDefault: '#4338ca', primaryHover: '#3730a3', primaryPressed: '#312e81', primaryText: '#ffffff',
-  secondarySurface: '#ffffff', secondaryHover: '#f1f5f9', secondaryActionText: '#0f172a',
-  ghostSurface: '#ffffff', ghostHover: '#eef2ff', ghostText: '#3730a3',
-  destructiveSurface: '#b91c1c', destructiveText: '#ffffff', selectedSurface: '#eef2ff', selectedText: '#3730a3',
+  secondarySurface: '#ffffff', secondaryHover: '#f1f5f9', secondaryPressed: '#eef2ff', secondaryActionText: '#0f172a',
+  ghostSurface: '#ffffff', ghostHover: '#eef2ff', ghostPressed: '#e0e7ff', ghostText: '#3730a3',
+  destructiveSurface: '#b91c1c', destructiveHover: '#991b1b', destructivePressed: '#7f1d1d', destructiveText: '#ffffff', selectedSurface: '#eef2ff', selectedText: '#3730a3',
   infoSurface: '#eff6ff', infoText: '#1e40af', warningSurface: '#fffbeb', warningText: '#92400e',
   successSurface: '#f0fdf4', successText: '#166534', errorSurface: '#fef2f2', errorText: '#b91c1c',
   neutralSurface: '#f1f5f9', neutralText: '#475569', disabledSurface: '#f1f5f9', disabledText: '#475569', scrim: '#0f172a66',
@@ -24,16 +24,29 @@ export const themes: readonly Theme[] = Object.freeze([
   Object.freeze({id: 'indigo', label: '인디고 라이트', roles: Object.freeze({...neutral})}),
   Object.freeze({id: 'teal', label: '틸 라이트', roles: Object.freeze({...neutral,
     primaryDefault: '#0f766e', primaryHover: '#115e59', primaryPressed: '#134e4a',
-    focus: '#115e59', ghostText: '#115e59', ghostHover: '#f0fdfa', selectedSurface: '#f0fdfa', selectedText: '#115e59',
+    focus: '#115e59', secondaryPressed: '#f0fdfa', ghostText: '#115e59', ghostHover: '#f0fdfa', ghostPressed: '#ccfbf1', selectedSurface: '#f0fdfa', selectedText: '#115e59',
   })}),
 ]);
+
+/** Current UI default; historical 107-token source remains immutable. */
+export const defaultTheme: Theme = Object.freeze({id:'slate',label:'슬레이트 라이트',roles:Object.freeze({...neutral,
+  primaryDefault:'#334155',primaryHover:'#1e293b',primaryPressed:'#0f172a',focus:'#475569',
+  secondaryPressed:'#e2e8f0',ghostText:'#334155',ghostHover:'#e2e8f0',ghostPressed:'#cbd5e1',
+  selectedSurface:'#e2e8f0',selectedText:'#334155',
+  infoSurface:'#f1f5f9',infoText:'#334155',successSurface:'#ecfdf5',successText:'#065f46',
+  warningSurface:'#fffbeb',warningText:'#854d0e',errorSurface:'#fff1f2',errorText:'#be123c',
+  destructiveSurface:'#be123c',destructiveHover:'#9f1239',destructivePressed:'#881337',
+})});
+export function renderDefaultThemeCss():string {
+  return '/* Generated default override; historical tokens stay unchanged. */\n.ds-core {\n'+Object.entries(themeVariables(defaultTheme)).map(([key,value])=>`  ${key}: ${value};`).join('\n')+'\n}\n';
+}
 
 /** Map semantic overrides to the variables existing components actually consume. */
 export function themeVariables(theme: Theme): Record<`--${string}`, string> {
   const r = theme.roles;
   for (const role of themeRoles) channels(r[role], role === 'scrim');
   const coupled: readonly (readonly [ThemeRole, ThemeRole])[] = [
-    ['secondarySurface', 'surface'], ['secondaryHover', 'subtle'], ['secondaryActionText', 'text'],
+    ['secondarySurface', 'surface'], ['secondaryHover', 'subtle'], ['secondaryPressed', 'selectedSurface'], ['secondaryActionText', 'text'],
     ['ghostSurface', 'surface'], ['ghostHover', 'selectedSurface'], ['destructiveSurface', 'errorText'],
     ['destructiveText', 'inverseText'], ['inverseSurface', 'text'], ['primaryText', 'inverseText'],
   ];
@@ -56,6 +69,7 @@ export function themeVariables(theme: Theme): Record<`--${string}`, string> {
     'dialog-bg': 'surface', 'dialog-fg': 'text', 'empty-bg': 'surface', 'empty-fg': 'secondaryText', 'progress-track': 'subtle', 'progress-fill': 'primaryDefault',
     'color-info-surface': 'infoSurface', 'color-info-text': 'infoText', 'color-warning-surface': 'warningSurface', 'color-warning-text': 'warningText',
     'color-inverse-surface': 'inverseSurface', 'color-inverse-text': 'inverseText', 'color-scrim': 'scrim',
+    'color-action-secondary-pressed': 'secondaryPressed', 'color-action-ghost-pressed': 'ghostPressed', 'color-action-destructive-hover': 'destructiveHover', 'color-action-destructive-pressed': 'destructivePressed',
     'color-action-primary-text': 'primaryText', 'color-action-secondary-surface': 'secondarySurface', 'color-action-secondary-hover': 'secondaryHover', 'color-action-secondary-text': 'secondaryActionText',
     'color-action-ghost-surface': 'ghostSurface', 'color-action-ghost-hover': 'ghostHover', 'color-action-ghost-text': 'ghostText',
     'color-action-destructive-surface': 'destructiveSurface', 'color-action-destructive-text': 'destructiveText',
@@ -76,8 +90,8 @@ const lightSurfaces = ['surface', 'canvas', 'subtle'] as const;
 export const textPairs: readonly ContrastPair[] = [
   ...['text', 'secondaryText', 'mutedText', 'ghostText', 'errorText'].flatMap(role => on(role as ThemeRole, lightSurfaces)),
   ...on('primaryText', ['primaryDefault', 'primaryHover', 'primaryPressed']),
-  ...on('secondaryActionText', ['secondarySurface', 'secondaryHover']),
-  ...on('ghostText', ['ghostSurface', 'ghostHover']), ...on('destructiveText', ['destructiveSurface']),
+  ...on('secondaryActionText', ['secondarySurface', 'secondaryHover', 'secondaryPressed']),
+  ...on('ghostText', ['ghostSurface', 'ghostHover', 'ghostPressed']), ...on('destructiveText', ['destructiveSurface', 'destructiveHover', 'destructivePressed']),
   ...on('selectedText', ['selectedSurface']), ...on('inverseText', ['inverseSurface']),
   ...on('infoText', ['infoSurface']), ...on('warningText', ['warningSurface']),
   ...on('successText', ['successSurface']), ...on('errorText', ['errorSurface']), ...on('neutralText', ['neutralSurface']),
@@ -86,8 +100,8 @@ export const textPairs: readonly ContrastPair[] = [
   ...on('secondaryText', ['infoSurface', 'warningSurface', 'successSurface', 'errorSurface', 'neutralSurface', 'selectedSurface']),
 ];
 export const nonTextPairs: readonly ContrastPair[] = [
-  ...on('controlBorder', lightSurfaces, 'nontext'), ...on('focus', lightSurfaces, 'nontext'),
-  ...['primaryDefault', 'primaryHover', 'primaryPressed', 'destructiveSurface'].flatMap(role => on(role as ThemeRole, lightSurfaces, 'nontext')),
+  ...on('controlBorder', [...lightSurfaces, 'errorSurface'], 'nontext'), ...on('focus', [...lightSurfaces, 'errorSurface'], 'nontext'),
+  ...['primaryDefault', 'primaryHover', 'primaryPressed', 'destructiveSurface', 'destructiveHover', 'destructivePressed'].flatMap(role => on(role as ThemeRole, lightSurfaces, 'nontext')),
   ...on('errorText', lightSurfaces, 'nontext'),
   ...on('infoText', ['infoSurface'], 'nontext'), ...on('warningText', ['warningSurface'], 'nontext'),
 ];

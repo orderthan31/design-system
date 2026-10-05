@@ -1,4 +1,6 @@
-# Shared component inventory and candidate classification
+# Historical snapshot — Shared component inventory and candidate classification
+
+이 문서는 확장 이전의 보존 이력이다. 현재 기능별 정본은 `component-inventory-v1.md`다. 아래 pending/coverage 문구를 현재 상태로 적용하지 않는다.
 
 ## Scope and status vocabulary
 

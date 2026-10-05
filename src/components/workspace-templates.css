@@ -1,0 +1,167 @@
+.ds-core .wt-gallery {
+  display: grid;
+  gap: var(--space-8);
+  min-width: 0;
+}
+.ds-core .wt-workspace {
+  min-width: 0;
+  max-width: 100%;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-lg);
+  background: var(--color-bg-surface);
+  color: var(--color-text-primary);
+  overflow-wrap: anywhere;
+}
+.ds-core .wt-workspace .ds-container {
+  max-width: none;
+}
+.ds-core .wt-desktop .ds-shell {
+  grid-template-columns: minmax(160px, 200px) minmax(0, 1fr);
+}
+.ds-core .wt-desktop .ds-shell > div,
+.ds-core .wt-content > *,
+.ds-core .wt-workspace .template {
+  min-width: 0;
+}
+.ds-core .wt-desktop .ds-shell > aside {
+  background: var(--color-bg-canvas);
+  border-right: 1px solid var(--color-border-subtle);
+}
+.ds-core .wt-desktop .nr-lnb {
+  border-right: 0;
+}
+.ds-core .wt-heading {
+  padding: var(--space-6);
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+.ds-core .wt-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  min-width: 0;
+}
+.ds-core .wt-title .ds-actions,
+.ds-core .wt-search + .ds-actions {
+  margin-top: 0;
+}
+.ds-core .wt-workspace .ds-table caption {
+  /* Keep the native accessible table name without repeating the template title. */
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.ds-core .wt-content {
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-6);
+}
+.ds-core .wt-with-aside {
+  grid-template-columns: minmax(0, 1fr) minmax(140px, 180px);
+}
+.ds-core .wt-aside {
+  padding: var(--space-4);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-subtle);
+  align-self: start;
+}
+.ds-core .wt-mobile {
+  width: 100%;
+  max-width: 440px;
+  justify-self: center;
+}
+.ds-core .wt-mobile > .ds-container > .ds-stack {
+  gap: 0;
+}
+.ds-core .wt-mobile .template {
+  margin: 0;
+  padding: var(--space-4);
+  border: 0;
+  background: var(--color-bg-surface);
+}
+.ds-core .wt-mobile .template-toolbar {
+  margin-block: var(--space-4);
+}
+.ds-core .wt-search,
+.ds-core .wt-search > span {
+  display: grid;
+  gap: var(--space-2);
+  min-width: 0;
+}
+.ds-core .wt-search > span {
+  display: flex;
+  align-items: center;
+  color: var(--color-text-secondary);
+}
+.ds-core .wt-search .control {
+  width: 100%;
+  min-width: 0;
+}
+.ds-core .wt-mobile .nr-gnb .nr-mobile-toggle {
+  display: none;
+}
+.ds-core .wt-mobile .nr-gnb[data-expanded="false"] ul,
+.ds-core .wt-mobile .nr-gnb[data-expanded="true"] ul {
+  display: flex;
+  margin-top: 0;
+  flex-wrap: wrap;
+}
+.ds-core .wt-mobile .nr-gnb li {
+  flex: 1 1 120px;
+  min-width: 0;
+}
+.ds-core .wt-mobile .nr-gnb li .button {
+  width: 100%;
+  justify-content: center;
+  white-space: normal;
+}
+.ds-core .wt-mobile .ds-list-item > .button {
+  min-height: 44px;
+  white-space: normal;
+  max-width: 100%;
+}
+.ds-core .wt-mobile .ds-list-content {
+  flex-basis: 120px;
+}
+.ds-core .wt-workspace .button svg {
+  flex-shrink: 0;
+}
+@media (max-width: 1100px) {
+  .ds-core .wt-with-aside {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+@media (max-width: 768px) {
+  .ds-core .wt-desktop .ds-shell {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .ds-core .wt-desktop .ds-shell > aside {
+    border-right: 0;
+    border-bottom: 1px solid var(--color-border-subtle);
+  }
+  .ds-core .wt-heading,
+  .ds-core .wt-desktop .ds-shell main {
+    padding: var(--space-4);
+  }
+}
+@media (max-width: 390px) {
+  .ds-core .wt-heading,
+  .ds-core .wt-desktop .ds-shell main,
+  .ds-core .wt-mobile .template {
+    padding: var(--space-3);
+  }
+  .ds-core .wt-workspace .template {
+    padding-inline: var(--space-3);
+  }
+  .ds-core .wt-mobile .ds-list-item > .button {
+    width: 100%;
+  }
+  .ds-core .wt-workspace .ds-pagination {
+    flex-wrap: wrap;
+  }
+}

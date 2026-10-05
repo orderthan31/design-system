@@ -1,0 +1,172 @@
+.ds-core .fc-gallery {
+  container-type: inline-size;
+  display: grid;
+  gap: 16px;
+  min-width: 0;
+}
+.ds-core .fc-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  align-items: start;
+}
+.ds-core .fc-field {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.ds-core .fc-inline {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+.ds-core .fc-inline > .control {
+  flex: 1;
+  width: 0;
+}
+.ds-core .fc-unit {
+  color: var(--color-text-secondary);
+}
+.ds-core .fc-group {
+  min-width: 0;
+  margin: 0;
+  padding: 16px;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-md);
+  background: var(--field-bg);
+  color: var(--field-fg);
+  overflow-wrap: anywhere;
+}
+.ds-core .fc-group legend {
+  padding: 0 4px;
+  font-size: var(--font-size-label);
+  font-weight: 500;
+}
+.ds-core .fc-choices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+}
+.ds-core .fc-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.ds-core .fc-tag {
+  display: inline-flex;
+  max-width: 100%;
+  align-items: center;
+  padding-left: 10px;
+  border-radius: var(--radius-md);
+  background: var(--color-selected-bg);
+  color: var(--color-selected-fg);
+}
+.ds-core .fc-tag .button {
+  min-height: 44px;
+  min-width: 44px;
+}
+.ds-core .fc-combobox {
+  position: relative;
+  min-width: 0;
+}
+.ds-core .fc-options {
+  position: absolute;
+  z-index: 5;
+  inset: calc(100% + 4px) 0 auto;
+  max-height: 240px;
+  overflow: auto;
+  list-style: none;
+  margin: 0;
+  padding: 4px;
+  border: 1px solid var(--field-border);
+  border-radius: var(--radius-md);
+  background: var(--field-bg);
+  color: var(--field-fg);
+}
+.ds-core .fc-options li {
+  min-height: 44px;
+  padding: 10px;
+  border-radius: var(--radius-md);
+  overflow-wrap: anywhere;
+}
+.ds-core .fc-options [role="option"] {
+  cursor: pointer;
+}
+.ds-core .fc-options [data-active="true"],
+.ds-core .fc-options [role="option"]:hover:not([aria-disabled="true"]) {
+  background: var(--color-selected-bg);
+  color: var(--color-selected-fg);
+}
+.ds-core .fc-options [aria-selected="true"] {
+  font-weight: 600;
+}
+.ds-core .fc-options [aria-disabled="true"] {
+  color: var(--color-disabled-fg);
+  cursor: not-allowed;
+}
+.ds-core .fc-switch {
+  position: relative;
+  display: inline-flex;
+  gap: 12px;
+  min-height: 48px;
+  align-items: center;
+  cursor: pointer;
+}
+.ds-core .fc-switch input {
+  position: absolute;
+  width: 44px;
+  height: 28px;
+  margin: 0;
+  opacity: 0;
+}
+.ds-core .fc-switch-track {
+  width: 44px;
+  height: 28px;
+  flex-shrink: 0;
+  border-radius: 20px;
+  border: 1px solid var(--color-border-control);
+  background: var(--color-bg-subtle);
+  padding: 3px;
+}
+.ds-core .fc-switch-track::after {
+  content: "";
+  display: block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--color-text-secondary);
+}
+.ds-core .fc-switch input:checked + .fc-switch-track {
+  background: var(--button-bg-default);
+  border-color: var(--button-bg-default);
+}
+.ds-core .fc-switch input:checked + .fc-switch-track::after {
+  transform: translateX(16px);
+  background: var(--button-fg);
+}
+.ds-core .fc-switch input:focus-visible + .fc-switch-track {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 3px;
+}
+.ds-core .fc-switch:has(input:disabled) {
+  color: var(--color-disabled-fg);
+  cursor: not-allowed;
+}
+.ds-core .fc-address {
+  display: grid;
+  gap: 12px;
+}
+.ds-core .fc-address > .button {
+  justify-self: start;
+}
+@container (max-width: 560px) {
+  .ds-core .fc-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+  }
+}
+@media (max-width: 560px) {
+  .ds-core .fc-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

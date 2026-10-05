@@ -2,6 +2,17 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import { test, expect } from "vitest";
 import { Container, Stack, Grid, Shell } from "../src/components/layout";
+test("Shell can embed content without adding a second document main landmark", () => {
+  render(
+    <main>
+      <Shell mainAs="div" navigation={<nav>탐색</nav>} header={<h2>영역</h2>}>
+        내용
+      </Shell>
+    </main>,
+  );
+  expect(screen.getAllByRole("main")).toHaveLength(1);
+});
+
 test("Shell composes named navigation, header and main slots using reusable layouts", () => {
   render(
     <Shell

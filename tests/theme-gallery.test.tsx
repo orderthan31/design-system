@@ -13,6 +13,8 @@ test('generic feedback, inverse and explicit alpha-composite examples report fre
   expect(within(preview).getByText('주의')).toBeVisible();
   expect(within(preview).getByText('반전 배경')).toBeVisible();
   expect(within(preview).getByText(/스크림 합성 결과: #9fa2aa/)).toBeVisible();
+  expect(screen.getByRole('table', {name:'다시 계산한 명암비 조합'})).not.toBeVisible();
+  await user.click(screen.getByText('대비 계약'));
   const table = screen.getByRole('table', {name: '다시 계산한 명암비 조합'});
   expect(within(table).getAllByRole('row')).toHaveLength(1 + textPairs.length + nonTextPairs.length);
   expect(table).toHaveTextContent('primaryText / primaryDefault');
