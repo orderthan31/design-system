@@ -2,6 +2,7 @@
 @import "./generated/scoped-tokens.css";
 @import "./default-theme.css";
 @import "./components/layout.css";
+@import "./components/content-primitives.css";
 @import "./components/date-controls.css";
 @import "./components/data-display.css";
 @import "./components/form-controls.css";
@@ -606,7 +607,7 @@
 .ds-core .template-aside {
   padding: 20px;
   background: var(--color-bg-canvas);
-  border: 1px solid var(--color-border-subtle);
+  border: 0;
   border-radius: 8px;
   align-self: start;
   font-size: 13px;
@@ -756,7 +757,7 @@
 }
 
 .ds-core .ds-icon-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 100px), 1fr)); gap: var(--space-3); margin-block: var(--space-4); }
-.ds-core .ds-icon-grid > div { display: grid; justify-items: center; gap: var(--space-2); padding: var(--space-3); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md); background: var(--color-bg-surface); min-width: 0; }
+.ds-core .ds-icon-grid > div { display: grid; justify-items: center; gap: var(--space-2); padding: var(--space-3); border: 0; border-radius: var(--radius-md); background: var(--color-bg-surface); min-width: 0; }
 .ds-core .ds-icon-grid code { font-size: var(--font-size-caption); overflow-wrap: anywhere; }
 .ds-core .ds-accordion > section { border-bottom: 1px solid var(--color-border-subtle); }
 .ds-core .ds-accordion h3 .button { width: 100%; justify-content: space-between; white-space: normal; text-align: left; }

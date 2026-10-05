@@ -50,11 +50,11 @@
 - `components/border/` · Border · **재사용** → `Separator`. 구분선·간격.
 - `components/bottom-info/` · Bottom Info · **확장** → `Alert/필드 help + footer`. 하단 안내 슬롯.
 - `components/bottom-sheet/` · Bottom Sheet · **재사용+확장** → `BottomSheet → Dialog`. title/body/footer·단일/복수 CTA·선택 후 적용 상세.
-- `components/bubble/` · Bubble · **누락** → `별도 공개 API 없음`. 비모달 말풍선 표현은 Tooltip과 구분.
+- `components/bubble/` · Bubble · **후속 구현** → `Bubble`. 비모달 children/native div + tone/align 상세. Tooltip·chat backend와 구분하며 전체 기능 수락 전.
 - `components/button/` · Button · **재사용** → `Button`. kind×size×default/busy/disabled + H/P/F.
 - `components/checkbox/` · Checkbox · **재사용** → `Checkbox/CheckboxGroup`. 선택·mixed·그룹 disabled.
-- `components/grid-list/` · Grid List · **조합 확장** → `Grid + List/ListItem`. 격자 목록의 공개 조합과 반응형 의미 구조.
-- `components/highlight/` · Highlight · **누락** → `공개 강조 텍스트 API 없음`. mark 기반 강조·읽기 대비.
+- `components/grid-list/` · Grid List · **후속 구현** → `GridList`. generic items/renderItem/getKey와 native ul/li·반응형 격자 상세. 가상 DataGrid 아님, 전체 기능 수락 전.
+- `components/highlight/` · Highlight · **후속 구현** → `Highlight`. 문자열 query와 mark 기반 강조 상세. 정규식/diff 엔진 아님, 전체 기능 수락 전.
 - `components/icon-button/` · Icon Button · **재사용** → `IconAction/IconButton`. Lucide·한국어 accessible name.
 - `components/list-footer/` · List Footer · **조합 확장** → `ListPanel/ActionGroup`. 목록 footer·메타·action 공개 조합.
 - `components/list-header/` · List Header · **조합 확장** → `ListPanel/Stack`. 제목/설명/우측 action 공개 조합.

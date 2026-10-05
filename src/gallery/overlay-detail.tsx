@@ -1,3 +1,5 @@
+import {CodeBlock} from './code-block';
+import './playground.css';
 import React, { useId, useState } from "react";
 import { Button, Input } from "../components/atoms";
 import { ActionGroup } from "../components/composition";
@@ -255,9 +257,7 @@ export function Example() {
       </section>
       <details>
         <summary>코드</summary>
-        <pre className="code">
-          <code>{source}</code>
-        </pre>
+        <CodeBlock source={source}/>
         <p className="help">
           공개 진입점은 src/index.ts예요. Confirm·Drawer·Menu·Tooltip·Input도
           같은 경로에서 가져와요.

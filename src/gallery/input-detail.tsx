@@ -1,3 +1,5 @@
+import {CodeBlock} from './code-block';
+import './playground.css';
 import React from 'react';
 import { TextField } from '../components/text-field';
 import { PasswordInput } from '../components/form-controls';
@@ -48,7 +50,7 @@ export function InputDetail() {
         </div>
       </div>
     </section>
-    <details><summary>사용 코드</summary><pre><code>{`import { useState } from 'react';
+    <details><summary>사용 코드</summary><CodeBlock source={`import { useState } from 'react';
 import { TextField, type TextFieldProps } from './components/text-field';
 import { Button } from './components/atoms';
 import { Icon } from './components/icons';
@@ -72,7 +74,7 @@ export function Example() {
     <PasswordInput label="비밀번호" hint="8자 이상 입력해 주세요."
       autoComplete="new-password" />
   </div>;
-}`}</code></pre></details>
+}`}/></details>
     <details><summary>속성</summary>
       <div className="input-detail-table">
         <table>

@@ -4,6 +4,7 @@ export type GalleryEntry={id:string;name:string;label:string;atomic:AtomicLayer;
 export type GalleryRoute={kind:'component';id:string}|{kind:'page';page:'Overview'|AtomicLayer;invalid?:true};
 const entry=(name:string,label:string,atomic:AtomicLayer,group:ComponentGroup,aliases?:readonly string[]):GalleryEntry=>({id:name.replace(/([a-z0-9])([A-Z])/g,'$1-$2').toLowerCase(),name,label,atomic,group,aliases});
 export const galleryRegistry:readonly GalleryEntry[]=[
+ entry('GridList','격자 목록','Organisms','data'),entry('Highlight','텍스트 강조','Atoms','data'),entry('Bubble','말풍선','Molecules','data'),
  entry('BottomCTA','하단 작업','Organisms','layout'),
  entry('Slider','슬라이더','Atoms','inputs'),entry('Rating','별점','Molecules','inputs'),
  entry('ProgressStepper','단계 진행','Molecules','feedback'),entry('Result','결과','Organisms','feedback'),

@@ -1,3 +1,5 @@
+import {CodeBlock} from './code-block';
+import './playground.css';
 import React from "react";
 import {
   Slider,
@@ -94,9 +96,7 @@ export function RangeSelectionDetail({ kind }: RangeSelectionDetailProps) {
       </section>
       <details>
         <summary>사용 코드</summary>
-        <pre>
-          <code>{isSlider ? sliderCode : ratingCode}</code>
-        </pre>
+        <CodeBlock source={isSlider ? sliderCode : ratingCode}/>
       </details>
       <details>
         <summary>속성</summary>

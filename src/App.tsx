@@ -1,4 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
+import { Playground, hasPlayground } from "./gallery/playground";
+import { CodeBlock } from "./gallery/code-block";
 import { GalleryNavigation } from "./gallery/navigation";
 import { BottomCTADetail } from "./gallery/bottom-cta-detail";
 import { RangeSelectionDetail } from "./gallery/range-selection-detail";
@@ -387,9 +389,7 @@ function Demo({ name }: { name: string }) {
             {
               label: "코드",
               content: (
-                <pre>
-                  <code>{"<Tabs items={views} />"}</code>
-                </pre>
+                <CodeBlock source={"<Tabs items={views} />"}/>
               ),
             },
             {
@@ -489,11 +489,9 @@ function ComponentCard({ name }: { name: string; index: number }) {
         ))}
       </div>
       {view === "Preview" ? (
-        <Demo name={name} />
+        <>{hasPlayground(name) && <Playground name={name}/> }<Demo name={name} /></>
       ) : view === "Code" ? (
-        <pre className="code">
-          <code>{snippets[name]}</code>
-        </pre>
+        <CodeBlock source={snippets[name]}/>
       ) : (
         <div className="contract">
           <p>
@@ -855,15 +853,11 @@ function TemplatePreviews() {
         <span>→</span>
         <span>Input / Badge / Button</span>
       </div>
-      <pre className="code">
-        <code>
-          {kind === "Form"
+      <CodeBlock source={kind === "Form"
             ? "<FormTemplate title={title} fields={fields} actions={actions} aside={help} />"
             : kind === "List"
               ? "<ListTemplate title={title} toolbar={toolbar} rows={rows} footer={summary} />"
-              : "<FeedbackTemplate title={title} status={status} content={content} actions={actions} />"}
-        </code>
-      </pre>
+              : "<FeedbackTemplate title={title} status={status} content={content} actions={actions} />"}/>
       <div className="section-heading">
         <div>
           <span className="eyebrow">조합 구조 살펴보기</span>
@@ -989,9 +983,10 @@ export function App() {
           {entry ? (
             <section className="component-detail" key={entry.id}>
               <div className="page-heading"><span className="eyebrow">{entry.atomic} / {entry.group}</span><h1 tabIndex={-1}>{entry.label} · {entry.name}</h1></div>
+              {hasPlayground(entry.name) && <Playground name={entry.name}/> }
               {entry.name==="BottomCTA" ? <BottomCTADetail/> : ["Slider","Rating"].includes(entry.name) ? <RangeSelectionDetail kind={entry.name==="Slider"?"slider":"rating"}/> : ["ProgressStepper","Result"].includes(entry.name) ? <ProgressResultDetail kind={entry.name==="ProgressStepper"?"progress-stepper":"result"}/> : entry.name==="SegmentedControl" ? <SegmentedDetail/> : entry.name==="TextField" ? <InputDetail/> : ["ListRow","ListHeader","ListFooter"].includes(entry.name) ? <ListDetail/> : ["BottomSheet","Dialog"].includes(entry.name) ? <OverlayDetail kind={entry.name==="BottomSheet"?"bottom-sheet":"dialog"}/> : <>
-                <Demo name={entry.name}/>
-                <details><summary>코드 · API · 접근성</summary><pre className="code-block">{snippets[entry.name]}</pre></details>
+                {!hasPlayground(entry.name) && <Demo name={entry.name}/>}
+                {!hasPlayground(entry.name) && <details><summary>코드 · API · 접근성</summary>{snippets[entry.name] && <CodeBlock source={snippets[entry.name]}/>}</details>}
               </>}
             </section>
           ) : page === "Overview" ? (

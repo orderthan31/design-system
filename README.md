@@ -6,7 +6,7 @@ Vite·React·TypeScript 기반의 **한국어 문서와 실제 동작하는 컴�
 
 현재 checkpoint는 build/TypeScript 오류가 없는 구현을 먼저 Git으로 공유하고, 동일 commit의 프리뷰에서 기능을 점검하는 중간 검수본입니다. 전체 테스트·coverage·최종 독립 수락 완료를 의미하지 않으며, 프리뷰 공유와 최종 디자인 시스템 승인은 별도입니다.
 
-남은 범위는 GridList/Highlight/Bubble과 기존 API의 일부 전용 상세, 최종 전체 브라우저·동일 트리 독립 수락입니다. Chart/keypad/SDK 전용 기능, Safari/Firefox·실기기 보조기술·외부 주소 provider·소프트키보드 계약은 미구현 또는 미검증입니다. 현재 확인·교정된 결함과 범위별 근거는 기능 inventory에 구분해 기록합니다.
+GridList/Highlight/Bubble의 공개 API와 조작 가능한 상세를 추가했습니다. 일부 대표 컴포넌트는 props와 표시 코드가 함께 바뀌는 controls를 제공합니다. 남은 범위는 기존 API 일부의 전용 상세/controls 확장, 최종 전체 브라우저·동일 트리 독립 수락입니다. 새 구현은 build/typecheck 공유본이며 기능 수락을 의미하지 않습니다. Chart/keypad/SDK 전용 기능, Safari/Firefox·실기기 보조기술·외부 주소 provider·소프트키보드 계약은 미구현 또는 미검증입니다. 현재 확인·교정된 결함과 범위별 근거는 기능 inventory에 구분해 기록합니다.
 
 ## 설치·실행·검증
 
@@ -21,7 +21,7 @@ npm run check:browser
 npm run dev
 ```
 
-`npm run build`는 기준 토큰과 현재 slate/예시 테마 CSS·대비 JSON을 다시 생성하고 TypeScript 검사 후 production build를 만듭니다. `npm run themes`로 테마 출력만 재생성할 수 있습니다. 브라우저 검사는 production preview를 loopback 4173 포트에서 일시 실행하고 종료합니다. 다른 프로세스가 해당 포트를 사용하고 있다면 테스트 전에 충돌을 해소해야 합니다. 개발 서버도 loopback에만 바인딩합니다.
+`npm run build`는 기준 토큰과 현재 블루 기본값/예시 테마 CSS·대비 JSON을 다시 생성하고 TypeScript 검사 후 production build를 만듭니다. `npm run themes`로 테마 출력만 재생성할 수 있습니다. 브라우저 검사는 production preview를 loopback 4173 포트에서 일시 실행하고 종료합니다. 다른 프로세스가 해당 포트를 사용하고 있다면 테스트 전에 충돌을 해소해야 합니다. 개발 서버도 loopback에만 바인딩합니다.
 
 ## 문서 구조
 

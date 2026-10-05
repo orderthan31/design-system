@@ -1,3 +1,5 @@
+import {CodeBlock} from './code-block';
+import './playground.css';
 import React from "react";
 import { Button } from "../components/atoms";
 import { Progress } from "../components/primitives";
@@ -36,10 +38,10 @@ export function ProgressResultDetail({ kind }: ProgressResultDetailProps) {
       <Result variant="info" heading="데모 이용 안내"><p>실제 서비스에서는 성공 여부를 서버 응답으로 판단하고, 파괴적 동작은 별도의 확인과 위험 안내를 제공하세요.</p></Result>
       <Result variant="info" heading="사용할 수 없는 동작 예시" actions={<><Button disabled>권한 필요</Button><Button loading>처리 중</Button></>}><p>비활성 버튼과 처리 중인 버튼은 동작하지 않습니다.</p></Result>
     </>}
-    <details><summary>가져오기</summary><pre><code>{`import { ${isProgress ? "ProgressStepper" : "Result"} } from "./src/components/progress-result";\nimport { Button } from "./src/components/atoms";\nimport "./src/core.css";\nimport "./src/components/progress-result.css";\n// 앱 루트의 .ds-core 안에서 사용합니다.`}</code></pre></details>
-    <details><summary>사용 코드</summary><pre><code>{isProgress
+    <details><summary>가져오기</summary><CodeBlock source={`import { ${isProgress ? "ProgressStepper" : "Result"} } from "./src/components/progress-result";\nimport { Button } from "./src/components/atoms";\nimport "./src/core.css";\nimport "./src/components/progress-result.css";\n// 앱 루트의 .ds-core 안에서 사용합니다.`}/></details>
+    <details><summary>사용 코드</summary><CodeBlock source={isProgress
       ? `const [step, setStep] = useState(0);\n<ProgressStepper steps={["정보 입력", "내용 확인", "신청 완료"]} currentStep={step} />\n<Button disabled={step >= 2} onClick={() => setStep(s => Math.min(2, s + 1))}>다음 단계</Button>`
-      : `const [retried, setRetried] = useState(false);\nretried ? <Result variant="success" heading="완료">결과를 불러왔습니다.</Result> :\n<Result variant="error" heading="불러오기 실패" guidance="연결을 확인한 뒤 다시 시도해 주세요."\n  actions={<Button onClick={() => setRetried(true)}>다시 시도</Button>}>입력 내용은 유지됩니다.</Result>`}</code></pre></details>
+      : `const [retried, setRetried] = useState(false);\nretried ? <Result variant="success" heading="완료">결과를 불러왔습니다.</Result> :\n<Result variant="error" heading="불러오기 실패" guidance="연결을 확인한 뒤 다시 시도해 주세요."\n  actions={<Button onClick={() => setRetried(true)}>다시 시도</Button>}>입력 내용은 유지됩니다.</Result>`}/></details>
     <details><summary>API</summary>{isProgress
       ? <dl><dt>steps: readonly string[]</dt><dd>표시 순서의 텍스트 레이블. 빈 배열은 목록 대신 빈 상태를 표시합니다.</dd><dt>currentStep: number</dt><dd>0부터 시작하는 정수. 0 이상 steps.length 미만만 유효합니다. 음수·범위 밖·소수·NaN·Infinity는 모든 단계를 대기로 표시하고 오류 안내를 제공합니다. 전체 완료 sentinel은 없습니다.</dd><dt>label?: string</dt><dd>목록 이름. 기본값은 진행 단계입니다.</dd></dl>
       : <dl><dt>variant</dt><dd>success | error | empty | info. 필수 상태.</dd><dt>heading / children / actions</dt><dd>ReactNode 제목·필수 내용·선택 독립 동작 슬롯. 제목에는 제목 요소를 다시 넣지 않습니다.</dd><dt>headingLevel?: 2 | 3 | 4</dt><dd>기본값 3. 화면의 제목 계층에 맞춥니다.</dd><dt>guidance: string</dt><dd>error에서 필수 복구 안내. 나머지에서는 선택. 빈 오류 안내는 안전한 기본 안내로 대체됩니다.</dd></dl>}</details>

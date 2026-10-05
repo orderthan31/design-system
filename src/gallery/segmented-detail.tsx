@@ -1,3 +1,5 @@
+import {CodeBlock} from './code-block';
+import './playground.css';
 import React from 'react';
 import {SegmentedControl} from '../components/segmented-control';
 import {Button} from '../components/atoms';
@@ -24,7 +26,7 @@ export function SegmentedDetail(){
     <p role="status" aria-label="제출 결과">{submitted?`제출한 표시 방식: ${submitted}`:'아직 제출 전'}</p>
    </form>
   </section>
-  <details><summary>사용 코드</summary><pre><code>{`import { useState } from 'react';
+  <details><summary>사용 코드</summary><CodeBlock source={`import { useState } from 'react';
 import { SegmentedControl } from './src/index';
 import './src/core.css';
 
@@ -36,7 +38,7 @@ export function Example() {
         { value: 'ready', label: '준비 완료' }]}
       value={scope} onValueChange={setScope} />
   </div>;
-}`}</code></pre></details>
+}`}/></details>
   <details><summary>속성과 조합</summary><ul>
    <li><code>label: string</code>, <code>options: readonly SegmentedOption[]</code>는 필수입니다. 옵션은 고유한 value, 문자열 label, 선택적 disabled를 가집니다.</li>
    <li><code>value?: string</code>는 제어 값, <code>defaultValue?: string</code>는 비제어 초기 값입니다. 기본 선택은 없습니다. onValueChange(value, native change event)에서 소유자가 value 갱신을 거절할 수 있습니다.</li>

@@ -2,6 +2,16 @@
 
 현재 공유 기준: build/TypeScript 오류가 없는 안정 checkpoint는 먼저 Git으로 공유하고 동일 commit의 프리뷰에서 기능 점검한다. 아래 범위별 이력은 최종 전체 수락이 아니며, 과거 검수 전 push 보류를 현재 프리뷰 공유의 선행 조건으로 적용하지 않는다. 전체 coverage·동일 트리 독립 최종 수락은 별도 잔여다.
 
+## Props / 코드 / 표면 교정 checkpoint
+
+- 갤러리의 `CodeBlock`은 Prettier TSX 포맷, Prism 토큰 색상, code-local scroll, 실제 현재 코드 복사 결과를 제공합니다. 포맷 실패 시 원문을 표시합니다. formatter/highlighter는 갤러리에만 import하며 core export에 넣지 않습니다. MIT attribution은 `docs/licenses/`에 보존합니다.
+- `Playground` controls는 Button/Badge/Alert/Progress/TextField/Slider/Rating/SegmentedControl/Result/GridList/Highlight/Bubble의 실제 공개 props와 현재 코드에 연결됩니다. 초기화·선택 결과·편집 값은 로컬 데모 상태입니다. 모든 공개 API 상세에 controls가 붙었다는 의미는 아닙니다.
+- `GridList` (`content-primitives.tsx`): generic items/renderItem/getKey/label + columns 1–4, native ul/li, 컨테이너 폭에 맞춘 열 축소·빈 목록. 가상 DataGrid·정렬 엔진 아님.
+- `Highlight`: 원문/문자열 query·대소문자 옵션을 받아 일치 구간을 mark로 표시. query의 정규식 문자를 이스케이프하며 HTML을 실행하지 않습니다. diff/syntax engine 아님.
+- `Bubble`: children/native div + neutral/info·start/end의 비모달 말풍선. tooltip/modal/chat backend/live region이 아닙니다. 세 API는 index/core/registry 및 실제 상세에 연결했습니다.
+- 중첩 문서·카드·목록·템플릿 장식 보더를 줄였고 제한된 표면/shadow로 구분합니다. 기존 input/focus/error/selection 경계와 테스트는 보존합니다.
+- 현재 공유 gate는 build/typecheck 및 공개 tree 안전성입니다. 아래 unit/browser/scoped PASS 숫자는 **과거 해당 소스의 이력**이며 이 시각·신규 API 변경본의 통과 결과가 아닙니다. 신규 API의 전체 회귀/independent 수락과 나머지 API controls는 잔여입니다.
+
 ## BottomCTA border-box 예약 교정 (이전 scoped 검수 불통과 후)
 
 - 독립 검수 (내부 검수 식별자 생략)는 security0/medium logic1로 불통과했다. 실제 높이는 border-box로 읽지만 기본 content-box 관찰 때문에 padding/border만 바뀌면 예약값이 남는 결함이었다. 부모가 unit2RED와 실제 Chromium320 document/owned-scroll 2RED(footer/spacer 차이40px)로 재현했다.
@@ -28,7 +38,7 @@
 ## 공개 진입점과 계층
 
 - `src/index.ts`: 원래 `componentFamilies`의 18종과 추가 레이아웃·조합·템플릿을 별도로 export한다. 18종 레지스트리는 전체 export 개수가 아니다.
-- 기초: `resolveTokens` (`src/tokens.ts`), `defaultTheme`, `themes`, `applyTheme`, `assessTheme` (`src/themes.ts`). 정식 소비 스타일은 `src/core.css`와 `.ds-core` 범위다. 기본은 slate, 교체 예시는 indigo/teal이다. `applyTheme`의 범위 적용·복원과 대비 계산은 앱 전체 접근성 적합성과 별개다.
+- 기초: `resolveTokens` (`src/tokens.ts`), `defaultTheme`, `themes`, `applyTheme`, `assessTheme` (`src/themes.ts`). 정식 소비 스타일은 `src/core.css`와 `.ds-core` 범위다. 현재 기본은 블루이며 역사적 API 식별자 slate는 유지한다. 교체 예시는 indigo/teal이다. `applyTheme`의 범위 적용·복원과 대비 계산은 앱 전체 접근성 적합성과 별개다.
 - 아톰 → 분자 → 영역 → 템플릿은 이름이 아니라 아래 실제 중첩 관계로 분류한다. 확장 파일의 `export *`에는 공개 타입과 갤러리도 포함된다. `StateGallery`, `ThemeGallery`는 `App`에서 사용하지만 `src/index.ts`의 공개 export는 아니다.
 - 기초 근거: `tests/tokens.test.ts`, `tests/generated-source.test.ts`, `tests/default-theme.test.ts`, `tests/themes.test.ts`, `tests/theme-evidence.test.ts`, `tests/core-styles.test.ts`; 브라우저 소스 `browser/core-consumer.spec.ts`, `browser/theme-integration.spec.ts`. 토큰·폰트 원본 보존과 렌더링·글리프 검증은 구분한다.
 

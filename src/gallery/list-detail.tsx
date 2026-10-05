@@ -1,3 +1,5 @@
+import {CodeBlock} from './code-block';
+import './playground.css';
 import React from "react";
 import { Button, Input } from "../components/atoms";
 import { List } from "../components/data-display";
@@ -171,13 +173,7 @@ export function ListDetail() {
         <p role="status">{status}</p>
         <details>
           <summary>가져오기</summary>
-          <pre>
-            <code>
-              {
-                'import { List, ListRow, ListHeader, ListFooter } from "./src/index";\nimport "./src/core.css";'
-              }
-            </code>
-          </pre>
+          <CodeBlock source={'import { List, ListRow, ListHeader, ListFooter } from "./src/index";\nimport "./src/core.css";'}/>
           <p>공개 진입점에서 가져오고 부모에 ds-core 클래스를 적용합니다.</p>
         </details>
         <details>
@@ -195,13 +191,7 @@ export function ListDetail() {
         <details>
           <summary>타입</summary>
           <p>ListRowProps, ListHeaderProps, ListFooterProps를 제공합니다.</p>
-          <pre>
-            <code>
-              {
-                "onSelectionChange?: (selected: boolean) => void;\naction?: { label: string; onClick: () => void };"
-              }
-            </code>
-          </pre>
+          <CodeBlock source={"onSelectionChange?: (selected: boolean) => void;\naction?: { label: string; onClick: () => void };"}/>
         </details>
         <details>
           <summary>기본값</summary>
@@ -222,13 +212,7 @@ export function ListDetail() {
             오른쪽 슬롯은 ListRow에서 제공합니다. 이 예시는 PC DataTable이나
             기존 목록 템플릿을 대체하지 않습니다.
           </p>
-          <pre>
-            <code>
-              {
-                '<ListRow title="항목" leading={<Icon name="file" />}\n  trailing={<span>초안</span>}\n  selected={selected} onSelectionChange={setSelected}\n  action={{ label: "열기", onClick: open }} />'
-              }
-            </code>
-          </pre>
+          <CodeBlock source={'<ListRow title="항목" leading={<Icon name="file" />}\n  trailing={<span>초안</span>}\n  selected={selected} onSelectionChange={setSelected}\n  action={{ label: "열기", onClick: open }} />'}/>
         </details>
         <details>
           <summary>접근성</summary>
