@@ -12,7 +12,7 @@ import { SegmentedDetail } from "./gallery/segmented-detail";
 import { InputDetail } from "./gallery/input-detail";
 import { ListDetail } from "./gallery/list-detail";
 import { OverlayDetail } from "./gallery/overlay-detail";
-import { galleryRegistry, resolveGalleryHash, type GalleryRoute } from "./gallery/registry";
+import { galleryRegistry, componentHash, resolveGalleryHash, type GalleryRoute } from "./gallery/registry";
 import { Button, Input } from "./components/atoms";
 import {
   Badge,
@@ -73,22 +73,6 @@ const toneLabels: Record<Tone, string> = {
   error: "오류",
 };
 type Language = keyof typeof longText;
-const families = {
-  Atoms: [
-    "Button",
-    "IconButton",
-    "Input",
-    "Textarea",
-    "Select",
-    "Checkbox",
-    "Badge",
-    "Progress",
-    "Skeleton",
-    "Separator",
-  ],
-  Molecules: ["FormField", "Alert", "EmptyState", "Menu", "Tabs", "Tooltip"],
-  Organisms: ["Dialog", "Confirm"],
-};
 const snippets: Record<string, string> = {
   Button: "<Button loading={saving} onClick={save}>변경 사항 저장</Button>",
   IconButton: '<IconButton label="Close" onClick={close}>×</IconButton>',
@@ -473,50 +457,14 @@ function Demo({ name }: { name: string }) {
     </>
   );
 }
-function ComponentCard({ name }: { name: string; index: number }) {
-  const [view, setView] = useState("Preview");
-  const historical = (contracts as Record<string, { states: string[] }>)[name];
-  return (
-    <article className="component-card" id={name.toLowerCase()}>
-      <div className="card-title">
-        <div>
-          <h2>{name}</h2>
-        </div>
-        <span className="component-tag">React</span>
-      </div>
-      <div className="view-switch" aria-label={`${name} 문서 보기`}>
-        {["Preview", "Code", "Contract"].map((v) => (
-          <button key={v} aria-pressed={view === v} onClick={() => setView(v)}>
-            {{ Preview: "미리보기", Code: "코드", Contract: "계약" }[v]}
-          </button>
-        ))}
-      </div>
-      {view === "Preview" ? (
-        <>{hasPlayground(name) && <Playground name={name}/> }<Demo name={name} /></>
-      ) : view === "Code" ? (
-        <CodeBlock source={snippets[name]}/>
-      ) : (
-        <div className="contract">
-          <p>
-            <strong>기준 상태 계약</strong> (원본 유지, 실행 시 통과를 보장하지
-            않음)
-          </p>
-          <div className="wrap">
-            {historical.states.map((s) => (
-              <span className="state-chip" key={s}>
-                {s}
-              </span>
-            ))}
-          </div>
-          <p>
-            텍스트는 줄바꿈하고 컨테이너는 늘어납니다. 초점은 처리 중·오류·선택
-            상태와 독립적입니다. 범위별 예외는 원본 계약에서 확인하세요.
-          </p>
-          <a href="/source/contracts/components.json">원본 계약 보기 ↗</a>
-        </div>
-      )}
-    </article>
-  );
+function StateContract({name}:{name:string}) {
+  const historical=(contracts as Record<string,{states:string[]}>)[name];
+  if(!historical)return null;
+  return <details className="contract"><summary>기준 상태 계약</summary><p>원본 상태 계약이며 현재 구현의 전체 검증 통과를 의미하지 않습니다.</p><div className="wrap">{historical.states.map(state=><span className="state-chip" key={state}>{state}</span>)}</div><p>텍스트는 줄바꿈하고 컨테이너는 늘어납니다. 초점은 처리 중·오류·선택 상태와 독립적입니다. 범위별 예외는 원본 계약에서 확인하세요.</p><a href="/source/contracts/components.json">원본 계약 보기 ↗</a></details>;
+}
+function RelatedExamples({name}:{name:string}) {
+  const examples=name==='Button'?<StateGallery/>:name==='FormField'?<FormControlsGallery/>:name==='Alert'?<FeedbackGallery/>:name==='DatePicker'?<DateControlsGallery/>:name==='DataTable'?<DataDisplayGallery/>:name==='Dialog'?<NavigationRegionsGallery/>:null;
+  return examples?<details><summary>관련 상태 · 조합 예제</summary>{examples}</details>:null;
 }
 function Foundations() {
   const [layer, setLayer] = useState<"primitive" | "semantic" | "component">(
@@ -882,10 +830,7 @@ export function App() {
     });
     return ()=>cancelAnimationFrame(frame);
   }, [route,navOpen]);
-  const group =
-    page === "Atoms" || page === "Molecules" || page === "Organisms"
-      ? families[page]
-      : null;
+  const group = galleryRegistry.filter(item=>item.atomic===page);
   return (
     <div className="app ds-core">
       <a className="skip-link" href="#main">
@@ -923,9 +868,9 @@ export function App() {
                 {["◈", "◐", "▦", "◇", "▤", "▥"][i]}
               </span>
               {pageLabels[p]}
-              {p in families && (
+              {["Atoms","Molecules","Organisms","Templates"].includes(p) && (
                 <span className="nav-count">
-                  {families[p as keyof typeof families].length}
+                  {galleryRegistry.filter(item=>item.atomic===p).length}
                 </span>
               )}
             </a>
@@ -962,6 +907,8 @@ export function App() {
                 {!hasPlayground(entry.name) && <Demo name={entry.name}/>}
                 {!hasPlayground(entry.name) && <details><summary>코드 · API · 접근성</summary>{snippets[entry.name] && <CodeBlock source={snippets[entry.name]}/>}</details>}
               </>}
+              <StateContract name={entry.name}/>
+              <RelatedExamples name={entry.name}/>
             </section>
           ) : page === "Overview" ? (
             <Overview navigate={navigate} />
@@ -969,6 +916,7 @@ export function App() {
             <Foundations />
           ) : page === "Templates" ? (
             <>
+              <div className="component-index" aria-label="Templates 컴포넌트 목록">{group.map(item=><a key={item.id} href={componentHash(item.id)}>{item.name}</a>)}</div>
               <TemplatePreviews />
               <WorkspaceTemplatesGallery />
             </>
@@ -978,30 +926,9 @@ export function App() {
                 title={pageLabels[page]}
                 eyebrow=""
               />
-              <div className="component-index">
-                {group?.map((n) => (
-                  <a key={n} href={`#${n.toLowerCase()}`}>
-                    {n}
-                  </a>
-                ))}
+              <div className="component-index" aria-label={`${page} 컴포넌트 목록`}>
+                {group.map(item=><a key={item.id} href={componentHash(item.id)}>{item.name}</a>)}
               </div>
-              {group?.map((n, i) => (
-                <ComponentCard key={n} name={n} index={i} />
-              ))}
-            </>
-          )}
-          {!entry && page === "Atoms" && <StateGallery />}
-          {!entry && page === "Molecules" && (
-            <>
-              <FormControlsGallery />
-              <FeedbackGallery />
-            </>
-          )}
-          {!entry && page === "Organisms" && (
-            <>
-              <NavigationRegionsGallery />
-              <DataDisplayGallery />
-              <DateControlsGallery />
             </>
           )}
           <footer className="page-footer">

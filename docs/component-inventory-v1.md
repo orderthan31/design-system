@@ -2,6 +2,12 @@
 
 현재 공유 기준: build/TypeScript 오류가 없는 안정 checkpoint는 먼저 Git으로 공유하고 동일 commit의 프리뷰에서 기능 점검한다. 아래 범위별 이력은 최종 전체 수락이 아니며, 과거 검수 전 push 보류를 현재 프리뷰 공유의 선행 조건으로 적용하지 않는다. 전체 coverage·동일 트리 독립 최종 수락은 별도 잔여다.
 
+## Atomic 탐색 정본 교정
+
+- 상위 Atomic 목록·sidebar 개수·Templates 진입을 galleryRegistry에서 생성하고 componentHash(id) canonical URL로 연결합니다. legacy 10/6/2 목록과 #button 같은 비정본 anchor, 분류 화면의 Playground+Demo 중복 카드는 제거했습니다.
+- 원본 상태 계약은 해당 개별 상세의 접힌 “기준 상태 계약”에서 유지합니다. 기존 상태/조합 gallery는 Button/FormField/Alert/DatePicker/DataTable/Dialog의 접힌 관련 예제에서 접근 가능하며 새 개별 상세 완료 수로 중복 계산하지 않습니다.
+- registry에 등록됐다는 이유로 빈 상세를 구현 완료로 계산하지 않습니다. 5bcf966 frozen source의 80 core 존재/48 빈 shell/32 canonical demo 판정은 coordinator의 과거 baseline 대조이며, 현재 후속 상세 연결 뒤의 전수 판정은 별도입니다. props schema·좁은 knobs·route API 본문·core 존재·mounted demo·최종 검증을 구분합니다.
+
 ## Overview와 우선 개별 상세 연결 checkpoint
 
 - Overview는 무작위 저장 폼/CompositionExample 대신 Foundations·Components·Templates 진입, API/한국어 검색과 직접 상세 링크, 저장소 실행 및 소스 import 안내를 제공합니다. npm 미발행 상태, `.ds-core`/core.css와 font 자산 계약을 명시합니다.
