@@ -1,4 +1,4 @@
-export type AtomicLayer='Foundations'|'Atoms'|'Molecules'|'Organisms'|'Templates';
+export type AtomicLayer='Foundations'|'Atoms'|'Molecules'|'Organisms';
 export type ComponentGroup='inputs'|'navigation'|'data'|'feedback'|'overlays'|'layout'|'foundations';
 export type GalleryEntry={id:string;name:string;label:string;atomic:AtomicLayer;group:ComponentGroup;aliases?:readonly string[]};
 export type GalleryRoute={kind:'component';id:string}|{kind:'page';page:'Overview'|'Foundations';invalid?:true};
@@ -26,7 +26,6 @@ export const galleryRegistry:readonly GalleryEntry[]=[
  entry('Table','표','Organisms','data'),entry('DataTable','데이터 테이블','Organisms','data'),entry('Pagination','페이지 탐색','Molecules','data'),entry('List','목록','Organisms','data'),entry('ListItem','목록 항목','Molecules','data'),
  entry('Badge','배지','Atoms','feedback'),entry('Alert','알림','Molecules','feedback'),entry('Progress','진행률','Atoms','feedback'),entry('Skeleton','자리 표시','Atoms','feedback'),entry('LoadingSpinner','로딩','Atoms','feedback'),entry('EmptyState','빈 결과','Organisms','feedback'),entry('ErrorState','오류 결과','Organisms','feedback'),entry('Toast','토스트','Molecules','feedback'),entry('Accordion','아코디언','Molecules','feedback'),entry('Collapse','펼침','Molecules','feedback'),
  entry('Separator','구분선','Atoms','layout'),entry('Container','컨테이너','Atoms','layout'),entry('Stack','수직 배치','Atoms','layout'),entry('Grid','격자','Atoms','layout'),entry('Shell','탐색 레이아웃','Organisms','layout'),entry('ActionGroup','동작 그룹','Molecules','layout'),entry('FormSection','폼 영역','Organisms','layout'),entry('ListPanel','목록 영역','Organisms','layout'),
- entry('FormTemplate','폼 템플릿','Templates','layout'),entry('ListTemplate','목록 템플릿','Templates','layout'),entry('FeedbackTemplate','피드백 템플릿','Templates','layout'),entry('DetailTemplate','상세 템플릿','Templates','layout'),entry('DesktopWorkspaceTemplate','PC 작업 공간','Templates','layout'),entry('MobileWorkspaceTemplate','모바일 작업 공간','Templates','layout'),
  entry('Icon','아이콘','Atoms','foundations'),entry('IconAction','아이콘 동작','Molecules','inputs')
 ];
 export const componentHash=(id:string)=>`#/components/${encodeURIComponent(id)}`;

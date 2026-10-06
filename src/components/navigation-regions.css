@@ -1,3 +1,4 @@
+@layer components {
 /* Opt-in component styles; baseline tokens and typography remain unchanged. */
 .ds-core .nr-gallery {
   display: grid;
@@ -246,4 +247,5 @@
     width: 100vw;
     border-radius: 0;
   }
+}
 }

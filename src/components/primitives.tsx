@@ -1,4 +1,5 @@
 import React from "react";
+import "./input.css";
 export function Separator() {
   return <hr className="separator" />;
 }
@@ -44,7 +45,7 @@ export function IconButton({
     <Button
       {...props}
       variant={props.variant ?? "secondary"}
-      className="icon-button"
+      data-slot="icon-button"
       aria-label={label}
     >
       {children}

@@ -1,0 +1,29 @@
+/* Pretendard asset URLs: see docs/source-installation.md. No host font/reset rule. */
+@font-face {
+  font-family: Pretendard;
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/source/fonts/Pretendard-Regular.woff2") format("woff2");
+}
+@font-face {
+  font-family: Pretendard;
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/source/fonts/Pretendard-Medium.woff2") format("woff2");
+}
+@font-face {
+  font-family: Pretendard;
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/source/fonts/Pretendard-SemiBold.woff2") format("woff2");
+}
+@font-face {
+  font-family: Pretendard;
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/source/fonts/Pretendard-Bold.woff2") format("woff2");
+}

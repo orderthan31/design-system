@@ -1,7 +1,9 @@
+import { Field, described, type FieldProps, type TextControlProps } from "./field-frame";
+import { PasswordInput } from "./password-input";
+export { PasswordInput } from "./password-input";
+export type { FieldProps, TextControlProps, PasswordInputProps } from "./field-frame";
 import React from "react";
-import * as Toggle from "@radix-ui/react-toggle";
 import { Icon } from "./icons";
-import { InputGroup, InputGroupAddon, InputGroupInput } from "./input-group";
 import "./form-controls.css";
 import { Input, Button } from "./atoms";
 import { Checkbox, Select, Textarea } from "./primitives";
@@ -890,96 +892,8 @@ export function NumberInput({
 }
 export const Stepper = NumberInput;
 
-export type FieldProps = {
-  label: string;
-  required?: boolean;
-  disabled?: boolean;
-  error?: string;
-  hint?: string;
-  id?: string;
-  name?: string;
-};
-export type TextControlProps = FieldProps &
-  Omit<React.InputHTMLAttributes<HTMLInputElement>, "size">;
-export type PasswordInputProps = TextControlProps;
 export type StepperProps = NumberInputProps;
 export type CurrencyInputProps = ValidatedInputProps;
 export type PhoneInputProps = ValidatedInputProps;
 export type EmailInputProps = ValidatedInputProps;
 export type AutocompleteProps = ComboboxProps;
-function Field({
-  label,
-  required,
-  id,
-  hint,
-  error,
-  children,
-}: FieldProps & { children: React.ReactNode }) {
-  return (
-    <div className="field fc-field">
-      <label htmlFor={id}>
-        {label}
-        {required && " (필수)"}
-      </label>
-      {children}
-      {hint && (
-        <p id={`${id}-hint`} className="help">
-          {hint}
-        </p>
-      )}
-      {error && (
-        <p id={`${id}-error`} className="error" role="alert">
-          {error}
-        </p>
-      )}
-    </div>
-  );
-}
-function described(id: string, hint?: string, error?: string) {
-  return (
-    [hint && `${id}-hint`, error && `${id}-error`].filter(Boolean).join(" ") ||
-    undefined
-  );
-}
-export function PasswordInput({
-  label, hint, error, id: supplied, ...props
-}: TextControlProps) {
-  const generated = React.useId(), id = supplied ?? generated;
-  const [visible, setVisible] = React.useState(false);
-  const composing = React.useRef(false);
-  const busy = props['aria-busy'] === true || props['aria-busy'] === 'true';
-  const restore = React.useRef<{input:HTMLInputElement;start:number|null;end:number|null;direction:"forward"|"backward"|"none"|null;focused:boolean}|null>(null);
-  React.useLayoutEffect(()=>{
-    const saved=restore.current;restore.current=null;
-    if(!saved||!saved.input.isConnected)return;
-    if(saved.focused)saved.input.focus({preventScroll:true});
-    if(saved.start!==null&&saved.end!==null)saved.input.setSelectionRange(saved.start,saved.end,saved.direction??'none');
-  },[visible]);
-  return (
-    <Field {...props} label={label} id={id} hint={hint} error={error}>
-      <InputGroup>
-        <InputGroupInput
-          {...props} id={id} type={visible ? "text" : "password"}
-          aria-invalid={!!error} aria-describedby={described(id,hint,error)}
-          onCompositionStart={event=>{composing.current=true;props.onCompositionStart?.(event);}}
-          onCompositionEnd={event=>{composing.current=false;props.onCompositionEnd?.(event);}}
-        />
-        <InputGroupAddon>
-          <Toggle.Root
-            className="ds-input-group-toggle" type="button" pressed={visible}
-            disabled={props.disabled} aria-busy={busy||undefined} aria-disabled={busy||props.disabled||undefined} aria-label={visible ? "비밀번호 숨기기" : "비밀번호 표시"}
-            onPointerDown={event=>{if(event.button===0&&document.activeElement?.id===id)event.preventDefault();}}
-            onPressedChange={next=>{
-              if(composing.current||busy)return;
-              const input=document.getElementById(id);
-              if(input instanceof HTMLInputElement)restore.current={input,start:input.selectionStart,end:input.selectionEnd,direction:input.selectionDirection,focused:document.activeElement===input};
-              setVisible(next);
-            }}
-          >
-            <Icon name={visible ? 'eye-off' : 'eye'}/>
-          </Toggle.Root>
-        </InputGroupAddon>
-      </InputGroup>
-    </Field>
-  );
-}

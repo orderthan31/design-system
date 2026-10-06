@@ -1,0 +1,53 @@
+@import "./control-base.css";
+@layer components {
+:where(.ds-core) .control {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  min-height: var(--size-control);
+  padding: var(--ds-control-padding-block) var(--ds-control-padding-inline);
+  border: var(--ds-border-thin) solid var(--ds-boundary-rest,var(--field-border,var(--color-border-control)));
+  border-radius: var(--ds-radius-control);
+  background: var(--field-bg,var(--color-bg-surface));
+  color: var(--field-fg,var(--color-text-primary));
+  font-size: var(--ds-control-font-size);
+  line-height: var(--ds-control-line-height);
+}
+:where(.ds-core) .control::placeholder {
+  color: var(--field-description,var(--color-text-muted));
+}
+:where(.ds-core) .control[aria-invalid="true"] {
+  border-color: var(--field-error-fg,var(--color-status-error-fg));
+}
+:where(.ds-core) .control:read-only {
+  background: var(--color-bg-canvas);
+}
+:where(.ds-core) select.control {
+  background: var(--field-bg,var(--color-bg-surface));
+}
+:where(.ds-core) .control:disabled {
+  background: var(--color-disabled-bg);
+  color: var(--color-disabled-fg);
+}
+
+}
+
+@layer components {
+:where(.ds-core) .control:not(:disabled):not([readonly]):not([aria-invalid="true"]):hover {
+  border-color:var(--color-text-muted);
+}
+:where(.ds-core) .control:not(:disabled):focus-visible { border-color:var(--color-focus); }
+:where(.ds-core) .control[aria-invalid="true"]:focus-visible { border-color:var(--field-error-fg,var(--color-status-error-fg)); }
+:where(.ds-core) .control:disabled { border-color:var(--color-border-subtle); cursor:not-allowed; }
+:where(.ds-core) .control[aria-busy="true"] { cursor:progress; }
+:where(.ds-core) .control:hover:not(:disabled):not([aria-invalid="true"]) {
+  border-color: var(--color-text-muted);
+}
+:where(.ds-core) .control:active:not(:disabled):not([readonly]),
+/* Native popup can release :active immediately; :open tracks the real popup. */
+:where(.ds-core) select.control:open:not(:disabled) {
+  background: var(--color-bg-subtle);
+}
+
+}

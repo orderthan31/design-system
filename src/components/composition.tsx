@@ -1,7 +1,6 @@
-import React, { useId, useState } from "react";
-import { Button, Input } from "./atoms";
-import { FormField } from "./molecules";
-import { Container, Stack, Grid } from "./layout";
+import React, { useId } from "react";
+import { Input } from "./atoms";
+import { Stack } from "./layout";
 import "./layout.css";
 export function ActionGroup({
   children,
@@ -55,86 +54,5 @@ export function ListPanel({
       {toolbar}
       <Stack>{children}</Stack>
     </section>
-  );
-}
-export function DetailTemplate({
-  title,
-  summary,
-  content,
-  actions,
-}: {
-  title: string;
-  summary: React.ReactNode;
-  content: React.ReactNode;
-  actions?: React.ReactNode;
-}) {
-  const id = useId();
-  return (
-    <section aria-labelledby={id}>
-      <h3 id={id}>{title}</h3>
-      <Grid>
-        <aside>{summary}</aside>
-        <div>{content}</div>
-      </Grid>
-      {actions && <ActionGroup>{actions}</ActionGroup>}
-    </section>
-  );
-}
-export function CompositionExample() {
-  const [showDetail, setShowDetail] = useState(true);
-  const listSearchId = useId();
-  const [query, setQuery] = useState("");
-  const [saved, setSaved] = useState(false);
-  return (
-    <Container>
-
-      <Grid>
-        <FormSection
-          title="Form"
-          actions={
-            <>
-              <Button onClick={() => setSaved(true)}>예시 저장</Button>
-              <Button variant="ghost" onClick={() => setSaved(false)}>
-                예시 초기화
-              </Button>
-            </>
-          }
-        >
-          <FormField
-            label="표시 이름"
-
-          />
-          {saved && <p role="status">예시를 메모리에만 저장했습니다.</p>}
-        </FormSection>
-        <ListPanel
-          title="List"
-          toolbar={
-            <SearchField
-              id={listSearchId}
-              aria-label="항목 검색"
-              placeholder="예시 항목 검색"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-            />
-          }
-        >
-          {["첫 번째 항목", "두 번째 항목"]
-            .filter((v) => v.toLowerCase().includes(query.toLowerCase()))
-            .map((v) => (
-              <p key={v}>{v}</p>
-            ))}
-        </ListPanel>
-      </Grid>
-      {showDetail && <DetailTemplate
-        title="Detail"
-        summary={<p>선택 정보</p>}
-        content={
-          <FormSection title="상세 내용">
-            <FormField label="상세 레이블" />
-          </FormSection>
-        }
-        actions={<Button variant="secondary" onClick={()=>{setShowDetail(false);document.getElementById(listSearchId)?.focus();}}>목록으로 돌아가기</Button>}
-      />}
-    </Container>
   );
 }

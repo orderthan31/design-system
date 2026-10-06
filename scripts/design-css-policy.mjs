@@ -10,15 +10,17 @@ function files(dir){return fs.readdirSync(dir,{withFileTypes:true}).flatMap(entr
 function inKeyframes(rule){for(let p=rule.parent;p;p=p.parent)if(p.type==='atrule'&&/keyframes$/i.test(p.name))return true;return false;}
 const cssScope=file=>file==='src/core.css'||file.startsWith('src/components/');
 export function lintCSS(text,file,{ownedClasses=new Set()}={}) {
+ // :where(.ds-core) keeps the same ancestor constraint while lowering specificity.
+ const scopeSelector=selector=>selector.trim().replace(/^:where\(\.ds-core\)/,'.ds-core');
  const findings=[],add=(node,rule,message)=>findings.push({file,line:node.source?.start?.line??1,column:node.source?.start?.column??1,rule,message,selector:node.parent?.selector??'',property:node.prop??'',value:node.value??''});
  let root;try{root=postcss.parse(text,{from:file});}catch(error){return [{file,line:error.line??1,rule:'css/parse',message:error.reason}];}
- root.walkRules(rule=>{if(cssScope(file)&&!inKeyframes(rule))for(const selector of postcss.list.comma(rule.selector))if(!/^\.ds-core(?:\b|\s|:)/.test(selector.trim()))add(rule,'css/scoped-core','Core selector must have a .ds-core ancestor; font-face/keyframes are separately scoped registrations.');});
+ root.walkRules(rule=>{if(cssScope(file)&&!inKeyframes(rule))for(const selector of postcss.list.comma(rule.selector))if(!/^\.ds-core(?:\b|\s|:)/.test(scopeSelector(selector)))add(rule,'css/scoped-core','Core selector must have a .ds-core ancestor; font-face/keyframes are separately scoped registrations.');});
  root.walkDecls(decl=>{
   const prop=decl.prop.toLowerCase(),value=decl.value,rule=decl.parent?.type==='rule'?decl.parent:null,selector=rule?.selector??'';
   // Existing reduced-motion safety must beat later component animation declarations.
   // Exact core scope, media preference, property and terminal value only; not gallery precedence.
   let reducedMedia=false;for(let p=decl.parent;p;p=p.parent)if(p.type==='atrule'&&p.name==='media'&&p.params.replace(/\s+/g,'')==='(prefers-reduced-motion:reduce)')reducedMedia=true;
-  const reducedMotionSafety=file==='src/core.css'&&reducedMedia&&selector.split(',').every(part=>part.trim().startsWith('.ds-core'))&&({animation:'none',transition:'none','scroll-behavior':'auto'})[prop]===value;
+  const reducedMotionSafety=file==='src/core.css'&&reducedMedia&&selector.split(',').every(part=>scopeSelector(part).startsWith('.ds-core'))&&({animation:'none',transition:'none','scroll-behavior':'auto'})[prop]===value;
   if(decl.important&&!reducedMotionSafety)add(decl,'css/no-important','Do not force gallery precedence; repair ownership/specificity.');
   const source=tokenSources.has(file)&&prop.startsWith('--');
   const registration=decl.parent?.type==='atrule'&&decl.parent.name==='font-face';

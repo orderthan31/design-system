@@ -26,7 +26,7 @@ test('malformed hashchange preserves the current page and subsequent navigation 
       expect(errors).toEqual([]);
       expect(screen.getByRole('heading', {level: 1})).toHaveTextContent('아톰');
     }
-    for (const [fragment, label] of [['%46oundations', '기초'], ['Molecules', '몰리큘'], ['Organisms', '오가니즘'], ['Templates', '템플릿'], ['Overview', '개요']]) {
+    for (const [fragment, label] of [['%46oundations', '기초'], ['Molecules', '몰리큘'], ['Organisms', '오가니즘'], ['Overview', '개요']]) {
       act(() => {
         window.history.replaceState(null, '', `/#${fragment}`);
         window.dispatchEvent(new HashChangeEvent('hashchange'));

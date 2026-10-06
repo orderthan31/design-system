@@ -1,7 +1,7 @@
 import React,{useState} from 'react';
 import {Input,Stack} from '../index';
 import {galleryRegistry,searchComponents,componentHash,type GalleryEntry,type AtomicLayer} from './registry';
-const layers:AtomicLayer[]=['Atoms','Molecules','Organisms','Templates'];
+const layers:AtomicLayer[]=['Atoms','Molecules','Organisms'];
 export function GalleryNavigation({selected,onNavigate}:{selected?:string;onNavigate:(hash:string)=>void}) {
  const [query,setQuery]=useState('');
  const entries=(query.trim()?searchComponents(query):[...galleryRegistry]).slice().sort((a,b)=>a.name.localeCompare(b.name,'en'));

@@ -1,3 +1,4 @@
+@layer components {
 .ds-core .ds-theme-select{width:auto;max-width:100%}
 .ds-core .ds-theme-preview{background:var(--color-bg-canvas);color:var(--color-text-primary);padding:var(--space-6);border-radius:var(--radius-lg);min-width:0}
 .ds-core .ds-theme-form{background:var(--color-bg-surface);padding:var(--space-4);border-radius:var(--radius-md)}
@@ -10,3 +11,4 @@
 .ds-core .ds-theme-table-scroll{max-width:100%;overflow-x:auto}
 .ds-core .ds-theme-table{width:100%;font-size:var(--font-size-caption);border-collapse:collapse}
 .ds-core .ds-theme-pair{text-align:left;overflow-wrap:anywhere}
+}

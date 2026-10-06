@@ -6,7 +6,6 @@ export * from "./components/progress-result";
 export * from "./components/segmented-control";
 export * from "./components/text-field";
 export * from "./components/list-row";
-export * from "./components/workspace-templates";
 export * from "./components/icons";
 export * from "./components/feedback-controls";
 export * from "./components/date-controls";
@@ -32,19 +31,12 @@ export { Alert, EmptyState } from "./components/feedback";
 export { Menu, Tabs, Tooltip } from "./components/navigation";
 export { Dialog, Confirm } from "./components/organisms";
 export type { DialogProps } from "./components/organisms";
-export {
-  FormTemplate,
-  ListTemplate,
-  FeedbackTemplate,
-} from "./components/templates";
 export { Container, Stack, Grid, Shell } from "./components/layout";
 export {
   ActionGroup,
   SearchField,
   FormSection,
   ListPanel,
-  DetailTemplate,
-  CompositionExample,
 } from "./components/composition";
 export { resolveTokens } from "./tokens";
 export const componentFamilies = [

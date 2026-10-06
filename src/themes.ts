@@ -80,7 +80,9 @@ export function themeVariables(theme: Theme): Record<`--${string}`, string> {
       map[`${prefix}-${status}-bg`] = roles[0]; map[`${prefix}-${status}-fg`] = roles[1];
     }
   }
-  return Object.fromEntries(Object.entries(map).map(([variable, role]) => [`--${variable}`, r[role]]));
+  // Component overrides are optional; defaults resolve live semantic roles at the consumer.
+  const optional=new Set(['ds-boundary-rest','button-bg-default','button-bg-hover','button-bg-pressed','button-fg','button-disabled-bg','button-disabled-fg','field-bg','field-fg','field-border','field-focus','field-description','field-error-fg','field-error-bg']);
+  return Object.fromEntries(Object.entries(map).map(([variable, role]) => [`--${variable}`, optional.has(variable)?'initial':r[role]]));
 }
 
 export interface ContrastPair { readonly foreground: ThemeRole; readonly background: ThemeRole; readonly kind: 'text' | 'nontext'; }

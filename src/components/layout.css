@@ -1,3 +1,4 @@
+@layer components {
 .ds-core .ds-container {
   width: 100%;
   max-width: 1200px;
@@ -46,4 +47,5 @@
   .ds-core .ds-shell {
     grid-template-columns: 1fr;
   }
+}
 }

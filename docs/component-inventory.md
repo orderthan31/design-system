@@ -1,5 +1,7 @@
 # Historical snapshot — Shared component inventory and candidate classification
 
+> 역사 문서: 아래 Templates 및 CompositionExample은 retire되었습니다. 현재 목록은 component-inventory-v1.md와 source-installation.md를 사용합니다.
+
 이 문서는 확장 이전의 보존 이력이다. 현재 기능별 정본은 `component-inventory-v1.md`다. 아래 pending/coverage 문구를 현재 상태로 적용하지 않는다.
 
 ## Scope and status vocabulary

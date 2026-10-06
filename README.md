@@ -25,28 +25,29 @@ npm run dev
 
 - **Overview**: 실제 컴포넌트 검색·상세 링크와 저장소 실행/소스 import 안내.
 - **Foundations**: 기준 토큰 107개·글꼴·크기·대비·범위 한정 테마 전환.
-- 좌측 검색 아래 Overview/Foundations와 Atoms → Molecules → Organisms → Templates 제목을 배치합니다. Atomic 제목은 페이지 버튼이 아니며 각 그룹은 영문 public API 이름 알파벳순 canonical 상세 링크만 제공합니다. 하위 Inputs/Feedback 그룹이나 Atomic 모아보기 페이지는 없습니다.
+- 좌측 검색 아래 Overview/Foundations와 Atoms → Molecules → Organisms 제목을 배치합니다. Atomic 제목은 페이지 버튼이 아니며 각 그룹은 영문 public API 이름 알파벳순 canonical 상세 링크만 제공합니다. 하위 Inputs/Feedback 그룹이나 Atomic 모아보기 페이지는 없습니다.
 - 상세 페이지 제목은 public API 이름입니다. 실제 exported Shell/Container/Stack과 Tabs를 소비하며 위쪽 실제 시연, 아래쪽 Variant / Code / Docs가 같은 owner state를 공유합니다. 탭은 owner를 unmount하지 않습니다.
 
 각 기본 컴포넌트에는 미리보기·사용 코드·기준 계약이 연결됩니다. FormField는 Input, Alert는 Badge, EmptyState는 Button, Dialog는 IconButton, Confirm은 Dialog와 Button을 실제로 재사용합니다. API·토큰 식별자는 영문을 유지하며 설명과 기본 접근성 이름은 한국어 중심입니다.
 
+## 필요한 소스만 설치
+
+공식 shadcn GitHub registry의 `button`, `input`, `password-input`, `chart`를 선택 설치합니다. 실제 경로·dependencies·Tailwind/semantic override·필수 Pretendard 자산 설정은 `docs/source-installation.md`에 있습니다. 폰트 binary 자동 복사는 아직 하지 않습니다. 전체 gallery를 npm 라이브러리로 발행하지 않습니다.
+
 ## 다른 앱에서 재사용
 
 ```tsx
-import { Button, FormField, FormTemplate } from "./src";
+import { Button, FormField, FormSection } from "./src";
 import "./src/core.css";
 
 <div className="ds-core">
-  <FormTemplate
-    title="공통 입력 폼"
-    fields={<FormField label="이름" description="표시할 이름입니다." />}
-    actions={<Button onClick={save}>변경 사항 저장</Button>}
-    aside={<p>소비 앱이 제공하는 도움말 슬롯</p>}
-  />
+  <FormSection title="공통 입력 폼" actions={<Button onClick={save}>변경 사항 저장</Button>}>
+    <FormField label="이름" description="표시할 이름입니다." />
+  </FormSection>
 </div>;
 ```
 
-`src/index.ts`가 기존 18종과 추가 날짜/한국형 폼/탐색/데이터/펼침/아이콘/레이아웃/PC·모바일 템플릿을 export합니다. 기존 `componentFamilies` 18종 레지스트리는 역사 기준이며 전체 public API 목록이 아닙니다. npm 배포 패키지는 아닙니다. `core.css`는 `.ds-core` 조상 범위 안의 컴포넌트와 의미 역할만 스타일링하며, 동일 원본에서 생성한 107개 기본 토큰도 그 범위에 선언합니다. 소비 앱에서 전역 `generated/tokens.css`, `gallery.css`, `styles.css`를 import할 필요가 없습니다. 글꼴 파일은 `/source/fonts/`에서 제공해야 합니다. Pretendard font-face 등록과 `ds-core-*` 애니메이션 정의는 포함하지만 외부 일반 요소에 reset·폰트·focus 규칙을 적용하지 않습니다.
+`src/index.ts`가 기존 18종과 추가 날짜/한국형 폼/탐색/데이터/펼침/아이콘/레이아웃을 export합니다. 기존 `componentFamilies` 18종 레지스트리는 역사 기준이며 전체 public API 목록이 아닙니다. npm 배포 패키지는 아닙니다. `core.css`는 `.ds-core` 조상 범위 안의 컴포넌트와 의미 역할만 스타일링하며, 동일 원본에서 생성한 107개 기본 토큰도 그 범위에 선언합니다. 소비 앱에서 전역 `generated/tokens.css`, `gallery.css`, `styles.css`를 import할 필요가 없습니다. 글꼴 파일은 `/source/fonts/`에서 제공해야 합니다. Pretendard font-face 등록과 `ds-core-*` 애니메이션 정의는 포함하지만 외부 일반 요소에 reset·폰트·focus 규칙을 적용하지 않습니다.
 
 **외관 동일성 계약:** 컴포넌트 자체 border·font·padding·radius·state는 exported shared core/공용 tokens가 소유합니다. gallery CSS는 문서 chrome·데모 배치만 담당하며 소비 앱에 복사하는 appearance override는 계약이 아닙니다. 사용 코드는 실제 export/props/variant/size/theme/state와 같은 소비자 조건이어야 합니다. scoped core의 기본 스타일은 소비 앱의 일반 tag reset과 분리하고 범위 밖 일반 요소를 reset하지 않습니다. 소비자가 더 강한 선택자·`!important`로 명시적으로 DS 자체를 재정의하는 경우까지 CSS 격리라고 주장하지 않습니다.
 
@@ -74,7 +75,7 @@ node scripts/check-integrity.mjs /path/to/T-DES-002-offline-v0.2
 
 테스트 실행 결과와 스크린샷은 로컬 `evidence/` 아래에 생성합니다. 환경별 절대 경로나 trace가 포함될 수 있어 원시 evidence는 Git 공유 대상에서 제외합니다. 독립 검수자는 같은 SHA에서 테스트를 재실행해 근거를 생성할 수 있습니다.
 
-검증에는 문서 탐색·한국어 접근성 이름·320/390/768/1024/1440 너비·장문 줄바꿈·48px 주요 동작/44px 일반 컨트롤·busy 상태·메뉴/탭 키보드·tooltip 닫기·dialog focus trap/복귀·템플릿 필터링·테마의 실제 렌더 색상 전환과 입력 유지가 포함됩니다.
+검증에는 문서 탐색·한국어 접근성 이름·320/390/768/1024/1440 너비·장문 줄바꿈·48px 주요 동작/44px 일반 컨트롤·busy 상태·메뉴/탭 키보드·tooltip 닫기·dialog focus trap/복귀·테마의 실제 렌더 색상 전환과 입력 유지가 포함됩니다.
 
 ## 한계와 범위
 

@@ -1,0 +1,102 @@
+@import "./control-base.css";
+@layer components {
+:where(.ds-core) .button {
+  min-height: var(--size-control);
+  max-width: 100%;
+  padding: var(--ds-space-2-5) var(--space-4);
+  border: var(--ds-border-thin) solid transparent;
+  border-radius: var(--ds-radius-button);
+  font-size: var(--ds-control-font-size);
+  line-height: var(--ds-control-line-height);
+  font-weight: var(--ds-weight-medium);
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  text-align: center;
+  /* Do not interpolate light disabled and dark enabled fills while text color switches immediately. */
+  transition: border-color var(--motion-fast);
+  flex-shrink: 0;
+}
+:where(.ds-core) .button.primary {
+  min-height: var(--size-control-primary);
+  background: var(--button-bg-default,var(--color-action-primary-bg-default));
+  color: var(--button-fg,var(--color-action-primary-text));
+}
+:where(.ds-core) .button.primary:hover:not(:disabled):not([aria-busy="true"]) {
+  background: var(--button-bg-hover,var(--color-action-primary-bg-hover));
+}
+:where(.ds-core) .button.primary:active:not(:disabled):not([aria-busy="true"]) {
+  background: var(--button-bg-pressed,var(--color-action-primary-bg-pressed));
+}
+:where(.ds-core) .button.secondary {
+  background: var(--color-action-secondary-surface);
+  border-color: transparent;
+  color: var(--color-text-primary);
+}
+:where(.ds-core) .button.secondary:hover:not(:disabled):not([aria-busy="true"]) {
+  background: var(--color-action-secondary-hover);
+  color: var(--color-action-secondary-text);
+}
+:where(.ds-core) .button.quiet,
+:where(.ds-core) .button.ghost {
+  background: transparent;
+  color: var(--color-action-ghost-text);
+}
+:where(.ds-core) .button.quiet:hover:not(:disabled):not([aria-busy="true"]),
+:where(.ds-core) .button.ghost:hover:not(:disabled):not([aria-busy="true"]) {
+  background: var(--color-action-ghost-hover);
+}
+:where(.ds-core) .button.destructive {
+  background: var(--color-status-error-fg);
+  color: var(--color-text-inverse);
+  min-height: var(--size-control);
+}
+:where(.ds-core) .button.small {
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--font-size-caption);
+}
+:where(.ds-core) .button.large {
+  padding: var(--ds-space-3-5) var(--space-6);
+  min-height: 56px;
+}
+:where(.ds-core) .button:disabled {
+  background: var(--button-disabled-bg,var(--color-disabled-bg));
+  color: var(--button-disabled-fg,var(--color-disabled-fg));
+  border-color: var(--color-border-subtle);
+}
+:where(.ds-core) .button[aria-busy="true"] {
+  cursor: wait;
+}
+:where(.ds-core) .button:is([data-slot="icon-button"],.icon-button) {
+  width: var(--size-control);
+  min-height: var(--size-control);
+  padding: 0;
+  font-size: var(--ds-chart-title-size);
+}
+:where(.ds-core) .button.large:is([data-slot="icon-button"],.icon-button) { min-height:56px; }
+/* Shared control shape; boundary colors retain the theme contrast contract. */
+:where(.ds-core) .button > svg { width:18px; height:18px; flex-shrink:0; display:block; }
+:where(.ds-core) .button:is([data-slot="icon-button"],.icon-button) > svg { width:18px; height:18px; }
+:where(.ds-core) .button.secondary:active:not(:disabled):not([aria-busy="true"]) {background:var(--color-action-secondary-pressed);color:var(--color-action-secondary-text);}
+:where(.ds-core) .button.quiet:active:not(:disabled):not([aria-busy="true"]),
+:where(.ds-core) .button.ghost:active:not(:disabled):not([aria-busy="true"]) {background:var(--color-action-ghost-pressed);color:var(--color-action-ghost-text);}
+:where(.ds-core) .button.destructive:hover:not(:disabled):not([aria-busy="true"]),
+:where(.ds-core) .button.destructive:active:not(:disabled):not([aria-busy="true"]) {
+  filter:brightness(.96);
+}
+
+}
+
+@layer components {
+:where(.ds-core) .button{cursor:pointer;}
+:where(.ds-core) .button:disabled{cursor:not-allowed;}
+@media(max-width:700px){
+  :where(.ds-core) .button {
+    padding: var(--ds-space-2-5) var(--ds-space-3-5);
+    font-size: var(--ds-control-font-size);
+  }
+}
+}

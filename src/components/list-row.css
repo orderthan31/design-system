@@ -1,3 +1,4 @@
+@layer components {
 .ds-core .ds-list-row {
   display: flex;
   flex-wrap: wrap;
@@ -119,4 +120,5 @@
   .ds-core .ds-list-row-trailing {
     flex-basis: 100%;
   }
+}
 }

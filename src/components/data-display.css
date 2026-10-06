@@ -1,3 +1,4 @@
+@layer components {
 .ds-core .ds-data-gallery,
 .ds-core .ds-data-table {
   display: grid;
@@ -178,4 +179,5 @@
   .ds-core .ds-list-item > .checkbox {
     flex-basis: 100%;
   }
+}
 }

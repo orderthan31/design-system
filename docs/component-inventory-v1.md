@@ -2,7 +2,7 @@
 
 ## 현재 실제 디자인·DS 소비·소비자 외관 계약 checkpoint
 
-- 현재 canonical registry/탐색 링크는 Chart 포함 81개(Atoms18 / Molecules34 / Organisms23 / Templates6)입니다. 아래의80/0 등은 당시 source 연결 이력이며 현재 전체수락·전수 runtime 결과가 아닙니다. 기존 승인 inventory를 축소하지 않았으며 키패드는 제외합니다.
+- 현재 canonical registry/탐색 링크는 Chart 포함 75개(Atoms18 / Molecules34 / Organisms23)입니다. 사용자가 retire한 Templates6과 CompositionExample/WorkspaceTemplatesGallery의 source·export·registry·detail·CSS 및 전용 테스트를 제거했습니다. Container/Stack/Grid/Shell·ActionGroup/SearchField/FormSection/ListPanel·공유 .list-row는 보존합니다. 아래81/80/0 및 Templates 관련 source/test 경로는 삭제 이전 역사 checkpoint이며 현재 전체수락·전수 runtime 결과가 아닙니다. 키패드는 제외합니다.
 - actual exported Shell/Container/Stack·Input·Button·Tabs·Variant controls를 소비합니다. Atomic 그룹 제목은 비클릭이며 하위 기능별 그룹/Atomic 모아보기 페이지를 제거했습니다. h1/탐색은 실제 영문 API 이름입니다.
 - primary live demo·Variant controls·Code는 같은 부모 state입니다. 별도 조합 사례는 Variant의 추가 시연으로 분리하고 원래 owner/API/코드를 보존합니다. 탭 전환은 owner를 unmount하지 않습니다. native Input의 기존 명시적 초기화는 revision을 새로 만드는 계약이며 탭 보존과 구분합니다.
 - 입력 rest boundary와 Rating의 별 중심 외관, SegmentedControl·ProgressStepper·Result·EmptyState의 경계 변경은 shared core/token source에 반영했습니다. gallery의 imported core appearance override와 검색/Variant native-selector paint를 제거하며 문서 chrome/배치만 남깁니다. focus/error/native APIs·44px 별 hit 영역은 보존합니다.
@@ -11,7 +11,9 @@
 - gallery 없는 전체 public consumer fixture는 디자인승인 후 same-final-SHA에서 정식 core CSS·폰트·theme와 동일 props/컨테이너 조건으로 최종 대조합니다. 현재 준비/범위만 보존하며 새 전수fixture/full-suite gate·소비 제품 통합·공개배포는 시작하지 않습니다.
 - PasswordInput Chrome145/Linux selection 이슈는 기존 원 SHA 환경 관측 그대로 open입니다. 이 checkpoint는 selection timer/source 교정이 아닙니다. 기존 rules/33fixtures/tests/dependency pin/lock·역사107tokens/font/vendor licenses를 보존합니다.
 
-아래는 각 당시 source identity의 보존된 역사 checkpoint입니다.
+선택 source 설치·font 자산·layer/native/slot 계약은 `docs/source-installation.md`가 현재 정본입니다. Button/Input/PasswordInput/Chart registry item은 자신의 실제 source/style/transitive UI만 포함합니다.
+
+아래는 각 당시 source identity의 보존된 역사 checkpoint입니다. 제거된 template/API/test의 당시 설명을 현재 소비 계약으로 사용하지 않습니다.
 
 현재 공유 기준: build/TypeScript 오류가 없는 안정 checkpoint는 먼저 Git으로 공유하고 동일 commit의 프리뷰에서 기능 점검한다. 아래 범위별 이력은 최종 전체 수락이 아니며, 과거 검수 전 push 보류를 현재 프리뷰 공유의 선행 조건으로 적용하지 않는다. 전체 coverage·동일 트리 독립 최종 수락은 별도 잔여다.
 

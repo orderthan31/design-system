@@ -1,3 +1,4 @@
+@layer components {
 .ds-core .ds-bottom-cta-region { display:flex;flex-direction:column;min-width:0; }
 .ds-core .ds-bottom-cta-body { flex:1;min-height:0;overflow:auto;scroll-padding-block-end:calc(var(--ds-bottom-cta-height,0px) + 8px); }
 .ds-core .ds-bottom-cta-body :is(input,button,select,textarea,a,[tabindex]) { scroll-margin-block-end:calc(var(--ds-bottom-cta-height,0px) + 8px); }
@@ -12,3 +13,4 @@
 .ds-core .ds-bottom-cta-accessory { overflow-wrap:anywhere;min-width:0; }
 .ds-core .ds-bottom-cta-accessory:first-child { margin-bottom:12px; }
 .ds-core .ds-bottom-cta-accessory:last-child { margin-top:12px; }
+}

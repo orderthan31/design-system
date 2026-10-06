@@ -7,7 +7,6 @@ const pages = [
   "Atoms",
   "Molecules",
   "Organisms",
-  "Templates",
 ];
 async function navigate(page: Page, name: string) {
   await page.goto(`/#${name}`);
@@ -234,54 +233,6 @@ test("long KO204 EN446 JA160 bodies wrap, dialog actions do not overlap, focus t
   await expect(
     page.getByText("변경 사항을 확인했습니다.", { exact: true }),
   ).toBeVisible();
-});
-test("generic form list feedback slots operate in PC and mobile previews", async ({
-  page,
-}, info) => {
-  await navigate(page, "Templates");
-  for (const viewport of ["PC", "Mobile"]) {
-    await page.getByRole("button", { name: viewport === "Mobile" ? "모바일" : viewport, exact: true }).click();
-    for (const type of ["Form", "List", "Feedback"]) {
-      await page.getByRole("button", { name: ({ Form: "폼", List: "목록", Feedback: "피드백" } as Record<string,string>)[type], exact: true }).click();
-      const o = await overflow(page);
-      expect(o.scroll).toBeLessThanOrEqual(o.viewport);
-      expect(o.offenders).toEqual([]);
-      if (type === "Form") {
-        await page
-          .locator(".preview-frame")
-          .getByRole("textbox", { name: /이름/ })
-          .fill("Reusable composition");
-        await page.getByRole("button", { name: "변경 사항 저장" }).click();
-        await expect(
-          page.getByText(
-            "이 미리보기의 예시 상태를 로컬에 저장했습니다.",
-          ),
-        ).toBeVisible();
-      }
-      if (type === "List") {
-        await page
-          .getByRole("textbox", { name: "예시 목록 검색" })
-          .fill("두 번째");
-        await expect(
-          page.getByRole("checkbox", { name: "두 번째 항목" }),
-        ).toBeVisible();
-        await expect(
-          page.getByRole("checkbox", { name: "첫 번째 항목" }),
-        ).toHaveCount(0);
-        await page
-          .getByRole("textbox", { name: "예시 목록 검색" })
-          .fill("");
-      }
-      await page.evaluate(() => {
-        document.getElementById('main')?.focus({preventScroll:true});
-        window.scrollTo({top:0,left:0,behavior:'instant'});
-      });
-      await page.screenshot({
-        path: `evidence/screenshots/${info.project.name}-template-${type.toLowerCase()}-${viewport.toLowerCase()}.png`,
-        fullPage: true,
-      });
-    }
-  }
 });
 test("original four fonts load and controls preserve canonical sizes", async ({
   page,

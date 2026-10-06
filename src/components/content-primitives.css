@@ -1,3 +1,4 @@
+@layer components {
 .ds-core .ds-grid-list {container-type:inline-size;min-width:0;}
 .ds-core .ds-grid-list ul {display:grid;grid-template-columns:repeat(var(--ds-grid-list-columns,3),minmax(0,1fr));gap:16px;margin:0;padding:0;list-style:none;}
 .ds-core .ds-grid-list li {min-width:0;overflow-wrap:anywhere;}
@@ -10,3 +11,4 @@
 .ds-core .ds-bubble[data-align="start"] {margin-right:auto;border-bottom-left-radius:var(--ds-radius-bubble-tail);}
 .ds-core .ds-bubble[data-align="end"] {margin-left:auto;border-bottom-right-radius:var(--ds-radius-bubble-tail);}
 .ds-core .ds-bubble[data-tone="info"] {background:var(--color-info-surface);color:var(--color-info-text);}
+}

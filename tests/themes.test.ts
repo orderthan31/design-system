@@ -35,10 +35,12 @@ test('theme work preserves the immutable 107-token source and Pretendard baselin
       expect(row.ratio, `${theme.id}: ${row.foreground}/${row.background}`).toBeGreaterThanOrEqual(row.kind === 'text' ? 4.5 : 3);
       expect(row.ratio).toBe(contrastRatio(theme.roles[row.foreground], theme.roles[row.background]));
     }
-    expect(variables['--button-fg']).toBe(theme.roles.primaryText);
+    expect(variables['--button-fg']).toBe('initial');
+    expect(variables['--color-action-primary-text']).toBe(theme.roles.primaryText);
     expect(variables['--color-link']).toBe(theme.roles.ghostText);
     expect(variables['--color-status-error-fg']).toBe(theme.roles.destructiveSurface);
-    expect(variables['--field-description']).toBe(theme.roles.mutedText);
+    expect(variables['--field-description']).toBe('initial');
+    expect(variables['--color-text-muted']).toBe(theme.roles.mutedText);
     expect(variables['--color-info-surface']).toBe(theme.roles.infoSurface);
     expect(variables['--color-warning-text']).toBe(theme.roles.warningText);
     expect(variables['--color-scrim']).toBe(theme.roles.scrim);
@@ -57,7 +59,8 @@ test('scoped override restores exact prior inline values and leaves root and sib
   scope.setAttribute('data-ds-theme', 'prior');
   const rootBefore = document.documentElement.getAttribute('style');
   const restore = applyTheme(scope, themes[1]);
-  expect(scope.style.getPropertyValue('--button-bg-default')).toBe('#0f766e');
+  expect(scope.style.getPropertyValue('--button-bg-default')).toBe('initial');
+  expect(scope.style.getPropertyValue('--color-action-primary-bg-default')).toBe('#0f766e');
   expect(scope.getAttribute('data-ds-theme')).toBe('teal');
   expect(sibling.getAttribute('style')).toBeNull();
   expect(document.documentElement.getAttribute('style')).toBe(rootBefore);

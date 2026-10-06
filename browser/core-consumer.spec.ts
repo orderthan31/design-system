@@ -7,7 +7,7 @@ import fs from 'node:fs';
 const built = buildSync({stdin: {resolveDir: process.cwd(), loader: 'tsx', contents: `
   import React from 'react';
   import {createRoot} from 'react-dom/client';
-  import {DatePicker,DateRangePicker,MonthPicker,TimeInput,DateTimeInput,NumberInput,Combobox,Drawer, BottomSheet, Button, Input, Textarea, Select, Checkbox, IconButton, Badge, Alert, Progress, Skeleton, Separator, EmptyState, Dialog, Confirm, Menu, Tabs, Tooltip, FormField, Container, Stack, Grid, Shell, FormSection, ActionGroup, SearchField, ListPanel, FormTemplate, ListTemplate, FeedbackTemplate, DetailTemplate} from './src/index';
+  import {DatePicker,DateRangePicker,MonthPicker,TimeInput,DateTimeInput,NumberInput,Combobox,Drawer, BottomSheet, Button, Input, Textarea, Select, Checkbox, IconButton, Badge, Alert, Progress, Skeleton, Separator, EmptyState, Dialog, Confirm, Menu, Tabs, Tooltip, FormField, Container, Stack, Grid, Shell, FormSection, ActionGroup, SearchField, ListPanel} from './src/index';
   import {applyTheme, themes} from './src/themes';
   const root = createRoot(document.querySelector('#mount'));
   window.consumerClicks = 0;
@@ -63,10 +63,6 @@ const built = buildSync({stdin: {resolveDir: process.cwd(), loader: 'tsx', conte
     <section aria-label="추가 조합과 레이아웃" className="stack">
       <Shell navigation={<p>탐색 슬롯</p>} header={<p>제목 슬롯</p>}><Stack><SearchField aria-label="소비 검색"/><ActionGroup><Button>조합 작업</Button></ActionGroup></Stack></Shell>
       <ListPanel title="목록 영역"><p>행 슬롯</p></ListPanel>
-      <FormTemplate title="소비 폼 템플릿" fields={<FormField label="템플릿 입력"/>} actions={<Button>템플릿 작업</Button>}/>
-      <ListTemplate title="소비 목록 템플릿" rows={<p>목록 슬롯</p>}/>
-      <FeedbackTemplate title="소비 피드백 템플릿" status={<Badge>중립</Badge>} content={<p>내용 슬롯</p>}/>
-      <DetailTemplate title="소비 상세 템플릿" summary={<p>요약</p>} content={<p>상세</p>}/>
     </section>
     <Dialog open={modal==='dialog'} title="소비 대화상자" onClose={()=>setModal('')} footer={<><Button variant="secondary" onClick={()=>setModal('')}>닫기 작업</Button><Button>주요 작업</Button></>}><FormField label="대화상자 입력"/></Dialog>
     <Confirm open={modal==='confirm'} title="소비 확인창" onClose={()=>setModal('')} onConfirm={()=>window.consumerClicks++}>내용</Confirm>

@@ -1,3 +1,4 @@
+@layer components {
 .ds-core .tf-row {
   display: flex;
   flex-wrap: wrap;
@@ -5,14 +6,14 @@
   gap: 4px;
   min-width: 0;
   max-width: 100%;
-  border: var(--ds-border-thin) solid var(--ds-boundary-rest);
+  border: var(--ds-border-thin) solid var(--ds-boundary-rest,var(--field-border,var(--color-border-control)));
   border-radius: var(--ds-radius-control);
-  background: var(--field-bg);
-  color: var(--field-fg);
+  background: var(--field-bg,var(--color-bg-surface));
+  color: var(--field-fg,var(--color-text-primary));
   font-family: var(--ds-control-font-family);
 }
 .ds-core .tf-row:has(.tf-input > input[aria-invalid="true"]) {
-  border-color: var(--field-error-fg);
+  border-color: var(--field-error-fg,var(--color-status-error-fg));
 }
 .ds-core .tf-row:has(.tf-input > input:read-only) {
   background: var(--color-bg-canvas);
@@ -157,4 +158,5 @@
 }
 .ds-core .input-detail li + li {
   margin-top: 8px;
+}
 }
