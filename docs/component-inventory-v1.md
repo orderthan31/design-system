@@ -2,6 +2,15 @@
 
 현재 공유 기준: build/TypeScript 오류가 없는 안정 checkpoint는 먼저 Git으로 공유하고 동일 commit의 프리뷰에서 기능 점검한다. 아래 범위별 이력은 최종 전체 수락이 아니며, 과거 검수 전 push 보류를 현재 프리뷰 공유의 선행 조건으로 적용하지 않는다. 전체 coverage·동일 트리 독립 최종 수락은 별도 잔여다.
 
+## Icon/IconAction canonical 상세 checkpoint
+
+- Icon/IconAction 실제 자기 route·controls·현재 코드·API·초기화 연결입니다. source registry **80 / mounted-source 80 / blank-source 0**, 현재 빈 canonical 상세 이름 목록은 비었습니다. 이는 기존 승인 registry의 독립 상세 연결 공백을 채웠다는 의미이며 전체 props/schema/controls/API completeness·full suite/coverage/접근성·디자인/독립 최종 수락 완료가 아닙니다. 78/2는 이전 workspace checkpoint 이력입니다.
+- Icon은 실제 iconNames 정적 subset 선택·SVG size/strokeWidth/color를 연결하고 기본 장식 SVG와 주변 텍스트를 보여줍니다. 기본 size20/stroke1.75/currentColor·aria-hidden/focusable을 보존하며 상속 props로 override 가능함을 설명합니다. 전체 pack/runtime registry/ref/tone/fallback API 없음.
+- IconAction은 별도 wrapper로 기존 IconButton/Button과 고정 Icon을 조합합니다. name/한국어 label/variant/버튼 size/loading/native disabled/id 및 실제 native pointer/Enter callback→부모 횟수/currentTarget.id를 연결합니다. size를 SVG 크기라고 소개하거나 strokeWidth/iconProps/children/ref를 invent하지 않습니다. 기본 type=button·variant secondary/size medium, label/className 우선 계약을 설명합니다.
+- production Chrome390/1440 bounded2route: Icon의36 static names 전환/mount·실제 SVG size32/stroke2.5/색·기본 장식 attributes/reset, IconAction pointer/Enter→부모 횟수/id·variant5/버튼 size3·loading aria/기존 SVG 유지+span.spinner·click callback 방어·별도 native disabled·quoted label/id/state/source/reset 확인. document overflow/runtime exception 발견 없고 표시 TSX38개 typecheck 오류0입니다. 모든 상속 attrs/ref/폼submit/AT/전체 상태/API 조합/최종수락은 확인하지 않았습니다.
+- 실제 geometry는 small/medium48×48, large50×56, SVG는20×20입니다. child의 CSS48px 설명을 모든 size 고정 geometry로 확대하지 않고 부모가 `core.css:203–209,219–227`/computed DOM을 읽어 large의 높은 specificity padding/min-height를 확인했습니다. 첫 helper의 모든 size48 기대 및 spinner를 두 번째 SVG로 오인한 assertion은 실제 source/DOM 계약에 맞춰 교정했습니다(`atoms.tsx:37`은 span.spinner). core 변경/새 회귀로 보고하지 않습니다.
+- 마지막 approved queue 연결 그룹까지 source 처리했으며 다음 새 기능/재설계·배포 범위 확대는 이번 checkpoint에서 수행하지 않습니다. core/tests/browser 미변경·sole writer/read-only 준비·ZIP 첨부 보류 유지. 전체 controls/API completeness·composition test title/assertion source 후보·동일 final-tree 전체검증·Chart/keypad/SDK/외부provider·사용자 디자인수락 잔여는 별도입니다.
+
 ## Workspace2 canonical 상세 checkpoint
 
 - DesktopWorkspaceTemplate/MobileWorkspaceTemplate 실제 자기 route·기존 core·controls·현재 코드·API·초기화 연결입니다. 기본 슬롯4 checkpoint를 포함하며 source registry **80 / mounted-source 78 / blank-source 2**입니다. 76/4는 이전 기본4 이력입니다. core 부재/빈 상세와 빈 controls 부재/전체 controls·schema·API completeness 미평가/동일 final-tree 전체검증 미완료를 분리 유지합니다.
