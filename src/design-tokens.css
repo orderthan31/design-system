@@ -1,7 +1,7 @@
 /* Supplemental appearance aliases; historical107-token identifiers stay unchanged. */
 .ds-core {
   --ds-border-thin: 1px;
-  --ds-boundary-rest: #cbd5e1;
+  --ds-boundary-rest: var(--field-border);
   --ds-radius-control: 8px;
   --ds-radius-eye: 7px;
   --ds-radius-indicator: 2px;
@@ -22,7 +22,7 @@
   --ds-radius-progress: 4px;
   --ds-radius-menu-item: 5px;
   --ds-radius-badge: 6px;
-  --ds-radius-button: 10px;
+  --ds-radius-button: var(--ds-radius-control);
   --ds-radius-symbol: 14px;
   --ds-radius-switch: 20px;
   --ds-space-0-75: 3px;
@@ -38,9 +38,9 @@
   --ds-space-7-5: 30px;
   --ds-space-9: 36px;
   --ds-font-page: 24px;
-  --ds-font-section: 16px;
+  --ds-font-section: 18px;
   --ds-line-compact: 20px;
-  --ds-line-body: 24px;
+  --ds-line-body: 22px;
   --ds-line-relaxed: 26px;
   --ds-line-section: 28px;
   --ds-line-title: 30px;
@@ -63,14 +63,14 @@
   /* Gallery-owned code/prop presentation: not a core component restyle. */
   --ds-prop-control-font-size: 13px;
   --ds-preview-shadow: 0 2px 12px #0f172a05;
-  --ds-code-bg: #f4f6fa;
-  --ds-code-fg: #334155;
-  --ds-code-muted: var(--color-palette-64748b);
+  --ds-code-bg: var(--color-bg-subtle);
+  --ds-code-fg: var(--color-text-primary);
+  --ds-code-muted: var(--color-text-muted);
   --ds-code-keyword: var(--color-palette-1d4ed8);
   --ds-code-string: #047857;
   --ds-code-symbol: #7e22ce;
   --ds-code-number: #b45309;
-  --ds-code-punctuation: var(--color-palette-475569);
+  --ds-code-punctuation: var(--color-text-secondary);
   --ds-code-toolbar-font: 12px/1.5 Pretendard,sans-serif;
   --ds-code-font: 12px/1.8 ui-monospace,SFMono-Regular,Menlo,monospace;
 }

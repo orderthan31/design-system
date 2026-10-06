@@ -1,6 +1,8 @@
 import React from "react";
 import { Button, Input } from "./atoms";
 import { FormField } from "./molecules";
+import { Icon } from "./icons";
+import { Select } from "./primitives";
 import "./date-controls.css";
 
 export function DateControlsGallery() {
@@ -120,6 +122,33 @@ function useInputValidity(
     onValidityChange?.(valid);
   }, [valid, onValidityChange]);
   return root;
+}
+type PickerTriggerProps = {
+  label:string; value:string; display:string; kind:'calendar'|'clock'; open:boolean;
+  onToggle:()=>void; disabled?:boolean; readOnly?:boolean; busy?:boolean;
+  id?:string; required?:boolean; 'aria-describedby'?:string; 'aria-invalid'?:React.AriaAttributes['aria-invalid'];
+  controls:string;
+};
+function PickerTrigger({label,value,display,kind,open,onToggle,disabled,readOnly,busy,id,required,controls,...aria}:PickerTriggerProps) {
+ const generated=React.useId(),fieldId=id??generated;
+ return <span className="dc-trigger-frame">
+  <Button id={fieldId} variant="secondary" disabled={disabled||readOnly||busy} loading={busy}
+   data-picker-trigger aria-label={`${label}: ${display}`} aria-haspopup="dialog" aria-expanded={open} aria-controls={controls}
+   {...aria} onClick={onToggle}>
+   <Icon name={kind}/><span>{display}</span><Icon name="chevron-down"/>
+  </Button>
+  <input className="dc-value-input" type="text" value={value} onChange={()=>{}} required={required} disabled={disabled} readOnly={readOnly||busy}
+   aria-hidden="true" tabIndex={-1} onInvalid={event=>{event.preventDefault();event.currentTarget.parentElement?.querySelector<HTMLButtonElement>('[data-picker-trigger]')?.focus();if(!disabled&&!readOnly&&!busy&&!open)onToggle();}}/>
+ </span>;
+}
+function usePickerDismiss(root:React.RefObject<HTMLDivElement|null>,open:boolean,setOpen:React.Dispatch<React.SetStateAction<boolean>>,locked:boolean|undefined) {
+ React.useEffect(()=>{if(locked)setOpen(false);},[locked,setOpen]);
+ React.useEffect(()=>{
+  if(!open)return;
+  const outside=(event:Event)=>{if(event.target instanceof Node&&!root.current?.contains(event.target))setOpen(false);};
+  document.addEventListener('pointerdown',outside,true);document.addEventListener('focusin',outside);
+  return()=>{document.removeEventListener('pointerdown',outside,true);document.removeEventListener('focusin',outside);};
+ },[open,root,setOpen]);
 }
 function unavailable(value: string, props: DatePickerProps): boolean {
   return !!(
@@ -488,6 +517,7 @@ export function MonthPicker({
     required,
     onValidityChange,
   );
+  usePickerDismiss(root,open,setOpen,locked);
   const close = () => {
     setOpen(false);
     root.current?.querySelector<HTMLButtonElement>("[aria-controls]")?.focus();
@@ -511,51 +541,21 @@ export function MonthPicker({
       className="dc-picker"
       ref={root}
       onKeyDown={(event) => {
-        if (event.key === "Escape") close();
+        if (event.key === "Escape" && open) {event.preventDefault();event.stopPropagation();close();}
       }}
     >
-      <FormField
-        label={label}
-        description="YYYY-MM 형식"
-        required={required}
-        error={
-          error ||
-          (invalid
-            ? "선택 가능한 월을 YYYY-MM 형식으로 입력해 주세요."
-            : undefined)
-        }
-      >
-        <Input
-          value={state.draft}
-          disabled={disabled}
-          readOnly={readOnly || busy}
-          loading={busy}
-          onChange={(event) => {
-            if (locked) return;
-            const next = event.target.value;
-            state.setDraft(next);
-            if (!next || (valid(next) && !restricted(next))) state.commit(next);
-          }}
-        />
+      <FormField label={label} required={required} error={error||(invalid?"선택 가능한 월을 YYYY-MM 형식으로 입력해 주세요.":undefined)}>
+       <PickerTrigger label={label} value={state.draft} display={valid(state.draft)?`${state.draft.slice(0,4)}년 ${Number(state.draft.slice(5))}월`:state.draft||'월 선택'} kind="calendar"
+        disabled={disabled} readOnly={readOnly} busy={busy} open={open&&!locked} controls={id}
+        onToggle={()=>{if(valid(state.draft))setYear(Number(state.draft.slice(0,4)));setOpen(!open);}}/>
       </FormField>
-      <Button
-        variant="secondary"
-        size="small"
-        disabled={locked}
-        aria-expanded={open && !locked}
-        aria-controls={id}
-        onClick={() => {
-          if (valid(state.draft)) setYear(Number(state.draft.slice(0, 4)));
-          setOpen(!open);
-        }}
-      >
-        월 선택 {open && !locked ? "닫기" : "열기"}
-      </Button>
       {open && !locked && (
-        <div id={id} className="dc-calendar" role="group" aria-label="월 선택">
+        <div id={id} className="dc-picker-panel dc-calendar" role="dialog" aria-label="월 선택">
+          <div className="dc-calendar-heading"><Button variant="quiet" size="small" aria-label="이전 연도" disabled={year<=1} onClick={()=>setYear(y=>y-1)}><Icon name="chevron-left"/></Button>
           <select
             aria-label="연도"
             className="control"
+            autoFocus
             value={year}
             onChange={(event) => {
               const selected = Number(event.target.value);
@@ -572,7 +572,7 @@ export function MonthPicker({
                 {start + i}년
               </option>
             ))}
-          </select>
+          </select><Button variant="quiet" size="small" aria-label="다음 연도" disabled={year>=9999} onClick={()=>setYear(y=>y+1)}><Icon name="chevron-right"/></Button></div>
           <div className="dc-months">
             {Array.from({ length: 12 }, (_, i) => {
               const key = `${String(year).padStart(4, "0")}-${String(i + 1).padStart(2, "0")}`;
@@ -583,6 +583,7 @@ export function MonthPicker({
                   key={key}
                   aria-label={`${year}년 ${i + 1}월`}
                   aria-pressed={key === state.draft}
+                  aria-current={key===localDate().slice(0,7)?"date":undefined}
                   disabled={restricted(key)}
                   onClick={() => select(key)}
                 >
@@ -629,36 +630,35 @@ export function TimeInput({
     required,
     onValidityChange,
   );
-  return (
-    <div className="dc-picker" ref={root}>
-      <FormField
-        label={label}
-        description="24시간 HH:mm 형식"
-        required={required}
-        error={
-          error ||
-          (invalid
-            ? "선택 가능한 시간을 HH:mm 형식으로 입력해 주세요."
-            : undefined)
-        }
-      >
-        <Input
-          value={state.draft}
-          disabled={disabled}
-          readOnly={readOnly || busy}
-          loading={busy}
-          placeholder="09:30"
-          inputMode="text"
-          onChange={(event) => {
-            if (disabled || readOnly || busy) return;
-            const next = event.target.value;
-            state.setDraft(next);
-            if (!next || valid(next)) state.commit(next);
-          }}
-        />
-      </FormField>
-    </div>
-  );
+  const [open,setOpen]=React.useState(false),[pending,setPending]=React.useState('09:00'),[mode,setMode]=React.useState<'hour'|'minute'>('hour');
+  const locked=disabled||readOnly||busy,id=React.useId();
+  usePickerDismiss(root,open,setOpen,locked);
+  const close=()=>{setOpen(false);root.current?.querySelector<HTMLButtonElement>('[data-picker-trigger]')?.focus();};
+  const [hour,minute]=pending.split(':').map(Number);
+  const candidate=(h:number,m:number)=>`${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}`;
+  const chooseHour=(h:number)=>{const minutes=Array.from({length:60},(_,m)=>m).filter(m=>valid(candidate(h,m)));if(!minutes.length)return;setPending(candidate(h,minutes.includes(minute)?minute:minutes[0]));};
+  const toggle=()=>{if(!open){setPending(validTime(state.draft)?state.draft:validTime(min??'')?min!:'09:00');setMode('hour');}setOpen(!open);};
+  return <div className="dc-picker" ref={root} onKeyDown={event=>{if(event.key==='Escape'&&open){event.preventDefault();event.stopPropagation();close();}}}>
+   <FormField label={label} required={required} error={error||(invalid?'선택 가능한 시간을 HH:mm 형식으로 입력해 주세요.':undefined)}>
+    <PickerTrigger label={label} value={state.draft} display={state.draft||'시간 선택'} kind="clock" disabled={disabled} readOnly={readOnly} busy={busy} open={open&&!locked} controls={id} onToggle={toggle}/>
+   </FormField>
+   {open&&!locked&&<div id={id} className="dc-picker-panel dc-calendar dc-time-panel" role="dialog" aria-label={`${label} 선택`}>
+    <div className="dc-clock-mode"><Button variant={mode==='hour'?'secondary':'quiet'} aria-pressed={mode==='hour'} onClick={()=>setMode('hour')}>시</Button><Button variant={mode==='minute'?'secondary':'quiet'} aria-pressed={mode==='minute'} onClick={()=>setMode('minute')}>분</Button></div>
+    <svg className="dc-clock" viewBox="0 0 240 240" role="group" aria-label={`${pending} ${mode==='hour'?'시':'분'} 선택 시계`}>
+     <circle className="dc-clock-face" cx="120" cy="120" r="108"/>
+     <line className="dc-clock-hand" x1="120" y1="120" x2="120" y2="68" transform={`rotate(${(hour%12+minute/60)*30} 120 120)`}/>
+     <line className="dc-clock-hand dc-clock-minute" x1="120" y1="120" x2="120" y2="45" transform={`rotate(${minute*6} 120 120)`}/>
+     {Array.from({length:12},(_,i)=>{const angle=i*Math.PI/6,x=120+84*Math.sin(angle),y=120-84*Math.cos(angle),h=i+(hour>=12?12:0),m=i*5,enabled=mode==='hour'?Array.from({length:60},(_,n)=>n).some(n=>valid(candidate(h,n))):valid(candidate(hour,m)),selected=mode==='hour'?hour===h:minute===m;
+      const choose=()=>{if(!enabled)return;if(mode==='hour'){chooseHour(h);setMode('minute');}else setPending(candidate(hour,m));};
+      return <g key={i} className="dc-clock-choice" data-selected={selected} role="button" aria-label={mode==='hour'?`${h}시 선택`:`${m}분 선택`} aria-pressed={selected} aria-disabled={!enabled} tabIndex={enabled?0:-1} onClick={choose} onKeyDown={event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();choose();}}}><circle cx={x} cy={y} r="22"/><text x={x} y={y} dominantBaseline="middle" textAnchor="middle">{mode==='hour'?i||12:String(m).padStart(2,'0')}</text></g>;
+     })}<circle className="dc-clock-center" cx="120" cy="120" r="4"/>
+    </svg>
+    <div className="dc-time-fields"><label><span>시 · 24시간</span><Select autoFocus aria-label="시 선택" value={hour} onChange={event=>chooseHour(Number(event.target.value))}>{Array.from({length:24},(_,h)=><option key={h} value={h} disabled={!Array.from({length:60},(_,m)=>m).some(m=>valid(candidate(h,m)))}>{String(h).padStart(2,'0')}</option>)}</Select></label><label><span>분</span><Select aria-label="분 선택" value={minute} onChange={event=>setPending(candidate(hour,Number(event.target.value)))}>{Array.from({length:60},(_,m)=><option key={m} value={m} disabled={!valid(candidate(hour,m))}>{String(m).padStart(2,'0')}</option>)}</Select></label></div>
+    <p className="dc-time-value" role="status">{pending}</p>
+    {(min||max)&&<p className="help">{min||'00:00'}–{max||'23:59'} 사이에서 선택하세요.</p>}
+    <div className="dc-actions"><Button disabled={!valid(pending)} onClick={()=>{state.commit(pending);close();}}>확인</Button><Button variant="quiet" onClick={()=>{state.commit('');close();}}>지우기</Button><Button variant="quiet" onClick={close}>취소</Button></div>
+   </div>}
+  </div>;
 }
 
 export type DateTimeInputProps = DatePickerProps;
@@ -797,6 +797,7 @@ export function DatePicker({
     required,
     onValidityChange,
   );
+  usePickerDismiss(containerRef,open,setOpen,locked);
   const close = () => {
     setOpen(false);
     containerRef.current
@@ -816,49 +817,17 @@ export function DatePicker({
       onKeyDown={(event) => {
         if (event.key === "Escape" && open) {
           event.preventDefault();
+          event.stopPropagation();
           close();
         }
       }}
     >
-      <FormField
-        label={label}
-        description="YYYY-MM-DD 형식"
-        error={
-          error ||
-          (invalid
-            ? "올바른 날짜를 YYYY-MM-DD 형식으로 입력해 주세요."
-            : restricted
-              ? "선택할 수 없는 날짜입니다."
-              : undefined)
-        }
-        required={required}
-      >
-        <Input
-          value={state.draft}
-          disabled={disabled}
-          readOnly={readOnly || busy}
-          loading={busy}
-          onChange={(event) => {
-            if (locked) return;
-            const next = event.target.value;
-            state.setDraft(next);
-            if (!next || (parseDate(next) && !unavailable(next, limits)))
-              state.commit(next);
-          }}
-        />
+      <FormField label={label} required={required} error={error||(invalid?"올바른 날짜를 YYYY-MM-DD 형식으로 입력해 주세요.":restricted?"선택할 수 없는 날짜입니다.":undefined)}>
+       <PickerTrigger label={label} value={state.draft} display={parseDate(state.draft)?koreanDate(parseDate(state.draft)!):state.draft||'날짜 선택'} kind="calendar"
+        disabled={disabled} readOnly={readOnly} busy={busy} open={open&&!locked} controls={calendarId} onToggle={()=>setOpen(!open)}/>
       </FormField>
-      <Button
-        variant="secondary"
-        size="small"
-        disabled={locked}
-        aria-expanded={open && !locked}
-        aria-controls={calendarId}
-        onClick={() => setOpen(!open)}
-      >
-        달력 {open && !locked ? "닫기" : "열기"}
-      </Button>
       {open && !locked && (
-        <div id={calendarId}>
+        <div id={calendarId} className="dc-picker-panel" role="dialog" aria-label={`${label} 달력`}>
           <Calendar {...limits} value={state.draft} onSelect={select} />
         </div>
       )}

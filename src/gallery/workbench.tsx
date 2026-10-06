@@ -22,12 +22,15 @@ export function GalleryDocs({children,className}:React.PropsWithChildren<{classN
 export function VariantExamples({children}:React.PropsWithChildren) {
  return <GallerySlot slot="variant"><WorkbenchContext.Provider value={null}><section className="gallery-extra-examples" aria-label="추가 시연">{children}</section></WorkbenchContext.Provider></GallerySlot>;
 }
-export function ComponentWorkbench({children}:React.PropsWithChildren) {
+export function ComponentWorkbench({children,name}:React.PropsWithChildren<{name:string}>) {
+ const fields=['Input','Textarea','Select','PasswordInput','TextField','SearchInput','EmailInput','URLInput','NumberInput','TelInput','FileInput','DatePicker','MonthPicker','TimeInput','Combobox','InputGroup'];
+ const forms=['FormField','DateRangePicker','DateTimeInput','AddressInput','MultiSelect'];
+ const layout=fields.includes(name)?'field':forms.includes(name)?'form':'wide';
  const [variant,setVariant]=useState<HTMLElement|null>(null);
  const [code,setCode]=useState<HTMLElement|null>(null);
  const [docs,setDocs]=useState<HTMLElement|null>(null);
  return <WorkbenchContext.Provider value={{variant,code,docs}}><div className="gallery-workbench"><Stack>
-  <section className="gallery-live-demo" aria-label="컴포넌트 시연">{children}</section>
+  <section className="gallery-live-demo" data-layout={layout} aria-label="컴포넌트 시연">{children}</section>
   <div className="gallery-detail-tabs"><Tabs label="컴포넌트 상세" items={[
    {label:'Variant',content:<div ref={setVariant} className="gallery-variant-panel"/>},
    {label:'Code',content:<div ref={setCode} className="gallery-code-panel"/>},

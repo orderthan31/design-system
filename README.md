@@ -1,6 +1,4 @@
-# Common — 공통 웹 디자인시스템
-
-Vite·React·TypeScript 기반의 **한국어 문서와 실제 동작하는 컴포넌트 플레이그라운드**입니다. 제품 화면이나 SVG 이미지 갤러리가 아닌 독립 공통 DS입니다.
+# Gyeol Design
 
 ## 프리뷰 공유 checkpoint와 최종 수락
 

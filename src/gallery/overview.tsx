@@ -20,9 +20,9 @@ export function Overview({navigate}:{navigate:(page:OverviewPage)=>void}) {
   const [query,setQuery]=React.useState('');
   const entries=query.trim()?searchComponents(query):galleryRegistry.filter(entry=>featured.includes(entry.name));
   return <div className="gallery-overview stack">
-    <header className="page-heading"><h1>Overview</h1><p>컴포넌트를 찾아 동작을 확인하고, 필요한 코드와 스타일을 가져오세요.</p></header>
+    <header className="page-heading"><h1>Gyeol Design</h1></header>
     <section className="stack" aria-label="컴포넌트 찾기"><h2>컴포넌트 찾기</h2>
-      <Input type="search" aria-label="소개 화면 컴포넌트 검색" value={query} onChange={event=>setQuery(event.target.value)} placeholder="API 이름 또는 한국어로 검색"/>
+      <Input type="search" aria-label="컴포넌트 검색" value={query} onChange={event=>setQuery(event.target.value)} placeholder="API 이름 또는 한국어로 검색"/>
       {query.trim()&&<p className="help" role="status">검색 결과 {entries.length}개</p>}
       <div className="overview-component-links">{entries.map(entry=><a key={entry.id} href={componentHash(entry.id)}>{entry.name}<Icon name="chevron-right" size={16}/></a>)}</div>
       {query.trim()&&entries.length===0&&<p>다른 이름으로 검색해 보세요.</p>}

@@ -488,12 +488,12 @@ function Foundations() {
         <article className="feature-card">
           <span className="eyebrow">크기와 간격</span>
           <div className="geometry">
-            <div>48</div>
             <div>44</div>
-            <div>10</div>
+            <div>8</div>
+            <div>14</div>
           </div>
           <h3>Controls</h3>
-<p>주요 버튼 48px · 입력 44px · 버튼·입력 모서리 10px</p>
+<p>기본 버튼·입력 44px · 모서리 8px · 컨트롤 글자 14px</p>
         </article>
       </div>
       <ThemeGallery />
@@ -630,14 +630,14 @@ export function App() {
     return ()=>cancelAnimationFrame(frame);
   }, [route,navOpen]);
   const navigation=<GalleryNavigation selected={entry?.id} onNavigate={navigateHash}/>;
-  const header=<div className="gallery-header"><Container><div className="gallery-header-row"><span className="gallery-menu-button"><Button variant="quiet" aria-label="컴포넌트 탐색 열기" aria-expanded={navOpen} onClick={()=>setNavOpen(true)}>☰</Button></span><span className="gallery-header-brand">common</span><span className="gallery-header-current">{entry?.name??pageLabels[page]}</span><a href="/source/tokens/core.json">Tokens ↗</a></div></Container></div>;
+  const header=<div className="gallery-header"><Container><div className="gallery-header-row"><span className="gallery-menu-button"><Button variant="quiet" aria-label="컴포넌트 탐색 열기" aria-expanded={navOpen} onClick={()=>setNavOpen(true)}>☰</Button></span><span className="gallery-header-brand">Gyeol Design</span><span className="gallery-header-current">{entry?.name??pageLabels[page]}</span><a href="/source/tokens/core.json">Tokens ↗</a></div></Container></div>;
   return <div className="gallery-app ds-core"><a className="skip-link" href="#main">본문으로 건너뛰기</a>
     <Shell mainAs="div" navigation={navigation} header={header}>
       {navOpen&&<Dialog open title="컴포넌트 탐색" onClose={()=>setNavOpen(false)}><GalleryNavigation selected={entry?.id} onNavigate={navigateHash}/></Dialog>}
       <main id="main" tabIndex={-1}><Container><Stack>
           {entry ? (
             <section className="component-detail" key={entry.id}>
-              <PageHeader title={entry.name} eyebrow=""/><ComponentWorkbench>
+              <PageHeader title={entry.name} eyebrow=""/><ComponentWorkbench name={entry.name}>
               {hasPlayground(entry.name) && <Playground name={entry.name}/> }
               {entry.name === "Button" && <VariantExamples><CommonControlsComparison/></VariantExamples>}
               {hasPlayground(entry.name)?<VariantExamples><CanonicalDetail name={entry.name}/></VariantExamples>:<CanonicalDetail name={entry.name}/>}
@@ -651,10 +651,7 @@ export function App() {
           ) : page === "Foundations" ? (
             <Foundations />
           ) : null}
-          <footer className="page-footer">
-            <span>common / 공유 디자인 시스템</span>
 
-          </footer>
       </Stack></Container></main>
     </Shell>
   </div>;

@@ -10,35 +10,35 @@ export type ThemeRole = typeof themeRoles[number];
 export type ThemeId = 'slate' | 'indigo' | 'teal';
 export interface Theme { readonly id: ThemeId; readonly label: string; readonly roles: Readonly<Record<ThemeRole, HexColor>> }
 const neutral: Record<ThemeRole, HexColor> = {
-  surface: '#ffffff', canvas: '#f8fafc', subtle: '#f1f5f9', text: '#0f172a', secondaryText: '#475569', mutedText: '#475569',
-  inverseSurface: '#0f172a', inverseText: '#ffffff', controlBorder: '#64748b', subtleBorder: '#e2e8f0', focus: '#3730a3',
+  surface: '#ffffff', canvas: '#fafaf9', subtle: '#f5f5f4', text: '#1c1917', secondaryText: '#57534e', mutedText: '#6f6862',
+  inverseSurface: '#1c1917', inverseText: '#ffffff', controlBorder: '#8c8882', subtleBorder: '#e7e5e4', focus: '#3730a3',
   primaryDefault: '#4338ca', primaryHover: '#3730a3', primaryPressed: '#312e81', primaryText: '#ffffff',
-  secondarySurface: '#ffffff', secondaryHover: '#f1f5f9', secondaryPressed: '#eef2ff', secondaryActionText: '#0f172a',
-  ghostSurface: '#ffffff', ghostHover: '#eef2ff', ghostPressed: '#e0e7ff', ghostText: '#3730a3',
+  secondarySurface: '#ffffff', secondaryHover: '#f5f5f4', secondaryPressed: '#e7e5e4', secondaryActionText: '#1c1917',
+  ghostSurface: '#ffffff', ghostHover: '#f5f5f4', ghostPressed: '#e7e5e4', ghostText: '#1c1917',
   destructiveSurface: '#b91c1c', destructiveHover: '#991b1b', destructivePressed: '#7f1d1d', destructiveText: '#ffffff', selectedSurface: '#eef2ff', selectedText: '#3730a3',
   infoSurface: '#eff6ff', infoText: '#1e40af', warningSurface: '#fffbeb', warningText: '#92400e',
   successSurface: '#f0fdf4', successText: '#166534', errorSurface: '#fef2f2', errorText: '#b91c1c',
-  neutralSurface: '#f1f5f9', neutralText: '#475569', disabledSurface: '#f1f5f9', disabledText: '#475569', scrim: '#0f172a66',
+  neutralSurface: '#f5f5f4', neutralText: '#57534e', disabledSurface: '#f5f5f4', disabledText: '#6f6862', scrim: '#1c191766',
 };
 export const themes: readonly Theme[] = Object.freeze([
   Object.freeze({id: 'indigo', label: '인디고 라이트', roles: Object.freeze({...neutral})}),
   Object.freeze({id: 'teal', label: '틸 라이트', roles: Object.freeze({...neutral,
     primaryDefault: '#0f766e', primaryHover: '#115e59', primaryPressed: '#134e4a',
-    focus: '#115e59', secondaryPressed: '#f0fdfa', ghostText: '#115e59', ghostHover: '#f0fdfa', ghostPressed: '#ccfbf1', selectedSurface: '#f0fdfa', selectedText: '#115e59',
+    focus: '#115e59', selectedSurface: '#f0fdfa', selectedText: '#115e59',
   })}),
 ]);
 
 /** Current UI default; historical 107-token source remains immutable. */
 export const defaultTheme: Theme = Object.freeze({id:'slate',label:'블루 라이트',roles:Object.freeze({...neutral,
   primaryDefault:'#2563eb',primaryHover:'#1d4ed8',primaryPressed:'#1e40af',focus:'#2563eb',
-  secondaryPressed:'#eff6ff',ghostText:'#1d4ed8',ghostHover:'#eff6ff',ghostPressed:'#dbeafe',
+  secondaryPressed:'#e7e5e4',ghostText:'#1c1917',ghostHover:'#f5f5f4',ghostPressed:'#e7e5e4',
   selectedSurface:'#eff6ff',selectedText:'#1d4ed8',
   infoSurface:'#eff6ff',infoText:'#1e40af',successSurface:'#ecfdf5',successText:'#065f46',
   warningSurface:'#fffbeb',warningText:'#854d0e',errorSurface:'#fff1f2',errorText:'#be123c',
   destructiveSurface:'#be123c',destructiveHover:'#9f1239',destructivePressed:'#881337',
 })});
 export function renderDefaultThemeCss():string {
-  return '/* Generated default override; historical tokens stay unchanged. */\n.ds-core {\n'+Object.entries(themeVariables(defaultTheme)).map(([key,value])=>`  ${key}: ${value};`).join('\n')+'\n  --font-size-body: 14px;\n  --font-line-body: 1.6;\n  --font-size-title: 20px;\n  --font-line-title: 1.4;\n  --font-size-label: 13px;\n  --font-size-caption: 12px;\n}\n';
+  return '/* Generated default override; historical tokens stay unchanged. */\n.ds-core {\n'+Object.entries(themeVariables(defaultTheme)).map(([key,value])=>`  ${key}: ${value};`).join('\n')+'\n  --font-size-body: 14px;\n  --font-line-body: 22px;\n  --font-size-title: 18px;\n  --font-line-title: 26px;\n  --font-size-label: 13px;\n  --font-line-label: 20px;\n  --font-size-caption: 12px;\n  --font-line-caption: 18px;\n  --size-control: 44px;\n  --size-control-primary: 44px;\n  --radius-md: 8px;\n  --radius-lg: 12px;\n}\n';
 }
 
 /** Map semantic overrides to the variables existing components actually consume. */
@@ -46,8 +46,8 @@ export function themeVariables(theme: Theme): Record<`--${string}`, string> {
   const r = theme.roles;
   for (const role of themeRoles) channels(r[role], role === 'scrim');
   const coupled: readonly (readonly [ThemeRole, ThemeRole])[] = [
-    ['secondarySurface', 'surface'], ['secondaryHover', 'subtle'], ['secondaryPressed', 'selectedSurface'], ['secondaryActionText', 'text'],
-    ['ghostSurface', 'surface'], ['ghostHover', 'selectedSurface'], ['destructiveSurface', 'errorText'],
+    ['secondarySurface', 'surface'], ['secondaryHover', 'subtle'], ['secondaryActionText', 'text'],
+    ['ghostSurface', 'surface'], ['destructiveSurface', 'errorText'],
     ['destructiveText', 'inverseText'], ['inverseSurface', 'text'], ['primaryText', 'inverseText'],
   ];
   for (const [role, consumedRole] of coupled) {
@@ -58,8 +58,8 @@ export function themeVariables(theme: Theme): Record<`--${string}`, string> {
   const map: Record<string, ThemeRole> = {
     'color-bg-surface': 'surface', 'color-bg-canvas': 'canvas', 'color-bg-subtle': 'subtle',
     'color-text-primary': 'text', 'color-text-secondary': 'secondaryText', 'color-text-muted': 'mutedText',
-    'color-text-muted-onSubtle': 'mutedText', 'color-text-inverse': 'inverseText', 'color-link': 'ghostText', 'color-focus': 'focus',
-    'color-border-control': 'controlBorder', 'color-border-subtle': 'subtleBorder',
+    'color-text-muted-onSubtle': 'mutedText', 'color-text-inverse': 'inverseText', 'color-link': 'primaryHover', 'color-focus': 'focus',
+    'ds-boundary-rest': 'controlBorder', 'color-border-control': 'controlBorder', 'color-border-subtle': 'subtleBorder',
     'color-action-primary-bg-default': 'primaryDefault', 'color-action-primary-bg-hover': 'primaryHover', 'color-action-primary-bg-pressed': 'primaryPressed',
     'color-selected-bg': 'selectedSurface', 'color-selected-fg': 'selectedText',
     'color-disabled-bg': 'disabledSurface', 'color-disabled-fg': 'disabledText',
@@ -89,6 +89,7 @@ const lightSurfaces = ['surface', 'canvas', 'subtle'] as const;
 /** Closed allowlist; unlisted backgrounds/alpha/opacity are not authorized. */
 export const textPairs: readonly ContrastPair[] = [
   ...['text', 'secondaryText', 'mutedText', 'ghostText', 'errorText'].flatMap(role => on(role as ThemeRole, lightSurfaces)),
+  ...on('primaryHover', lightSurfaces),
   ...on('primaryText', ['primaryDefault', 'primaryHover', 'primaryPressed']),
   ...on('secondaryActionText', ['secondarySurface', 'secondaryHover', 'secondaryPressed']),
   ...on('ghostText', ['ghostSurface', 'ghostHover', 'ghostPressed']), ...on('destructiveText', ['destructiveSurface', 'destructiveHover', 'destructivePressed']),

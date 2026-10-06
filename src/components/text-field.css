@@ -22,8 +22,8 @@
   color: var(--color-disabled-fg);
 }
 .ds-core .tf-row:has(.tf-input > input:focus-visible) {
-  outline: 3px solid var(--color-focus);
-  outline-offset: 3px;
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
 }
 .ds-core .tf-row:hover:not(:has(input:disabled, input[readonly], input[aria-invalid="true"])),
 .ds-core .tf-row:has(input:focus-visible):not(:has(input[aria-invalid="true"])) { border-color:var(--color-focus); }

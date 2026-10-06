@@ -76,7 +76,7 @@
 .ds-core .rs-detail td {
   text-align: left;
   padding: var(--space-2);
-  border-bottom: var(--ds-border-thin) solid var(--field-border);
+  border-bottom: var(--ds-border-thin) solid var(--color-border-subtle);
 }
 .ds-core .rs-demo-form > .rs-action {
   justify-self: start;

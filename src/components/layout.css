@@ -27,7 +27,7 @@
   background: var(--color-bg-surface);
   border: 0;
   padding: var(--ds-space-5);
-  border-radius: var(--ds-radius-control);
+  border-radius: var(--radius-lg);
   min-width: 0;
 }
 .ds-core .ds-section h3 {

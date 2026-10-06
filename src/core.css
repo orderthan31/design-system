@@ -107,7 +107,7 @@
 }
 .ds-core h1 {
   font-size: var(--ds-font-page);
-  line-height: 1.18;
+  line-height: var(--ds-line-large);
 }
 .ds-core h2 {
   font-size: var(--font-size-title);
@@ -125,8 +125,8 @@
   font-size: var(--font-size-caption);
 }
 .ds-core :focus-visible {
-  outline: 3px solid var(--color-focus);
-  outline-offset: 3px;
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
 }
 .ds-core button:disabled {
   cursor: not-allowed;
@@ -166,8 +166,8 @@
   padding: var(--ds-space-2-5) var(--space-4);
   border: var(--ds-border-thin) solid transparent;
   border-radius: var(--ds-radius-button);
-  font-size: var(--font-size-label);
-  line-height: var(--font-line-label);
+  font-size: var(--ds-control-font-size);
+  line-height: var(--ds-control-line-height);
   font-weight: var(--ds-weight-medium);
   display: inline-flex;
   justify-content: center;
@@ -192,27 +192,27 @@
   background: var(--button-bg-pressed);
 }
 .ds-core .button.secondary {
-  background: var(--color-bg-subtle);
-  border-color: transparent;
+  background: var(--color-action-secondary-surface);
+  border-color: var(--ds-boundary-rest);
   color: var(--color-text-primary);
 }
 .ds-core .button.secondary:hover:not(:disabled):not([aria-busy="true"]) {
-  background: var(--color-selected-bg);
-  color: var(--color-selected-fg);
+  background: var(--color-action-secondary-hover);
+  color: var(--color-action-secondary-text);
 }
 .ds-core .button.quiet,
 .ds-core .button.ghost {
   background: transparent;
-  color: var(--color-link);
+  color: var(--color-action-ghost-text);
 }
 .ds-core .button.quiet:hover:not(:disabled):not([aria-busy="true"]),
 .ds-core .button.ghost:hover:not(:disabled):not([aria-busy="true"]) {
-  background: var(--color-selected-bg);
+  background: var(--color-action-ghost-hover);
 }
 .ds-core .button.destructive {
   background: var(--color-status-error-fg);
   color: var(--color-text-inverse);
-  min-height: 48px;
+  min-height: var(--size-control);
 }
 .ds-core .button.small {
   padding: var(--space-2) var(--space-3);
@@ -231,20 +231,17 @@
   cursor: wait;
 }
 .ds-core .icon-button {
-  width: 48px;
-  min-height: 48px;
+  width: var(--size-control);
+  min-height: var(--size-control);
   padding: 0;
   font-size: var(--ds-chart-title-size);
 }
 /* Shared control shape; boundary colors retain the theme contrast contract. */
 .ds-core .button > svg { width:18px; height:18px; flex-shrink:0; display:block; }
-.ds-core .icon-button > svg { width:20px; height:20px; }
-.ds-core .button.secondary:active:not(:disabled):not([aria-busy="true"]),
+.ds-core .icon-button > svg { width:18px; height:18px; }
+.ds-core .button.secondary:active:not(:disabled):not([aria-busy="true"]) {background:var(--color-action-secondary-pressed);color:var(--color-action-secondary-text);}
 .ds-core .button.quiet:active:not(:disabled):not([aria-busy="true"]),
-.ds-core .button.ghost:active:not(:disabled):not([aria-busy="true"]) {
-  background:var(--color-selected-bg); color:var(--color-selected-fg);
-  border-color:var(--color-selected-fg);
-}
+.ds-core .button.ghost:active:not(:disabled):not([aria-busy="true"]) {background:var(--color-action-ghost-pressed);color:var(--color-action-ghost-text);}
 .ds-core .button.destructive:hover:not(:disabled):not([aria-busy="true"]),
 .ds-core .button.destructive:active:not(:disabled):not([aria-busy="true"]) {
   filter:brightness(.96);
@@ -258,7 +255,7 @@
 .ds-core .control[aria-busy="true"] { cursor:progress; }
 .ds-core .tabs [role="tab"] { border-radius:var(--ds-radius-control) var(--ds-radius-control) 0 0; display:inline-flex; align-items:center; gap:8px; }
 .ds-core .tabs [role="tab"]:hover:not(:disabled),
-.ds-core .tabs [role="tab"]:active:not(:disabled) { background:var(--color-selected-bg); color:var(--color-selected-fg); }
+.ds-core .tabs [role="tab"]:active:not(:disabled) { background:var(--color-bg-subtle); color:var(--color-text-primary); }
 .ds-core .tabs [role="tab"]:disabled { color:var(--color-disabled-fg); }
 .ds-core .checkbox:hover:not(:has(input:disabled)) { color:var(--color-link); }
 .ds-core .spinner {
@@ -272,7 +269,7 @@
 }
 .ds-core .field {
   display: grid;
-  gap: 7px;
+  gap: var(--space-2);
   min-width: 0;
 }
 .ds-core .field label {
@@ -322,13 +319,13 @@
 }
 .ds-core .help {
   font-size: var(--font-size-caption);
-  line-height: var(--ds-line-compact);
+  line-height: var(--font-line-caption);
   color: var(--color-text-secondary);
   margin: 0;
 }
 .ds-core .error {
   font-size: var(--font-size-caption);
-  line-height: var(--ds-line-compact);
+  line-height: var(--font-line-caption);
   color: var(--field-error-fg);
   margin: 0;
 }
@@ -445,7 +442,7 @@
   font-size: var(--ds-control-font-size);
   line-height: var(--ds-line-body);
   display: grid;
-  gap: 7px;
+  gap: var(--space-2);
   overflow-wrap: anywhere;
 }
 .ds-core .alert .badge {
@@ -510,7 +507,7 @@
   background: none;
   padding: var(--ds-space-2-5) var(--space-4);
   min-height: 44px;
-  font-size: var(--font-size-label);
+  font-size: var(--ds-control-font-size);
   color: var(--color-text-secondary);
 }
 .ds-core .tabs [role="tab"][aria-selected="true"] {
@@ -621,7 +618,7 @@
   border-top: var(--ds-border-thin) solid var(--color-border-subtle);
 }
 .ds-core .dialog-actions .primary {
-  min-height: 48px;
+  min-height: var(--size-control);
 }
 .ds-core .template header h3 {
   font-size: var(--ds-chart-title-size);
@@ -723,7 +720,7 @@
 @media (max-width: 700px) {
   .ds-core .button {
     padding: var(--ds-space-2-5) var(--ds-space-3-5);
-    font-size: var(--font-size-label);
+    font-size: var(--ds-control-font-size);
   }
   .ds-core .wrap {
     gap: 10px;
