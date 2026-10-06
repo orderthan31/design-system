@@ -2,6 +2,24 @@
 
 현재 공유 기준: build/TypeScript 오류가 없는 안정 checkpoint는 먼저 Git으로 공유하고 동일 commit의 프리뷰에서 기능 점검한다. 아래 범위별 이력은 최종 전체 수락이 아니며, 과거 검수 전 push 보류를 현재 프리뷰 공유의 선행 조건으로 적용하지 않는다. 전체 coverage·동일 트리 독립 최종 수락은 별도 잔여다.
 
+## Overview와 우선 개별 상세 연결 checkpoint
+
+- Overview는 무작위 저장 폼/CompositionExample 대신 Foundations·Components·Templates 진입, API/한국어 검색과 직접 상세 링크, 저장소 실행 및 소스 import 안내를 제공합니다. npm 미발행 상태, `.ds-core`/core.css와 font 자산 계약을 명시합니다.
+- 이번 다섯 항목은 **기존 shared core 재사용**이며 신규 core 기능 재작성/최종 수락이 아닙니다.
+
+| 이름 | core 소스 | 개별 상세 | 현재 controls | 최종검증 |
+| --- | --- | --- | --- | --- |
+| Container | 존재: layout.tsx | 실제 Container + 현재 코드 | style.maxWidth 예시 | 미완료 |
+| Grid | 존재: layout.tsx | 실제 반응형 Grid + 현재 코드 | style.gap 예시 | 미완료 |
+| DatePicker | 존재: date-controls.tsx | 실제 입력/달력 + 현재 코드 | disabled/readOnly/busy/error/required/min/max, 선택 값 | 미완료 |
+| DateRangePicker | 존재: date-controls.tsx | 실제 시작/종료/역순 안내 + 현재 코드 | 위 상태와 start/end 값 | 미완료 |
+| DataTable | 존재: data-display.tsx | 실제 검색/정렬/선택/페이지 + 현재 코드 | loading/error/empty 및 내부 검색·필터·선택·페이지 | 미완료 |
+
+- 라우트는 `hasConnectedDetail`로 해당 다섯 상세를 실제 mount합니다. layout props는 native div 속성이며 columns/size API를 새로 만들지 않았습니다. DatePicker 편집 draft와 callback의 committed 값은 구분합니다. DataTable 내부 검색/선택/page state는 외부 props controls 또는 표시 코드와 양방향 제어되는 것으로 주장하지 않습니다.
+- 날짜 API에는 native name/form 직렬화 props가 없고, 표 데이터는 로컬 샘플입니다. 배포·서버 동작·전체 props controls 완료가 아닙니다. 다른 registry의 null/API-only 개별 상세, core 부재 후보, 전체 controls 및 동일 final tree 검증은 기존 잔여로 유지하며 전수 대조는 별도 진행합니다.
+- 모바일 표의 정렬 제목은 단어 단위로 유지하고 기존 이름 있는 가로 스크롤 영역으로 수용합니다. 상세 grid는 minmax(0,1fr)로 intrinsic-width 넘침 원인을 교정합니다. overflow 숨김으로 잘라내지 않습니다.
+- 아래 숫자/회귀 통과는 과거 checkpoint 이력입니다. 이번 개별 상세 연결의 최종 전체 수락 근거로 재사용하지 않습니다.
+
 ## Props / 코드 / 표면 교정 checkpoint
 
 - 갤러리의 `CodeBlock`은 Prettier TSX 포맷, Prism 토큰 색상, code-local scroll, 실제 현재 코드 복사 결과를 제공합니다. 포맷 실패 시 원문을 표시합니다. formatter/highlighter는 갤러리에만 import하며 core export에 넣지 않습니다. MIT attribution은 `docs/licenses/`에 보존합니다.

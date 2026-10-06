@@ -2,6 +2,8 @@ import React, { useEffect, useState, useRef } from "react";
 import { Playground, hasPlayground } from "./gallery/playground";
 import { CodeBlock } from "./gallery/code-block";
 import { CommonControlsComparison } from "./gallery/common-controls";
+import { Overview } from "./gallery/overview";
+import { ConnectedDetail, hasConnectedDetail } from "./gallery/connected-detail";
 import { GalleryNavigation } from "./gallery/navigation";
 import { BottomCTADetail } from "./gallery/bottom-cta-detail";
 import { RangeSelectionDetail } from "./gallery/range-selection-detail";
@@ -516,36 +518,6 @@ function ComponentCard({ name }: { name: string; index: number }) {
     </article>
   );
 }
-function Overview({ navigate }: { navigate: (p: Page) => void }) {
-  const [saved, setSaved] = useState(false);
-  return (
-    <>
-      <header className="hero">
-        <h1>Components</h1>
-        <div className="wrap">
-          <Button onClick={() => navigate("Atoms")}>컴포넌트 둘러보기</Button>
-          <Button variant="secondary" onClick={() => navigate("Foundations")}>
-            기초 살펴보기
-          </Button>
-          <Button variant="secondary" onClick={() => navigate("Templates")}>
-            PC · 모바일 템플릿
-          </Button>
-        </div>
-
-      </header>
-      <section className="stack" aria-label="공통 입력 데모">
-        <h2>FormField · Button · Badge</h2>
-        <FormField label="표시 이름" defaultValue="공통 기초" />
-        <div className="wrap">
-          <Button onClick={() => setSaved(true)}>변경 사항 저장</Button>
-          <Badge tone="success">준비 완료</Badge>
-        </div>
-        {saved && <p role="status">변경 사항을 저장했습니다.</p>}
-      </section>
-      <CompositionExample />
-    </>
-  );
-}
 function Foundations() {
   const [layer, setLayer] = useState<"primitive" | "semantic" | "component">(
     "semantic",
@@ -572,10 +544,10 @@ function Foundations() {
           <div className="geometry">
             <div>48</div>
             <div>44</div>
-            <div>8</div>
+            <div>10</div>
           </div>
           <h3>Controls</h3>
-<p>버튼 48px · 입력 44px · 모서리 8px</p>
+<p>주요 버튼 48px · 입력 44px · 버튼·입력 모서리 10px</p>
         </article>
       </div>
       <ThemeGallery />
@@ -986,7 +958,7 @@ export function App() {
               <div className="page-heading"><span className="eyebrow">{entry.atomic} / {entry.group}</span><h1 tabIndex={-1}>{entry.label} · {entry.name}</h1></div>
               {hasPlayground(entry.name) && <Playground name={entry.name}/> }
               {entry.name === "Button" && <CommonControlsComparison/>}
-              {entry.name==="BottomCTA" ? <BottomCTADetail/> : ["Slider","Rating"].includes(entry.name) ? <RangeSelectionDetail kind={entry.name==="Slider"?"slider":"rating"}/> : ["ProgressStepper","Result"].includes(entry.name) ? <ProgressResultDetail kind={entry.name==="ProgressStepper"?"progress-stepper":"result"}/> : entry.name==="SegmentedControl" ? <SegmentedDetail/> : entry.name==="TextField" ? <InputDetail/> : ["ListRow","ListHeader","ListFooter"].includes(entry.name) ? <ListDetail/> : ["BottomSheet","Dialog"].includes(entry.name) ? <OverlayDetail kind={entry.name==="BottomSheet"?"bottom-sheet":"dialog"}/> : <>
+              {hasConnectedDetail(entry.name) ? <ConnectedDetail name={entry.name}/> : entry.name==="BottomCTA" ? <BottomCTADetail/> : ["Slider","Rating"].includes(entry.name) ? <RangeSelectionDetail kind={entry.name==="Slider"?"slider":"rating"}/> : ["ProgressStepper","Result"].includes(entry.name) ? <ProgressResultDetail kind={entry.name==="ProgressStepper"?"progress-stepper":"result"}/> : entry.name==="SegmentedControl" ? <SegmentedDetail/> : entry.name==="TextField" ? <InputDetail/> : ["ListRow","ListHeader","ListFooter"].includes(entry.name) ? <ListDetail/> : ["BottomSheet","Dialog"].includes(entry.name) ? <OverlayDetail kind={entry.name==="BottomSheet"?"bottom-sheet":"dialog"}/> : <>
                 {!hasPlayground(entry.name) && <Demo name={entry.name}/>}
                 {!hasPlayground(entry.name) && <details><summary>코드 · API · 접근성</summary>{snippets[entry.name] && <CodeBlock source={snippets[entry.name]}/>}</details>}
               </>}

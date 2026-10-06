@@ -25,7 +25,7 @@ npm run dev
 
 ## 문서 구조
 
-- **개요**: 계층별 탐색과 실제 재사용 조합.
+- **개요**: Foundations/Components/Templates 진입, 실제 컴포넌트 검색·상세 링크와 저장소 실행/소스 import 안내.
 - **기초 (Foundations)**: 기준 토큰 107개(기본값 39 / 의미 역할 29 / 컴포넌트 39), 원본 별칭·해석된 값·검색·글꼴·크기·대비 사용 계약. 범위 한정 인디고/틸 테마 전환 및 기본 코어 복원.
 - **아톰 (Atoms)**: Button, IconButton, Input, Textarea, Select, Checkbox, Badge, Progress, Skeleton, Separator.
 - **몰리큘 (Molecules)**: FormField, Alert, EmptyState, Menu, Tabs, Tooltip.
@@ -54,7 +54,7 @@ import "./src/core.css";
 
 문서 앱은 명시적으로 `gallery.css`를 사용합니다. 이 파일의 문서 reset·탐색·데모 배치는 **gallery 전용 opt-in**이며 소비 core에 포함되지 않습니다. 이전 `styles.css` 경로는 gallery 호환 진입점일 뿐 core 소비 경로가 아닙니다.
 
-현재 `.ds-core` 기본값은 white/slate입니다. 원본 107개 토큰은 역사 증적으로 보존하고 `default-theme.css`가 실제 공통 상태·semantic 색을 덮어씁니다. Indigo/Teal 전환은 지정 컨테이너만 바꾸며 root·형제·기준 토큰은 변경하지 않습니다. 복원 대상은 역사 색이 아닌 현재 slate 기본값이고, 세 팔레트의 대비는 각각 다시 계산합니다. 상세 표는 “대비 계약”에 접어 두었습니다.
+현재 `.ds-core` 기본값은 블루 라이트이며 역사적 API 식별자 slate는 유지합니다. 원본 107개 토큰은 역사 증적으로 보존하고 `default-theme.css`가 실제 공통 상태·semantic 색을 덮어씁니다. Indigo/Teal 전환은 지정 컨테이너만 바꾸며 root·형제·기준 토큰은 변경하지 않습니다. 복원 대상은 역사 색이 아닌 현재 slate 기본값이고, 세 팔레트의 대비는 각각 다시 계산합니다. 상세 표는 “대비 계약”에 접어 두었습니다.
 
 현재 기능·조합·상태·테스트·미검증 정본: `docs/component-inventory-v1.md`, `docs/theme-contract-v1.md`, `docs/theme-contrast.json`, `docs/icons-contract.md`. 버전 없는 기존 inventory/theme 문서는 역사 이력입니다. 주소 검색 예시는 로컬 fixture이며 provider/API가 아닙니다.
 

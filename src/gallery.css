@@ -1,5 +1,20 @@
 /* Gallery application only: intentionally includes document reset and navigation. */
 @import "./core.css";
+.gallery-overview {max-width:100%;gap:32px;}
+.gallery-overview .page-heading {margin-bottom:0;}
+.gallery-overview .page-heading p {margin:12px 0 0;color:var(--color-text-secondary);font-size:14px;line-height:22px;}
+.overview-entrypoints {display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:24px;}
+.overview-entrypoints > div {min-width:0;display:grid;gap:12px;align-content:start;}
+.overview-entrypoints p {font-size:14px;line-height:22px;color:var(--color-text-secondary);margin:0;}
+.overview-entrypoints .button {justify-self:start;}
+.overview-component-links {display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:8px 24px;}
+.overview-component-links a {display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:44px;padding:8px 0;color:var(--color-text-primary);}
+.overview-component-links a:hover {color:var(--color-link);}
+.connected-detail {min-width:0;grid-template-columns:minmax(0,1fr);}
+.connected-detail > * {min-width:0;max-width:100%;}
+.connected-detail details {overflow-wrap:anywhere;}
+.connected-preview {padding:24px 0;min-width:0;}
+.layout-detail-item {background:var(--color-bg-subtle);color:var(--color-text-primary);padding:24px;border-radius:10px;overflow-wrap:anywhere;}
 .common-controls-grid {display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:32px;align-items:start;min-width:0;}
 .common-controls-grid > section {min-width:0;}
 .common-controls-comparison {margin-top:24px;}

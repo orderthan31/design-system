@@ -63,6 +63,10 @@
   background: var(--color-bg-subtle);
   font-weight: 600;
 }
+.ds-core .ds-table th .button {
+  white-space: nowrap;
+  overflow-wrap: normal;
+}
 .ds-core .ds-table .checkbox {
   white-space: nowrap;
 }
