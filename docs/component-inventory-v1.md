@@ -2,6 +2,16 @@
 
 현재 공유 기준: build/TypeScript 오류가 없는 안정 checkpoint는 먼저 Git으로 공유하고 동일 commit의 프리뷰에서 기능 점검한다. 아래 범위별 이력은 최종 전체 수락이 아니며, 과거 검수 전 push 보류를 현재 프리뷰 공유의 선행 조건으로 적용하지 않는다. 전체 coverage·동일 트리 독립 최종 수락은 별도 잔여다.
 
+## 탐색 3종 canonical 상세 checkpoint
+
+- `hasNavigationDetail`은 GNB/LNB/Breadcrumb 자기 route에 기존 실제 core·필요 props controls·현재 코드·API 제약을 연결합니다. 기존 문서 router/history/focus를 대체하거나 새 router/엔진을 추가하지 않습니다.
+- GNB/LNB label, selectedId/onSelect 및 항목 disabled를 제어합니다. 예제 선택은 로컬 state이며 실제 서비스 경로로 이동하지 않습니다. mobile GNB의 펼침/선택 후 닫힘, LNB 전체/그룹 접힘은 내부 상태입니다. 외부 expanded/defaultExpanded/onExpandedChange 또는 방향키/Home/End/roving/Escape API를 invent하지 않습니다.
+- Breadcrumb label 및 항목 label/href를 제어합니다. 앞 항목은 href가 있을 때 native 링크로 기존 문서 페이지에 진입하고, 마지막 항목은 href를 줘도 aria-current=page인 span입니다. 마지막 href가 있어도 링크가 되지 않는 계약을 시연합니다. 선택 callback/router/focus 관리 기능을 만들지 않습니다.
+- bounded Chrome390/1440px 3route: 실제 mount, GNB 모바일 펼침·native Enter 선택/선택 후 닫힘, LNB 선택·disabled 항목·전체/그룹 접기, owner selectedId 및 label 제어, Breadcrumb href/현재 span·native 개요 진입을 확인했습니다. 해당 범위 document overflow/runtime exception 발견 없고 표시 TSX18개 typecheck 오류0입니다. full suite·전체 상태/AT·디자인/독립 수락은 미완료입니다.
+- current route source: registry **80 / mounted-source 61 / blank-source 19**. 이전 입력 checkpoint의58/22는 과거 이력입니다. 기존 frozen 대조에서는 core 부재 발견 없었고 이번은 gallery/docs만 변경합니다. 빈 상세의 controls는 부재, 연결된 다른 상세의 전체 공개 props completeness는 미평가입니다. schema·전용 controls·필요 API·최종검증은 분리합니다.
+- 현재 빈 canonical 상세: Drawer, Popover, Table, Pagination, List, ListItem, Stack, Shell, ActionGroup, FormSection, ListPanel, FormTemplate, ListTemplate, FeedbackTemplate, DetailTemplate, DesktopWorkspaceTemplate, MobileWorkspaceTemplate, Icon, IconAction.
+- 다음은 기존 Drawer/Popover 개별 상세 소규모 연결입니다. 나머지 data/layout/template/icon, Chart/keypad/SDK·동일 final-tree 전체 gate와 외부 provider는 잔여로 유지합니다.
+
 ## 파일/주소/월/시간/날짜시간 canonical 상세 checkpoint
 
 - `hasExtendedInputDetail`은 FileInput/AddressField/MonthPicker/TimeInput/DateTimeInput 자기 route에 기존 core·필요 controls·현재 코드·API 제약을 연결합니다. core 재작성·외부 요청·엔진을 추가하지 않습니다.
