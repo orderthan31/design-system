@@ -5,7 +5,7 @@ const groups:Record<ComponentGroup,string>={inputs:'입력',navigation:'탐색',
 export function GalleryNavigation({selected,onNavigate}:{selected?:string;onNavigate:(hash:string)=>void}){
  const [query,setQuery]=useState('');const [mode,setMode]=useState<'atomic'|'group'>('atomic');
  const entries=query.trim()?searchComponents(query):galleryRegistry;
- const link=(entry:GalleryEntry)=><a key={entry.id} href={componentHash(entry.id)} aria-current={selected===entry.id?'page':undefined} onClick={event=>{if(event.button!==0||event.metaKey||event.ctrlKey||event.shiftKey||event.altKey)return;event.preventDefault();onNavigate(componentHash(entry.id));}}><span>{entry.label}</span><small>{entry.name}</small></a>;
+ const link=(entry:GalleryEntry)=><a key={entry.id} href={componentHash(entry.id)} aria-current={selected===entry.id?'page':undefined} onClick={event=>{if(event.button!==0||event.metaKey||event.ctrlKey||event.shiftKey||event.altKey)return;event.preventDefault();onNavigate(componentHash(entry.id));}}><span>{entry.name}</span></a>;
  return <nav className="gallery-component-nav" aria-label="컴포넌트 탐색">
   <label className="gallery-search">컴포넌트 검색<input type="search" aria-label="컴포넌트 검색" value={query} onChange={event=>setQuery(event.target.value)} placeholder="한국어 또는 API 이름"/></label>
   <div className="gallery-nav-mode"><button type="button" aria-pressed={mode==='atomic'} onClick={()=>setMode('atomic')}>Atomic</button><button type="button" aria-pressed={mode==='group'} onClick={()=>setMode('group')}>기능군</button></div>
