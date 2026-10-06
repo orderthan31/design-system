@@ -1,0 +1,43 @@
+{
+  "scope": "Build-clean completeness/source-ownership checkpoint; not whole-system, design, accessibility or full regression acceptance.",
+  "basedOn": "0d98656b74d0bc4644360b35b665ac20ddf239e8",
+  "sourceChanges": {
+    "MultiSelect": "Named MultiSelectProps exposes existing showTags; controls, preview, current code and reset use the same owner state.",
+    "CheckboxGroup": "Omit<MultiSelectProps, 'showTags'> preserves forced-false tags contract; no showTags control or generated prop.",
+    "Progress": "Gallery demonstrates value omission, native indeterminate aria-valuenow absence, current source and reset; no new public indeterminate prop.",
+    "DatePickerAndDateRangePicker": "Actual onValidityChange, disabledDates, local sample scenarios and owner reset/remount clear draft and open calendar; existing calendar engine and API preserved.",
+    "ThemeGallery": "Appearance moved from inline style to scoped owning CSS; existing generated data-ds-theme rules switch local tokens, preserving input identity and edits. No document/global mutation."
+  },
+  "lint": {
+    "previous": {"jsx": 63, "css": 444},
+    "current": {"jsx": 28, "css": 444},
+    "wholeSourceExitCode": 1,
+    "changedScope": {"tsxFiles": 5, "cssFiles": 1, "findings": 0},
+    "sourceReduction": {"themeGalleryJSX": 35},
+    "frozenFixtures": {"total": 33, "negative": 26, "positive": 7, "expectationsMatched": true},
+    "policyAndFixtureChanges": false
+  },
+  "executedChecks": {
+    "node": "22.22.2",
+    "productionBuild": "passed",
+    "tsc": "passed",
+    "workingDiffCheck": "passed",
+    "historicalTokensGenerated": 107,
+    "publicTypeShowTags": {"MultiSelectProps": true, "CheckboxGroupProps": false},
+    "boundedViewports": [390, 1440],
+    "multiSelect": "Tag toggle preserves selected values and native input identity; reset restores tags; CheckboxGroup stays tag-free.",
+    "progress": "Omitted value removes aria-valuenow and value prop from current code; reset restores 65.",
+    "dates": "Actual validity callbacks for initial/empty/out-of-range/blocked/leap/nonexistent/reversed-range examples; disabled calendar day and owner reset/close verified.",
+    "themeGallery": "Local theme changes and baseline restore preserve DOM/value; outside button computed background unchanged.",
+    "renderedCurrentSourcesTypechecked": 30,
+    "boundedRuntimeExceptions": 0
+  },
+  "remaining": [
+    "Whole-source lint remains JSX28/CSS444; no suppression or blanket waiver added.",
+    "PasswordInput root cause remains unconfirmed. Independent Chrome145/Linux hosted observations report [1,4] in the type-attribute MutationObserver microtask, then [0,0] in first/second animation frames, retaining DOM/value/focus. Local Chrome154/Mac native-key/pointer observations against the same hosted checkpoint retain [1,4], with and without method instrumentation. Environment-specific results are not merged. No speculative timing fix applied; selection issue remains open.",
+    "Other approved completeness follow-ups and final whole-tree acceptance remain pending.",
+    "Actual IME, assistive technology, cross-browser and full-suite acceptance were not executed for this checkpoint."
+  ],
+  "unchanged": ["Dependency pins and lockfile", "Existing tests", "Lint policy and 33 fixtures", "Recharts single engine", "Historical token identifiers"],
+  "excluded": ["AGENTS.md", "Keypad", "Product SDKs", "Consumer-app integration", "Public deployment", "ZIP attachment"]
+}

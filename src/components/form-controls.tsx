@@ -339,7 +339,7 @@ export function Switch({
   );
 }
 
-export type CheckboxGroupProps = MultiSelectProps;
+export type CheckboxGroupProps = Omit<MultiSelectProps, "showTags">;
 export function CheckboxGroup(props: CheckboxGroupProps) {
   return <MultiSelect {...props} showTags={false} />;
 }
@@ -413,6 +413,7 @@ export type MultiSelectProps = FieldProps & {
   value?: string[];
   defaultValue?: string[];
   onValueChange?: (value: string[]) => void;
+  showTags?: boolean;
 };
 export function MultiSelect({
   label,
@@ -425,7 +426,7 @@ export function MultiSelect({
   id: supplied,
   showTags = true,
   ...props
-}: MultiSelectProps & { showTags?: boolean }) {
+}: MultiSelectProps) {
   const generated = React.useId(),
     id = supplied ?? generated;
   const [internal, setInternal] = React.useState(defaultValue);

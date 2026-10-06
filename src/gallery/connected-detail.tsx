@@ -3,6 +3,7 @@ import { Container, Grid } from '../components/layout';
 import { DatePicker, DateRangePicker, type DateRangeValue } from '../components/date-controls';
 import { DataTable, type DataColumn } from '../components/data-display';
 import { Checkbox, Select } from '../components/primitives';
+import { Button } from '../components/atoms';
 import { CodeBlock } from './code-block';
 
 export const connectedDetailNames=['Container','Grid','DatePicker','DateRangePicker','DataTable'] as const;
@@ -23,21 +24,39 @@ function LayoutDetail({name}:{name:'Container'|'Grid'}) {
   </div>;
 }
 type DateView='default'|'disabled'|'readOnly'|'busy'|'error';
+type DatePreset='initial'|'empty'|'reverse'|'outOfRange'|'blocked'|'leap'|'invalid'|'custom';
 function DateDetail({range}:{range:boolean}) {
-  const [date,setDate]=React.useState('2026-10-06');
-  const [period,setPeriod]=React.useState<DateRangeValue>({start:'2026-10-06',end:'2026-10-09'});
+  const initialDate='2026-10-06';
+  const initialPeriod={start:'2026-10-06',end:'2026-10-09'};
+  const [date,setDate]=React.useState(initialDate);
+  const [period,setPeriod]=React.useState<DateRangeValue>(initialPeriod);
   const [view,setView]=React.useState<DateView>('default');
   const [required,setRequired]=React.useState(false);
   const [limited,setLimited]=React.useState(false);
-  const flags={disabled:view==='disabled',readOnly:view==='readOnly',busy:view==='busy',error:view==='error'?'선택 내용을 확인하세요.':undefined,required,min:limited?'2026-10-01':undefined,max:limited?'2026-10-31':undefined};
+  const [blocked,setBlocked]=React.useState(false);
+  const [preset,setPreset]=React.useState<DatePreset>('initial');
+  const [validity,setValidity]=React.useState<boolean>();
+  const [version,setVersion]=React.useState(0);
+  const flags={disabled:view==='disabled',readOnly:view==='readOnly',busy:view==='busy',error:view==='error'?'선택 내용을 확인하세요.':undefined,required,min:limited?'2026-10-01':undefined,max:limited?'2026-10-31':undefined,disabledDates:blocked?['2026-10-08']:undefined};
+  const reset=()=>{setDate(initialDate);setPeriod(initialPeriod);setView('default');setRequired(false);setLimited(false);setBlocked(false);setPreset('initial');setValidity(undefined);setVersion(current=>current+1);};
+  const applyPreset=(next:DatePreset)=>{
+    setPreset(next);setLimited(next==='outOfRange');setBlocked(next==='blocked');setValidity(undefined);setVersion(current=>current+1);
+    const samples={initial:[initialDate,initialPeriod.end],empty:['',''],reverse:['2026-10-09','2026-10-06'],outOfRange:['2026-11-01','2026-11-03'],blocked:['2026-10-06','2026-10-08'],leap:['2024-02-29','2024-03-01'],invalid:['2026-02-30','2026-03-02'],custom:[date,period.end]};
+    const [start,end]=samples[next];setDate(next==='blocked'?'2026-10-08':start);setPeriod({start,end});
+  };
   const name=range?'DateRangePicker':'DatePicker';
-  const source=`import { useState } from 'react';\nimport { ${name} } from './src';\nimport './src/core.css';\n\nexport function Example() {\n  const [value, setValue] = useState(${JSON.stringify(range?period:date)});\n  return <div className="ds-core">\n    <${name} label=${JSON.stringify(range?'조회 기간':'기준 날짜')} value={value} onChange={setValue}\n      disabled={${flags.disabled}} readOnly={${flags.readOnly}} busy={${flags.busy}} required={${required}}${flags.error?`\n      error=${JSON.stringify(flags.error)}`:''}${limited?'\n      min="2026-10-01" max="2026-10-31"':''} />\n  </div>;\n}`;
+  const source=`import { useState } from 'react';\nimport { Button, ${name} } from './src';\nimport './src/core.css';\n\nexport function Example() {\n  const [value, setValue] = useState(${JSON.stringify(range?period:date)});\n  const [view, setView] = useState<'default' | 'disabled' | 'readOnly' | 'busy' | 'error'>(${JSON.stringify(view)});\n  const [required, setRequired] = useState(${required});\n  const [limited, setLimited] = useState(${limited});\n  const [blocked, setBlocked] = useState(${blocked});\n  const [validity, setValidity] = useState<boolean>();\n  const [version, setVersion] = useState(0);\n  const reset = () => {\n    setValue(${JSON.stringify(range?initialPeriod:initialDate)});\n    setView('default'); setRequired(false); setLimited(false); setBlocked(false);\n    setValidity(undefined); setVersion(current => current + 1);\n  };\n  return <div className="ds-core">\n    <${name} key={version} label=${JSON.stringify(range?'조회 기간':'기준 날짜')} value={value} onChange={setValue}\n      onValidityChange={setValidity}\n      disabled={view === 'disabled'} readOnly={view === 'readOnly'} busy={view === 'busy'}\n      required={required} error={view === 'error' ? '선택 내용을 확인하세요.' : undefined}\n      min={limited ? '2026-10-01' : undefined} max={limited ? '2026-10-31' : undefined}\n      disabledDates={blocked ? ['2026-10-08'] : undefined} />\n    <p role="status">유효성: {validity === undefined ? '확인 중' : validity ? '유효' : '유효하지 않음'}</p>\n    <Button type="button" variant="secondary" onClick={reset}>초기화</Button>\n  </div>;\n}`;
   return <div className="connected-detail stack" data-connected-detail={name}>
-    <div className="wrap"><label className="inline-label">상태<Select aria-label="날짜 예제 상태" value={view} onChange={event=>setView(event.target.value as DateView)}><option value="default">기본</option><option value="disabled">비활성</option><option value="readOnly">읽기 전용</option><option value="busy">처리 중</option><option value="error">오류</option></Select></label><Checkbox label="required" checked={required} onChange={event=>setRequired(event.target.checked)}/><Checkbox label="10월 범위 제한" checked={limited} onChange={event=>setLimited(event.target.checked)}/></div>
-    <div className="connected-preview">{range?<DateRangePicker {...flags} label="조회 기간" value={period} onChange={setPeriod}/>:<DatePicker {...flags} label="기준 날짜" value={date} onChange={setDate}/>}</div>
-    <p className="help" role="status">{range?`현재 값: ${period.start||'미선택'} ~ ${period.end||'미선택'}`:`현재 값: ${date||'미선택'}`}</p>
+    <div className="wrap">
+      <label className="inline-label">상태<Select aria-label="날짜 예제 상태" value={view} onChange={event=>setView(event.target.value as DateView)}><option value="default">기본</option><option value="disabled">비활성</option><option value="readOnly">읽기 전용</option><option value="busy">처리 중</option><option value="error">오류</option></Select></label>
+      <label className="inline-label">샘플 값<Select aria-label="날짜 샘플 값" value={preset} onChange={event=>applyPreset(event.target.value as DatePreset)}><option value="initial">초깃값</option><option value="empty">빈 값</option>{range&&<option value="reverse">역순 기간</option>}<option value="outOfRange">선택 범위 밖</option><option value="blocked">선택 불가 날짜</option><option value="leap">윤년 날짜</option><option value="invalid">존재하지 않는 날짜</option><option value="custom" disabled>직접 편집</option></Select></label>
+      <Checkbox label="required" checked={required} onChange={event=>setRequired(event.target.checked)}/><Checkbox label="10월 범위 제한" checked={limited} onChange={event=>setLimited(event.target.checked)}/><Checkbox label="10월 8일 선택 불가" checked={blocked} onChange={event=>setBlocked(event.target.checked)}/><Button type="button" variant="secondary" onClick={reset}>초기화</Button>
+    </div>
+    <div className="connected-preview" data-date-preview>{range?<DateRangePicker key={version} {...flags} label="조회 기간" value={period} onChange={next=>{setPeriod(next);setPreset('custom');}} onValidityChange={setValidity}/>:<DatePicker key={version} {...flags} label="기준 날짜" value={date} onChange={next=>{setDate(next);setPreset('custom');}} onValidityChange={setValidity}/>}</div>
+    <p className="help" role="status" data-date-committed>{range?`현재 값: ${period.start||'미선택'} ~ ${period.end||'미선택'}`:`현재 값: ${date||'미선택'}`}</p>
+    <p className="help" role="status" data-date-validity>유효성: {validity===undefined?'확인 중':validity?'유효':'유효하지 않음'}</p>
     <details open><summary>현재 코드</summary><CodeBlock source={source}/></details>
-    <details><summary>Props · 입력 상태</summary><p>DatePicker는 YYYY-MM-DD 문자열, DateRangePicker는 start/end 문자열 객체를 받습니다. value/onChange는 제어형, defaultValue는 비제어형 초기값입니다. 형식이 잘못된 편집 중 텍스트는 내부 draft에 남고 현재 코드에는 콜백으로 전달된 값이 표시됩니다.</p><p>min/max·disabledDates는 선택 범위를 제한합니다. required·error·onValidityChange를 사용해 유효성을 전달할 수 있습니다. 달력은 키보드 방향키로 이동하고 Escape로 닫습니다. 비활성·읽기 전용·busy는 편집 및 달력 선택을 잠급니다.</p><p>기간 예제는 역순 날짜를 오류로 표시하고 시작일·종료일 포함 일수를 계산합니다. 이 API에는 native name/form 직렬화 prop이 없으므로 제출 데이터 연결은 소비자가 구현해야 합니다.</p></details>
+    <details><summary>Props · 입력 상태</summary><p>DatePicker는 YYYY-MM-DD 문자열, DateRangePicker는 start/end 문자열 객체를 받습니다. value/onChange는 제어형, defaultValue는 비제어형 초기값입니다. 형식이 잘못된 편집 중 텍스트는 내부 draft에 남고 현재 코드에는 콜백으로 전달된 값이 표시됩니다.</p><p>min/max·disabledDates는 선택 범위를 제한합니다. required·error·onValidityChange를 사용해 유효성을 전달할 수 있습니다. 위 유효성은 실제 콜백 결과이며 선택적 빈 값은 유효할 수 있습니다. 달력은 키보드 방향키로 이동하고 Escape로 닫습니다. 비활성·읽기 전용·busy는 편집 및 달력 선택을 잠급니다.</p><p>샘플 값은 고정 로컬 예제입니다. presets·reset prop은 없습니다. 샘플 선택은 예제 소유자가 값과 해당 제한을 교체하고 초기화는 전체 예제 상태와 React key를 갱신해 미확정 draft와 열린 달력까지 복원합니다. 현재 코드도 이 owner reset을 포함합니다. 날짜 API는 기존 달력/기간 선택기이며 native 날짜 입력 두 개로 대체하지 않습니다.</p><p>기간 예제는 역순 날짜를 오류로 표시하고 시작일·종료일 포함 일수를 계산합니다. 이 API에는 native name/form 직렬화 prop이 없으므로 제출 데이터 연결은 소비자가 구현해야 합니다.</p></details>
   </div>;
 }
 type SampleRow={id:string;title:string;state:string;count:number};
