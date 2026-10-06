@@ -2,6 +2,16 @@
 
 현재 공유 기준: build/TypeScript 오류가 없는 안정 checkpoint는 먼저 Git으로 공유하고 동일 commit의 프리뷰에서 기능 점검한다. 아래 범위별 이력은 최종 전체 수락이 아니며, 과거 검수 전 push 보류를 현재 프리뷰 공유의 선행 조건으로 적용하지 않는다. 전체 coverage·동일 트리 독립 최종 수락은 별도 잔여다.
 
+## Stack/Shell/ActionGroup/FormSection/ListPanel canonical 상세 checkpoint
+
+- `hasLayoutDetail`은5종 자기 route에 기존 실제 core·필요 props controls·같은 state의 현재 코드·API 제약을 연결합니다. 독립 source writer는 현재 대화 그대로이며 core/tests/browser와 이전 data4·navigation/overlay/CSS scope 보정을 보존합니다.
+- Stack은 native div attributes/children/className만 사용합니다. id/class 병합·aria-label·빈/복수 자식과 실제 긴 p 줄바꿈을 시연합니다. gap/direction/size 전용 prop은 없습니다. Shell은 navigation/header/children/mainAs만 사용하며 갤러리 preview/current code 모두 mainAs="div"를 명시합니다. null 슬롯을 전달해도 aside/header wrapper 유지, 로컬 navigation 자식의 선택은 부모 state이며 router API가 아닙니다.
+- ActionGroup은 label/children, 실제 부모 로컬 Button 동작·두 번째 자식 생략·긴 버튼 label의 native style 줄바꿈을 보여줍니다. FormSection은 title/children/optional actions, useId 제목 연결·Stack 본문·ActionGroup 슬롯과 자식 Input의 값/확인 상태를 분리합니다. ListPanel은 title/optional toolbar/children, 제목 연결·Stack 및 실제 List/ListItem children과 toolbar 자식의 부모 항목 수 변경을 시연합니다. wrapper에 loading/filter/저장/submit/router/native rest prop을 invent하지 않습니다.
+- production Chrome390/1440px5route bounded 확인: Stack attrs/class/empty·long children, Shell 본문 div/문서 main1개·1열/2열·로컬선택·null slots, ActionGroup 버튼/부모status·자식 생략/긴 버튼 줄바꿈, FormSection/ListPanel useId 제목·자식 입력/동작·optional 슬롯 생략/코드·초기화. 긴 quoted label/body 포함 document overflow 및 preview descendants 수평 넘침·runtime exception 발견 없음. 실제 표시 TSX50개 typecheck 오류0입니다. 전체 상태/AT/모든 props 조합·full suite/coverage/디자인/독립 수락은 미완료입니다.
+- current route source: registry **80 / mounted-source 72 / blank-source 8**. 67/13은 이전 data4 checkpoint 이력입니다. 기존 frozen 대조 core 부재 발견 없음; 이번은 gallery/docs만 변경합니다. 빈 controls 부재 / 연결 상세의 전체 controls/schema/API completeness 미평가 / 동일 final-tree 전체검증 미완료를 분리합니다.
+- 현재 빈 canonical 상세: FormTemplate, ListTemplate, FeedbackTemplate, DetailTemplate, DesktopWorkspaceTemplate, MobileWorkspaceTemplate, Icon, IconAction.
+- 다음 templates6 → icons2 순서 유지. template API 준비 자식은 read-only이며 다른 source writer는 추가하지 않습니다. Chart/keypad/SDK·외부provider·소비앱통합·최종 전체 gate/수락은 별도 잔여, ZIP 첨부 보류 유지.
+
 ## Table/Pagination/List/ListItem canonical 상세 checkpoint
 
 - `hasDataDetail`은4종 자기 route에 실제 기존 core·필요 props controls·같은 state의 현재 코드·API 제약을 연결합니다. Table을 DataTable로 대체하지 않고 ListRow의 API를 ListItem에 혼용하지 않습니다. 이전 입력/탐색/overlay/긴 Breadcrumb·gallery nav CSS scope 교정은 보존합니다.
