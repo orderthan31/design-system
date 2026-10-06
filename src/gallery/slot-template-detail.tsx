@@ -6,6 +6,7 @@ import { ErrorState } from '../components/feedback-controls';
 import { Button, Input } from '../components/atoms';
 import { Checkbox, Select } from '../components/primitives';
 import { CodeBlock } from './code-block';
+import '../examples.css';
 
 export const slotTemplateDetailNames=['FormTemplate','ListTemplate','FeedbackTemplate','DetailTemplate'] as const;
 export type SlotTemplateDetailName=typeof slotTemplateDetailNames[number];
@@ -20,12 +21,12 @@ export function SlotTemplateDetail({name}:{name:SlotTemplateDetailName}) {
   const text=(caption:string,current:string,set:(value:string)=>void,aria:string)=><label className="field"><span>{caption}</span><Input aria-label={aria} value={current} onChange={event=>set(event.target.value)}/></label>;
   const check=(caption:string,current:boolean,set:(value:boolean)=>void)=><Checkbox label={caption} checked={current} onChange={event=>set(event.target.checked)}/>;
   const field=<div className="field"><label htmlFor={id}>표시 이름{name==='FormTemplate'?' (필수)':''}</label><Input id={id} required={name==='FormTemplate'} value={value} onChange={event=>setValue(event.target.value)}/></div>;
-  const paragraph=<p style={{overflowWrap:'anywhere'}}>{body}</p>;
+  const paragraph=<p className="example-wrap-text">{body}</p>;
   let preview:React.ReactNode,imports:string,declarations:string,content:string;
   if(name==='FormTemplate') {
     preview=<><form aria-label="로컬 제출 예시" onSubmit={event=>{event.preventDefault();if(busy)return;setResult(value);}}><FormTemplate title={title} fields={field} actions={<Button type="submit" loading={busy}>로컬 확인</Button>} aside={showPrimary?paragraph:undefined}/></form><p role="status" className="help">확인값: {result||'없음'}</p></>;
     imports='FormTemplate, Button, Input';declarations=`const inputId = useId();\nconst [value, setValue] = useState(${JSON.stringify(value)});\nconst [submitted, setSubmitted] = useState(${JSON.stringify(result)});\nconst busy = ${busy};\n`;
-    content=`<form aria-label="로컬 제출 예시" onSubmit={event => { event.preventDefault(); if (busy) return; setSubmitted(value); }}>\n  <FormTemplate title={${JSON.stringify(title)}}\n    fields={<div className="field"><label htmlFor={inputId}>표시 이름 (필수)</label><Input id={inputId} required value={value} onChange={event => setValue(event.target.value)} /></div>}\n    actions={<Button type="submit" loading={busy}>로컬 확인</Button>}${showPrimary?`\n    aside={<p style={{ overflowWrap: 'anywhere' }}>{${JSON.stringify(body)}}</p>}`:''}\n  />\n</form>\n<p role="status">확인값: {submitted || '없음'}</p>`;
+    content=`<form aria-label="로컬 제출 예시" onSubmit={event => { event.preventDefault(); if (busy) return; setSubmitted(value); }}>\n  <FormTemplate title={${JSON.stringify(title)}}\n    fields={<div className="field"><label htmlFor={inputId}>표시 이름 (필수)</label><Input id={inputId} required value={value} onChange={event => setValue(event.target.value)} /></div>}\n    actions={<Button type="submit" loading={busy}>로컬 확인</Button>}${showPrimary?`\n    aside={<p className="example-wrap-text">{${JSON.stringify(body)}}</p>}`:''}\n  />\n</form>\n<p role="status">확인값: {submitted || '없음'}</p>`;
   } else if(name==='ListTemplate') {
     preview=<ListTemplate title={title} toolbar={showPrimary?<Input type="search" aria-label="로컬 항목 검색" value={query} onChange={event=>setQuery(event.target.value)}/>:undefined} rows={<List label="로컬 문서">{visible.map(item=><ListItem key={item} title={item}/>)}</List>} footer={showSecondary?<p className="help">총 {visible.length}개</p>:undefined}/>;
     imports=showPrimary?'ListTemplate, List, ListItem, Input':'ListTemplate, List, ListItem';declarations=`const [query${showPrimary?', setQuery':''}] = useState(${JSON.stringify(query)});\nconst items = ${JSON.stringify(items)};\nconst visible = items.filter(item => item.toLocaleLowerCase('ko').includes(query.trim().toLocaleLowerCase('ko')));\n`;
@@ -33,14 +34,14 @@ export function SlotTemplateDetail({name}:{name:SlotTemplateDetailName}) {
   } else if(name==='FeedbackTemplate') {
     preview=<FeedbackTemplate title={title} status={phase==='error'?<ErrorState message="안내를 다시 확인하세요." onRetry={()=>setPhase('ready')}/>:<p role="status">{phase==='complete'?'내용을 확인했습니다.':'안내를 확인하세요.'}</p>} content={showSecondary?paragraph:null} actions={showPrimary?<Button onClick={()=>setPhase('complete')}>확인</Button>:undefined}/>;
     imports=showPrimary?'FeedbackTemplate, ErrorState, Button':'FeedbackTemplate, ErrorState';declarations=`const [phase, setPhase] = useState(${JSON.stringify(phase)});\n`;
-    content=`<FeedbackTemplate title={${JSON.stringify(title)}}\n  status={phase === 'error' ? <ErrorState message="안내를 다시 확인하세요." onRetry={() => setPhase('ready')} /> : <p role="status">{phase === 'complete' ? '내용을 확인했습니다.' : '안내를 확인하세요.'}</p>}\n  content={${showSecondary?`<p style={{ overflowWrap: 'anywhere' }}>{${JSON.stringify(body)}}</p>`:'null'}}${showPrimary?'\n  actions={<Button onClick={() => setPhase(\'complete\')}>확인</Button>}':''}\n/>`;
+    content=`<FeedbackTemplate title={${JSON.stringify(title)}}\n  status={phase === 'error' ? <ErrorState message="안내를 다시 확인하세요." onRetry={() => setPhase('ready')} /> : <p role="status">{phase === 'complete' ? '내용을 확인했습니다.' : '안내를 확인하세요.'}</p>}\n  content={${showSecondary?`<p className="example-wrap-text">{${JSON.stringify(body)}}</p>`:'null'}}${showPrimary?'\n  actions={<Button onClick={() => setPhase(\'complete\')}>확인</Button>}':''}\n/>`;
   } else {
-    preview=<><DetailTemplate title={title} summary={showSecondary?<p style={{overflowWrap:'anywhere'}}>{summary}</p>:null} content={field} actions={showPrimary?<Button onClick={()=>setResult(value)}>로컬 확인</Button>:undefined}/><p role="status" className="help">확인값: {result||'없음'}</p></>;
+    preview=<><DetailTemplate title={title} summary={showSecondary?<p className="example-wrap-text">{summary}</p>:null} content={field} actions={showPrimary?<Button onClick={()=>setResult(value)}>로컬 확인</Button>:undefined}/><p role="status" className="help">확인값: {result||'없음'}</p></>;
     imports=showPrimary?'DetailTemplate, Button, Input':'DetailTemplate, Input';declarations=`const inputId = useId();\nconst [value, setValue] = useState(${JSON.stringify(value)});\nconst [result${showPrimary?', setResult':''}] = useState(${JSON.stringify(result)});\n`;
-    content=`<DetailTemplate title={${JSON.stringify(title)}}\n  summary={${showSecondary?`<p style={{ overflowWrap: 'anywhere' }}>{${JSON.stringify(summary)}}</p>`:'null'}}\n  content={<div className="field"><label htmlFor={inputId}>표시 이름</label><Input id={inputId} value={value} onChange={event => setValue(event.target.value)} /></div>}${showPrimary?'\n  actions={<Button onClick={() => setResult(value)}>로컬 확인</Button>}':''}\n/>\n<p role="status">확인값: {result || '없음'}</p>`;
+    content=`<DetailTemplate title={${JSON.stringify(title)}}\n  summary={${showSecondary?`<p className="example-wrap-text">{${JSON.stringify(summary)}}</p>`:'null'}}\n  content={<div className="field"><label htmlFor={inputId}>표시 이름</label><Input id={inputId} value={value} onChange={event => setValue(event.target.value)} /></div>}${showPrimary?'\n  actions={<Button onClick={() => setResult(value)}>로컬 확인</Button>}':''}\n/>\n<p role="status">확인값: {result || '없음'}</p>`;
   }
   const hooks=name==='FormTemplate'||name==='DetailTemplate'?'useId, useState':'useState';
-  const source=`import { ${hooks} } from 'react';\nimport { ${imports} } from './src';\nimport './src/core.css';\n\nexport function Example() {\n${declarations}  return <div className="ds-core">\n${content}\n  </div>;\n}`;
+  const source=`import { ${hooks} } from 'react';\nimport { ${imports} } from './src';\nimport './src/core.css';\nimport './src/examples.css';\n\nexport function Example() {\n${declarations}  return <div className="ds-core">\n${content}\n  </div>;\n}`;
   return <div className="connected-detail stack" data-slot-template-detail={name}>
     <div data-slot-template-preview key={revision}>{preview}</div>
     <div className="form-detail-controls">

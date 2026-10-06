@@ -1,0 +1,43 @@
+{
+  "scope": "Scoped composition-example CSS ownership checkpoint; not final design, whole-system or full regression acceptance.",
+  "basedOn": "f43ac6fb208b3cad1e796ebc2513aa8d064405b7",
+  "sourceChanges": [
+    "Static inline iframe, icon row, long-text wrapping, table wide-cell, workspace containment and overlay scroll presentation moved into optional src/examples.css with ds-core-scoped selectors.",
+    "Generated example sources reference the same classes and actual optional CSS path; no gallery JavaScript is needed by these composition styles.",
+    "Button wrapping belongs to native child spans, not imported Button restyling. Event handlers and accessible text are retained.",
+    "Icon wrapper foreground now uses the existing semantic text-secondary token; public SVG color controls remain unchanged.",
+    "Stack native className control and public API are retained; its existing dynamic-class lint finding remains reported rather than hidden or waived."
+  ],
+  "lint": {
+    "previous": {"jsx": 28, "css": 444},
+    "current": {"jsx": 1, "css": 444},
+    "wholeSourceExitCode": 1,
+    "changedScope": {"tsxFiles": 7, "cssFiles": 1, "newFindings": 0, "retainedFindings": 1},
+    "retainedJSXFinding": {"file": "src/gallery/layout-detail.tsx", "rule": "shadcn/require-static-classes", "subject": "Existing native Stack className control"},
+    "frozenFixtureCases": 33,
+    "fixtureExpectationsMatched": true,
+    "lintPolicyOrFixtureChanges": false
+  },
+  "executedChecks": {
+    "node": "22.22.2",
+    "productionBuild": "passed",
+    "tsc": "passed",
+    "workingDiffCheck": "passed",
+    "historicalTokenCount": 107,
+    "boundedViewports": [390, 1440],
+    "renderedRouteObservations": 24,
+    "renderedCurrentSourcesTypechecked": 22,
+    "compositionChecks": "Icon inline-flex/gap, ActionGroup callback/child wrapping, loaded CTA iframe480px/1px border and document containment.",
+    "ownedScrollObservations": 4,
+    "ownedScrollChecks": "Dialog and BottomSheet long-content regions retain max-height45dvh, overflow:auto, overscroll:contain and actual native PageDown scrolling.",
+    "boundedRuntimeExceptions": 0
+  },
+  "remaining": [
+    "Full-source JSX1/CSS444 lint still fails. Existing Stack className control has not been removed or hidden to force a pass.",
+    "PasswordInput Chrome145/Linux selection loss versus Chrome154/Mac preservation remains a separately recorded unresolved issue; no speculative source change or timer applied.",
+    "Other approved completeness follow-ups and final accessibility, actual IME, cross-browser and whole-tree acceptance remain pending.",
+    "Prior checkpoint checks are retained under their original source scope, not combined into current whole-system acceptance."
+  ],
+  "unchanged": ["Public core APIs", "PasswordInput source", "Dependency pins and lockfile", "Tests", "Lint policy and33fixtures", "Historical token identifiers", "Recharts single engine"],
+  "excluded": ["AGENTS.md", "Keypad", "Public deployment", "ZIP attachment"]
+}

@@ -1,4 +1,5 @@
 import {CodeBlock} from './code-block';
+import '../examples.css';
 import './playground.css';
 import React, { useId, useState } from "react";
 import { Button, Input } from "../components/atoms";
@@ -233,11 +234,7 @@ export function Example() {
                 role="region"
                 aria-label="안내 내용"
                 tabIndex={0}
-                style={{
-                  maxHeight: "45dvh",
-                  overflowY: "auto",
-                  overscrollBehavior: "contain",
-                }}
+                className="example-overlay-scroll"
               >
                 <ol>
                   {Array.from({ length: 12 }, (_, index) => (
