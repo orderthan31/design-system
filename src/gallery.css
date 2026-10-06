@@ -1,5 +1,8 @@
 /* Gallery application only: intentionally includes document reset and navigation. */
 @import "./core.css";
+.common-controls-grid {display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:32px;align-items:start;min-width:0;}
+.common-controls-grid > section {min-width:0;}
+.common-controls-comparison {margin-top:24px;}
 .sidebar {overflow-y:auto;}
 .gallery-component-nav {display:block;min-width:0;margin:16px 0;}
 .gallery-component-nav a {display:flex;flex-direction:column;align-items:flex-start;gap:0;min-height:44px;white-space:normal;overflow-wrap:anywhere;}

@@ -30,10 +30,10 @@
 .ds-core .fc-group {
   min-width: 0;
   margin: 0;
-  padding: 16px;
-  border: 1px solid var(--color-border-subtle);
+  padding: 12px 0;
+  border: 0;
   border-radius: var(--radius-md);
-  background: var(--field-bg);
+  background: transparent;
   color: var(--field-fg);
   overflow-wrap: anywhere;
 }
@@ -107,7 +107,7 @@
 .ds-core .fc-switch {
   position: relative;
   display: inline-flex;
-  gap: 12px;
+  gap: 8px;
   min-height: 48px;
   align-items: center;
   cursor: pointer;
@@ -152,6 +152,12 @@
   color: var(--color-disabled-fg);
   cursor: not-allowed;
 }
+.ds-core .fc-switch input:not(:disabled):hover + .fc-switch-track { border-color:var(--color-focus); }
+.ds-core .fc-switch input:checked:not(:disabled):hover + .fc-switch-track,
+.ds-core .fc-switch input:checked:not(:disabled):active + .fc-switch-track { background:var(--button-bg-hover); }
+.ds-core .fc-switch input:disabled + .fc-switch-track { background:var(--color-disabled-bg); border-color:var(--color-border-subtle); }
+.ds-core .fc-switch input:disabled + .fc-switch-track::after { background:var(--color-disabled-fg); }
+.ds-core .fc-group[aria-invalid="true"] legend { color:var(--field-error-fg); }
 .ds-core .fc-address {
   display: grid;
   gap: 12px;

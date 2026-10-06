@@ -1,13 +1,15 @@
 .ds-core .ds-segmented{min-width:0;border:0;margin:0;padding:0;}
 .ds-core .ds-segmented legend{font-weight:600;margin-bottom:8px;max-width:100%;overflow-wrap:anywhere;}
-.ds-core .ds-segmented-options{display:flex;flex-wrap:wrap;gap:8px;min-width:0;}
-.ds-core .ds-segmented-option{position:relative;display:flex;align-items:center;justify-content:center;min-height:48px;min-width:48px;max-width:100%;padding:10px 16px;border:1px solid var(--color-border-control);border-radius:var(--radius-md);background:var(--color-bg-surface);color:var(--color-text-primary);cursor:pointer;overflow-wrap:anywhere;}
+.ds-core .ds-segmented-options{display:flex;flex-wrap:wrap;gap:4px;min-width:0;padding:4px;background:var(--color-bg-subtle);border-radius:12px;width:fit-content;max-width:100%;}
+.ds-core .ds-segmented-option{position:relative;display:flex;align-items:center;justify-content:center;min-height:48px;min-width:48px;max-width:100%;padding:10px 16px;border:1px solid transparent;border-radius:8px;background:transparent;color:var(--color-text-primary);cursor:pointer;overflow-wrap:anywhere;}
 .ds-core .ds-segmented-option input{position:absolute;width:1px;height:1px;opacity:0;}
-.ds-core .ds-segmented-option:hover:not(:has(input:disabled)){background:var(--color-bg-subtle);}
-.ds-core .ds-segmented-option:has(input:checked){background:var(--color-action-primary-bg-default);color:var(--color-action-primary-text);border-color:var(--color-action-primary-bg-default);}
-.ds-core .ds-segmented-option:has(input:checked):hover:not(:has(input:disabled)){background:var(--color-action-primary-bg-hover);border-color:var(--color-action-primary-bg-hover);}
+.ds-core .ds-segmented-option:hover:not(:has(input:disabled)){background:var(--color-selected-bg);}
+.ds-core .ds-segmented-option:has(input:checked){background:var(--color-bg-surface);color:var(--color-selected-fg);border-color:var(--color-border-subtle);box-shadow:0 1px 3px #0f172a12;}
+.ds-core .ds-segmented-option:has(input:checked):hover:not(:has(input:disabled)){background:var(--color-selected-bg);border-color:var(--color-border-subtle);}
 .ds-core .ds-segmented-option:has(input:focus-visible){outline:3px solid var(--color-focus);outline-offset:3px;}
-.ds-core .ds-segmented-option:has(input:disabled){cursor:not-allowed;background:var(--color-bg-subtle);color:var(--color-text-muted);}
+.ds-core .ds-segmented-option:has(input:disabled){cursor:not-allowed;background:var(--color-disabled-bg);color:var(--color-disabled-fg);box-shadow:none;border-color:transparent;}
+.ds-core .ds-segmented-option:active:not(:has(input:disabled)){background:var(--color-selected-bg);border-color:var(--color-selected-fg);}
+.ds-core .ds-segmented[aria-invalid="true"] .ds-segmented-options{outline:1px solid var(--field-error-fg);outline-offset:2px;}
 .ds-core .ds-segmented-mark{display:none;margin-left:6px;flex-shrink:0;}
 .ds-core .ds-segmented-option:has(input:checked) .ds-segmented-mark{display:inline;}
 .ds-core .ds-segmented .help{margin:8px 0 0;}

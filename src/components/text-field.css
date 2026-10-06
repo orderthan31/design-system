@@ -6,7 +6,7 @@
   min-width: 0;
   max-width: 100%;
   border: 1px solid var(--field-border);
-  border-radius: var(--radius-md);
+  border-radius: 10px;
   background: var(--field-bg);
   color: var(--field-fg);
   font-family: Pretendard, "Apple SD Gothic Neo", system-ui, sans-serif;
@@ -25,6 +25,10 @@
   outline: 3px solid var(--color-focus);
   outline-offset: 3px;
 }
+.ds-core .tf-row:hover:not(:has(input:disabled, input[readonly], input[aria-invalid="true"])),
+.ds-core .tf-row:has(input:focus-visible):not(:has(input[aria-invalid="true"])) { border-color:var(--color-focus); }
+.ds-core .tf-row:has(input:disabled) { border-color:var(--color-border-subtle); }
+.ds-core .tf-affix > svg { display:block; width:18px; height:18px; flex-shrink:0; }
 .ds-core .tf-input {
   flex: 1 1 120px;
   min-width: 0;

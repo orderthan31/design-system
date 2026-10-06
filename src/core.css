@@ -149,16 +149,16 @@
 .ds-core .button {
   min-height: var(--size-control);
   max-width: 100%;
-  padding: 10px 18px;
+  padding: 10px 16px;
   border: 1px solid transparent;
-  border-radius: var(--radius-md);
+  border-radius: 10px;
   font-size: var(--font-size-label);
   line-height: var(--font-line-label);
   font-weight: 500;
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  gap: 9px;
+  gap: 8px;
   white-space: normal;
   overflow-wrap: anywhere;
   text-align: center;
@@ -178,12 +178,13 @@
   background: var(--button-bg-pressed);
 }
 .ds-core .button.secondary {
-  background: var(--color-bg-surface);
-  border-color: var(--color-border-control);
+  background: var(--color-bg-subtle);
+  border-color: transparent;
   color: var(--color-text-primary);
 }
 .ds-core .button.secondary:hover:not(:disabled):not([aria-busy="true"]) {
-  background: var(--color-bg-subtle);
+  background: var(--color-selected-bg);
+  color: var(--color-selected-fg);
 }
 .ds-core .button.quiet,
 .ds-core .button.ghost {
@@ -221,6 +222,31 @@
   padding: 0;
   font-size: 18px;
 }
+/* Shared control shape; boundary colors retain the theme contrast contract. */
+.ds-core .button > svg { width:18px; height:18px; flex-shrink:0; display:block; }
+.ds-core .icon-button > svg { width:20px; height:20px; }
+.ds-core .button.secondary:active:not(:disabled):not([aria-busy="true"]),
+.ds-core .button.quiet:active:not(:disabled):not([aria-busy="true"]),
+.ds-core .button.ghost:active:not(:disabled):not([aria-busy="true"]) {
+  background:var(--color-selected-bg); color:var(--color-selected-fg);
+  border-color:var(--color-selected-fg);
+}
+.ds-core .button.destructive:hover:not(:disabled):not([aria-busy="true"]),
+.ds-core .button.destructive:active:not(:disabled):not([aria-busy="true"]) {
+  box-shadow:inset 0 0 0 2px var(--color-text-inverse);
+}
+.ds-core .control:not(:disabled):not([readonly]):not([aria-invalid="true"]):hover {
+  border-color:var(--color-focus);
+}
+.ds-core .control:not(:disabled):focus-visible { border-color:var(--color-focus); }
+.ds-core .control[aria-invalid="true"]:focus-visible { border-color:var(--field-error-fg); }
+.ds-core .control:disabled { border-color:var(--color-border-subtle); cursor:not-allowed; }
+.ds-core .control[aria-busy="true"] { cursor:progress; }
+.ds-core .tabs [role="tab"] { border-radius:8px 8px 0 0; display:inline-flex; align-items:center; gap:8px; }
+.ds-core .tabs [role="tab"]:hover:not(:disabled),
+.ds-core .tabs [role="tab"]:active:not(:disabled) { background:var(--color-selected-bg); color:var(--color-selected-fg); }
+.ds-core .tabs [role="tab"]:disabled { color:var(--color-disabled-fg); }
+.ds-core .checkbox:hover:not(:has(input:disabled)) { color:var(--color-link); }
 .ds-core .spinner {
   display: inline-block;
   width: 14px;
@@ -254,7 +280,7 @@
   min-height: var(--size-control);
   padding: 10px 12px;
   border: 1px solid var(--field-border);
-  border-radius: var(--radius-md);
+  border-radius: 10px;
   background: var(--field-bg);
   color: var(--field-fg);
   font-size: 14px;
@@ -307,15 +333,15 @@
 .ds-core .checkbox {
   display: flex;
   align-items: center;
-  gap: 11px;
+  gap: 8px;
   min-height: 48px;
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
 }
 .ds-core .checkbox input {
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
   accent-color: var(--color-action-primary-bg-default);
   margin: 0;
   flex-shrink: 0;
@@ -331,9 +357,9 @@
   display: inline-flex;
   align-items: center;
   max-width: 100%;
-  padding: 4px 9px;
+  padding: 3px 8px;
   border-radius: 6px;
-  font-size: 11px;
+  font-size: 12px;
   line-height: 18px;
   font-weight: 500;
   overflow-wrap: anywhere;
@@ -468,7 +494,7 @@
   border: 0;
   border-bottom: 2px solid transparent;
   background: none;
-  padding: 10px 14px;
+  padding: 10px 16px;
   min-height: 44px;
   font-size: 13px;
   color: var(--color-text-secondary);
