@@ -2,6 +2,16 @@
 
 현재 공유 기준: build/TypeScript 오류가 없는 안정 checkpoint는 먼저 Git으로 공유하고 동일 commit의 프리뷰에서 기능 점검한다. 아래 범위별 이력은 최종 전체 수락이 아니며, 과거 검수 전 push 보류를 현재 프리뷰 공유의 선행 조건으로 적용하지 않는다. 전체 coverage·동일 트리 독립 최종 수락은 별도 잔여다.
 
+## Workspace2 canonical 상세 checkpoint
+
+- DesktopWorkspaceTemplate/MobileWorkspaceTemplate 실제 자기 route·기존 core·controls·현재 코드·API·초기화 연결입니다. 기본 슬롯4 checkpoint를 포함하며 source registry **80 / mounted-source 78 / blank-source 2**입니다. 76/4는 이전 기본4 이력입니다. core 부재/빈 상세와 빈 controls 부재/전체 controls·schema·API completeness 미평가/동일 final-tree 전체검증 미완료를 분리 유지합니다.
+- Desktop은 필수 title/navigation/localNavigation/table config와 optional breadcrumbs/headerActions/aside/footer를 실제 조합합니다. 부모 navigation/local selectedId·콜백·헤더 횟수/bulk 기록과 DataTable 내부 검색/정렬/filter/페이지/크기/selection을 구분합니다. initialPageSize control은 최초값이며 live 변경으로 내부 크기를 다시 초기화하지 않습니다. 내부 Shell mainAs=div 기존 계약 유지, workspace에 mainAs/native rest/children·외부 query/page/selected/router/server/storage API 없음.
+- Mobile은 필수 rows/rowKey/itemTitle/selectedKeys/onSelectionChange/selectedAction/renderDetail/onApply와 optional itemDescription/searchText/headerActions/footer를 실제 조합합니다. 부모 selectedKeys/선택작업 기록/적용된 rows 및 기록과 내부 query/detailKey를 구분합니다. 검색으로 숨은 selected row도 선택작업에 포함되며 callback 후 외부 keys를 비웁니다. 실제 BottomSheet 상세/취소/Escape/적용·부모 메모리 rows 변경을 연결하며 외부 open/query/loading/filter/router/서버/저장 API 없음.
+- bounded production Chrome390/1440 자기2route: GNB 실제 선택→부모/code·내부 접힘, Desktop LNB 부모 선택/헤더·cross-page 선택/bulk record 및 clear·내부 query/filter/sort/페이지크기·최초값 live 변경의 비재초기화·loading 우선/error/retry·optional 구성/빈 rows/reset, Mobile 검색→숨은 선택작업/clear·기본 itemTitle 검색과 optional searchText·native pointer 상세→취소/적용/Escape·opener focus/로컬 rows/record·optional 슬롯/빈 rows/reset 확인. 긴 unbroken/quoted title 포함 document overflow/runtime exception 발견 없음, 표시 TSX34개 typecheck 오류0. 전체 키보드/AT·전체 상태/API조합·full suite/coverage/독립·디자인수락은 미완료입니다.
+- 첫 private smoke의 `[data-workspace-preview] ul > li`가 GNB3+실제 List7=10을 합산했습니다. read-only DOM probe로 각각 3/7을 확인하고 helper selector만 `.ds-list > li`로 교정 후 전 chain exit0입니다. core/source 회귀로 보고하지 않습니다.
+- 현재 빈 상세: Icon, IconAction. 다음 icons2. sole source writer/read-only 준비·core/tests/browser 보존·ZIP 첨부 보류·Chart/keypad/SDK/외부provider 잔여 유지.
+- 기존 composition 테스트 후보를 부모가 소스 재독했습니다(실행 안 함): `tests/composition.test.tsx:11` region name `공통 폼 섹션`, `:16–17` region name `범용 상세`/내용 `선택 정보` 기대가 현재 `src/components/composition.tsx:92–93` FormSection title `Form`, `:128–130` DetailTemplate title `Detail`과 불일치합니다. 테스트 `:6`의 닫은 뒤 `queryByRole(region,name:범용 상세)===null`은 변경 전에도 해당 이름이 없을 수 있어 닫기 증거가 약합니다. 실제 handler `composition.tsx:136`은 setShowDetail(false)·검색 focus입니다. 이는 소스 확인 후보/최종 검토 잔여이며 실행 실패나 이번 checkpoint의 새 결함이라고 주장하지 않습니다. 기존 tests를 수정/삭제하거나 gate에 재도입하지 않았습니다.
+
 ## 기본 슬롯 템플릿4 canonical 상세 checkpoint
 
 - `hasSlotTemplateDetail`은 FormTemplate/ListTemplate/FeedbackTemplate/DetailTemplate 자기 route에 기존 실제 core·필요 슬롯 controls·동일 부모 state의 현재 코드·API 제약을 연결합니다. templates6 중 기본4만 완료한 증분 checkpoint이며 workspace2를 완료로 계산하지 않습니다.
