@@ -2,6 +2,12 @@
 
 현재 공유 기준: build/TypeScript 오류가 없는 안정 checkpoint는 먼저 Git으로 공유하고 동일 commit의 프리뷰에서 기능 점검한다. 아래 범위별 이력은 최종 전체 수락이 아니며, 과거 검수 전 push 보류를 현재 프리뷰 공유의 선행 조건으로 적용하지 않는다. 전체 coverage·동일 트리 독립 최종 수락은 별도 잔여다.
 
+## DataTable 활성 pageSize 옵션 보존 교정 checkpoint
+
+- `src/components/data-display.tsx`의 페이지 크기 options Set에 활성 내부 `pageSize`만 추가합니다. 기존 최초 `initialPageSize` 및5/10/20 옵션·정렬·중복 제거를 보존합니다. state reset/effect/controlled API/gallery 변경 없음. 내부 query/filter/sort/page/selection 및 실제 크기 선택의 기존 onChange 계약을 그대로 둡니다.
+- 이전 efacbbf hosted 교정 요청을 부모 production에서도 재현했습니다: 초기3→5 시 내부3행/2÷3페이지/1선택을 유지하면서 options[5,10,20] 및 native 표시5가 됩니다. 교정 후390/1440 bounded에서 옵션3/표시3·같은3행/2÷3페이지/1선택을 보존합니다. 실제 select5 선택은5행/1÷2페이지/1선택이며 query=문서/filter=개발/내림 sort에서 initial5→3 변경에도 실제 크기5와 rows/query/filter/sort/page/selection을 보존합니다. 명시적 gallery 초기화만 크기3/첫페이지/0선택/빈query/filter/none sort로 복원합니다. 새 production build/typecheck/diff-check·private bounded check exit0/runtime exception 없음. 처음 browser-startup timeout은 별도이며 이후 실제 red→교정→green 결과를 확인했습니다.
+- current source80/연결80/빈0 유지. 전체 controls/API·동일 final-tree full unit/browser/coverage/AT/독립·디자인수락 미완료와 composition source 후보/Chart/keypad/SDK/외부provider 잔여·ZIP 첨부 보류 유지. 이번은 허용된 좁은 core1행 변경이며 tests/browser 미변경, install/full-suite 실행 없음. 이전 checkpoint의 core 미변경 주장을 이번 교정에 재사용하지 않습니다.
+
 ## Icon/IconAction canonical 상세 checkpoint
 
 - Icon/IconAction 실제 자기 route·controls·현재 코드·API·초기화 연결입니다. source registry **80 / mounted-source 80 / blank-source 0**, 현재 빈 canonical 상세 이름 목록은 비었습니다. 이는 기존 승인 registry의 독립 상세 연결 공백을 채웠다는 의미이며 전체 props/schema/controls/API completeness·full suite/coverage/접근성·디자인/독립 최종 수락 완료가 아닙니다. 78/2는 이전 workspace checkpoint 이력입니다.

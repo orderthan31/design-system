@@ -320,7 +320,7 @@ export function DataTable<T>({
               setPage(1);
             }}
           >
-            {[...new Set([Math.max(1, Math.floor(initialPageSize)), 5, 10, 20])]
+            {[...new Set([pageSize, Math.max(1, Math.floor(initialPageSize)), 5, 10, 20])]
               .sort((a, b) => a - b)
               .map((size) => (
                 <option key={size} value={size}>
