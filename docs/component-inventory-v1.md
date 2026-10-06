@@ -2,6 +2,16 @@
 
 현재 공유 기준: build/TypeScript 오류가 없는 안정 checkpoint는 먼저 Git으로 공유하고 동일 commit의 프리뷰에서 기능 점검한다. 아래 범위별 이력은 최종 전체 수락이 아니며, 과거 검수 전 push 보류를 현재 프리뷰 공유의 선행 조건으로 적용하지 않는다. 전체 coverage·동일 트리 독립 최종 수락은 별도 잔여다.
 
+## 입력 6종 + 소개 검색 우선 교정 checkpoint
+
+- PasswordInput/NumberInput/CurrencyInput/PhoneInput/EmailInput/SearchField는 `hasFormInputDetail`로 자기 canonical 상세에 기존 public core·value/disabled/required/error 설정·현재 TSX·접힌 API 문서를 mount합니다. core 재작성·엔진 추가가 아닙니다.
+- PasswordInput 표시/숨김은 내부 상태이며 문서에는 실제 자격 증명이 아닌 예제 문자열만 사용합니다. NumberInput min/max/step control 및 invalid draft와 확정 callback 값의 차이를 설명합니다. CurrencyInput blur 천 단위 표시와 raw value, PhoneInput/EmailInput blur native validity를 구분합니다. SearchField 검색 결과는 소비자 예제의 로컬 문자열 필터입니다.
+- 예제 값 편집과 props 설정은 실제 preview 및 현재 코드에 연결합니다. 초기화는 부모가 소유한 제어형 예제 상태와 preview 내부 draft/표시 상태를 초기 값으로 되돌리며 native form.reset 전체 계약을 검증한 것이 아닙니다. 전체 props exhaustiveness·회귀·실기기·독립 수락은 미완료입니다.
+- 소개 검색은 DOM 순서도 3개 안내 섹션보다 앞입니다. 글꼴·44px 입력 터치 영역을 줄이지 않으며 desktop 안내의 기존 3열 구조를 유지합니다. 날짜/표 API 문서의 검수 진행 문구는 UI에서 제거하고 native name/form 직렬화 제약·내부 상태 소유권·로컬 샘플 안내는 보존합니다.
+- 현재 route source 대조: registry **80 / mounted-source 43 / blank-source 37**. source 판정이며 43개 전체의 실제 브라우저/controls 완성 판정이 아닙니다. 이전 37/43 기록은 Overview 5개 연결 tree 기준 이력입니다. core 부재는 기존 frozen source 대조에서 발견 없었으며 이번 변경은 gallery/docs 범위입니다. 빈 상세의 개별 controls는 부재, 연결된 다른 상세의 전체 props completeness는 미평가입니다.
+- 현재 빈 canonical 상세: Combobox, MultiSelect, RadioGroup, CheckboxGroup, Switch, FileInput, AddressField, MonthPicker, TimeInput, DateTimeInput, GNB, LNB, Breadcrumb, Drawer, Popover, Table, Pagination, List, ListItem, LoadingSpinner, ErrorState, Toast, Accordion, Collapse, Stack, Shell, ActionGroup, FormSection, ListPanel, FormTemplate, ListTemplate, FeedbackTemplate, DetailTemplate, DesktopWorkspaceTemplate, MobileWorkspaceTemplate, Icon, IconAction.
+- 승인 큐는 selection 5종(Combobox/MultiSelect/RadioGroup/CheckboxGroup/Switch) → feedback 5종(LoadingSpinner/ErrorState/Toast/Accordion/Collapse)을 그대로 유지합니다. 다른 빈 항목도 위 목록에서 제거하지 않습니다. Chart/keypad/SDK 및 동일 final-tree 전체 회귀·디자인 수락은 별도 미완료입니다.
+
 ## Atomic 탐색 정본 교정
 
 - 상위 Atomic 목록·sidebar 개수·Templates 진입을 galleryRegistry에서 생성하고 componentHash(id) canonical URL로 연결합니다. legacy 10/6/2 목록과 #button 같은 비정본 anchor, 분류 화면의 Playground+Demo 중복 카드는 제거했습니다.

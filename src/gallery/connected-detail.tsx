@@ -37,7 +37,7 @@ function DateDetail({range}:{range:boolean}) {
     <div className="connected-preview">{range?<DateRangePicker {...flags} label="조회 기간" value={period} onChange={setPeriod}/>:<DatePicker {...flags} label="기준 날짜" value={date} onChange={setDate}/>}</div>
     <p className="help" role="status">{range?`현재 값: ${period.start||'미선택'} ~ ${period.end||'미선택'}`:`현재 값: ${date||'미선택'}`}</p>
     <details open><summary>현재 코드</summary><CodeBlock source={source}/></details>
-    <details><summary>Props · 입력 상태</summary><p>DatePicker는 YYYY-MM-DD 문자열, DateRangePicker는 start/end 문자열 객체를 받습니다. value/onChange는 제어형, defaultValue는 비제어형 초기값입니다. 형식이 잘못된 편집 중 텍스트는 내부 draft에 남고 현재 코드에는 콜백으로 전달된 값이 표시됩니다.</p><p>min/max·disabledDates는 선택 범위를 제한합니다. required·error·onValidityChange를 사용해 유효성을 전달할 수 있습니다. 달력은 키보드 방향키로 이동하고 Escape로 닫습니다. 비활성·읽기 전용·busy는 편집 및 달력 선택을 잠급니다.</p><p>기간 예제는 역순 날짜를 오류로 표시하고 시작일·종료일 포함 일수를 계산합니다. 이 API에는 native name/form 직렬화 prop이 없으므로 제출 데이터 연결은 소비자가 구현해야 합니다. 전체 회귀 검증은 별도 미완료입니다.</p></details>
+    <details><summary>Props · 입력 상태</summary><p>DatePicker는 YYYY-MM-DD 문자열, DateRangePicker는 start/end 문자열 객체를 받습니다. value/onChange는 제어형, defaultValue는 비제어형 초기값입니다. 형식이 잘못된 편집 중 텍스트는 내부 draft에 남고 현재 코드에는 콜백으로 전달된 값이 표시됩니다.</p><p>min/max·disabledDates는 선택 범위를 제한합니다. required·error·onValidityChange를 사용해 유효성을 전달할 수 있습니다. 달력은 키보드 방향키로 이동하고 Escape로 닫습니다. 비활성·읽기 전용·busy는 편집 및 달력 선택을 잠급니다.</p><p>기간 예제는 역순 날짜를 오류로 표시하고 시작일·종료일 포함 일수를 계산합니다. 이 API에는 native name/form 직렬화 prop이 없으므로 제출 데이터 연결은 소비자가 구현해야 합니다.</p></details>
   </div>;
 }
 type SampleRow={id:string;title:string;state:string;count:number};
@@ -60,7 +60,7 @@ function TableDetail() {
     <DataTable caption="예시 작업" rows={visibleRows} columns={columns} rowKey={row=>row.id} rowLabel={row=>row.title} initialPageSize={3} loading={view==='loading'} error={view==='error'?'데이터를 가져오지 못했어요.':undefined} onRetry={()=>setView('default')} filter={{label:'상태 필터',value:row=>row.state,options:['진행 중','완료','대기']}} bulkAction={{label:'선택 확인',onAction:selected=>setMessage(selected.map(row=>row.title).join(', '))}}/>
     <p className="help" role="status">{message}</p>
     <details open><summary>현재 코드</summary><CodeBlock source={source}/></details>
-    <details><summary>Props · 검색과 선택</summary><p>rows/columns/rowKey/caption이 필수입니다. rowKey는 고유하고 안정적인 키, columns.value는 문자열 또는 숫자를 반환합니다. sortable 열 제목을 눌러 정렬하고 검색·filter로 목록을 좁힙니다.</p><p>검색·정렬·페이지·선택은 컴포넌트 내부 상태입니다. 표시 코드의 props로 초기화되며 내부 검색값·페이지까지 제어하는 API는 없습니다. initialPageSize는 초기값입니다. bulkAction은 선택한 원본 행을 전달하고 선택을 해제합니다.</p><p>이 예제의 행은 로컬 샘플이며 서버 요청·저장·삭제는 없습니다. loading/error/onRetry는 소비자가 공급합니다. 넓은 표는 이름 있는 스크롤 영역에서 가로로 이동합니다. 가상 DataGrid나 서버 페이지네이션 API가 아니며 전체 회귀 검증은 미완료입니다.</p></details>
+    <details><summary>Props · 검색과 선택</summary><p>rows/columns/rowKey/caption이 필수입니다. rowKey는 고유하고 안정적인 키, columns.value는 문자열 또는 숫자를 반환합니다. sortable 열 제목을 눌러 정렬하고 검색·filter로 목록을 좁힙니다.</p><p>검색·정렬·페이지·선택은 컴포넌트 내부 상태입니다. 표시 코드의 props로 초기화되며 내부 검색값·페이지까지 제어하는 API는 없습니다. initialPageSize는 초기값입니다. bulkAction은 선택한 원본 행을 전달하고 선택을 해제합니다.</p><p>이 예제의 행은 로컬 샘플이며 서버 요청·저장·삭제는 없습니다. loading/error/onRetry는 소비자가 공급합니다. 넓은 표는 이름 있는 스크롤 영역에서 가로로 이동합니다. 가상 DataGrid나 서버 페이지네이션 API가 아닙니다.</p></details>
   </div>;
 }
 export function ConnectedDetail({name}:{name:ConnectedDetailName}) {
