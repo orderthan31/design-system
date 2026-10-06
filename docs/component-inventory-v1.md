@@ -2,6 +2,18 @@
 
 현재 공유 기준: build/TypeScript 오류가 없는 안정 checkpoint는 먼저 Git으로 공유하고 동일 commit의 프리뷰에서 기능 점검한다. 아래 범위별 이력은 최종 전체 수락이 아니며, 과거 검수 전 push 보류를 현재 프리뷰 공유의 선행 조건으로 적용하지 않는다. 전체 coverage·동일 트리 독립 최종 수락은 별도 잔여다.
 
+## 선택 5종 canonical 상세 checkpoint
+
+- `hasSelectionDetail`은 Combobox/MultiSelect/RadioGroup/CheckboxGroup/Switch 자기 route에 기존 public core·제어형 상태·현재 코드·필요 API 문서를 mount합니다. 다른 조합 예제에 등장하는 것만으로 연결 완료라 계산하지 않습니다. 실제 core preview → 관련 controls → 현재 코드 → 접힌 API 순서이며 core 재작성·새 query prop·엔진 추가가 아닙니다.
+- controls: 공통 label/hint/name/disabled/required/error, 단일 확정 value·복수 value 배열·Switch checked, options[research].disabled. 선택 callback 및 태그 제거는 owner control과 현재 코드에 반영합니다. 전체 공개 props exhaustive controls는 아니며 schema 수와 전용 상세 controls를 구분합니다.
+- Combobox query/open/active는 내부 상태입니다. 검색 타이핑은 확정 값·hidden 제출값을 변경하지 않으며 선택 클릭/Enter로만 확정합니다. 표시 코드에는 확정 value가 들어가며 내부 query 상태를 외부 prop으로 꾸미지 않습니다. required는 options의 실제 확정 선택을 검사합니다. remote/portal/free-text/virtualized 기능이 아닙니다.
+- MultiSelect/CheckboxGroup은 native checkbox 목록입니다. 그룹·옵션 disabled, 배열 append/filter, 태그 제거를 재사용하며 CheckboxGroup에는 태그가 없습니다. 배열의 미등록/중복 key 자동 정규화는 없고 배열 길이 기반 required와 실제 native 제출 값이 다를 수 있음을 설명합니다. Switch required는 켜짐, native 체크된 제출 기본값은 on이며 boolean true 문자열이라고 설명하지 않습니다.
+- 갤러리 초기화는 제어형 value/checked·설정과 preview 내부 query/open을 되돌리는 명시적 재마운트입니다. native form.reset 자동 동기화 기능을 core에 추가하거나 검증했다고 주장하지 않습니다. error 안내·ARIA와 native/custom validity는 구분합니다.
+- bounded Chrome 390/1440px 5 route에서 실제 mount, Combobox query/확정값·키보드 선택/required/disabled 닫기, MultiSelect 태그 제거·disabled 선택 태그 보존, RadioGroup/CheckboxGroup 선택, Switch Space, 빈 required/오류/초기화를 확인했습니다. 해당 범위 document overflow/runtime exception 발견 없고, 표시 TSX 40개 typecheck 오류 0입니다. full suite·전체 상태/AT·디자인/독립 수락은 미완료입니다.
+- current route source: registry **80 / mounted-source 48 / blank-source 32**. 다음 목록이 현재 빈 개별 상세이며 이전 입력 checkpoint의 43/37은 과거 이력입니다. core 부재는 기존 frozen source 대조에서 발견 없었고 이번에는 gallery/docs만 변경합니다. 빈 상세의 개별 controls는 부재, 나머지 연결 상세의 전체 props completeness는 미평가입니다.
+- 현재 빈 canonical 상세: FileInput, AddressField, MonthPicker, TimeInput, DateTimeInput, GNB, LNB, Breadcrumb, Drawer, Popover, Table, Pagination, List, ListItem, LoadingSpinner, ErrorState, Toast, Accordion, Collapse, Stack, Shell, ActionGroup, FormSection, ListPanel, FormTemplate, ListTemplate, FeedbackTemplate, DetailTemplate, DesktopWorkspaceTemplate, MobileWorkspaceTemplate, Icon, IconAction.
+- 다음 승인 큐는 LoadingSpinner/ErrorState/Toast/Accordion/Collapse입니다. spinner는 수동 표시, retry/dismiss/펼침은 기존 core 계약으로 연결합니다. 나머지 빈 항목·Chart/keypad/SDK·동일 final-tree 전체 gate도 잔여로 유지합니다.
+
 ## 입력 6종 + 소개 검색 우선 교정 checkpoint
 
 - PasswordInput/NumberInput/CurrencyInput/PhoneInput/EmailInput/SearchField는 `hasFormInputDetail`로 자기 canonical 상세에 기존 public core·value/disabled/required/error 설정·현재 TSX·접힌 API 문서를 mount합니다. core 재작성·엔진 추가가 아닙니다.

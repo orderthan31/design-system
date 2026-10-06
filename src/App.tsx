@@ -5,6 +5,7 @@ import { CommonControlsComparison } from "./gallery/common-controls";
 import { Overview } from "./gallery/overview";
 import { ConnectedDetail, hasConnectedDetail } from "./gallery/connected-detail";
 import { FormInputDetail, hasFormInputDetail } from "./gallery/form-input-detail";
+import { SelectionDetail, hasSelectionDetail } from "./gallery/selection-detail";
 import { GalleryNavigation } from "./gallery/navigation";
 import { BottomCTADetail } from "./gallery/bottom-cta-detail";
 import { RangeSelectionDetail } from "./gallery/range-selection-detail";
@@ -904,7 +905,7 @@ export function App() {
               <div className="page-heading"><span className="eyebrow">{entry.atomic} / {entry.group}</span><h1 tabIndex={-1}>{entry.label} · {entry.name}</h1></div>
               {hasPlayground(entry.name) && <Playground name={entry.name}/> }
               {entry.name === "Button" && <CommonControlsComparison/>}
-              {hasFormInputDetail(entry.name) ? <FormInputDetail name={entry.name}/> : hasConnectedDetail(entry.name) ? <ConnectedDetail name={entry.name}/> : entry.name==="BottomCTA" ? <BottomCTADetail/> : ["Slider","Rating"].includes(entry.name) ? <RangeSelectionDetail kind={entry.name==="Slider"?"slider":"rating"}/> : ["ProgressStepper","Result"].includes(entry.name) ? <ProgressResultDetail kind={entry.name==="ProgressStepper"?"progress-stepper":"result"}/> : entry.name==="SegmentedControl" ? <SegmentedDetail/> : entry.name==="TextField" ? <InputDetail/> : ["ListRow","ListHeader","ListFooter"].includes(entry.name) ? <ListDetail/> : ["BottomSheet","Dialog"].includes(entry.name) ? <OverlayDetail kind={entry.name==="BottomSheet"?"bottom-sheet":"dialog"}/> : <>
+              {hasSelectionDetail(entry.name) ? <SelectionDetail name={entry.name}/> : hasFormInputDetail(entry.name) ? <FormInputDetail name={entry.name}/> : hasConnectedDetail(entry.name) ? <ConnectedDetail name={entry.name}/> : entry.name==="BottomCTA" ? <BottomCTADetail/> : ["Slider","Rating"].includes(entry.name) ? <RangeSelectionDetail kind={entry.name==="Slider"?"slider":"rating"}/> : ["ProgressStepper","Result"].includes(entry.name) ? <ProgressResultDetail kind={entry.name==="ProgressStepper"?"progress-stepper":"result"}/> : entry.name==="SegmentedControl" ? <SegmentedDetail/> : entry.name==="TextField" ? <InputDetail/> : ["ListRow","ListHeader","ListFooter"].includes(entry.name) ? <ListDetail/> : ["BottomSheet","Dialog"].includes(entry.name) ? <OverlayDetail kind={entry.name==="BottomSheet"?"bottom-sheet":"dialog"}/> : <>
                 {!hasPlayground(entry.name) && <Demo name={entry.name}/>}
                 {!hasPlayground(entry.name) && <details><summary>코드 · API · 접근성</summary>{snippets[entry.name] && <CodeBlock source={snippets[entry.name]}/>}</details>}
               </>}
