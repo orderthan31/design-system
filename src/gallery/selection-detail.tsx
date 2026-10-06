@@ -11,14 +11,15 @@ const items=[{value:'design',label:'디자인'},{value:'development',label:'개�
 export function SelectionDetail({name}:{name:SelectionDetailName}) {
   const isSwitch=name==='Switch',isMany=name==='MultiSelect'||name==='CheckboxGroup';
   const initialLabel=isSwitch?'자동 저장':'검토 분야';
-  const [label,setLabel]=React.useState(initialLabel),[hint,setHint]=React.useState('필요한 항목을 선택하세요.'),[fieldName,setFieldName]=React.useState('review');
+  const initialHint=isSwitch?'':'필요한 항목을 선택하세요.';
+  const [label,setLabel]=React.useState(initialLabel),[hint,setHint]=React.useState(initialHint),[fieldName,setFieldName]=React.useState('review');
   const [single,setSingle]=React.useState('design'),[many,setMany]=React.useState<string[]>(['design']),[checked,setChecked]=React.useState(false);
   const [disabled,setDisabled]=React.useState(false),[required,setRequired]=React.useState(false),[error,setError]=React.useState(false),[optionDisabled,setOptionDisabled]=React.useState(true);
   const [revision,setRevision]=React.useState(0),[message,setMessage]=React.useState('');
   const options=items.map(item=>({...item,disabled:item.value==='research'&&optionDisabled}));
   const flags={label,hint,name:fieldName,disabled,required,error:error?'선택 내용을 확인하세요.':undefined};
   const value=isSwitch?checked:isMany?many:single;
-  const reset=()=>{setLabel(initialLabel);setHint('필요한 항목을 선택하세요.');setFieldName('review');setSingle('design');setMany(['design']);setChecked(false);setDisabled(false);setRequired(false);setError(false);setOptionDisabled(true);setRevision(n=>n+1);setMessage('초기화했어요.');};
+  const reset=()=>{setLabel(initialLabel);setHint(initialHint);setFieldName('review');setSingle('design');setMany(['design']);setChecked(false);setDisabled(false);setRequired(false);setError(false);setOptionDisabled(true);setRevision(n=>n+1);setMessage('초기화했어요.');};
   const settings=`label=${JSON.stringify(label)} name=${JSON.stringify(fieldName)} hint=${JSON.stringify(hint)} disabled={${disabled}} required={${required}}${flags.error?` error=${JSON.stringify(flags.error)}`:''}`;
   const source=`import { useState } from 'react';\nimport { ${name} } from './src';\nimport './src/core.css';\n${isSwitch?'':`\nconst options = ${JSON.stringify(options)};\n`}\nexport function Example() {\n  const [value, setValue] = useState${isMany?'<string[]>':''}(${JSON.stringify(value)});\n  return (\n    <div className="ds-core">\n      <${name} ${settings} ${isSwitch?'checked={value} onCheckedChange={setValue}':'options={options} value={value} onValueChange={setValue}'} />\n      <p>${isSwitch?'현재 checked':'확정 value'}: {JSON.stringify(value)}</p>\n    </div>\n  );\n}`;
   const preview=name==='Combobox'?<Combobox {...flags} options={options} value={single} onValueChange={setSingle}/>:name==='RadioGroup'?<RadioGroup {...flags} options={options} value={single} onValueChange={setSingle}/>:name==='MultiSelect'?<MultiSelect {...flags} options={options} value={many} onValueChange={setMany}/>:name==='CheckboxGroup'?<CheckboxGroup {...flags} options={options} value={many} onValueChange={setMany}/>:<Switch {...flags} checked={checked} onCheckedChange={setChecked}/>;

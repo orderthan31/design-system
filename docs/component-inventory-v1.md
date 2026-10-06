@@ -4,6 +4,8 @@
 
 ## 피드백 5종 canonical 상세 checkpoint
 
+- 후속 copy 교정: Switch 기본 hint를 빈 문자열로 바꾸고 hint prop control은 유지합니다. 초기화도 빈 hint로 복원하며 나머지 동작/상태·API 제약은 보존합니다.
+
 - `hasFeedbackDetail`은 LoadingSpinner/ErrorState/Toast/Accordion/Collapse 자기 route에 실제 공개 core, 필요한 props controls, 현재 코드와 API 제약을 연결합니다. core 재작성·상태 엔진·서버/queue/타이머 추가가 아닙니다.
 - LoadingSpinner label과 부모 표시를 수동으로 조작합니다. ErrorState의 onRetry는 로컬 부모가 오류 대신 LoadingSpinner를 보여 주는 예제이며 서버 재시도/자동 완료가 아닙니다. Toast message/onDismiss 및 부모 조건부 렌더링을 연결하여 실제 닫기 콜백에서 제거하고 다시 표시할 수 있습니다.
 - Accordion items[0].title/content, multiple, 항목 disabled를 제어합니다. Collapse title/children을 제어하며 펼침은 기존 내부 상태 소유입니다. 현재 코드는 props/콜백·부모 상태를 나타내고 외부 open/defaultOpen/onOpenChange API를 만들거나 내부 펼침을 외부 값처럼 표현하지 않습니다. multiple 변경은 기존 열린 배열을 자동 정규화하지 않고 이후 클릭에 적용됩니다. 명시적 초기화는 preview를 다시 마운트해 접힘/표시/설정을 초기 상태로 돌립니다.
