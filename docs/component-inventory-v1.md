@@ -2,6 +2,17 @@
 
 현재 공유 기준: build/TypeScript 오류가 없는 안정 checkpoint는 먼저 Git으로 공유하고 동일 commit의 프리뷰에서 기능 점검한다. 아래 범위별 이력은 최종 전체 수락이 아니며, 과거 검수 전 push 보류를 현재 프리뷰 공유의 선행 조건으로 적용하지 않는다. 전체 coverage·동일 트리 독립 최종 수락은 별도 잔여다.
 
+## 기본 슬롯 템플릿4 canonical 상세 checkpoint
+
+- `hasSlotTemplateDetail`은 FormTemplate/ListTemplate/FeedbackTemplate/DetailTemplate 자기 route에 기존 실제 core·필요 슬롯 controls·동일 부모 state의 현재 코드·API 제약을 연결합니다. templates6 중 기본4만 완료한 증분 checkpoint이며 workspace2를 완료로 계산하지 않습니다.
+- FormTemplate은 title/fields/actions/optional aside만 사용합니다. 템플릿 자체는 section이며 native form/onSubmit/validation/loading API가 아닙니다. 예제 부모가 전체 템플릿을 native form으로 감싸고 required Input과 type=submit Button을 구성합니다. loading Button과 form guard·메모리 확인값은 부모 소유입니다.
+- ListTemplate은 title/rows ReactNode·optional toolbar/footer, 실제 native search Input·부모 query/로컬 filter·List/ListItem·빈 rows를 제공합니다. toolbar 자식 없음에도 wrapper는 유지되고 검색/선택/페이지/router를 template API로 만들지 않습니다.
+- FeedbackTemplate은 title/status ReactNode/content·optional actions, 실제 status 노드/자식 ErrorState retry·부모 상태/action·content=null을 연결합니다. status enum·서버 재시도 API 없음. DetailTemplate은 title/summary/content·optional actions, useId 제목·Grid의 summary aside/content·자식 Input/로컬 확인을 연결하며 summary=null에도 wrapper는 유지합니다. 자동 닫기/라우팅/focus 반환을 invent하지 않습니다.
+- production Chrome390/1440px4route bounded 확인: native required 제출 방어·실제 Enter 제출/메모리 결과·busy guard·aside 생략, List 검색/filter/빈 children·toolbar/footer 생략, Feedback error/retry/action/null slots, Detail 제목 연결/자식값/action/summary null·reset. 긴 quoted title 포함 document overflow/runtime exception 발견 없고 표시 TSX40개 typecheck 오류0입니다. 전체 상태/AT/모든 API조합·full suite/coverage/디자인/독립 수락은 미완료입니다.
+- current route source: registry **80 / mounted-source 76 / blank-source 4**. 72/8은 이전 layout checkpoint 이력입니다. 기존 frozen 대조 core 부재 발견 없음; 이번은 gallery/docs만 변경합니다. 빈 controls 부재 / 연결 상세 전체 controls/schema/API completeness 미평가 / 동일 final-tree 전체검증 미완료를 분리합니다.
+- 현재 빈 canonical 상세: DesktopWorkspaceTemplate, MobileWorkspaceTemplate, Icon, IconAction. 다음 workspace2 → icons2 순서입니다. core/tests/browser 계약·sole writer/read-only 준비·ZIP 첨부 보류를 유지합니다.
+- 준비 자식이 기존 composition 테스트의 제목 기대/현재 예시 제목 불일치와 닫기 assertion 약화 후보를 소스 조사로 보고했습니다. 부모가 테스트를 실행한 결과나 이번 변경의 새 회귀라고 간주하지 않습니다. 기존 테스트는 보존하고 final-tree 테스트/독립 검토에서 재확인할 잔여로 기록합니다.
+
 ## Stack/Shell/ActionGroup/FormSection/ListPanel canonical 상세 checkpoint
 
 - `hasLayoutDetail`은5종 자기 route에 기존 실제 core·필요 props controls·같은 state의 현재 코드·API 제약을 연결합니다. 독립 source writer는 현재 대화 그대로이며 core/tests/browser와 이전 data4·navigation/overlay/CSS scope 보정을 보존합니다.
