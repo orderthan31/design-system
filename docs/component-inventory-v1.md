@@ -2,6 +2,17 @@
 
 현재 공유 기준: build/TypeScript 오류가 없는 안정 checkpoint는 먼저 Git으로 공유하고 동일 commit의 프리뷰에서 기능 점검한다. 아래 범위별 이력은 최종 전체 수락이 아니며, 과거 검수 전 push 보류를 현재 프리뷰 공유의 선행 조건으로 적용하지 않는다. 전체 coverage·동일 트리 독립 최종 수락은 별도 잔여다.
 
+## 파일/주소/월/시간/날짜시간 canonical 상세 checkpoint
+
+- `hasExtendedInputDetail`은 FileInput/AddressField/MonthPicker/TimeInput/DateTimeInput 자기 route에 기존 core·필요 controls·현재 코드·API 제약을 연결합니다. core 재작성·외부 요청·엔진을 추가하지 않습니다.
+- FileInput accept/multiple/required/disabled/error, native 선택·파일명·onFilesChange(File[]) 결과 및 선택 비우기/초기화를 제공합니다. value/defaultValue 파일 경로 string API를 만들지 않습니다. 하나라도 형식 거절이면 native 선택·소비자 배열 전체를 비우고 invalid를 표시합니다. 현재 코드는 실제 File 객체를 직렬화/재생하지 않고 선택·콜백·설정 방법입니다. accept 변경만으로 기존 파일을 재검증하지 않습니다. 초기화는 owner 배열 [] + subtree 재마운트이며 native form.reset 동기화가 아닙니다. 외부 error와 accept custom validity는 구분합니다. 업로드·전송·크기/개수 상한은 없습니다.
+- AddressField는 postal/road/jibun/detail 제어형 value/onValueChange, disabled/required/error 및 searchSlot(select)로 가상 로컬 샘플을 선택합니다. 실제 provider/SDK/주소 검색이 아니며 네트워크 어댑터를 추가하지 않습니다. postal 5자리 native pattern·postal/road required와 name.key 제출 계약, onSearch/searchSlot callback·임의 slot disabled의 소비자 소유를 설명합니다. 외부 provider 수락은 미완료이며 로컬 canonical 예제 연결과 구분합니다.
+- 날짜 3종은 확정 value/onChange와 onValidityChange를 별도로 표시하고 disabled/readOnly/busy/required/error·범위 제한을 실제 preview/현재 코드에 연결합니다. DateTimeInput만 disabledDates 옵션을 연결합니다. min/max는 양끝 포함이고, 잘못된 내부 draft는 확정 value와 다를 수 있습니다. 빈/부분값 onChange는 validity true 이벤트가 아니며 시간대 없는 문자열 계약입니다. timezone API/name/form/id/step/onDraftChange를 invent하지 않습니다. 초기화는 owner 값·설정과 내부 draft/팝업을 되돌리는 preview 재마운트입니다.
+- bounded Chrome 390/1440px 5route: 실제 로컬 txt 파일 선택·거절·복수 유효 재선택/초기화(FileList/콜백/invalid), 주소 로컬 sample·상세 입력/우편번호 오류·disabled 차단, 월 달력 선택/범위 draft, 시간/날짜시간 유효 변경과 invalid draft/확정 분리, 상태·빈 required/오류를 확인했습니다. 해당 범위 document overflow/runtime exception 발견 없고 표시 TSX30개 typecheck 오류0입니다. 해당 브라우저 조작 동안 POST/PUT/PATCH 요청은 없었고 구현에도 외부 전송 코드가 없습니다. OS 파일 선택창/전체 MIME·상태/AT·다른 브라우저·full suite·디자인/독립 수락은 미완료입니다.
+- current route source: registry **80 / mounted-source 58 / blank-source 22**. 이전 feedback checkpoint의 53/27은 과거 이력입니다. core 부재는 기존 frozen 대조에서 발견 없었고 이번은 gallery/docs만 변경합니다. 빈 상세의 controls는 부재, 연결된 다른 상세의 전체 공개 props completeness는 미평가입니다. schema·전용 controls·필요 API·최종검증은 별도 유지합니다.
+- 현재 빈 canonical 상세: GNB, LNB, Breadcrumb, Drawer, Popover, Table, Pagination, List, ListItem, Stack, Shell, ActionGroup, FormSection, ListPanel, FormTemplate, ListTemplate, FeedbackTemplate, DetailTemplate, DesktopWorkspaceTemplate, MobileWorkspaceTemplate, Icon, IconAction.
+- 나머지 탐색/overlay/data/layout/template/icon과 Chart/keypad/SDK·동일 final-tree 전체 gate·외부 provider 수락은 잔여입니다. 다음 범위는 기존 API 재사용 소규모 그룹으로 유지하며 새 writer를 시작하지 않습니다.
+
 ## 피드백 5종 canonical 상세 checkpoint
 
 - 후속 copy 교정: Switch 기본 hint를 빈 문자열로 바꾸고 hint prop control은 유지합니다. 초기화도 빈 hint로 복원하며 나머지 동작/상태·API 제약은 보존합니다.
