@@ -218,11 +218,11 @@ button:disabled {
   font-weight: 600;
   margin: 49px 14px 12px;
 }
-nav {
+:where(.sidebar) nav {
   display: grid;
   gap: 5px;
 }
-nav a {
+:where(.sidebar nav, .gallery-component-nav) a {
   display: flex;
   align-items: center;
   gap: 12px;
@@ -234,10 +234,10 @@ nav a {
   font-weight: 500;
   text-decoration: none !important;
 }
-nav a:hover {
+:where(.sidebar nav, .gallery-component-nav) a:hover {
   background: var(--color-bg-canvas);
 }
-nav a[aria-current="page"] {
+:where(.sidebar nav, .gallery-component-nav) a[aria-current="page"] {
   background: var(--color-selected-bg);
   color: var(--color-selected-fg);
 }
@@ -1001,11 +1001,11 @@ pre {
   .sidebar-note {
     display: none;
   }
-  nav {
+  :where(.sidebar) nav {
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 3px;
   }
-  nav a {
+  :where(.sidebar nav, .gallery-component-nav) a {
     padding: 7px 8px;
     font-size: 11px;
     gap: 6px;
@@ -1268,7 +1268,7 @@ pre {
     padding-left: 12px;
     padding-right: 12px;
   }
-  nav a {
+  :where(.sidebar nav, .gallery-component-nav) a {
     gap: 4px;
     font-size: 10px;
   }

@@ -2,6 +2,13 @@
 
 현재 공유 기준: build/TypeScript 오류가 없는 안정 checkpoint는 먼저 Git으로 공유하고 동일 commit의 프리뷰에서 기능 점검한다. 아래 범위별 이력은 최종 전체 수락이 아니며, 과거 검수 전 push 보류를 현재 프리뷰 공유의 선행 조건으로 적용하지 않는다. 전체 coverage·동일 트리 독립 최종 수락은 별도 잔여다.
 
+## Breadcrumb 긴 경로 소규모 보완 checkpoint
+
+- 이전 5종(GNB/LNB/Breadcrumb/Drawer/Popover)의 실제 canonical 상세를 보존하고 Breadcrumb에 소비자 items 배열 기반 긴 경로 예시 control을 추가했습니다. 기존 문서로 이동하는 앞 native href와 마지막 aria-current span, 긴 현재 label 편집·짧은 경로 초기화가 동일 preview/current-code에 반영됩니다. 없는 onSelect/router/provider나 새 core API는 추가하지 않습니다.
+- 갤러리 전역 nav/nav a 규칙(모바일3열 포함)을 문서 sidebar/component 메뉴에만 한정했습니다. 실제 Breadcrumb/LNB preview에 메뉴 grid/link padding이 누수되던 원인을 제거하며 core CSS를 덮어쓰거나 overflow:hidden으로 감추지 않습니다. 390px Breadcrumb native ol이 전체358px을 사용함을 실제 computed geometry로 확인했습니다.
+- production Chrome390/1440px: 긴 경로5항목·앞 native 링크4개, 마지막 href를 줘도 span, 공백 없는 긴 현재 label의 완전한 DOM 텍스트·실제 줄바꿈·document overflow0, href 제거·초기화 확인. 런타임 오류 발견 없고 표시 TSX6개 typecheck 오류0. 기존 탐색3 bounded 재검사·표시 TSX24개 오류0 및 overlay2 bounded 재검사·표시 TSX18개 오류0. core/tests/browser 계약은 그대로이며 full suite·AT·최종 디자인수락은 별도입니다.
+- source 목록은 **80 / 연결63 / 빈17**로 유지합니다. 직전 Drawer/Popover checkpoint의 정확한 잔여17종 및 core/controls/API/최종검증 분리는 그대로 적용됩니다. a385579의58/22와 3a59ec6의61/19는 역사 checkpoint입니다. data4→layout5→templates6→icons2 순서 유지, 추가 writer/전체 회귀 gate 없음.
+
 ## Drawer/Popover canonical 상세 checkpoint
 
 - `hasRegionOverlayDetail`는 Drawer/Popover 자기 route에 기존 실제 core·필요 props controls·현재 코드·소유권/API 제약을 연결합니다. core/tests/browser 계약과 이전 파일/주소/날짜·탐색 상세를 보존합니다.
