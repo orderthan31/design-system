@@ -14,7 +14,7 @@ export function Textarea(
   );
 }
 export function Select(props: React.SelectHTMLAttributes<HTMLSelectElement>) {
-  return <select {...props} className={`control ${props.className ?? ""}`} />;
+  return <select data-slot="native-select" {...props} className={`control ${props.className ?? ""}`} />;
 }
 export function Checkbox({
   label,

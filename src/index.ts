@@ -1,3 +1,4 @@
+export * from "./components/chart";
 export * from "./components/content-primitives";
 export * from "./components/bottom-cta";
 export * from "./components/range-selection";

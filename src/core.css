@@ -1,6 +1,8 @@
 /* Reusable styles: opt in with a .ds-core ancestor. No host reset. */
 @import "./generated/scoped-tokens.css";
 @import "./default-theme.css";
+@import "./design-tokens.css";
+@import "./components/chart.css";
 @import "./components/layout.css";
 @import "./components/content-primitives.css";
 @import "./components/date-controls.css";
@@ -50,7 +52,7 @@
   background: var(--color-bg-canvas);
   color: var(--color-text-primary);
   font:
-    400 var(--font-size-body) / var(--font-line-body) Pretendard,
+    var(--ds-weight-normal) var(--font-size-body) / var(--font-line-body) Pretendard,
     "Apple SD Gothic Neo",
     "Hiragino Kaku Gothic ProN",
     "Yu Gothic",
@@ -87,12 +89,12 @@
 .ds-core h2,
 .ds-core h3,
 .ds-core h4 {
-  font-weight: 600;
-  letter-spacing: -0.025em;
+  font-weight: var(--ds-weight-semibold);
+  letter-spacing: var(--ds-tracking-heading);
   margin: 0;
 }
 .ds-core h1 {
-  font-size: 24px;
+  font-size: var(--ds-font-page);
   line-height: 1.18;
 }
 .ds-core h2 {
@@ -100,12 +102,12 @@
   line-height: var(--font-line-title);
 }
 .ds-core h3 {
-  font-size: 16px;
-  line-height: 24px;
+  font-size: var(--ds-font-section);
+  line-height: var(--ds-line-body);
 }
 .ds-core h4 {
-  font-size: 14px;
-  line-height: 24px;
+  font-size: var(--ds-control-font-size);
+  line-height: var(--ds-line-body);
 }
 .ds-core small {
   font-size: var(--font-size-caption);
@@ -149,12 +151,12 @@
 .ds-core .button {
   min-height: var(--size-control);
   max-width: 100%;
-  padding: 10px 16px;
-  border: 1px solid transparent;
-  border-radius: 10px;
+  padding: var(--ds-space-2-5) var(--space-4);
+  border: var(--ds-border-thin) solid transparent;
+  border-radius: var(--ds-radius-button);
   font-size: var(--font-size-label);
   line-height: var(--font-line-label);
-  font-weight: 500;
+  font-weight: var(--ds-weight-medium);
   display: inline-flex;
   justify-content: center;
   align-items: center;
@@ -201,11 +203,11 @@
   min-height: 48px;
 }
 .ds-core .button.small {
-  padding: 8px 12px;
-  font-size: 12px;
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--font-size-caption);
 }
 .ds-core .button.large {
-  padding: 14px 24px;
+  padding: var(--ds-space-3-5) var(--space-6);
   min-height: 56px;
 }
 .ds-core .button:disabled {
@@ -220,7 +222,7 @@
   width: 48px;
   min-height: 48px;
   padding: 0;
-  font-size: 18px;
+  font-size: var(--ds-chart-title-size);
 }
 /* Shared control shape; boundary colors retain the theme contrast contract. */
 .ds-core .button > svg { width:18px; height:18px; flex-shrink:0; display:block; }
@@ -242,7 +244,7 @@
 .ds-core .control[aria-invalid="true"]:focus-visible { border-color:var(--field-error-fg); }
 .ds-core .control:disabled { border-color:var(--color-border-subtle); cursor:not-allowed; }
 .ds-core .control[aria-busy="true"] { cursor:progress; }
-.ds-core .tabs [role="tab"] { border-radius:8px 8px 0 0; display:inline-flex; align-items:center; gap:8px; }
+.ds-core .tabs [role="tab"] { border-radius:var(--ds-radius-control) var(--ds-radius-control) 0 0; display:inline-flex; align-items:center; gap:8px; }
 .ds-core .tabs [role="tab"]:hover:not(:disabled),
 .ds-core .tabs [role="tab"]:active:not(:disabled) { background:var(--color-selected-bg); color:var(--color-selected-fg); }
 .ds-core .tabs [role="tab"]:disabled { color:var(--color-disabled-fg); }
@@ -251,7 +253,7 @@
   display: inline-block;
   width: 14px;
   height: 14px;
-  border: 2px solid currentColor;
+  border: var(--ds-border-strong) solid currentColor;
   border-right-color: transparent;
   border-radius: 50%;
   animation: ds-core-spin 0.7s linear infinite;
@@ -264,12 +266,12 @@
 .ds-core .field label {
   font-size: var(--font-size-label);
   line-height: var(--font-line-label);
-  font-weight: 500;
+  font-weight: var(--ds-weight-medium);
   color: var(--color-text-primary);
 }
 .ds-core .field label span {
-  font-size: 12px;
-  font-weight: 400;
+  font-size: var(--font-size-caption);
+  font-weight: var(--ds-weight-normal);
   color: var(--color-text-secondary);
 }
 .ds-core .control {
@@ -278,13 +280,13 @@
   min-width: 0;
   max-width: 100%;
   min-height: var(--size-control);
-  padding: 10px 12px;
-  border: 1px solid var(--field-border);
-  border-radius: 10px;
+  padding: var(--ds-control-padding-block) var(--ds-control-padding-inline);
+  border: var(--ds-border-thin) solid var(--field-border);
+  border-radius: var(--ds-radius-control);
   background: var(--field-bg);
   color: var(--field-fg);
-  font-size: 14px;
-  line-height: 22px;
+  font-size: var(--ds-control-font-size);
+  line-height: var(--ds-control-line-height);
 }
 .ds-core .control::placeholder {
   color: var(--field-description);
@@ -307,14 +309,14 @@
   min-height: 112px;
 }
 .ds-core .help {
-  font-size: 12px;
-  line-height: 20px;
+  font-size: var(--font-size-caption);
+  line-height: var(--ds-line-compact);
   color: var(--color-text-secondary);
   margin: 0;
 }
 .ds-core .error {
-  font-size: 12px;
-  line-height: 20px;
+  font-size: var(--font-size-caption);
+  line-height: var(--ds-line-compact);
   color: var(--field-error-fg);
   margin: 0;
 }
@@ -323,8 +325,8 @@
   flex-wrap: wrap;
   gap: 12px;
   align-items: center;
-  font-size: 12px;
-  font-weight: 500;
+  font-size: var(--font-size-caption);
+  font-weight: var(--ds-weight-medium);
 }
 .ds-core .inline-label .control {
   width: auto;
@@ -335,8 +337,8 @@
   align-items: center;
   gap: 8px;
   min-height: 48px;
-  font-size: 14px;
-  font-weight: 500;
+  font-size: var(--ds-control-font-size);
+  font-weight: var(--ds-weight-medium);
   cursor: pointer;
 }
 .ds-core .checkbox input {
@@ -357,11 +359,11 @@
   display: inline-flex;
   align-items: center;
   max-width: 100%;
-  padding: 3px 8px;
-  border-radius: 6px;
-  font-size: 12px;
-  line-height: 18px;
-  font-weight: 500;
+  padding: var(--ds-space-0-75) var(--space-2);
+  border-radius: var(--ds-radius-badge);
+  font-size: var(--font-size-caption);
+  line-height: var(--font-line-caption);
+  font-weight: var(--ds-weight-medium);
   overflow-wrap: anywhere;
 }
 .ds-core .neutral {
@@ -389,13 +391,13 @@
   max-width: 600px;
 }
 .ds-core .progress-group .row {
-  font-size: 12px;
+  font-size: var(--font-size-caption);
   margin-bottom: 10px;
   color: var(--color-text-secondary);
 }
 .ds-core .progress {
   height: 8px;
-  border-radius: 4px;
+  border-radius: var(--ds-radius-progress);
   background: var(--progress-track);
   overflow: hidden;
 }
@@ -403,7 +405,7 @@
   height: 100%;
   display: block;
   background: var(--progress-fill);
-  border-radius: 4px;
+  border-radius: var(--ds-radius-progress);
   transition: width var(--motion-normal);
 }
 .ds-core .indeterminate {
@@ -412,7 +414,7 @@
 .ds-core .skeleton {
   height: 22px;
   max-width: 420px;
-  border-radius: 6px;
+  border-radius: var(--ds-radius-badge);
   background: var(--color-border-subtle);
   margin-bottom: 12px;
   animation: ds-core-pulse 1.8s ease infinite;
@@ -422,22 +424,22 @@
 }
 .ds-core .separator {
   border: none;
-  border-top: 1px solid var(--color-border-subtle);
+  border-top: var(--ds-border-thin) solid var(--color-border-subtle);
   margin: 20px 0;
 }
 .ds-core .alert {
-  padding: 18px 20px;
-  border-radius: 8px;
-  font-size: 14px;
-  line-height: 24px;
+  padding: var(--ds-space-4-5) var(--ds-space-5);
+  border-radius: var(--ds-radius-control);
+  font-size: var(--ds-control-font-size);
+  line-height: var(--ds-line-body);
   display: grid;
   gap: 7px;
   overflow-wrap: anywhere;
 }
 .ds-core .alert .badge {
   padding: 0;
-  font-size: 14px;
-  font-weight: 600;
+  font-size: var(--ds-control-font-size);
+  font-weight: var(--ds-weight-semibold);
   justify-self: start;
 }
 .ds-core .alert p {
@@ -446,9 +448,9 @@
 .ds-core .empty {
   background: var(--empty-bg);
   color: var(--empty-fg);
-  border: 1px dashed var(--color-border-control);
-  border-radius: 12px;
-  padding: 36px 28px;
+  border: var(--ds-border-thin) dashed var(--color-border-control);
+  border-radius: var(--radius-lg);
+  padding: var(--ds-space-9) var(--ds-space-7);
   text-align: center;
   display: grid;
   justify-items: center;
@@ -459,44 +461,44 @@
   display: grid;
   place-items: center;
   background: var(--color-bg-canvas);
-  border: 1px solid var(--color-border-subtle);
-  border-radius: 14px;
+  border: var(--ds-border-thin) solid var(--color-border-subtle);
+  border-radius: var(--ds-radius-symbol);
   width: 56px;
   height: 56px;
-  font-size: 20px;
+  font-size: var(--font-size-title);
   color: var(--color-link);
 }
 .ds-core .empty h3 {
   color: var(--color-text-primary);
 }
 .ds-core .empty > div {
-  font-size: 14px;
-  line-height: 24px;
+  font-size: var(--ds-control-font-size);
+  line-height: var(--ds-line-body);
   max-width: 650px;
 }
 .ds-core .empty p {
   margin: 0;
 }
 .ds-core .result {
-  padding: 12px 30px;
+  padding: var(--space-3) var(--ds-space-7-5);
   margin: 0;
-  border-top: 1px solid var(--color-border-subtle);
-  font-size: 13px;
+  border-top: var(--ds-border-thin) solid var(--color-border-subtle);
+  font-size: var(--font-size-label);
   color: var(--color-status-success-fg);
 }
 .ds-core .tabs [role="tablist"] {
   display: flex;
   gap: 8px;
-  border-bottom: 1px solid var(--color-border-subtle);
+  border-bottom: var(--ds-border-thin) solid var(--color-border-subtle);
   flex-wrap: wrap;
 }
 .ds-core .tabs [role="tab"] {
   border: 0;
-  border-bottom: 2px solid transparent;
+  border-bottom: var(--ds-border-strong) solid transparent;
   background: none;
-  padding: 10px 16px;
+  padding: var(--ds-space-2-5) var(--space-4);
   min-height: 44px;
-  font-size: 13px;
+  font-size: var(--font-size-label);
   color: var(--color-text-secondary);
 }
 .ds-core .tabs [role="tab"][aria-selected="true"] {
@@ -504,8 +506,8 @@
   border-color: var(--color-link);
 }
 .ds-core .tabs [role="tabpanel"] {
-  padding: 22px 0 0;
-  font-size: 14px;
+  padding: var(--ds-space-5-5) 0 0;
+  font-size: var(--ds-control-font-size);
 }
 .ds-core .tabs [role="tabpanel"] p {
   margin: 0;
@@ -523,10 +525,10 @@
   left: 0;
   min-width: 170px;
   background: var(--color-bg-surface);
-  border: 1px solid var(--color-border-subtle);
-  box-shadow: 0 6px 24px #0f172a12;
-  border-radius: 8px;
-  padding: 5px;
+  border: var(--ds-border-thin) solid var(--color-border-subtle);
+  box-shadow: var(--ds-shadow-menu);
+  border-radius: var(--ds-radius-control);
+  padding: var(--ds-space-1-25);
   z-index: 5;
 }
 .ds-core .menu-popup button {
@@ -537,9 +539,9 @@
   background: none;
   color: var(--color-text-primary);
   min-height: 44px;
-  padding: 10px 12px;
-  font-size: 13px;
-  border-radius: 5px;
+  padding: var(--ds-space-2-5) var(--space-3);
+  font-size: var(--font-size-label);
+  border-radius: var(--ds-radius-menu-item);
 }
 .ds-core .menu-popup button:hover,
 .ds-core .menu-popup button:focus {
@@ -551,30 +553,30 @@
   z-index: 6;
   left: 0;
   top: calc(100% + 9px);
-  padding: 9px 12px;
+  padding: var(--ds-space-2-25) var(--space-3);
   max-width: 230px;
   width: max-content;
-  border-radius: 6px;
+  border-radius: var(--ds-radius-badge);
   background: var(--color-text-primary);
   color: var(--color-text-inverse);
-  font-size: 12px;
-  line-height: 20px;
+  font-size: var(--font-size-caption);
+  line-height: var(--ds-line-compact);
   overflow-wrap: anywhere;
-  box-shadow: 0 4px 18px #0f172a18;
+  box-shadow: var(--ds-shadow-tooltip);
 }
 .ds-core dialog {
   width: 560px;
   max-width: calc(100vw - 32px);
   max-height: calc(100dvh - 40px);
   padding: 0;
-  border: 1px solid var(--color-border-subtle);
-  border-radius: 12px;
+  border: var(--ds-border-thin) solid var(--color-border-subtle);
+  border-radius: var(--radius-lg);
   background: var(--dialog-bg);
   color: var(--dialog-fg);
-  box-shadow: 0 24px 80px #0f172a30;
+  box-shadow: var(--ds-shadow-dialog);
 }
 .ds-core dialog::backdrop {
-  background: #0f172a66;
+  background: var(--color-scrim);
   backdrop-filter: blur(3px);
 }
 .ds-core .dialog-head {
@@ -582,17 +584,17 @@
   justify-content: space-between;
   align-items: center;
   gap: 12px;
-  padding: 20px 24px;
-  border-bottom: 1px solid var(--color-border-subtle);
+  padding: var(--ds-space-5) var(--space-6);
+  border-bottom: var(--ds-border-thin) solid var(--color-border-subtle);
 }
 .ds-core .dialog-head h2 {
-  font-size: 18px;
-  line-height: 30px;
+  font-size: var(--ds-chart-title-size);
+  line-height: var(--ds-line-title);
 }
 .ds-core .dialog-body {
-  padding: 20px;
-  font-size: 14px;
-  line-height: 26px;
+  padding: var(--ds-space-5);
+  font-size: var(--ds-control-font-size);
+  line-height: var(--ds-line-relaxed);
   overflow-wrap: anywhere;
 }
 .ds-core .dialog-body p:last-child {
@@ -603,15 +605,15 @@
   flex-wrap: wrap;
   justify-content: flex-end;
   gap: 12px;
-  padding: 20px 24px;
-  border-top: 1px solid var(--color-border-subtle);
+  padding: var(--ds-space-5) var(--space-6);
+  border-top: var(--ds-border-thin) solid var(--color-border-subtle);
 }
 .ds-core .dialog-actions .primary {
   min-height: 48px;
 }
 .ds-core .template header h3 {
-  font-size: 18px;
-  line-height: 32px;
+  font-size: var(--ds-chart-title-size);
+  line-height: var(--ds-line-large);
   margin: 10px 0 24px;
 }
 .ds-core .template-columns {
@@ -631,13 +633,13 @@
   margin-top: 8px;
 }
 .ds-core .template-aside {
-  padding: 20px;
+  padding: var(--ds-space-5);
   background: var(--color-bg-canvas);
   border: 0;
-  border-radius: 8px;
+  border-radius: var(--ds-radius-control);
   align-self: start;
-  font-size: 13px;
-  line-height: 22px;
+  font-size: var(--font-size-label);
+  line-height: var(--ds-control-line-height);
   min-width: 0;
 }
 .ds-core .template-aside h4 {
@@ -652,7 +654,7 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 12px;
-  padding-bottom: 20px;
+  padding-bottom: var(--ds-space-5);
 }
 .ds-core .template-toolbar > .control {
   flex: 1;
@@ -664,12 +666,12 @@
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  padding: 13px 0;
-  border-top: 1px solid var(--color-border-subtle);
+  padding: var(--ds-space-3-25) 0;
+  border-top: var(--ds-border-thin) solid var(--color-border-subtle);
 }
 .ds-core .list-template footer {
-  border-top: 1px solid var(--color-border-subtle);
-  padding-top: 18px;
+  border-top: var(--ds-border-thin) solid var(--color-border-subtle);
+  padding-top: var(--ds-space-4-5);
   margin-top: 10px;
 }
 .ds-core .template-content {
@@ -681,7 +683,7 @@
     gap: 24px;
   }
   .ds-core .frame-content {
-    padding: 20px;
+    padding: var(--ds-space-5);
   }
   .ds-core .template-actions > .button {
     flex: 1;
@@ -708,8 +710,8 @@
 }
 @media (max-width: 700px) {
   .ds-core .button {
-    padding: 10px 14px;
-    font-size: 13px;
+    padding: var(--ds-space-2-5) var(--ds-space-3-5);
+    font-size: var(--font-size-label);
   }
   .ds-core .wrap {
     gap: 10px;
@@ -721,11 +723,11 @@
     max-width: 100%;
   }
   .ds-core .empty {
-    padding: 28px 18px;
+    padding: var(--ds-space-7) var(--ds-space-4-5);
   }
   .ds-core .empty > div {
-    font-size: 14px;
-    line-height: 24px;
+    font-size: var(--ds-control-font-size);
+    line-height: var(--ds-line-body);
   }
   .ds-core .tooltip {
     max-width: 220px;
@@ -747,13 +749,13 @@
 }
 .ds-core .button.ghost:active:not(:disabled):not([aria-busy="true"]),
 .ds-core .button.quiet:active:not(:disabled):not([aria-busy="true"]) {
-  background: var(--color-action-ghost-pressed, #dbeafe);
+  background: var(--color-action-ghost-pressed, var(--color-selected-bg));
 }
 .ds-core .button.destructive:hover:not(:disabled):not([aria-busy="true"]) {
-  background: var(--color-action-destructive-hover, #991b1b);
+  background: var(--color-action-destructive-hover, var(--color-status-error-fg));
 }
 .ds-core .button.destructive:active:not(:disabled):not([aria-busy="true"]) {
-  background: var(--color-action-destructive-pressed, #7f1d1d);
+  background: var(--color-action-destructive-pressed, var(--color-status-error-fg));
 }
 
 /* Native entry, selection and navigation cues; validation and focus stay independent. */
@@ -772,7 +774,7 @@
   background: var(--color-selected-bg);
 }
 .ds-core .menu-popup button:active {
-  background: var(--color-action-ghost-pressed, #dbeafe);
+  background: var(--color-action-ghost-pressed, var(--color-selected-bg));
   color: var(--color-selected-fg);
 }
 .ds-core .tabs [role="tab"]:hover {
@@ -785,10 +787,10 @@
 .ds-core .ds-icon-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 100px), 1fr)); gap: var(--space-3); margin-block: var(--space-4); }
 .ds-core .ds-icon-grid > div { display: grid; justify-items: center; gap: var(--space-2); padding: var(--space-3); border: 0; border-radius: var(--radius-md); background: var(--color-bg-surface); min-width: 0; }
 .ds-core .ds-icon-grid code { font-size: var(--font-size-caption); overflow-wrap: anywhere; }
-.ds-core .ds-accordion > section { border-bottom: 1px solid var(--color-border-subtle); }
+.ds-core .ds-accordion > section { border-bottom: var(--ds-border-thin) solid var(--color-border-subtle); }
 .ds-core .ds-accordion h3 .button { width: 100%; justify-content: space-between; white-space: normal; text-align: left; }
 .ds-core .ds-accordion [role="region"], .ds-core .ds-collapse > div:not([hidden]) { padding: var(--space-4); }
-.ds-core .ds-toast { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-3); border: 1px solid var(--color-border-control); border-radius: var(--radius-md); background: var(--color-bg-surface); margin-block: var(--space-4); overflow-wrap: anywhere; }
+.ds-core .ds-toast { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-3); border: var(--ds-border-thin) solid var(--color-border-control); border-radius: var(--radius-md); background: var(--color-bg-surface); margin-block: var(--space-4); overflow-wrap: anywhere; }
 .ds-core .ds-toast > span { flex: 1; min-width: 0; }
 .ds-core .ds-toast svg { flex-shrink: 0; }
 .ds-core .ds-loading { display: inline-flex; align-items: center; gap: var(--space-2); }

@@ -1,0 +1,112 @@
+{
+  "scope": "Input + Chart build-clean WIP checkpoint; not full-system or design acceptance.",
+  "basisHead": "d394b303d14cdd306992034ad2bf1910684b4183",
+  "styles": {
+    "declarationsReplaced": 147,
+    "sourceFindingsRemoved": 146,
+    "narrowReducedMotionFalsePositives": 3,
+    "before": {
+      "jsx": 63,
+      "css": 593
+    },
+    "after": {
+      "jsx": 63,
+      "css": 444,
+      "fixtureCases": 33
+    },
+    "byFile": [
+      {
+        "file": "src/core.css",
+        "before": 112,
+        "after": 0
+      },
+      {
+        "file": "src/components/date-controls.css",
+        "before": 7,
+        "after": 0
+      },
+      {
+        "file": "src/components/form-controls.css",
+        "before": 11,
+        "after": 0
+      },
+      {
+        "file": "src/components/text-field.css",
+        "before": 19,
+        "after": 0
+      }
+    ],
+    "semanticChanges": [
+      "TextField example section heading now uses compact 18px heading token (previous19px).",
+      "Raw fallback colors use existing semantic fallbacks.",
+      "Existing reduced-motion important safety declarations preserved; exact file/media/property/value policy correction only."
+    ]
+  },
+  "checks": {
+    "changedJSXFiles": 11,
+    "changedCSSFiles": 7,
+    "changedScopeFindings": 0,
+    "fixtureCases": 33,
+    "build": "exit0",
+    "typecheck": "exit0",
+    "diffCheck": "staged check excludes only immutable upstream Recharts license EOF whitespace; ordinary source checked separately",
+    "passwordBoundedViewports": [
+      390,
+      1440
+    ],
+    "password": "single1px shell/inner0;44px toggle; DOM identity/value/focus/selection; readOnly/busy; synthetic composition boundary only",
+    "chartBoundedDataCases": 42,
+    "chartCurrentSourcesCaptured": 52,
+    "runtimeExceptions": 0,
+    "fullDesignLint": "exit1; no baseline suppression",
+    "buildWarning": "Vite chunk size over500kB remains"
+  },
+  "engine": "Recharts3.10.1 only; selected shadcn context/container/tooltip/legend; original-values Table retained.",
+  "pins": {
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
+    "react-is": "19.2.0",
+    "recharts": "3.10.1",
+    "@radix-ui/react-toggle": "1.1.19",
+    "@shadcn/lint": "0.2.0",
+    "eslint": "9.39.5",
+    "@typescript-eslint/parser": "8.71.1",
+    "postcss": "8.5.28"
+  },
+  "remainingByFile": {
+    "src/components/bottom-cta.css": 5,
+    "src/components/content-primitives.css": 6,
+    "src/components/data-display.css": 20,
+    "src/components/layout.css": 3,
+    "src/components/list-row.css": 4,
+    "src/components/navigation-regions.css": 8,
+    "src/components/progress-result.css": 5,
+    "src/components/range-selection.css": 12,
+    "src/components/segmented-control.css": 7,
+    "src/components/theme-gallery.tsx": 35,
+    "src/components/workspace-templates.css": 5,
+    "src/gallery.css": 328,
+    "src/gallery/bottom-cta-detail.tsx": 3,
+    "src/gallery/data-detail.tsx": 1,
+    "src/gallery/icon-detail.tsx": 5,
+    "src/gallery/layout-detail.tsx": 10,
+    "src/gallery/overlay-detail.tsx": 3,
+    "src/gallery/playground.css": 41,
+    "src/gallery/slot-template-detail.tsx": 2,
+    "src/gallery/workspace-detail.tsx": 4
+  },
+  "notAccepted": [
+    "whole props/controls completeness",
+    "real IME",
+    "full regression/coverage",
+    "assistive technologies",
+    "Safari/Firefox",
+    "design approval"
+  ],
+  "excluded": [
+    "keypad",
+    "financial/Toss SDK or brand pack",
+    "consumer app integration",
+    "public deployment"
+  ]
+}

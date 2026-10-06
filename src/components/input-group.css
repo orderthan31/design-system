@@ -1,0 +1,12 @@
+.ds-core .ds-input-group{position:relative;display:flex;align-items:center;width:100%;min-width:0;min-height:44px;border:var(--ds-border-thin) solid var(--field-border);border-radius:var(--ds-radius-control);background:var(--field-bg);color:var(--field-fg)}
+.ds-core .ds-input-group>input.control{flex:1;min-width:0;max-width:100%;min-height:42px;border:0;border-radius:var(--ds-radius-control);background:transparent;box-shadow:none;outline:none;padding:var(--ds-control-padding-block) var(--ds-control-padding-inline)}
+.ds-core .ds-input-group:has(>input:focus-visible){border-color:var(--color-focus);outline:3px solid var(--color-focus);outline-offset:2px}
+.ds-core .ds-input-group:has(>input[aria-invalid="true"]){border-color:var(--field-error-fg)}
+.ds-core .ds-input-group:has(>input:disabled){background:var(--color-disabled-bg);border-color:var(--color-border-subtle)}
+.ds-core .ds-input-group:has(>input[readonly]){background:var(--color-bg-canvas)}
+.ds-core .ds-input-group-addon{display:flex;align-items:center;flex:none;align-self:stretch}
+.ds-core .ds-input-group-toggle{display:inline-flex;align-items:center;justify-content:center;flex:none;min-width:44px;min-height:44px;border:0;border-radius:var(--ds-radius-eye);background:transparent;color:var(--color-text-secondary);padding:0}
+.ds-core .ds-input-group-toggle>svg{width:18px;height:18px;flex:none}
+.ds-core .ds-input-group-toggle:hover:not(:disabled){background:var(--color-selected-bg);color:var(--color-text-primary)}
+.ds-core .ds-input-group-toggle:disabled{cursor:not-allowed;color:var(--color-disabled-fg)}
+.ds-core .ds-input-group-toggle:focus-visible{outline:3px solid var(--color-focus);outline-offset:2px}

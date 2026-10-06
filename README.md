@@ -6,7 +6,7 @@ Vite·React·TypeScript 기반의 **한국어 문서와 실제 동작하는 컴�
 
 현재 checkpoint는 build/TypeScript 오류가 없는 구현을 먼저 Git으로 공유하고, 동일 commit의 프리뷰에서 기능을 점검하는 중간 검수본입니다. 전체 테스트·coverage·최종 독립 수락 완료를 의미하지 않으며, 프리뷰 공유와 최종 디자인 시스템 승인은 별도입니다.
 
-GridList/Highlight/Bubble의 공개 API와 조작 가능한 상세를 추가했습니다. 일부 대표 컴포넌트는 props와 표시 코드가 함께 바뀌는 controls를 제공합니다. 남은 범위는 기존 API 일부의 전용 상세/controls 확장, 최종 전체 브라우저·동일 트리 독립 수락입니다. 새 구현은 build/typecheck 공유본이며 기능 수락을 의미하지 않습니다. Chart/keypad/SDK 전용 기능, Safari/Firefox·실기기 보조기술·외부 주소 provider·소프트키보드 계약은 미구현 또는 미검증입니다. 현재 확인·교정된 결함과 범위별 근거는 기능 inventory에 구분해 기록합니다.
+GridList/Highlight/Bubble의 공개 API와 조작 가능한 상세를 추가했습니다. 일부 대표 컴포넌트는 props와 표시 코드가 함께 바뀌는 controls를 제공합니다. 남은 범위는 기존 API 일부의 전용 상세/controls 확장, 최종 전체 브라우저·동일 트리 독립 수락입니다. 새 구현은 build/typecheck 공유본이며 기능 수락을 의미하지 않습니다. Chart는 Recharts 기반 선/막대/도넛과 자기 상세를 추가한 범위 한정 checkpoint이며 전체 수락은 별도입니다. 키패드는 범위에서 제외합니다. 금융/브랜드 전용 SDK는 공통 core에 추가하지 않습니다. Safari/Firefox·실기기 보조기술·외부 주소 provider·소프트키보드 계약은 미구현 또는 미검증입니다. 현재 확인·교정된 결함과 범위별 근거는 기능 inventory에 구분해 기록합니다.
 
 ## 설치·실행·검증
 
@@ -57,6 +57,10 @@ import "./src/core.css";
 현재 `.ds-core` 기본값은 블루 라이트이며 역사적 API 식별자 slate는 유지합니다. 원본 107개 토큰은 역사 증적으로 보존하고 `default-theme.css`가 실제 공통 상태·semantic 색을 덮어씁니다. Indigo/Teal 전환은 지정 컨테이너만 바꾸며 root·형제·기준 토큰은 변경하지 않습니다. 복원 대상은 역사 색이 아닌 현재 slate 기본값이고, 세 팔레트의 대비는 각각 다시 계산합니다. 상세 표는 “대비 계약”에 접어 두었습니다.
 
 현재 기능·조합·상태·테스트·미검증 정본: `docs/component-inventory-v1.md`, `docs/theme-contract-v1.md`, `docs/theme-contrast.json`, `docs/icons-contract.md`. 버전 없는 기존 inventory/theme 문서는 역사 이력입니다. 주소 검색 예시는 로컬 fixture이며 provider/API가 아닙니다.
+
+## 선별 외부 패턴과 런타임 dependency
+
+PasswordInput 내부 보기 토글은 `@radix-ui/react-toggle@1.1.19`, Chart의 단일 geometry 엔진은 `recharts@3.10.1`이며 `react-is@19.2.0`을 정확 pin/lock합니다. React/ReactDOM19.2.0은 유지합니다. shadcn InputGroup/공통 native control/Chart의 일부 구조·시각 패턴만 기존 scoped CSS/token에 적용했으며 전체 shadcn CLI 초기화·global reset·테마 교체는 하지 않았습니다. immutable source SHA와 MIT 원문은 `docs/vendor/shadcn-input-group.md`, `docs/vendor/chart-sources.md`와 같은 디렉터리의 license 파일에 기록했습니다. Recharts 추가로 bundle이 증가했고 Vite500kB chunk 경고는 현재 남아 있습니다.
 
 ## 원본과 검증 근거
 

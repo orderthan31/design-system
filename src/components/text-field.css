@@ -5,11 +5,11 @@
   gap: 4px;
   min-width: 0;
   max-width: 100%;
-  border: 1px solid var(--field-border);
-  border-radius: 10px;
+  border: var(--ds-border-thin) solid var(--field-border);
+  border-radius: var(--ds-radius-control);
   background: var(--field-bg);
   color: var(--field-fg);
-  font-family: Pretendard, "Apple SD Gothic Neo", system-ui, sans-serif;
+  font-family: var(--ds-control-font-family);
 }
 .ds-core .tf-row:has(.tf-input > input[aria-invalid="true"]) {
   border-color: var(--field-error-fg);
@@ -42,7 +42,7 @@
 }
 .ds-core .tf-input > .help {
   display: block;
-  padding: 0 12px 8px;
+  padding: 0 var(--space-3) var(--space-2);
   overflow-wrap: anywhere;
 }
 .ds-core .tf-affix {
@@ -51,20 +51,21 @@
   gap: 4px;
   min-width: 0;
   max-width: 100%;
-  padding: 8px;
+  padding: var(--space-2);
   color: var(--color-text-secondary);
   overflow-wrap: anywhere;
 }
 .ds-core .tf-action {
   min-width: 0;
   max-width: 100%;
-  padding: 2px;
+  padding: 0;
 }
 .ds-core .tf-action > .button {
   max-width: 100%;
   white-space: normal;
   overflow-wrap: anywhere;
 }
+.ds-core .tf-action > .button.secondary { border-color: transparent; background: transparent; box-shadow: none; }
 .ds-core .tf-clear {
   flex: 0 0 44px;
   width: 44px;
@@ -76,7 +77,7 @@
   gap: 32px;
   min-width: 0;
   max-width: 100%;
-  font-family: Pretendard, "Apple SD Gothic Neo", system-ui, sans-serif;
+  font-family: var(--ds-control-font-family);
 }
 .ds-core .input-detail-section {
   display: grid;
@@ -84,8 +85,8 @@
   min-width: 0;
 }
 .ds-core .input-detail-section > h2 {
-  font-size: 19px;
-  line-height: 28px;
+  font-size: var(--ds-chart-title-size);
+  line-height: var(--ds-line-section);
 }
 .ds-core .input-detail-grid {
   display: grid;
@@ -101,8 +102,8 @@
 }
 .ds-core .input-detail > details {
   min-width: 0;
-  padding: 16px;
-  border: 1px solid var(--color-border-subtle);
+  padding: var(--space-4);
+  border: var(--ds-border-thin) solid var(--color-border-subtle);
   border-radius: var(--radius-md);
   background: var(--color-bg-surface);
   overflow-wrap: anywhere;
@@ -110,7 +111,7 @@
 .ds-core .input-detail > details > summary {
   cursor: pointer;
   min-height: 28px;
-  font-weight: 600;
+  font-weight: var(--ds-weight-semibold);
 }
 .ds-core .input-detail > details[open] > summary {
   margin-bottom: 16px;
@@ -119,11 +120,11 @@
   margin: 0;
   max-width: 100%;
   overflow-x: auto;
-  padding: 16px;
+  padding: var(--space-4);
   background: var(--color-bg-canvas);
   border-radius: var(--radius-md);
-  font-size: 12px;
-  line-height: 20px;
+  font-size: var(--font-size-caption);
+  line-height: var(--ds-line-compact);
 }
 .ds-core .input-detail-table {
   max-width: 100%;
@@ -132,27 +133,27 @@
 .ds-core .input-detail table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 12px;
-  line-height: 20px;
+  font-size: var(--font-size-caption);
+  line-height: var(--ds-line-compact);
 }
 .ds-core .input-detail caption {
-  padding-bottom: 12px;
+  padding-bottom: var(--space-3);
   text-align: left;
-  font-weight: 600;
+  font-weight: var(--ds-weight-semibold);
 }
 .ds-core .input-detail th,
 .ds-core .input-detail td {
-  padding: 10px;
-  border-bottom: 1px solid var(--color-border-subtle);
+  padding: var(--ds-space-2-5);
+  border-bottom: var(--ds-border-thin) solid var(--color-border-subtle);
   text-align: left;
   vertical-align: top;
   overflow-wrap: anywhere;
 }
 .ds-core .input-detail ul {
   margin: 0;
-  padding-left: 20px;
-  font-size: 14px;
-  line-height: 24px;
+  padding-left: var(--ds-space-5);
+  font-size: var(--ds-control-font-size);
+  line-height: var(--ds-line-body);
 }
 .ds-core .input-detail li + li {
   margin-top: 8px;

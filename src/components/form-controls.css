@@ -30,7 +30,7 @@
 .ds-core .fc-group {
   min-width: 0;
   margin: 0;
-  padding: 12px 0;
+  padding: var(--space-3) 0;
   border: 0;
   border-radius: var(--radius-md);
   background: transparent;
@@ -38,9 +38,9 @@
   overflow-wrap: anywhere;
 }
 .ds-core .fc-group legend {
-  padding: 0 4px;
+  padding: 0 var(--space-1);
   font-size: var(--font-size-label);
-  font-weight: 500;
+  font-weight: var(--ds-weight-medium);
 }
 .ds-core .fc-choices {
   display: flex;
@@ -56,7 +56,7 @@
   display: inline-flex;
   max-width: 100%;
   align-items: center;
-  padding-left: 10px;
+  padding-left: var(--ds-space-2-5);
   border-radius: var(--radius-md);
   background: var(--color-selected-bg);
   color: var(--color-selected-fg);
@@ -77,15 +77,15 @@
   overflow: auto;
   list-style: none;
   margin: 0;
-  padding: 4px;
-  border: 1px solid var(--field-border);
+  padding: var(--space-1);
+  border: var(--ds-border-thin) solid var(--field-border);
   border-radius: var(--radius-md);
   background: var(--field-bg);
   color: var(--field-fg);
 }
 .ds-core .fc-options li {
   min-height: 44px;
-  padding: 10px;
+  padding: var(--ds-space-2-5);
   border-radius: var(--radius-md);
   overflow-wrap: anywhere;
 }
@@ -98,7 +98,7 @@
   color: var(--color-selected-fg);
 }
 .ds-core .fc-options [aria-selected="true"] {
-  font-weight: 600;
+  font-weight: var(--ds-weight-semibold);
 }
 .ds-core .fc-options [aria-disabled="true"] {
   color: var(--color-disabled-fg);
@@ -123,10 +123,10 @@
   width: 44px;
   height: 28px;
   flex-shrink: 0;
-  border-radius: 20px;
-  border: 1px solid var(--color-border-control);
+  border-radius: var(--ds-radius-switch);
+  border: var(--ds-border-thin) solid var(--color-border-control);
   background: var(--color-bg-subtle);
-  padding: 3px;
+  padding: var(--ds-space-0-75);
 }
 .ds-core .fc-switch-track::after {
   content: "";

@@ -1,0 +1,54 @@
+/* Supplemental appearance aliases; historical107-token identifiers stay unchanged. */
+.ds-core {
+  --ds-border-thin: 1px;
+  --ds-radius-control: 8px;
+  --ds-radius-eye: 7px;
+  --ds-radius-indicator: 2px;
+  --ds-control-font-size: 14px;
+  --ds-control-line-height: 22px;
+  --ds-control-font-family: Pretendard, "Apple SD Gothic Neo", system-ui, sans-serif;
+  --ds-chart-title-size: 18px;
+  --ds-chart-tick-size: 12px;
+  --ds-control-padding-block: 8px;
+  --ds-control-padding-inline: 12px;
+  --ds-tooltip-padding-block: 8px;
+  --ds-tooltip-padding-inline: 10px;
+  --ds-status-padding: 24px;
+  --ds-chart-font: var(--font-size-body) Pretendard, system-ui, sans-serif;
+  --ds-chart-tooltip-shadow: 0 2px 6px rgb(15 23 42 / .08);
+  /* Shared supplemental scales: existing literals moved to their scoped owner. */
+  --ds-border-strong: 2px;
+  --ds-radius-progress: 4px;
+  --ds-radius-menu-item: 5px;
+  --ds-radius-badge: 6px;
+  --ds-radius-button: 10px;
+  --ds-radius-symbol: 14px;
+  --ds-radius-switch: 20px;
+  --ds-space-0-75: 3px;
+  --ds-space-1-25: 5px;
+  --ds-space-2-25: 9px;
+  --ds-space-2-5: 10px;
+  --ds-space-3-25: 13px;
+  --ds-space-3-5: 14px;
+  --ds-space-4-5: 18px;
+  --ds-space-5: 20px;
+  --ds-space-5-5: 22px;
+  --ds-space-7: 28px;
+  --ds-space-7-5: 30px;
+  --ds-space-9: 36px;
+  --ds-font-page: 24px;
+  --ds-font-section: 16px;
+  --ds-line-compact: 20px;
+  --ds-line-body: 24px;
+  --ds-line-relaxed: 26px;
+  --ds-line-section: 28px;
+  --ds-line-title: 30px;
+  --ds-line-large: 32px;
+  --ds-weight-normal: 400;
+  --ds-weight-medium: 500;
+  --ds-weight-semibold: 600;
+  --ds-tracking-heading: -0.025em;
+  --ds-shadow-menu: 0 6px 24px #0f172a12;
+  --ds-shadow-tooltip: 0 4px 18px #0f172a18;
+  --ds-shadow-dialog: 0 24px 80px #0f172a30;
+}
