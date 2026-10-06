@@ -2,6 +2,17 @@
 
 현재 공유 기준: build/TypeScript 오류가 없는 안정 checkpoint는 먼저 Git으로 공유하고 동일 commit의 프리뷰에서 기능 점검한다. 아래 범위별 이력은 최종 전체 수락이 아니며, 과거 검수 전 push 보류를 현재 프리뷰 공유의 선행 조건으로 적용하지 않는다. 전체 coverage·동일 트리 독립 최종 수락은 별도 잔여다.
 
+## Table/Pagination/List/ListItem canonical 상세 checkpoint
+
+- `hasDataDetail`은4종 자기 route에 실제 기존 core·필요 props controls·같은 state의 현재 코드·API 제약을 연결합니다. Table을 DataTable로 대체하지 않고 ListRow의 API를 ListItem에 혼용하지 않습니다. 이전 입력/탐색/overlay/긴 Breadcrumb·gallery nav CSS scope 교정은 보존합니다.
+- Table은 caption/rows/typed columns/rowKey, 빈 rows·담당 열 표시·rich render/null fallback·넓은 소비자 셀 노드 예시를 제공합니다. 실제 native caption/th scope와 focus 가능한 내부 스크롤이며 정렬/선택/페이지/remote data/native rest props를 invent하지 않습니다. 넓은 셀의 minWidth1200은 consumer render 스타일로 코드에 포함됩니다.
+- Pagination은 page/pageCount/onPageChange/label, 부모 page와 보정된 표시 current/count를 별도로 보여줍니다. count 최소1·내림과 범위 밖 page 보정은 표시만 바꾸며 부모 값 자동 통지 없음, 현재 번호 클릭 callback·이전/다음 경계·간격 생략·초기화를 시연합니다. 유한 정수 page만 예제 입력으로 받으며 core의 소수/NaN/Infinity 방어를 과장하지 않습니다. 서버 페이지/콘텐츠 엔진/라우터는 없습니다.
+- List는 실제 native ul(label/native id/children)와 ListItem 조합, 부모의 항목 수/빈 children을 보여줍니다. ListItem 자기 상세도 ul 안에서 실제 title/description/thumbnail/selected/callback/action optional 계약을 사용합니다. callback 없이 selected=true 스타일 유지·checkbox 부재, optional 슬롯 생략·별도 action의 부모 로컬 횟수·초기화를 보여주며 없는 disabled/defaultSelected/row-click/children/trailing/router API를 추가하지 않습니다.
+- production Chrome390/1440px4route bounded 확인: native Table 기본/빈 rows·열 변경·render null fallback·실제 ArrowRight 내부 panning, Pagination 부모30/표시 보정·count0/12.7·native Enter 현재번호 callback·다음번호/코드·reset, List ul/id/children 수·empty, ListItem 선택/callback/action·callback 없는 selected 스타일·슬롯 생략·quoted title/label·reset. document overflow/runtime exception 발견 없고 표시 TSX44개 typecheck 오류0입니다. 전체 상태/AT/모든 API 조합·full suite/coverage/디자인/독립 수락은 미완료입니다.
+- current route source: registry **80 / mounted-source 67 / blank-source 13**. 63/17은 이전 checkpoint 이력입니다. 기존 frozen 대조 core 부재 발견 없음, 이번은 gallery/docs만 변경합니다. 빈 controls 부재와 연결 상세의 전체 controls/schema/API completeness 미평가·최종 검증 미완료를 구분합니다.
+- 현재 빈 canonical 상세: Stack, Shell, ActionGroup, FormSection, ListPanel, FormTemplate, ListTemplate, FeedbackTemplate, DetailTemplate, DesktopWorkspaceTemplate, MobileWorkspaceTemplate, Icon, IconAction.
+- 다음 layout5 → templates6 → icons2 순서 유지. 준비 자식은 read-only, 현재 대화만 source writer입니다. Chart/keypad/SDK·외부 provider/소비앱 통합·동일 final-tree 전체 gate는 별도 잔여이며 ZIP 첨부 보류를 유지합니다.
+
 ## Breadcrumb 긴 경로 소규모 보완 checkpoint
 
 - 이전 5종(GNB/LNB/Breadcrumb/Drawer/Popover)의 실제 canonical 상세를 보존하고 Breadcrumb에 소비자 items 배열 기반 긴 경로 예시 control을 추가했습니다. 기존 문서로 이동하는 앞 native href와 마지막 aria-current span, 긴 현재 label 편집·짧은 경로 초기화가 동일 preview/current-code에 반영됩니다. 없는 onSelect/router/provider나 새 core API는 추가하지 않습니다.
