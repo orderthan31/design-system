@@ -2,6 +2,16 @@
 
 현재 공유 기준: build/TypeScript 오류가 없는 안정 checkpoint는 먼저 Git으로 공유하고 동일 commit의 프리뷰에서 기능 점검한다. 아래 범위별 이력은 최종 전체 수락이 아니며, 과거 검수 전 push 보류를 현재 프리뷰 공유의 선행 조건으로 적용하지 않는다. 전체 coverage·동일 트리 독립 최종 수락은 별도 잔여다.
 
+## 피드백 5종 canonical 상세 checkpoint
+
+- `hasFeedbackDetail`은 LoadingSpinner/ErrorState/Toast/Accordion/Collapse 자기 route에 실제 공개 core, 필요한 props controls, 현재 코드와 API 제약을 연결합니다. core 재작성·상태 엔진·서버/queue/타이머 추가가 아닙니다.
+- LoadingSpinner label과 부모 표시를 수동으로 조작합니다. ErrorState의 onRetry는 로컬 부모가 오류 대신 LoadingSpinner를 보여 주는 예제이며 서버 재시도/자동 완료가 아닙니다. Toast message/onDismiss 및 부모 조건부 렌더링을 연결하여 실제 닫기 콜백에서 제거하고 다시 표시할 수 있습니다.
+- Accordion items[0].title/content, multiple, 항목 disabled를 제어합니다. Collapse title/children을 제어하며 펼침은 기존 내부 상태 소유입니다. 현재 코드는 props/콜백·부모 상태를 나타내고 외부 open/defaultOpen/onOpenChange API를 만들거나 내부 펼침을 외부 값처럼 표현하지 않습니다. multiple 변경은 기존 열린 배열을 자동 정규화하지 않고 이후 클릭에 적용됩니다. 명시적 초기화는 preview를 다시 마운트해 접힘/표시/설정을 초기 상태로 돌립니다.
+- bounded Chrome 390/1440px 5 route에서 수동 spinner hide/show, ErrorState retry→로딩 및 오류 다시 표시, Toast dismiss→언마운트 및 다시 표시, Accordion 단일/복수/disabled 항목·초기화, Collapse 실제 Enter 펼침·초기화, 문구/내용 편집을 확인했습니다. 해당 범위 document overflow/runtime exception 발견 없고 표시 TSX 30개 typecheck 오류 0입니다. full suite·전체 상태/AT/브라우저·디자인/독립 수락은 미완료입니다.
+- current route source: registry **80 / mounted-source 53 / blank-source 27**. 이전 선택 checkpoint의 48/32는 과거 이력입니다. core 부재는 기존 frozen source 대조에서 발견 없었고 이번 변경은 gallery/docs만입니다. 빈 상세의 개별 controls는 부재, 연결된 다른 상세의 전체 공개 props completeness는 미평가입니다. 전용 controls/schema/필요 API/최종검증은 별도 기준입니다.
+- 현재 빈 canonical 상세: FileInput, AddressField, MonthPicker, TimeInput, DateTimeInput, GNB, LNB, Breadcrumb, Drawer, Popover, Table, Pagination, List, ListItem, Stack, Shell, ActionGroup, FormSection, ListPanel, FormTemplate, ListTemplate, FeedbackTemplate, DetailTemplate, DesktopWorkspaceTemplate, MobileWorkspaceTemplate, Icon, IconAction.
+- 입력6 → 선택5 → 피드백5 승인 큐 연결을 보존하며 남은 목록을 계속 채웁니다. 다음 소규모 후보는 기존 MonthPicker/TimeInput/DateTimeInput/FileInput 상세이고 AddressField는 기존 adapter/provider 소유 계약을 먼저 대조합니다. 외부 주소 서비스/서버를 새로 연결하지 않습니다. 나머지 탐색/overlay/data/layout/template/icon 상세, Chart/keypad/SDK 및 동일 final-tree 전체 회귀·디자인 수락은 잔여입니다.
+
 ## 선택 5종 canonical 상세 checkpoint
 
 - `hasSelectionDetail`은 Combobox/MultiSelect/RadioGroup/CheckboxGroup/Switch 자기 route에 기존 public core·제어형 상태·현재 코드·필요 API 문서를 mount합니다. 다른 조합 예제에 등장하는 것만으로 연결 완료라 계산하지 않습니다. 실제 core preview → 관련 controls → 현재 코드 → 접힌 API 순서이며 core 재작성·새 query prop·엔진 추가가 아닙니다.
