@@ -7,10 +7,10 @@
   color: var(--color-text-primary);
 }
 .ds-core .ds-data-example {
-  padding: 20px;
+  padding: var(--ds-space-5);
   min-width: 0;
   border: 0;
-  border-radius: 8px;
+  border-radius: var(--ds-radius-control);
   background: var(--color-bg-surface);
 }
 .ds-core .ds-data-example > h3 {
@@ -33,7 +33,7 @@
   max-width: 100%;
   overflow-x: auto;
   border: 0;
-  border-radius: 8px;
+  border-radius: var(--ds-radius-control);
 }
 .ds-core .ds-table-scroll:focus-visible {
   outline: 2px solid var(--color-focus);
@@ -43,25 +43,25 @@
   width: 100%;
   border-collapse: collapse;
   text-align: left;
-  font-size: 14px;
+  font-size: var(--ds-control-font-size);
   background: var(--color-bg-surface);
 }
 .ds-core .ds-table caption {
-  padding: 12px 16px;
-  font-weight: 600;
+  padding: var(--space-3) var(--space-4);
+  font-weight: var(--ds-weight-semibold);
   text-align: left;
   color: var(--color-text-primary);
 }
 .ds-core .ds-table th,
 .ds-core .ds-table td {
-  padding: 12px 16px;
+  padding: var(--space-3) var(--space-4);
   border-block-start: 1px solid var(--color-border-subtle);
   vertical-align: middle;
   white-space: nowrap;
 }
 .ds-core .ds-table th {
   background: var(--color-bg-subtle);
-  font-weight: 600;
+  font-weight: var(--ds-weight-semibold);
 }
 .ds-core .ds-table th .button {
   white-space: nowrap;
@@ -97,7 +97,7 @@
 }
 .ds-core .ds-data-footer {
   justify-content: space-between;
-  font-size: 14px;
+  font-size: var(--ds-control-font-size);
 }
 .ds-core .ds-data-footer > label {
   display: flex;
@@ -111,12 +111,12 @@
 .ds-core .ds-pagination .button {
   min-height: 44px;
   min-width: 44px;
-  padding-inline: 10px;
+  padding-inline: var(--ds-space-2-5);
 }
 .ds-core .ds-data-state {
-  padding: 24px 16px;
-  border: 1px dashed var(--color-border-control);
-  border-radius: 8px;
+  padding: var(--space-6) var(--space-4);
+  border: var(--ds-border-thin) dashed var(--color-border-control);
+  border-radius: var(--ds-radius-control);
   background: var(--color-bg-subtle);
   color: var(--color-text-secondary);
 }
@@ -128,7 +128,7 @@
   padding: 0;
   list-style: none;
   border: 0;
-  border-radius: 8px;
+  border-radius: var(--ds-radius-control);
   overflow: hidden;
 }
 .ds-core .ds-list-item {
@@ -136,7 +136,7 @@
   align-items: center;
   flex-wrap: wrap;
   gap: 12px;
-  padding: 16px;
+  padding: var(--space-4);
 }
 .ds-core .ds-list-item + .ds-list-item {
   border-block-start: 1px solid var(--color-border-subtle);
@@ -148,7 +148,7 @@
 }
 .ds-core .ds-list-content p {
   margin: 4px 0 0;
-  font-size: 14px;
+  font-size: var(--ds-control-font-size);
 }
 .ds-core .ds-list-thumbnail {
   display: grid;
@@ -156,14 +156,14 @@
   width: 48px;
   height: 48px;
   flex: 0 0 48px;
-  border-radius: 8px;
+  border-radius: var(--ds-radius-control);
   background: var(--color-bg-subtle);
   color: var(--color-text-secondary);
-  font-size: 28px;
+  font-size: var(--ds-font-symbol);
 }
 @media (max-width: 480px) {
   .ds-core .ds-data-example {
-    padding: 12px;
+    padding: var(--space-3);
   }
   .ds-core .ds-data-footer {
     align-items: stretch;
@@ -173,7 +173,7 @@
     justify-content: center;
   }
   .ds-core .ds-list-item {
-    padding: 12px;
+    padding: var(--space-3);
   }
   .ds-core .ds-list-item > .checkbox {
     flex-basis: 100%;

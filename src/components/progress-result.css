@@ -13,13 +13,13 @@
   gap: var(--space-3);
   min-width: 0;
   padding: var(--space-3);
-  border: 1px solid var(--color-border-subtle);
+  border: var(--ds-border-thin) solid var(--color-border-subtle);
   border-radius: var(--radius-md);
   background: var(--color-bg-surface);
 }
 .ds-core .ds-progress-stepper > li[data-state="current"] {
-  border: 2px solid var(--color-text-primary);
-  font-weight: 600;
+  border: var(--ds-border-strong) solid var(--color-text-primary);
+  font-weight: var(--ds-weight-semibold);
 }
 .ds-core .ds-progress-step-marker {
   display: inline-flex;
@@ -27,7 +27,7 @@
   justify-content: center;
   flex: 0 0 2rem;
   min-height: 2rem;
-  border: 1px solid currentColor;
+  border: var(--ds-border-thin) solid currentColor;
   border-radius: 50%;
 }
 .ds-core .ds-progress-step-label,
@@ -57,7 +57,7 @@
 }
 .ds-core .ds-result {
   padding: var(--space-4);
-  border: 1px solid var(--color-border-subtle);
+  border: var(--ds-border-thin) solid var(--color-border-subtle);
   border-radius: var(--radius-md);
 }
 .ds-core .ds-result-content,

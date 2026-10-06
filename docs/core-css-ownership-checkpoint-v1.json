@@ -1,0 +1,86 @@
+{
+  "scope": "Core data/selection/layout CSS token-ownership preview checkpoint; not final design, whole-tree regression, AT or actual IME acceptance.",
+  "basedOn": "f1d0e54f3ad3bbd75dfc7a53d9d7012ce928febd",
+  "sourceChanges": [
+    "75 diagnosed declarations in10 actual component CSS owners now consume existing scoped semantic/scale tokens and7 supplemental aliases.",
+    "Existing computed dimensions, border widths, radii, font sizes/weights and selection shadow preserved; zero geometry, handler, public API or native DOM changes.",
+    "Safe-area max()/calc()/env() expressions retained. Non-input current ProgressStepper border remains2px; normal control borders remain1px.",
+    "Historical107 token identifiers/generated token files unchanged."
+  ],
+  "lint": {
+    "previous": {
+      "jsx": 1,
+      "css": 444
+    },
+    "current": {
+      "jsx": 1,
+      "css": 369,
+      "fixtureCases": 33
+    },
+    "wholeSourceExitCode": 1,
+    "actualSourceCorrectionsByFile": {
+      "src/components/bottom-cta.css": 5,
+      "src/components/content-primitives.css": 6,
+      "src/components/data-display.css": 20,
+      "src/components/layout.css": 3,
+      "src/components/list-row.css": 4,
+      "src/components/navigation-regions.css": 8,
+      "src/components/progress-result.css": 5,
+      "src/components/range-selection.css": 12,
+      "src/components/segmented-control.css": 7,
+      "src/components/workspace-templates.css": 5
+    },
+    "actualCSSFindingsRemoved": 75,
+    "changedCSSFiles": 11,
+    "changedScopeFindings": 0,
+    "newFindings": 0,
+    "fixedFixtures": 33,
+    "fixtureKinds": {
+      "positive": 7,
+      "negative": 26
+    },
+    "fixtureExpectationsMatched": true,
+    "policyOrFixtureChanges": false
+  },
+  "executedChecks": {
+    "node": "22.22.2",
+    "productionBuild": "passed",
+    "tsc": "passed",
+    "workingDiffCheck": "passed",
+    "historicalTokens": 107,
+    "boundedBrowser": "Chrome/154.0.8037.98",
+    "viewports": [
+      390,
+      1440
+    ],
+    "beforeRoutes": 40,
+    "afterRoutes": 40,
+    "beforeMatchedComputedValues": 1122,
+    "afterMatchedComputedValues": 1122,
+    "computedValueSnapshotParity": true,
+    "boundedDocumentOverflow": 0,
+    "beforeAndAfterRuntimeExceptions": 0,
+    "scopeLimits": "Passive computed-style comparison on actual routes, including loaded CTA iframe; existing Popover/Drawer opened via DOM click. Not native pointer/keyboard or whole variant/theme coverage. No new public fixtures or repeated full-suite gate."
+  },
+  "remaining": [
+    "CSS369: src/gallery.css328 and src/gallery/playground.css41; full-source lint still exits1.",
+    "JSX1: existing Stack native className control; API and control retained; no waiver or opaque spread.",
+    "PasswordInput Chrome145/Linux selection loss versus Chrome154/Mac preservation remains open. No speculative timer/source change.",
+    "Other completeness and final accessibility, actual IME and whole-system acceptance remain pending. Hosted f1 observations retained at their original SHA; this checkpoint is not yet independently hosted-verified."
+  ],
+  "unchanged": [
+    "Public APIs and TypeScript source",
+    "PasswordInput source",
+    "Dependency pins/lockfile",
+    "Lint rules/33fixtures",
+    "Tests",
+    "Generated historical tokens",
+    "Recharts single engine/license"
+  ],
+  "excluded": [
+    "AGENTS.md",
+    "Keypad",
+    "ZIP attachment",
+    "Public deployment"
+  ]
+}

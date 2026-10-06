@@ -51,4 +51,12 @@
   --ds-shadow-menu: 0 6px 24px #0f172a12;
   --ds-shadow-tooltip: 0 4px 18px #0f172a18;
   --ds-shadow-dialog: 0 24px 80px #0f172a30;
+  /* Data, selection and layout roles; preserve the existing component dimensions. */
+  --ds-space-0-5: 2px;
+  --ds-space-1-5: 6px;
+  --ds-radius-highlight: 3px;
+  --ds-radius-bubble: 16px;
+  --ds-radius-bubble-tail: 4px;
+  --ds-font-symbol: 28px;
+  --ds-shadow-selection: 0 1px 3px #0f172a12;
 }

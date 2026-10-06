@@ -3,7 +3,7 @@
   flex-wrap: wrap;
   align-items: flex-start;
   gap: 12px;
-  padding: 16px;
+  padding: var(--space-4);
   min-width: 0;
   color: var(--color-text-primary);
   background: var(--color-bg-surface);
@@ -24,7 +24,7 @@
 .ds-core .ds-list-row-description {
   margin-block-start: 4px;
   color: var(--color-text-secondary);
-  font-size: 14px;
+  font-size: var(--ds-control-font-size);
   line-height: 1.6;
   overflow-wrap: anywhere;
 }
@@ -103,7 +103,7 @@
 }
 .ds-core .ds-list-detail details {
   min-width: 0;
-  padding-block: 12px;
+  padding-block: var(--space-3);
   border-block-start: 1px solid var(--color-border-subtle);
   overflow-wrap: anywhere;
 }
@@ -113,7 +113,7 @@
 }
 @media (max-width: 480px) {
   .ds-core .ds-list-row {
-    padding: 12px;
+    padding: var(--space-3);
     gap: 8px;
   }
   .ds-core .ds-list-row-trailing {

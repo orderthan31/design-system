@@ -14,7 +14,7 @@
 .ds-core .rs-slider > label,
 .ds-core .rs-rating > legend {
   font-size: var(--font-size-label);
-  font-weight: 500;
+  font-weight: var(--ds-weight-medium);
 }
 .ds-core .rs-slider > input {
   width: 100%;
@@ -32,13 +32,13 @@
 }
 .ds-core .rs-rating {
   margin: 0;
-  padding: 12px;
-  border: 1px solid var(--field-border);
+  padding: var(--space-3);
+  border: var(--ds-border-thin) solid var(--field-border);
   border-radius: var(--radius-md);
   background: var(--field-bg);
 }
 .ds-core .rs-rating > legend {
-  padding: 0 4px;
+  padding: 0 var(--space-1);
 }
 .ds-core .rs-scores {
   display: flex;
@@ -50,8 +50,8 @@
   align-items: center;
   gap: 6px;
   min-height: 44px;
-  padding: 6px 8px;
-  border: 1px solid var(--field-border);
+  padding: var(--ds-space-1-5) var(--space-2);
+  border: var(--ds-border-thin) solid var(--field-border);
   border-radius: var(--radius-md);
   background: var(--field-bg);
   color: var(--field-fg);
@@ -68,7 +68,7 @@
   background: var(--color-selected-bg);
   color: var(--color-selected-fg);
   border-color: var(--color-selected-fg);
-  font-weight: 600;
+  font-weight: var(--ds-weight-semibold);
 }
 .ds-core .rs-score:has(input:disabled) {
   background: var(--color-disabled-bg);
@@ -83,8 +83,8 @@
 .ds-core .rs-action {
   min-height: 44px;
   max-width: 100%;
-  padding: 8px 12px;
-  border: 1px solid var(--field-border);
+  padding: var(--space-2) var(--space-3);
+  border: var(--ds-border-thin) solid var(--field-border);
   border-radius: var(--radius-md);
   background: var(--field-bg);
   color: var(--field-fg);
@@ -120,7 +120,7 @@
   overflow-x: auto;
 }
 .ds-core .rs-detail pre {
-  padding: 12px;
+  padding: var(--space-3);
   border-radius: var(--radius-md);
   background: var(--field-bg);
   color: var(--field-fg);
@@ -132,8 +132,8 @@
 .ds-core .rs-detail th,
 .ds-core .rs-detail td {
   text-align: left;
-  padding: 8px;
-  border-bottom: 1px solid var(--field-border);
+  padding: var(--space-2);
+  border-bottom: var(--ds-border-thin) solid var(--field-border);
 }
 .ds-core .rs-demo-form > .rs-action {
   justify-self: start;

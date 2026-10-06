@@ -6,7 +6,7 @@
 .ds-core .wt-workspace {
   min-width: 0;
   max-width: 100%;
-  border: 1px solid var(--color-border-subtle);
+  border: var(--ds-border-thin) solid var(--color-border-subtle);
   border-radius: var(--radius-lg);
   background: var(--color-bg-surface);
   color: var(--color-text-primary);
@@ -25,14 +25,14 @@
 }
 .ds-core .wt-desktop .ds-shell > aside {
   background: var(--color-bg-canvas);
-  border-right: 1px solid var(--color-border-subtle);
+  border-right: var(--ds-border-thin) solid var(--color-border-subtle);
 }
 .ds-core .wt-desktop .nr-lnb {
   border-right: 0;
 }
 .ds-core .wt-heading {
   padding: var(--space-6);
-  border-bottom: 1px solid var(--color-border-subtle);
+  border-bottom: var(--ds-border-thin) solid var(--color-border-subtle);
 }
 .ds-core .wt-title {
   display: flex;
@@ -65,7 +65,7 @@
 }
 .ds-core .wt-aside {
   padding: var(--space-4);
-  border: 1px solid var(--color-border-subtle);
+  border: var(--ds-border-thin) solid var(--color-border-subtle);
   border-radius: var(--radius-md);
   background: var(--color-bg-subtle);
   align-self: start;
@@ -142,7 +142,7 @@
   }
   .ds-core .wt-desktop .ds-shell > aside {
     border-right: 0;
-    border-bottom: 1px solid var(--color-border-subtle);
+    border-bottom: var(--ds-border-thin) solid var(--color-border-subtle);
   }
   .ds-core .wt-heading,
   .ds-core .wt-desktop .ds-shell main {
