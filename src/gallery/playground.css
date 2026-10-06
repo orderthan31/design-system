@@ -4,14 +4,14 @@
 :where(.ds-core) .gallery-playground-preview > * {max-width:100%;min-width:0;}
 :where(.ds-core) .gallery-playground-preview > .button {align-self:flex-start;}
 :where(.ds-core) .gallery-playground-preview .ds-grid-list {width:100%;}
-:where(.ds-core) .gallery-playground-preview .ds-grid-list .button {width:100%;white-space:normal;text-align:left;justify-content:flex-start;}
+
 :where(.ds-core) .gallery-props {border:0;margin:0;padding:0;min-width:0;display:grid;gap:4px;}
 :where(.ds-core) .gallery-props legend {font-size:var(--ds-prop-control-font-size);font-weight:var(--ds-weight-semibold);padding:0 0 var(--space-2);}
 :where(.ds-core) .gallery-prop {display:grid;grid-template-columns:minmax(72px,.8fr) minmax(0,1.4fr) auto;gap:8px;align-items:center;padding-block:var(--space-1);min-width:0;}
 :where(.ds-core) .gallery-prop label {font-size:var(--font-size-caption);overflow-wrap:anywhere;min-height:44px;display:flex;align-items:center;}
-:where(.ds-core) .gallery-prop select,:where(.ds-core) .gallery-prop input:not([type="checkbox"]):not([type="range"]),:where(.ds-core) .gallery-prop textarea {width:100%;min-width:0;border:var(--ds-border-thin) solid var(--color-border-subtle);border-radius:var(--ds-radius-badge);background:var(--color-bg-surface);color:var(--color-text-primary);padding:var(--space-2);font-size:var(--ds-prop-control-font-size);min-height:44px;}
-:where(.ds-core) .gallery-prop input[type="checkbox"] {width:20px;height:20px;accent-color:var(--color-action-primary-bg-default);}
-:where(.ds-core) .gallery-prop input[type="range"] {width:100%;min-width:0;min-height:40px;accent-color:var(--color-action-primary-bg-default);}
+:where(.ds-core) .gallery-prop select,:where(.ds-core) .gallery-prop input:not([type="checkbox"]):not([type="range"]),:where(.ds-core) .gallery-prop textarea {width:100%;min-width:0;}
+
+:where(.ds-core) .gallery-prop input[type="range"] {width:100%;min-width:0;}
 :where(.ds-core) .gallery-prop output {font-size:var(--font-size-caption);min-width:24px;}
 :where(.ds-core) .gallery-props-reset {border:0;background:none;color:var(--color-link);text-align:left;min-height:44px;padding:var(--space-2) 0;font-size:var(--font-size-caption);}
 :where(.ds-core) .gallery-props-reference dl {margin:0;display:grid;gap:8px;font-size:var(--font-size-caption);}

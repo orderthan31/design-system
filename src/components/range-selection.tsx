@@ -72,7 +72,7 @@ export function Rating({
       </legend>
       <div className="rs-scores">
         {[1, 2, 3, 4, 5].map((score) => (
-          <label key={score} className="rs-score">
+          <label key={score} className="rs-score" data-filled={score <= current}>
             <input
               type="radio"
               name={name ?? id}
@@ -86,10 +86,8 @@ export function Rating({
                 onValueChange?.(score);
               }}
             />
-            <span>
-              <span aria-hidden="true">★ </span>
-              {score}점
-            </span>
+            <span className="rs-star" aria-hidden="true">{score <= current ? '★' : '☆'}</span>
+            <span className="sr-only">{score}점</span>
           </label>
         ))}
       </div>

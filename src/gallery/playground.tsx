@@ -1,3 +1,5 @@
+import {Input,Textarea,Select,Switch} from '../index';
+import {GalleryDocs,GalleryControls} from './workbench';
 import React from 'react';
 import {Button,type ButtonProps} from '../components/atoms';
 import {Badge,Progress,type Tone} from '../components/primitives';
@@ -75,19 +77,19 @@ export function Playground({name}:{name:string}){
  return <section className="gallery-playground" aria-label={`${name} 속성 시연`}>
   <div className="gallery-playground-layout">
    <div className="gallery-playground-preview" data-preview={name}>{preview}{message&&<p role="status">{message}</p>}</div>
-   <fieldset className="gallery-props"><legend>Props</legend>
+   <GalleryControls as="fieldset" className="gallery-props"><legend>Props</legend>
     {schema.map(control=><div className="gallery-prop" key={control.name}>
-     <label htmlFor={`${id}-${control.name}`}><code>{control.name}</code></label>
-     {control.options?<select id={`${id}-${control.name}`} value={String(values[control.name])} onChange={e=>update(control.name,e.currentTarget.value)}>{control.options.map(option=><option key={option}>{option}</option>)}</select>
-      :typeof control.default==='boolean'?<input id={`${id}-${control.name}`} type="checkbox" checked={Boolean(values[control.name])} onChange={e=>update(control.name,e.currentTarget.checked)}/>
-      :control.multiline?<textarea id={`${id}-${control.name}`} rows={3} value={String(values[control.name])} onChange={e=>update(control.name,e.currentTarget.value)}/>
-      :<input id={`${id}-${control.name}`} type={typeof control.default==='number'?'range':'text'} min={control.min} max={control.max} step={1} value={String(values[control.name])} onChange={e=>update(control.name,typeof control.default==='number'?Number(e.currentTarget.value):e.currentTarget.value)}/>}
+     {typeof control.default!=='boolean'&&<label htmlFor={`${id}-${control.name}`}><code>{control.name}</code></label>}
+     {control.options?<Select id={`${id}-${control.name}`} value={String(values[control.name])} onChange={e=>update(control.name,e.currentTarget.value)}>{control.options.map(option=><option key={option}>{option}</option>)}</Select>
+      :typeof control.default==='boolean'?<Switch id={`${id}-${control.name}`} label={control.name} checked={Boolean(values[control.name])} onCheckedChange={value=>update(control.name,value)}/>
+      :control.multiline?<Textarea id={`${id}-${control.name}`} rows={3} value={String(values[control.name])} onChange={e=>update(control.name,e.currentTarget.value)}/>
+      :<Input id={`${id}-${control.name}`} type={typeof control.default==='number'?'range':'text'} min={control.min} max={control.max} step={1} value={String(values[control.name])} onChange={e=>update(control.name,typeof control.default==='number'?Number(e.currentTarget.value):e.currentTarget.value)}/>}
      {typeof control.default==='number'&&<output htmlFor={`${id}-${control.name}`}>{String(values[control.name])}</output>}
     </div>)}
-    <button type="button" className="gallery-props-reset" onClick={()=>{setValues(defaults());setMessage('');}}>기본값으로 초기화</button>
-   </fieldset>
+    <span className="gallery-props-reset"><Button type="button" variant="ghost" onClick={()=>{setValues(defaults());setMessage('');}}>기본값으로 초기화</Button></span>
+   </GalleryControls>
   </div>
-  <details className="gallery-playground-code"><summary>Code</summary><CodeBlock source={code}/></details>
-  <details className="gallery-props-reference"><summary>시연 설정 · API</summary>{name==='Progress'&&<p>value는 선택 숫자 prop입니다. 예제의 indeterminate control을 켜면 실제 value prop을 생략하고 진행 중 표시와 aria-valuenow 없는 progressbar를 보여줍니다. indeterminate는 Progress의 public prop이 아닙니다. 끄면 보존한 value를 다시 표시하고 초기화는 value65/label/모드를 함께 복원합니다.</p>}{name==='GridList'&&<p><code>items / renderItem / getKey / label</code>은 필수. getKey는 고유한 키를 반환하고 columns는 1~4 정수입니다. 좁은 컨테이너에서는 열을 줄입니다. 정렬·필터·선택은 소유자 로직입니다.</p>}{name==='Highlight'&&<p><code>text / query</code>는 필수 문자열. query는 정규식이 아닌 검색할 원문이며 빈 값이면 강조하지 않습니다. 기본은 대소문자를 구분하지 않습니다.</p>}{name==='Bubble'&&<p>children과 네이티브 div 속성을 받습니다. 비모달 말풍선이며 tooltip·live region·채팅 전송 기능은 포함하지 않습니다.</p>}<dl>{schema.map(item=><div key={item.name}><dt><code>{item.name}</code></dt><dd>{item.options?item.options.join(' | '):typeof item.default} · <code>{String(item.default)}</code></dd></div>)}</dl></details>
+  <GalleryDocs className="gallery-playground-code"><summary>Code</summary><CodeBlock source={code}/></GalleryDocs>
+  <GalleryDocs className="gallery-props-reference"><summary>시연 설정 · API</summary>{name==='Progress'&&<p>value는 선택 숫자 prop입니다. 예제의 indeterminate control을 켜면 실제 value prop을 생략하고 진행 중 표시와 aria-valuenow 없는 progressbar를 보여줍니다. indeterminate는 Progress의 public prop이 아닙니다. 끄면 보존한 value를 다시 표시하고 초기화는 value65/label/모드를 함께 복원합니다.</p>}{name==='GridList'&&<p><code>items / renderItem / getKey / label</code>은 필수. getKey는 고유한 키를 반환하고 columns는 1~4 정수입니다. 좁은 컨테이너에서는 열을 줄입니다. 정렬·필터·선택은 소유자 로직입니다.</p>}{name==='Highlight'&&<p><code>text / query</code>는 필수 문자열. query는 정규식이 아닌 검색할 원문이며 빈 값이면 강조하지 않습니다. 기본은 대소문자를 구분하지 않습니다.</p>}{name==='Bubble'&&<p>children과 네이티브 div 속성을 받습니다. 비모달 말풍선이며 tooltip·live region·채팅 전송 기능은 포함하지 않습니다.</p>}<dl>{schema.map(item=><div key={item.name}><dt><code>{item.name}</code></dt><dd>{item.options?item.options.join(' | '):typeof item.default} · <code>{String(item.default)}</code></dd></div>)}</dl></GalleryDocs>
  </section>;
 }

@@ -1,3 +1,6 @@
+import {Shell,Container,Stack} from './index';
+import {ComponentWorkbench,GalleryDocs,VariantExamples} from './gallery/workbench';
+import './gallery/shell.css';
 import React, { useEffect, useState, useRef } from "react";
 import { Playground, hasPlayground } from "./gallery/playground";
 import { CodeBlock } from "./gallery/code-block";
@@ -42,42 +45,24 @@ import { FormField } from "./components/molecules";
 import { Alert, EmptyState } from "./components/feedback";
 import { Tabs, Menu, Tooltip } from "./components/navigation";
 import { Dialog, Confirm } from "./components/organisms";
-import { CompositionExample } from "./components/composition";
+
 import { StateGallery } from "./components/state-gallery";
 import { ThemeGallery } from "./components/theme-gallery";
-import { WorkspaceTemplatesGallery } from "./components/workspace-templates";
+
 import { IconGallery } from "./components/icons";
 import { FeedbackGallery } from "./components/feedback-controls";
 import { FormControlsGallery } from "./components/form-controls";
 import { DateControlsGallery } from "./components/date-controls";
 import { DataDisplayGallery } from "./components/data-display";
 import { NavigationRegionsGallery } from "./components/navigation-regions";
-import {
-  FormTemplate,
-  ListTemplate,
-  FeedbackTemplate,
-} from "./components/templates";
+
 import core from "./generated/core.json";
 import contracts from "./generated/components.json";
 import { resolveTokens } from "./tokens";
 import longText from "./long-text.json";
-export const pages = [
-  "Overview",
-  "Foundations",
-  "Atoms",
-  "Molecules",
-  "Organisms",
-  "Templates",
-] as const;
-type Page = (typeof pages)[number];
-const pageLabels: Record<Page, string> = {
-  Overview: "개요",
-  Foundations: "Foundations",
-  Atoms: "Atoms",
-  Molecules: "Molecules",
-  Organisms: "Organisms",
-  Templates: "Templates",
-};
+export const pages = ['Overview','Foundations'] as const;
+type Page=(typeof pages)[number];
+const pageLabels:Record<Page,string>={Overview:'Overview',Foundations:'Foundations'};
 const toneLabels: Record<Tone, string> = {
   neutral: "기본",
   running: "진행 중",
@@ -473,11 +458,11 @@ function Demo({ name }: { name: string }) {
 function StateContract({name}:{name:string}) {
   const historical=(contracts as Record<string,{states:string[]}>)[name];
   if(!historical)return null;
-  return <details className="contract"><summary>기준 상태 계약</summary><p>원본 상태 계약이며 현재 구현의 전체 검증 통과를 의미하지 않습니다.</p><div className="wrap">{historical.states.map(state=><span className="state-chip" key={state}>{state}</span>)}</div><p>텍스트는 줄바꿈하고 컨테이너는 늘어납니다. 초점은 처리 중·오류·선택 상태와 독립적입니다. 범위별 예외는 원본 계약에서 확인하세요.</p><a href="/source/contracts/components.json">원본 계약 보기 ↗</a></details>;
+  return <GalleryDocs className="contract"><summary>기준 상태 계약</summary><p>원본 상태 계약이며 현재 구현의 전체 검증 통과를 의미하지 않습니다.</p><div className="wrap">{historical.states.map(state=><span className="state-chip" key={state}>{state}</span>)}</div><p>텍스트는 줄바꿈하고 컨테이너는 늘어납니다. 초점은 처리 중·오류·선택 상태와 독립적입니다. 범위별 예외는 원본 계약에서 확인하세요.</p><a href="/source/contracts/components.json">원본 계약 보기 ↗</a></GalleryDocs>;
 }
 function RelatedExamples({name}:{name:string}) {
   const examples=name==='Button'?<StateGallery/>:name==='FormField'?<FormControlsGallery/>:name==='Alert'?<FeedbackGallery/>:name==='DatePicker'?<DateControlsGallery/>:name==='DataTable'?<DataDisplayGallery/>:name==='Dialog'?<NavigationRegionsGallery/>:null;
-  return examples?<details><summary>관련 상태 · 조합 예제</summary>{examples}</details>:null;
+  return examples?<GalleryDocs><summary>관련 상태 · 조합 예제</summary>{examples}</GalleryDocs>:null;
 }
 function Foundations() {
   const [layer, setLayer] = useState<"primitive" | "semantic" | "component">(
@@ -598,210 +583,11 @@ function PageHeader({ title, eyebrow }: { title: string; eyebrow: string }) {
     </header>
   );
 }
-function TemplatePreviews() {
-  const [exampleRows, setExampleRows] = useState(["첫 번째 항목", "두 번째 항목", "세 번째 항목"]);
-  const [copyNumber, setCopyNumber] = useState(4);
-  const [viewport, setViewport] = useState("PC");
-  const [kind, setKind] = useState("Form");
-  const [saved, setSaved] = useState(false);
-  const [filter, setFilter] = useState("");
-  return (
-    <>
-      <PageHeader title="Templates" eyebrow="" />
-      <div className="section-heading">
-        <div>
-          <h2>템플릿 미리보기</h2>
+function CanonicalDetail({name}:{name:string}) {const entry={name};return <>              {hasNativeInputDetail(entry.name) ? <NativeInputDetail name={entry.name}/> : hasChartDetail(entry.name) ? <ChartDetail/> : hasIconDetail(entry.name) ? <IconDetail name={entry.name}/> : hasWorkspaceDetail(entry.name) ? <WorkspaceDetail name={entry.name}/> : hasSlotTemplateDetail(entry.name) ? <SlotTemplateDetail name={entry.name}/> : hasLayoutDetail(entry.name) ? <LayoutDetail name={entry.name}/> : hasDataDetail(entry.name) ? <DataDetail name={entry.name}/> : hasRegionOverlayDetail(entry.name) ? <RegionOverlayDetail name={entry.name}/> : hasNavigationDetail(entry.name) ? <NavigationDetail name={entry.name}/> : hasExtendedInputDetail(entry.name) ? <ExtendedInputDetail name={entry.name}/> : hasFeedbackDetail(entry.name) ? <FeedbackDetail name={entry.name}/> : hasSelectionDetail(entry.name) ? <SelectionDetail name={entry.name}/> : hasFormInputDetail(entry.name) ? <FormInputDetail name={entry.name}/> : hasConnectedDetail(entry.name) ? <ConnectedDetail name={entry.name}/> : entry.name==="BottomCTA" ? <BottomCTADetail/> : ["Slider","Rating"].includes(entry.name) ? <RangeSelectionDetail kind={entry.name==="Slider"?"slider":"rating"}/> : ["ProgressStepper","Result"].includes(entry.name) ? <ProgressResultDetail kind={entry.name==="ProgressStepper"?"progress-stepper":"result"}/> : entry.name==="SegmentedControl" ? <SegmentedDetail/> : entry.name==="TextField" ? <InputDetail/> : ["ListRow","ListHeader","ListFooter"].includes(entry.name) ? <ListDetail/> : ["BottomSheet","Dialog"].includes(entry.name) ? <OverlayDetail kind={entry.name==="BottomSheet"?"bottom-sheet":"dialog"}/> : <>
+                {!hasPlayground(entry.name) && <Demo name={entry.name}/>}
+                {!hasPlayground(entry.name) && <GalleryDocs><summary>코드 · API · 접근성</summary>{snippets[entry.name] && <CodeBlock source={snippets[entry.name]}/>}</GalleryDocs>}
+              </>}</>; }
 
-        </div>
-      </div>
-      <div className="template-controls">
-        <div className="segmented" aria-label="템플릿 종류">
-          {["Form", "List", "Feedback"].map((t) => (
-            <button
-              key={t}
-              aria-pressed={kind === t}
-              onClick={() => setKind(t)}
-            >
-              {
-                {
-                  Form: "폼",
-                  List: "목록",
-                  Feedback: "피드백",
-                  PC: "PC",
-                  Mobile: "모바일",
-                }[t]
-              }
-            </button>
-          ))}
-        </div>
-        <div className="segmented" aria-label="미리보기 화면 크기">
-          {["PC", "Mobile"].map((t) => (
-            <button
-              key={t}
-              aria-pressed={viewport === t}
-              onClick={() => setViewport(t)}
-            >
-              {
-                {
-                  Form: "폼",
-                  List: "목록",
-                  Feedback: "피드백",
-                  PC: "PC",
-                  Mobile: "모바일",
-                }[t]
-              }
-            </button>
-          ))}
-        </div>
-      </div>
-      <div className="preview-stage">
-        <div
-          className={`preview-frame ${viewport.toLowerCase()}`}
-          data-viewport={viewport}
-        >
-          <div className="frame-bar">
-            <span className="frame-dots" aria-hidden="true">
-              ● ● ●
-            </span>
-            <span>
-              범용 {{ Form: "폼", List: "목록", Feedback: "피드백" }[kind]} ·{" "}
-              {viewport === "PC" ? "반응형 데스크톱" : "390px 모바일"}
-            </span>
-          </div>
-          <div className="frame-content">
-            {kind === "Form" ? (
-              <FormTemplate
-                title="시작하기 좋은 공간"
-                fields={
-                  <>
-                    <FormField
-                      label="이름"
-                      description="구체적인 이름을 사용하세요."
-                      required
-                    />
-                    <FormField label="분류">
-                      <Select>
-                        <option>일반</option>
-                        <option>기타</option>
-                      </Select>
-                    </FormField>
-                    <FormField label="설명">
-                      <Textarea rows={3} placeholder="설명을 추가하세요…" />
-                    </FormField>
-                    <Checkbox label="추가 정보 포함" />
-                    {saved && (
-                      <Alert title="저장 완료" tone="success">
-                        이 미리보기의 예시 상태를 로컬에 저장했습니다.
-                      </Alert>
-                    )}
-                  </>
-                }
-                actions={
-                  <>
-                    <Button onClick={() => setSaved(true)}>
-                      변경 사항 저장
-                    </Button>
-                    <Button variant="secondary" onClick={() => setSaved(false)}>
-                      상태 초기화
-                    </Button>
-                  </>
-                }
-                aside={
-                  <>
-                    <h4>보조 콘텐츠</h4>
-                    <p>
-                      교체 가능한 보조 슬롯입니다. 작은 화면에서는 폼 아래로
-                      이동합니다.
-                    </p>
-                    <Badge>선택 슬롯</Badge>
-                  </>
-                }
-              />
-            ) : kind === "List" ? (
-              <ListTemplate
-                title="정돈된 목록"
-                toolbar={
-                  <>
-                    <Input
-                      aria-label="예시 목록 검색"
-                      value={filter}
-                      onChange={(e) => setFilter(e.target.value)}
-                      placeholder="항목 검색…"
-                    />
-                    <Menu label="목록 옵션" items={["첫 항목 복제", "첫 항목 보관"]} onSelect={action=>{if(action==="첫 항목 복제"){setExampleRows(rows=>[...rows,`복제 항목 ${copyNumber}`]);setCopyNumber(value=>value+1);}else setExampleRows(rows=>rows.slice(1));}} />
-                  </>
-                }
-                rows={
-                  <>
-                    {exampleRows
-                      .filter((t) =>
-                        t.toLowerCase().includes(filter.toLowerCase()),
-                      )
-                      .map((t, i) => (
-                        <div className="list-row" key={t}>
-                          <Checkbox label={t} />
-                          <Badge tone={i === 0 ? "success" : "neutral"}>
-                            {i === 0 ? "준비 완료" : "초안"}
-                          </Badge>
-                        </div>
-                      ))}
-                  </>
-                }
-                footer={
-                  <p className="help">
-                    범용 행 · 교체 가능한 콘텐츠 및 도구 모음 슬롯
-                  </p>
-                }
-              />
-            ) : (
-              <FeedbackTemplate
-                title="다음 단계를 명확하게"
-                status={
-                  <Alert title="안내" tone="running">
-                    명확한 상태와 읽기 쉬운 안내입니다.
-                  </Alert>
-                }
-                content={
-                  <EmptyState
-                    title="아직 항목이 없습니다"
-                    action="항목 추가"
-                    onAction={() => setSaved(true)}
-                  >
-                    <p>제품별 작업 흐름 대신 유용한 설명을 넣는 슬롯입니다.</p>
-                  </EmptyState>
-                }
-                actions={
-                  saved && (
-                    <Badge tone="success">예시 동작을 선택했습니다</Badge>
-                  )
-                }
-              />
-            )}
-          </div>
-        </div>
-      </div>
-      <div className="composition-map">
-        <span>템플릿 슬롯</span>
-        <span>→</span>
-        <span>FormField / Alert / EmptyState</span>
-        <span>→</span>
-        <span>Input / Badge / Button</span>
-      </div>
-      <CodeBlock source={kind === "Form"
-            ? "<FormTemplate title={title} fields={fields} actions={actions} aside={help} />"
-            : kind === "List"
-              ? "<ListTemplate title={title} toolbar={toolbar} rows={rows} footer={summary} />"
-              : "<FeedbackTemplate title={title} status={status} content={content} actions={actions} />"}/>
-      <div className="section-heading">
-        <div>
-          <span className="eyebrow">조합 구조 살펴보기</span>
-          <h2>재사용 가능한 섹션과 실제 슬롯.</h2>
-        </div>
-      </div>
-      <CompositionExample />
-    </>
-  );
-}
 export function App() {
   const [route, setRoute] = useState<GalleryRoute>(() => resolveGalleryHash(window.location.hash));
   const [navOpen, setNavOpen] = useState(false);
@@ -843,113 +629,33 @@ export function App() {
     });
     return ()=>cancelAnimationFrame(frame);
   }, [route,navOpen]);
-  const group = galleryRegistry.filter(item=>item.atomic===page);
-  return (
-    <div className="app ds-core">
-      <a className="skip-link" href="#main">
-        본문으로 건너뛰기
-      </a>
-      <aside className={`sidebar ${navOpen ? "is-open" : ""}`}>
-        <a
-          className="brand"
-          href="#Overview"
-          onClick={(e) => {
-            e.preventDefault();
-            navigate("Overview");
-          }}
-        >
-          <span className="brand-mark" aria-hidden="true">
-            c
-          </span>
-          <span>
-            common<span className="brand-sub">디자인 시스템</span>
-          </span>
-        </a>
-        <div className="sidebar-label">문서</div>
-        <nav aria-label="문서 탐색">
-          {pages.map((p, i) => (
-            <a
-              key={p}
-              href={`#${p}`}
-              aria-current={!entry && page === p ? "page" : undefined}
-              onClick={(e) => {
-                e.preventDefault();
-                navigate(p);
-              }}
-            >
-              <span className="nav-symbol" aria-hidden="true">
-                {["◈", "◐", "▦", "◇", "▤", "▥"][i]}
-              </span>
-              {pageLabels[p]}
-              {["Atoms","Molecules","Organisms","Templates"].includes(p) && (
-                <span className="nav-count">
-                  {galleryRegistry.filter(item=>item.atomic===p).length}
-                </span>
-              )}
-            </a>
-          ))}
-        </nav>
-        <GalleryNavigation selected={entry?.id} onNavigate={navigateHash}/>
-
-      </aside>
-      {navOpen && <Dialog open title="컴포넌트 탐색" onClose={()=>setNavOpen(false)}><GalleryNavigation selected={entry?.id} onNavigate={navigateHash}/></Dialog>}
-      <div className="workspace">
-        <header className="topbar">
-          <button
-            className="mobile-menu"
-            aria-label="탐색 메뉴 열기 또는 닫기"
-            aria-expanded={navOpen}
-            onClick={() => setNavOpen(!navOpen)}
-          >
-            ☰
-          </button>
-          <span className="breadcrumb">
-            문서 <span>/</span> <strong>{entry?.label ?? pageLabels[page]}</strong>
-          </span>
-          <a className="source-link" href="/source/tokens/core.json">
-            원본 토큰 <span aria-hidden="true">↗</span>
-          </a>
-        </header>
-        <main id="main" tabIndex={-1}>
+  const navigation=<GalleryNavigation selected={entry?.id} onNavigate={navigateHash}/>;
+  const header=<div className="gallery-header"><Container><div className="gallery-header-row"><span className="gallery-menu-button"><Button variant="quiet" aria-label="컴포넌트 탐색 열기" aria-expanded={navOpen} onClick={()=>setNavOpen(true)}>☰</Button></span><span className="gallery-header-brand">common</span><span className="gallery-header-current">{entry?.name??pageLabels[page]}</span><a href="/source/tokens/core.json">Tokens ↗</a></div></Container></div>;
+  return <div className="gallery-app ds-core"><a className="skip-link" href="#main">본문으로 건너뛰기</a>
+    <Shell mainAs="div" navigation={navigation} header={header}>
+      {navOpen&&<Dialog open title="컴포넌트 탐색" onClose={()=>setNavOpen(false)}><GalleryNavigation selected={entry?.id} onNavigate={navigateHash}/></Dialog>}
+      <main id="main" tabIndex={-1}><Container><Stack>
           {entry ? (
             <section className="component-detail" key={entry.id}>
-              <div className="page-heading"><span className="eyebrow">{entry.atomic} / {entry.group}</span><h1 tabIndex={-1}>{entry.label} · {entry.name}</h1></div>
+              <PageHeader title={entry.name} eyebrow=""/><ComponentWorkbench>
               {hasPlayground(entry.name) && <Playground name={entry.name}/> }
-              {entry.name === "Button" && <CommonControlsComparison/>}
-              {hasNativeInputDetail(entry.name) ? <NativeInputDetail name={entry.name}/> : hasChartDetail(entry.name) ? <ChartDetail/> : hasIconDetail(entry.name) ? <IconDetail name={entry.name}/> : hasWorkspaceDetail(entry.name) ? <WorkspaceDetail name={entry.name}/> : hasSlotTemplateDetail(entry.name) ? <SlotTemplateDetail name={entry.name}/> : hasLayoutDetail(entry.name) ? <LayoutDetail name={entry.name}/> : hasDataDetail(entry.name) ? <DataDetail name={entry.name}/> : hasRegionOverlayDetail(entry.name) ? <RegionOverlayDetail name={entry.name}/> : hasNavigationDetail(entry.name) ? <NavigationDetail name={entry.name}/> : hasExtendedInputDetail(entry.name) ? <ExtendedInputDetail name={entry.name}/> : hasFeedbackDetail(entry.name) ? <FeedbackDetail name={entry.name}/> : hasSelectionDetail(entry.name) ? <SelectionDetail name={entry.name}/> : hasFormInputDetail(entry.name) ? <FormInputDetail name={entry.name}/> : hasConnectedDetail(entry.name) ? <ConnectedDetail name={entry.name}/> : entry.name==="BottomCTA" ? <BottomCTADetail/> : ["Slider","Rating"].includes(entry.name) ? <RangeSelectionDetail kind={entry.name==="Slider"?"slider":"rating"}/> : ["ProgressStepper","Result"].includes(entry.name) ? <ProgressResultDetail kind={entry.name==="ProgressStepper"?"progress-stepper":"result"}/> : entry.name==="SegmentedControl" ? <SegmentedDetail/> : entry.name==="TextField" ? <InputDetail/> : ["ListRow","ListHeader","ListFooter"].includes(entry.name) ? <ListDetail/> : ["BottomSheet","Dialog"].includes(entry.name) ? <OverlayDetail kind={entry.name==="BottomSheet"?"bottom-sheet":"dialog"}/> : <>
-                {!hasPlayground(entry.name) && <Demo name={entry.name}/>}
-                {!hasPlayground(entry.name) && <details><summary>코드 · API · 접근성</summary>{snippets[entry.name] && <CodeBlock source={snippets[entry.name]}/>}</details>}
-              </>}
+              {entry.name === "Button" && <VariantExamples><CommonControlsComparison/></VariantExamples>}
+              {hasPlayground(entry.name)?<VariantExamples><CanonicalDetail name={entry.name}/></VariantExamples>:<CanonicalDetail name={entry.name}/>}
+
+
               <StateContract name={entry.name}/>
-              <RelatedExamples name={entry.name}/>
+              <RelatedExamples name={entry.name}/></ComponentWorkbench>
             </section>
           ) : page === "Overview" ? (
             <Overview navigate={navigate} />
           ) : page === "Foundations" ? (
             <Foundations />
-          ) : page === "Templates" ? (
-            <>
-              <div className="component-index" aria-label="Templates 컴포넌트 목록">{group.map(item=><a key={item.id} href={componentHash(item.id)}>{item.name}</a>)}</div>
-              <TemplatePreviews />
-              <WorkspaceTemplatesGallery />
-            </>
-          ) : (
-            <>
-              <PageHeader
-                title={pageLabels[page]}
-                eyebrow=""
-              />
-              <div className="component-index" aria-label={`${page} 컴포넌트 목록`}>
-                {group.map(item=><a key={item.id} href={componentHash(item.id)}>{item.name}</a>)}
-              </div>
-            </>
-          )}
+          ) : null}
           <footer className="page-footer">
             <span>common / 공유 디자인 시스템</span>
 
           </footer>
-        </main>
-      </div>
-    </div>
-  );
+      </Stack></Container></main>
+    </Shell>
+  </div>;
 }

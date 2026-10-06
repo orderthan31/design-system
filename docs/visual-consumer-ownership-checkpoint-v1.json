@@ -1,0 +1,130 @@
+{
+  "scope": "Build-clean actual shared-core visual and real-DS gallery consumption checkpoint; not design/full-system/consumer-parity acceptance",
+  "baseSHA": "347b6b2bf4c1f58c914c42bda24656f4f4f5f6c8",
+  "actualSourceChanges": {
+    "core": [
+      "neutral rest boundary in shared token/control owners",
+      "star-centered box-free Rating with native radios and 44px hits",
+      "lighter SegmentedControl,ProgressStepper,Result,EmptyState boundaries",
+      "scoped typography/native-control ownership against ordinary tag resets"
+    ],
+    "gallery": [
+      "exported Shell mainAs div,Container,Stack,Input,Button,Tabs and Variant controls",
+      "API-only h1 and sidebar names",
+      "search,Overview,Foundations,nonclick Atomic headings and flat English alphabetical links",
+      "primary owner stays mounted through Variant/Code/Docs portals",
+      "required source/core/font/theme/dependency setup in Docs and README",
+      "remove imported core appearance overrides and search/Variant native-control paint"
+    ]
+  },
+  "canonicalNavigation": {
+    "visible": 81,
+    "unique": 81,
+    "perAtomic": {
+      "Atoms": 18,
+      "Molecules": 34,
+      "Organisms": 23,
+      "Templates": 6
+    },
+    "notWholePublicExportCount": true
+  },
+  "checks": {
+    "node": "22.22.2",
+    "build": true,
+    "typecheck": true,
+    "diffCheck": true,
+    "fullLint": {
+      "jsx": 1,
+      "css": 294,
+      "exit": 1
+    },
+    "cssByFile": {
+      "src/gallery.css": 294
+    },
+    "newCSSFindings": 0,
+    "newJSXFindings": 0,
+    "retainedJSX": "Stack native className control require-static-classes",
+    "frozenFixtures": {
+      "total": 33,
+      "positive": 7,
+      "negative": 26,
+      "expectationsMatch": true
+    }
+  },
+  "browserScope": {
+    "visualRoutes": [
+      "Rating",
+      "Input"
+    ],
+    "widths": [
+      390,
+      1440
+    ],
+    "screenshots": "private before/after; not published",
+    "tabState": {
+      "value": "탭 유지",
+      "identity": true,
+      "sourceHasValue": true,
+      "visibleCode": true
+    },
+    "docsState": {
+      "value": "탭 유지",
+      "identity": true,
+      "setupVisible": true
+    },
+    "explicitReset": {
+      "value": "예시 내용",
+      "identity": false,
+      "explicitRevisionReset": true
+    },
+    "rating": {
+      "rect": {
+        "x": 421,
+        "y": 222.578125,
+        "width": 44,
+        "height": 44
+      },
+      "selected": {
+        "selected": "4",
+        "filled": 4,
+        "legend": "만족도"
+      },
+      "keyboard": "5",
+      "cleared": {
+        "checked": false,
+        "filled": 0
+      }
+    },
+    "mobile": {
+      "h1": "Stack",
+      "dialog": false,
+      "overflow": 0
+    },
+    "runtimeExceptions": 0
+  },
+  "consumerFinalAcceptance": {
+    "scope": "gallery-free all-public fixture using actual exports,formal core CSS/fonts/theme,matching props/variant/size/state/container conditions,appearance/behavior/setup/outside leakage/ordinary reset comparison",
+    "timing": "after design approval on same-final-SHA",
+    "started": false,
+    "rapidPreviewGate": false
+  },
+  "preserved": [
+    "historical107 token identifiers/font bytes/vendor licenses",
+    "public/native API and behavior",
+    "Password selection source",
+    "rules/33fixtures/tests/dependency pins/lockfile",
+    "untrackedAGENTS excluded"
+  ],
+  "open": [
+    "remaining gallery CSS294 and Stack1",
+    "broader actual design iteration and all props/controls/schema completeness",
+    "Chrome145/Linux Password selection root cause/fix",
+    "same-final-SHA consumer parity/full-suite/AT/IME/other engines/contrast acceptance"
+  ],
+  "notRun": [
+    "clean npm ci this checkpoint",
+    "full unit/browser/coverage/independent agent review",
+    "full consumer fixture",
+    "product integration/public deployment/ZIP attachment"
+  ]
+}

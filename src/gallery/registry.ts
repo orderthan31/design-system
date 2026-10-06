@@ -1,7 +1,7 @@
 export type AtomicLayer='Foundations'|'Atoms'|'Molecules'|'Organisms'|'Templates';
 export type ComponentGroup='inputs'|'navigation'|'data'|'feedback'|'overlays'|'layout'|'foundations';
 export type GalleryEntry={id:string;name:string;label:string;atomic:AtomicLayer;group:ComponentGroup;aliases?:readonly string[]};
-export type GalleryRoute={kind:'component';id:string}|{kind:'page';page:'Overview'|AtomicLayer;invalid?:true};
+export type GalleryRoute={kind:'component';id:string}|{kind:'page';page:'Overview'|'Foundations';invalid?:true};
 const entry=(name:string,label:string,atomic:AtomicLayer,group:ComponentGroup,aliases?:readonly string[]):GalleryEntry=>({id:name.replace(/([a-z0-9])([A-Z])/g,'$1-$2').toLowerCase(),name,label,atomic,group,aliases});
 export const galleryRegistry:readonly GalleryEntry[]=[
  entry('Chart','차트','Organisms','data',['선 차트','막대 차트','도넛 차트']),
@@ -34,7 +34,7 @@ export function searchComponents(query:string):GalleryEntry[]{const term=query.t
 export function resolveGalleryHash(hash:string):GalleryRoute{
  let value:string;try{value=decodeURIComponent(hash.replace(/^#/,''));}catch{return {kind:'page',page:'Overview',invalid:true};}
  if(!value)return {kind:'page',page:'Overview'};
- const pages=['Overview','Foundations','Atoms','Molecules','Organisms','Templates'] as const;
+ const pages=['Overview','Foundations'] as const;
  const page=pages.find(item=>item===value);if(page)return {kind:'page',page};
  if(value.startsWith('/components/')){const id=value.slice('/components/'.length);const item=galleryRegistry.find(item=>item.id===id||item.name===id||item.aliases?.some(alias=>alias.toLowerCase()===id.toLowerCase()));if(item)return {kind:'component',id:item.id};}
  return {kind:'page',page:'Overview',invalid:true};

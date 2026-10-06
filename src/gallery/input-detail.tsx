@@ -1,3 +1,4 @@
+import {GalleryDocs} from './workbench';
 import {CodeBlock} from './code-block';
 import './playground.css';
 import React from 'react';
@@ -50,7 +51,7 @@ export function InputDetail() {
         </div>
       </div>
     </section>
-    <details><summary>사용 코드</summary><CodeBlock source={`import { useState } from 'react';
+    <GalleryDocs><summary>사용 코드</summary><CodeBlock source={`import { useState } from 'react';
 import { TextField, type TextFieldProps } from './components/text-field';
 import { Button } from './components/atoms';
 import { Icon } from './components/icons';
@@ -74,8 +75,8 @@ export function Example() {
     <PasswordInput label="비밀번호" hint="8자 이상 입력해 주세요."
       autoComplete="new-password" />
   </div>;
-}`}/></details>
-    <details><summary>속성</summary>
+}`}/></GalleryDocs>
+    <GalleryDocs><summary>속성</summary>
       <div className="input-detail-table">
         <table>
           <caption>TextField 속성</caption>
@@ -103,8 +104,8 @@ export function Example() {
           </tbody>
         </table>
       </div>
-    </details>
-    <details><summary>조합과 접근성</summary>
+    </GalleryDocs>
+    <GalleryDocs><summary>조합과 접근성</summary>
       <ul>
         <li>FormField의 라벨·필수 표시·도움말·오류 연결을 유지하고 내부 Input에 전달합니다. 오류는 role="alert", 확인 상태는 role="status"로 표시합니다.</li>
         <li>앞뒤 슬롯은 네이티브 속성이 아닌 형제 요소입니다. 장식 아이콘은 Icon을 사용하고 의미 있는 단위는 description에도 설명해 주세요. 슬롯이 입력의 접근 가능한 이름이나 설명에 자동 포함되지는 않습니다.</li>
@@ -115,6 +116,6 @@ export function Example() {
         <li>이메일 데모는 간단한 형식 확인만 하며 주소 존재나 소유권을 확인하지 않습니다. 서버 검증, 폼 제출, 고유한 id·name, 자동 완성, 입력 목적별 type·inputMode·pattern은 소유자가 지정합니다.</li>
         <li>텍스트 계열 입력에 사용합니다. 체크박스·라디오·파일 선택은 전용 컴포넌트를 사용하세요. 공개 Input이 ref를 전달하지 않아 TextField도 입력 ref API를 제공하지 않습니다. 공통 스타일은 .ds-core 안에서 적용됩니다.</li>
       </ul>
-    </details>
+    </GalleryDocs>
   </div>;
 }

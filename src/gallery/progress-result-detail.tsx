@@ -1,3 +1,4 @@
+import {GalleryDocs} from './workbench';
 import {CodeBlock} from './code-block';
 import './playground.css';
 import React from "react";
@@ -38,14 +39,14 @@ export function ProgressResultDetail({ kind }: ProgressResultDetailProps) {
       <Result variant="info" heading="데모 이용 안내"><p>실제 서비스에서는 성공 여부를 서버 응답으로 판단하고, 파괴적 동작은 별도의 확인과 위험 안내를 제공하세요.</p></Result>
       <Result variant="info" heading="사용할 수 없는 동작 예시" actions={<><Button disabled>권한 필요</Button><Button loading>처리 중</Button></>}><p>비활성 버튼과 처리 중인 버튼은 동작하지 않습니다.</p></Result>
     </>}
-    <details><summary>가져오기</summary><CodeBlock source={`import { ${isProgress ? "ProgressStepper" : "Result"} } from "./src/components/progress-result";\nimport { Button } from "./src/components/atoms";\nimport "./src/core.css";\nimport "./src/components/progress-result.css";\n// 앱 루트의 .ds-core 안에서 사용합니다.`}/></details>
-    <details><summary>사용 코드</summary><CodeBlock source={isProgress
+    <GalleryDocs><summary>가져오기</summary><CodeBlock source={`import { ${isProgress ? "ProgressStepper" : "Result"} } from "./src/components/progress-result";\nimport { Button } from "./src/components/atoms";\nimport "./src/core.css";\nimport "./src/components/progress-result.css";\n// 앱 루트의 .ds-core 안에서 사용합니다.`}/></GalleryDocs>
+    <GalleryDocs><summary>사용 코드</summary><CodeBlock source={isProgress
       ? `const [step, setStep] = useState(0);\n<ProgressStepper steps={["정보 입력", "내용 확인", "신청 완료"]} currentStep={step} />\n<Button disabled={step >= 2} onClick={() => setStep(s => Math.min(2, s + 1))}>다음 단계</Button>`
-      : `const [retried, setRetried] = useState(false);\nretried ? <Result variant="success" heading="완료">결과를 불러왔습니다.</Result> :\n<Result variant="error" heading="불러오기 실패" guidance="연결을 확인한 뒤 다시 시도해 주세요."\n  actions={<Button onClick={() => setRetried(true)}>다시 시도</Button>}>입력 내용은 유지됩니다.</Result>`}/></details>
-    <details><summary>API</summary>{isProgress
+      : `const [retried, setRetried] = useState(false);\nretried ? <Result variant="success" heading="완료">결과를 불러왔습니다.</Result> :\n<Result variant="error" heading="불러오기 실패" guidance="연결을 확인한 뒤 다시 시도해 주세요."\n  actions={<Button onClick={() => setRetried(true)}>다시 시도</Button>}>입력 내용은 유지됩니다.</Result>`}/></GalleryDocs>
+    <GalleryDocs><summary>API</summary>{isProgress
       ? <dl><dt>steps: readonly string[]</dt><dd>표시 순서의 텍스트 레이블. 빈 배열은 목록 대신 빈 상태를 표시합니다.</dd><dt>currentStep: number</dt><dd>0부터 시작하는 정수. 0 이상 steps.length 미만만 유효합니다. 음수·범위 밖·소수·NaN·Infinity는 모든 단계를 대기로 표시하고 오류 안내를 제공합니다. 전체 완료 sentinel은 없습니다.</dd><dt>label?: string</dt><dd>목록 이름. 기본값은 진행 단계입니다.</dd></dl>
-      : <dl><dt>variant</dt><dd>success | error | empty | info. 필수 상태.</dd><dt>heading / children / actions</dt><dd>ReactNode 제목·필수 내용·선택 독립 동작 슬롯. 제목에는 제목 요소를 다시 넣지 않습니다.</dd><dt>headingLevel?: 2 | 3 | 4</dt><dd>기본값 3. 화면의 제목 계층에 맞춥니다.</dd><dt>guidance: string</dt><dd>error에서 필수 복구 안내. 나머지에서는 선택. 빈 오류 안내는 안전한 기본 안내로 대체됩니다.</dd></dl>}</details>
-    <details><summary>조합</summary><p>{isProgress ? "단계는 ProgressStepper, 연속 백분율은 기존 Progress, 수량 변경은 NumberInput/Stepper의 책임입니다. 이 컴포넌트는 순서 목록이며 수치 입력이나 탐색 메뉴가 아닙니다." : "기존 Alert·Icon을 재사용하고 actions에 기존 Button을 조합합니다. EmptyState는 기본 액션을 항상 만들고 ErrorState는 재시도만 고정하므로 자유 슬롯과 비활성/로딩 조합에 직접 사용하지 않습니다. FeedbackTemplate은 고정된 템플릿 제목/구조가 필요한 화면용이며 Result는 제목 계층과 범용 결과 슬롯을 제공합니다."}</p></details>
-    <details><summary>접근성</summary><p>{isProgress ? "ol/li 순서와 완료·진행 중·대기 텍스트를 함께 제공합니다. aria-current=step은 유효한 현재 항목 하나에만 지정합니다. 정적 단계에 탭 순서나 클릭 동작을 추가하지 않습니다. 변경 알림은 호출자가 별도 status로 제공합니다." : "제목 ID로 영역을 이름 짓고 상태 아이콘은 장식으로 숨깁니다. 오류는 Alert의 alert, 다른 상태는 status를 사용합니다. actions를 버튼으로 감싸지 않습니다. 슬롯 내부의 유효한 HTML과 동작 책임은 호출자에게 있습니다. Button은 기본 type=button이며 loading에서 실행을 막고 disabled를 유지합니다. 위험 안내를 색상만으로 전달하지 마세요."}</p><p>스타일은 .ds-core 범위에서 토큰 전경/배경을 사용하고 320px 폭을 고려해 줄바꿈합니다. jsdom 검사만으로 실제 브라우저 레이아웃·대비 검증을 완료했다고 주장하지 않습니다.</p></details>
+      : <dl><dt>variant</dt><dd>success | error | empty | info. 필수 상태.</dd><dt>heading / children / actions</dt><dd>ReactNode 제목·필수 내용·선택 독립 동작 슬롯. 제목에는 제목 요소를 다시 넣지 않습니다.</dd><dt>headingLevel?: 2 | 3 | 4</dt><dd>기본값 3. 화면의 제목 계층에 맞춥니다.</dd><dt>guidance: string</dt><dd>error에서 필수 복구 안내. 나머지에서는 선택. 빈 오류 안내는 안전한 기본 안내로 대체됩니다.</dd></dl>}</GalleryDocs>
+    <GalleryDocs><summary>조합</summary><p>{isProgress ? "단계는 ProgressStepper, 연속 백분율은 기존 Progress, 수량 변경은 NumberInput/Stepper의 책임입니다. 이 컴포넌트는 순서 목록이며 수치 입력이나 탐색 메뉴가 아닙니다." : "기존 Alert·Icon을 재사용하고 actions에 기존 Button을 조합합니다. EmptyState는 기본 액션을 항상 만들고 ErrorState는 재시도만 고정하므로 자유 슬롯과 비활성/로딩 조합에 직접 사용하지 않습니다. FeedbackTemplate은 고정된 템플릿 제목/구조가 필요한 화면용이며 Result는 제목 계층과 범용 결과 슬롯을 제공합니다."}</p></GalleryDocs>
+    <GalleryDocs><summary>접근성</summary><p>{isProgress ? "ol/li 순서와 완료·진행 중·대기 텍스트를 함께 제공합니다. aria-current=step은 유효한 현재 항목 하나에만 지정합니다. 정적 단계에 탭 순서나 클릭 동작을 추가하지 않습니다. 변경 알림은 호출자가 별도 status로 제공합니다." : "제목 ID로 영역을 이름 짓고 상태 아이콘은 장식으로 숨깁니다. 오류는 Alert의 alert, 다른 상태는 status를 사용합니다. actions를 버튼으로 감싸지 않습니다. 슬롯 내부의 유효한 HTML과 동작 책임은 호출자에게 있습니다. Button은 기본 type=button이며 loading에서 실행을 막고 disabled를 유지합니다. 위험 안내를 색상만으로 전달하지 마세요."}</p><p>스타일은 .ds-core 범위에서 토큰 전경/배경을 사용하고 320px 폭을 고려해 줄바꿈합니다. jsdom 검사만으로 실제 브라우저 레이아웃·대비 검증을 완료했다고 주장하지 않습니다.</p></GalleryDocs>
   </section>;
 }

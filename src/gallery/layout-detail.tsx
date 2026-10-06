@@ -1,3 +1,4 @@
+import {GalleryDocs,GalleryControls} from './workbench';
 import React from 'react';
 import { Stack, Shell } from '../components/layout';
 import { ActionGroup, FormSection, ListPanel } from '../components/composition';
@@ -45,7 +46,7 @@ export function LayoutDetail({name}:{name:LayoutDetailName}) {
   const source=`${hooks?`import { ${hooks} } from 'react';\n`:''}import { ${imports} } from './src';\nimport './src/core.css';\nimport './src/examples.css';\n\n${name==='Stack'?declarations+'\n':''}export function Example() {\n${name==='Stack'?'':declarations}  return <div className="ds-core">\n${content}\n  </div>;\n}`;
   return <div className="connected-detail stack" data-layout-detail={name}>
     <div data-layout-preview key={revision}>{preview}</div>
-    <div className="form-detail-controls">
+    <GalleryControls className="form-detail-controls">
       {text(name==='FormSection'||name==='ListPanel'?'title':name==='Stack'?'native aria-label':name==='Shell'?'navigation · 자식 nav label':'label',label,setLabel,'layout label control')}
       {(name==='Stack'||name==='Shell')&&text('children · 본문 텍스트',body,setBody,'layout body control')}
       {(name==='Stack'||name==='ListPanel')&&<label className="field"><span>children · 항목 수</span><Select aria-label="layout count control" value={count} onChange={event=>setCount(Number(event.target.value))}>{[0,1,2,3].map(n=><option key={n} value={n}>{n}개</option>)}</Select></label>}
@@ -55,8 +56,8 @@ export function LayoutDetail({name}:{name:LayoutDetailName}) {
       {name==='FormSection'&&<>{text('자식 Input value',value,setValue,'FormSection value control')}{text('actions · Button label',primaryLabel,setPrimaryLabel,'primary action control')}{check('actions 전달',showSlot,setShowSlot)}</>}
       {name==='ListPanel'&&check('toolbar 전달',showSlot,setShowSlot)}
       <Button variant="ghost" onClick={reset}>초기화</Button>
-    </div>
-    <details open><summary>현재 코드</summary><CodeBlock source={source}/></details>
-    <details><summary>Props · 구성과 소유권</summary>{name==='Stack'?<><p>native div attributes/children/className만 받습니다. ds-stack과 className을 병합하고 data-layout="stack"은 고정합니다. 간격은 core CSS의 배치 계약이며 gap/direction/size 같은 전용 prop은 없습니다. 본문 줄바꿈은 예제 자식 p의 소유 CSS class입니다.</p></>:name==='Shell'?<><p>navigation/header/children은 필수 ReactNode이며 mainAs는 main 또는 div, 기본 main입니다. 갤러리는 이미 main 안이므로 preview와 코드 모두 mainAs="div"를 명시합니다. null 슬롯을 전달해도 aside/header wrapper 자체는 유지됩니다.</p><p>탐색 버튼과 선택 state는 navigation 자식·부모의 로컬 예시이며 Shell의 router/선택/권한 API가 아닙니다. header와 본문은 실제 자식 노드로 구성합니다. Shell은 native attributes/className을 상속하지 않습니다.</p></>:name==='ActionGroup'?<p>선택적 label(기본 "동작")과 필수 children으로 role="group"인 버튼행을 구성합니다. 클릭 결과는 실제 Button 자식과 부모 state가 소유하며 ActionGroup의 저장/submit/loading/disabled API가 아닙니다. 긴 label의 줄바꿈은 예제 소유 CSS class입니다.</p>:name==='FormSection'?<p>title/children과 선택적 actions를 받습니다. useId로 section aria-labelledby와 h3 제목을 연결하고 본문은 Stack, truthy actions는 ActionGroup 안에 놓습니다. 자식 Input의 값·label 연결과 확인 결과는 부모 예제 state이며 form 저장/submit/validation 기능을 wrapper에 추가하지 않습니다.</p>:<p>title/children과 선택적 toolbar를 받습니다. useId로 section 제목을 연결하고 본문은 Stack에 놓습니다. 항목 수 변경 버튼과 List children은 부모의 실제 조합이며 ListPanel의 filter/loading/저장/페이지 API가 아닙니다.</p>}<p>초기화는 예제 props·자식 구성·부모 state를 되돌리고 미리보기를 다시 마운트합니다. 서버 저장·외부 전송·router 연결은 하지 않습니다.</p></details>
+    </GalleryControls>
+    <GalleryDocs open><summary>현재 코드</summary><CodeBlock source={source}/></GalleryDocs>
+    <GalleryDocs><summary>Props · 구성과 소유권</summary>{name==='Stack'?<><p>native div attributes/children/className만 받습니다. ds-stack과 className을 병합하고 data-layout="stack"은 고정합니다. 간격은 core CSS의 배치 계약이며 gap/direction/size 같은 전용 prop은 없습니다. 본문 줄바꿈은 예제 자식 p의 소유 CSS class입니다.</p></>:name==='Shell'?<><p>navigation/header/children은 필수 ReactNode이며 mainAs는 main 또는 div, 기본 main입니다. 갤러리는 이미 main 안이므로 preview와 코드 모두 mainAs="div"를 명시합니다. null 슬롯을 전달해도 aside/header wrapper 자체는 유지됩니다.</p><p>탐색 버튼과 선택 state는 navigation 자식·부모의 로컬 예시이며 Shell의 router/선택/권한 API가 아닙니다. header와 본문은 실제 자식 노드로 구성합니다. Shell은 native attributes/className을 상속하지 않습니다.</p></>:name==='ActionGroup'?<p>선택적 label(기본 "동작")과 필수 children으로 role="group"인 버튼행을 구성합니다. 클릭 결과는 실제 Button 자식과 부모 state가 소유하며 ActionGroup의 저장/submit/loading/disabled API가 아닙니다. 긴 label의 줄바꿈은 예제 소유 CSS class입니다.</p>:name==='FormSection'?<p>title/children과 선택적 actions를 받습니다. useId로 section aria-labelledby와 h3 제목을 연결하고 본문은 Stack, truthy actions는 ActionGroup 안에 놓습니다. 자식 Input의 값·label 연결과 확인 결과는 부모 예제 state이며 form 저장/submit/validation 기능을 wrapper에 추가하지 않습니다.</p>:<p>title/children과 선택적 toolbar를 받습니다. useId로 section 제목을 연결하고 본문은 Stack에 놓습니다. 항목 수 변경 버튼과 List children은 부모의 실제 조합이며 ListPanel의 filter/loading/저장/페이지 API가 아닙니다.</p>}<p>초기화는 예제 props·자식 구성·부모 state를 되돌리고 미리보기를 다시 마운트합니다. 서버 저장·외부 전송·router 연결은 하지 않습니다.</p></GalleryDocs>
   </div>;
 }

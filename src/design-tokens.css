@@ -1,6 +1,7 @@
 /* Supplemental appearance aliases; historical107-token identifiers stay unchanged. */
 .ds-core {
   --ds-border-thin: 1px;
+  --ds-boundary-rest: #cbd5e1;
   --ds-radius-control: 8px;
   --ds-radius-eye: 7px;
   --ds-radius-indicator: 2px;

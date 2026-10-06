@@ -1,3 +1,4 @@
+import {GalleryDocs} from './workbench';
 import {CodeBlock} from './code-block';
 import '../examples.css';
 import './playground.css';
@@ -252,15 +253,15 @@ export function Example() {
           </Surface>
         )}
       </section>
-      <details>
+      <GalleryDocs>
         <summary>코드</summary>
         <CodeBlock source={source}/>
         <p className="help">
           공개 진입점은 src/index.ts예요. Confirm·Drawer·Menu·Tooltip·Input도
           같은 경로에서 가져와요.
         </p>
-      </details>
-      <details>
+      </GalleryDocs>
+      <GalleryDocs>
         <summary>Props</summary>
         <table>
           <caption>
@@ -325,8 +326,8 @@ export function Example() {
             (value: string) =&gt; void. Tooltip: label·text: string 필수.
           </li>
         </ul>
-      </details>
-      <details>
+      </GalleryDocs>
+      <GalleryDocs>
         <summary>구성</summary>
         <p>
           <code>
@@ -344,8 +345,8 @@ export function Example() {
           제목·본문은 필수예요. 단일 확인은 CTA 하나, 선택·입력은 취소와 적용을
           함께 둬요.
         </p>
-      </details>
-      <details>
+      </GalleryDocs>
+      <GalleryDocs>
         <summary>접근성·주의</summary>
         <ul>
           <li>
@@ -383,7 +384,7 @@ export function Example() {
           jsdom은 native modality를 인증하지 않아요. 실제 top layer·배경
           inert·Tab 이동·모바일 배치는 Chromium 회귀 확인이 필요해요.
         </p>
-      </details>
+      </GalleryDocs>
     </section>
   );
 }

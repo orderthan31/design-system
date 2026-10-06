@@ -13,12 +13,13 @@
   gap: var(--space-3);
   min-width: 0;
   padding: var(--space-3);
-  border: var(--ds-border-thin) solid var(--color-border-subtle);
+  border: 0;
   border-radius: var(--radius-md);
   background: var(--color-bg-surface);
 }
 .ds-core .ds-progress-stepper > li[data-state="current"] {
-  border: var(--ds-border-strong) solid var(--color-text-primary);
+  border: 0;
+  background: var(--color-selected-bg);
   font-weight: var(--ds-weight-semibold);
 }
 .ds-core .ds-progress-step-marker {
@@ -57,7 +58,7 @@
 }
 .ds-core .ds-result {
   padding: var(--space-4);
-  border: var(--ds-border-thin) solid var(--color-border-subtle);
+  border: 0;
   border-radius: var(--radius-md);
 }
 .ds-core .ds-result-content,

@@ -1,3 +1,4 @@
+import {GalleryDocs} from './workbench';
 import {CodeBlock} from './code-block';
 import './playground.css';
 import React from 'react';
@@ -26,7 +27,7 @@ export function SegmentedDetail(){
     <p role="status" aria-label="제출 결과">{submitted?`제출한 표시 방식: ${submitted}`:'아직 제출 전'}</p>
    </form>
   </section>
-  <details><summary>사용 코드</summary><CodeBlock source={`import { useState } from 'react';
+  <GalleryDocs><summary>사용 코드</summary><CodeBlock source={`import { useState } from 'react';
 import { SegmentedControl } from './src/index';
 import './src/core.css';
 
@@ -38,20 +39,20 @@ export function Example() {
         { value: 'ready', label: '준비 완료' }]}
       value={scope} onValueChange={setScope} />
   </div>;
-}`}/></details>
-  <details><summary>속성과 조합</summary><ul>
+}`}/></GalleryDocs>
+  <GalleryDocs><summary>속성과 조합</summary><ul>
    <li><code>label: string</code>, <code>options: readonly SegmentedOption[]</code>는 필수입니다. 옵션은 고유한 value, 문자열 label, 선택적 disabled를 가집니다.</li>
    <li><code>value?: string</code>는 제어 값, <code>defaultValue?: string</code>는 비제어 초기 값입니다. 기본 선택은 없습니다. onValueChange(value, native change event)에서 소유자가 value 갱신을 거절할 수 있습니다.</li>
    <li>name/id/form은 네이티브 그룹·폼 연결입니다. name 생략 시 그룹별 고유 이름을 생성합니다. 안정적인 FormData 필드명을 원하면 name을 지정하세요. id/name은 폼마다 충돌하지 않도록 지정하세요.</li>
    <li>disabled/required 기본값은 false, description/error/외부 aria-describedby 기본값은 undefined입니다. className은 fieldset에 적용됩니다.</li>
    <li>native fieldset·legend·radio·label 조합이며 panel을 소유하는 Tabs가 아닙니다. 콘텐츠 필터와 서버 동작은 소유자 책임입니다.</li>
-  </ul></details>
-  <details><summary>접근성과 폼</summary><ul>
+  </ul></GalleryDocs>
+  <GalleryDocs><summary>접근성과 폼</summary><ul>
    <li>Tab으로 그룹에 진입하고 방향키/Space로 선택합니다. 네이티브 라디오의 방향키 선택 계약을 유지하며 한국어 label이 접근 가능한 이름입니다.</li>
    <li>필수 표시·도움말·오류를 유지하고 오류는 alert로 안내합니다. required/checkValidity/FormData와 비제어 form reset은 브라우저가 처리합니다.</li>
    <li>비활성 옵션 및 disabled fieldset은 입력·제출에서 제외됩니다. 빈 옵션 목록에 required를 지정해도 존재하지 않는 입력을 검증할 수는 없으므로 필요한 옵션을 소유자가 제공해야 합니다.</li>
    <li>제어/비제어 모드를 실행 중 전환하지 마세요. 제어 폼 초기화는 소유자가 value도 초기화해야 합니다. 비제어 defaultValue는 초기 값으로 사용하세요.</li>
    <li>공통 스타일은 .ds-core 아래에서만 적용됩니다. 색만으로 선택을 구분하지 않고 native checked semantics와 focus 표시를 유지합니다.</li>
-  </ul></details>
+  </ul></GalleryDocs>
  </div>;
 }

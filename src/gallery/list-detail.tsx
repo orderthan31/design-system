@@ -1,3 +1,4 @@
+import {GalleryDocs} from './workbench';
 import {CodeBlock} from './code-block';
 import './playground.css';
 import React from "react";
@@ -171,12 +172,12 @@ export function ListDetail() {
           <span>{selectedCount}개 선택</span>
         </ListFooter>
         <p role="status">{status}</p>
-        <details>
+        <GalleryDocs>
           <summary>가져오기</summary>
           <CodeBlock source={'import { List, ListRow, ListHeader, ListFooter } from "./src/index";\nimport "./src/core.css";'}/>
           <p>공개 진입점에서 가져오고 부모에 ds-core 클래스를 적용합니다.</p>
-        </details>
-        <details>
+        </GalleryDocs>
+        <GalleryDocs>
           <summary>속성</summary>
           <p>
             ListRow: title(필수 문자열), description, leading, content,
@@ -187,20 +188,20 @@ export function ListDetail() {
             ListHeader: title(필수 문자열), description, children, actions.
             ListFooter: children, actions. 노드 슬롯에는 ReactNode를 사용합니다.
           </p>
-        </details>
-        <details>
+        </GalleryDocs>
+        <GalleryDocs>
           <summary>타입</summary>
           <p>ListRowProps, ListHeaderProps, ListFooterProps를 제공합니다.</p>
           <CodeBlock source={"onSelectionChange?: (selected: boolean) => void;\naction?: { label: string; onClick: () => void };"}/>
-        </details>
-        <details>
+        </GalleryDocs>
+        <GalleryDocs>
           <summary>기본값</summary>
           <p>
             selected=false, disabled=false. 나머지 선택 속성은 생략합니다.
             콜백이 없으면 선택 체크박스도 없습니다.
           </p>
-        </details>
-        <details>
+        </GalleryDocs>
+        <GalleryDocs>
           <summary>조합</summary>
           <p>
             ListHeader → List → ListRow → ListFooter 순서로 조합합니다. 머리와
@@ -213,8 +214,8 @@ export function ListDetail() {
             기존 목록 템플릿을 대체하지 않습니다.
           </p>
           <CodeBlock source={'<ListRow title="항목" leading={<Icon name="file" />}\n  trailing={<span>초안</span>}\n  selected={selected} onSelectionChange={setSelected}\n  action={{ label: "열기", onClick: open }} />'}/>
-        </details>
-        <details>
+        </GalleryDocs>
+        <GalleryDocs>
           <summary>접근성</summary>
           <p>
             List의 ul 안에 ListRow의 li를 둡니다. 행은 클릭 대상이 아니며
@@ -232,7 +233,7 @@ export function ListDetail() {
             배치합니다. 데이터와 상태는 메모리에만 유지되며 새로고침하면
             초기화됩니다.
           </p>
-        </details>
+        </GalleryDocs>
       </Stack>
     </section>
   );

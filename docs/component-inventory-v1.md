@@ -1,5 +1,18 @@
 # 공통 컴포넌트 인벤토리 v1
 
+## 현재 실제 디자인·DS 소비·소비자 외관 계약 checkpoint
+
+- 현재 canonical registry/탐색 링크는 Chart 포함 81개(Atoms18 / Molecules34 / Organisms23 / Templates6)입니다. 아래의80/0 등은 당시 source 연결 이력이며 현재 전체수락·전수 runtime 결과가 아닙니다. 기존 승인 inventory를 축소하지 않았으며 키패드는 제외합니다.
+- actual exported Shell/Container/Stack·Input·Button·Tabs·Variant controls를 소비합니다. Atomic 그룹 제목은 비클릭이며 하위 기능별 그룹/Atomic 모아보기 페이지를 제거했습니다. h1/탐색은 실제 영문 API 이름입니다.
+- primary live demo·Variant controls·Code는 같은 부모 state입니다. 별도 조합 사례는 Variant의 추가 시연으로 분리하고 원래 owner/API/코드를 보존합니다. 탭 전환은 owner를 unmount하지 않습니다. native Input의 기존 명시적 초기화는 revision을 새로 만드는 계약이며 탭 보존과 구분합니다.
+- 입력 rest boundary와 Rating의 별 중심 외관, SegmentedControl·ProgressStepper·Result·EmptyState의 경계 변경은 shared core/token source에 반영했습니다. gallery의 imported core appearance override와 검색/Variant native-selector paint를 제거하며 문서 chrome/배치만 남깁니다. focus/error/native APIs·44px 별 hit 영역은 보존합니다.
+- 이번 actual browser 확인은 Rating/Input390·1440 before/after4표본, Input 탭 DOM/value/current-code/명시적 reset, Rating trusted pointer4점/Right5점/clear와390 모바일 Stack 탐색의 좁은 범위입니다. 전체81 runtime·props/schema/controls completeness·AT/IME/다른 브라우저·최종 contrast/소비자 동일성은 확인하지 않았습니다. native dialog에 없는 role 속성을 찾던 private probe를 실제 dialog[open]으로 교정했으며 source 결함으로 보고하지 않습니다.
+- 공개 core 없음 / 상세 연결 없음 / controls 없음 / 전체 props completeness 미평가 / 최종검증 미완료를 구분합니다. 이번에 전수 재마운트/재판정하지 않았으므로 과거 source 공백0을 현재 모든 계약 충족0으로 승격하지 않습니다.
+- gallery 없는 전체 public consumer fixture는 디자인승인 후 same-final-SHA에서 정식 core CSS·폰트·theme와 동일 props/컨테이너 조건으로 최종 대조합니다. 현재 준비/범위만 보존하며 새 전수fixture/full-suite gate·소비 제품 통합·공개배포는 시작하지 않습니다.
+- PasswordInput Chrome145/Linux selection 이슈는 기존 원 SHA 환경 관측 그대로 open입니다. 이 checkpoint는 selection timer/source 교정이 아닙니다. 기존 rules/33fixtures/tests/dependency pin/lock·역사107tokens/font/vendor licenses를 보존합니다.
+
+아래는 각 당시 source identity의 보존된 역사 checkpoint입니다.
+
 현재 공유 기준: build/TypeScript 오류가 없는 안정 checkpoint는 먼저 Git으로 공유하고 동일 commit의 프리뷰에서 기능 점검한다. 아래 범위별 이력은 최종 전체 수락이 아니며, 과거 검수 전 push 보류를 현재 프리뷰 공유의 선행 조건으로 적용하지 않는다. 전체 coverage·동일 트리 독립 최종 수락은 별도 잔여다.
 
 ## DataTable 활성 pageSize 옵션 보존 교정 checkpoint

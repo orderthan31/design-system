@@ -1,3 +1,4 @@
+import {GalleryDocs} from './workbench';
 import React from 'react';
 import { Container, Grid } from '../components/layout';
 import { DatePicker, DateRangePicker, type DateRangeValue } from '../components/date-controls';
@@ -19,8 +20,8 @@ function LayoutDetail({name}:{name:'Container'|'Grid'}) {
   return <div className="connected-detail stack" data-connected-detail={name}><p>{description}</p>
     <div className="wrap">{name==='Container'?<Checkbox label="maxWidth를 480px로 변경" checked={narrow} onChange={event=>setNarrow(event.target.checked)}/>:<label className="inline-label">간격 (style.gap)<Select aria-label="격자 간격" value={gap} onChange={event=>setGap(Number(event.target.value))}>{[8,16,24].map(value=><option key={value} value={value}>{value}px</option>)}</Select></label>}</div>
     <div className="connected-preview" aria-label={`${name} 미리보기`}>{name==='Container'?<Container style={{maxWidth:narrow?'480px':'1200px'}}><div className="layout-detail-item">부모 너비에 맞춰 줄어드는 콘텐츠</div></Container>:<Grid style={{gap}}>{children}</Grid>}</div>
-    <details open><summary>현재 코드</summary><CodeBlock source={source}/></details>
-    <details><summary>Props · 배치</summary><p>children, className, style 등 native div 속성을 전달합니다. 별도 columns·size prop은 없습니다. 위 controls는 style 속성으로 기본 CSS를 덮어쓰는 예시입니다.</p><p>Container는 좌우 padding을 추가하지 않습니다. Grid는 기본 gap 16px이며 항목 너비에 따라 자동으로 열을 구성합니다. 화면 폭을 줄여 배치를 비교하세요. 샘플 색상과 내부 여백은 문서 예시이며 레이아웃 API의 기본 배경이 아닙니다.</p></details>
+    <GalleryDocs open><summary>현재 코드</summary><CodeBlock source={source}/></GalleryDocs>
+    <GalleryDocs><summary>Props · 배치</summary><p>children, className, style 등 native div 속성을 전달합니다. 별도 columns·size prop은 없습니다. 위 controls는 style 속성으로 기본 CSS를 덮어쓰는 예시입니다.</p><p>Container는 좌우 padding을 추가하지 않습니다. Grid는 기본 gap 16px이며 항목 너비에 따라 자동으로 열을 구성합니다. 화면 폭을 줄여 배치를 비교하세요. 샘플 색상과 내부 여백은 문서 예시이며 레이아웃 API의 기본 배경이 아닙니다.</p></GalleryDocs>
   </div>;
 }
 type DateView='default'|'disabled'|'readOnly'|'busy'|'error';
@@ -55,8 +56,8 @@ function DateDetail({range}:{range:boolean}) {
     <div className="connected-preview" data-date-preview>{range?<DateRangePicker key={version} {...flags} label="조회 기간" value={period} onChange={next=>{setPeriod(next);setPreset('custom');}} onValidityChange={setValidity}/>:<DatePicker key={version} {...flags} label="기준 날짜" value={date} onChange={next=>{setDate(next);setPreset('custom');}} onValidityChange={setValidity}/>}</div>
     <p className="help" role="status" data-date-committed>{range?`현재 값: ${period.start||'미선택'} ~ ${period.end||'미선택'}`:`현재 값: ${date||'미선택'}`}</p>
     <p className="help" role="status" data-date-validity>유효성: {validity===undefined?'확인 중':validity?'유효':'유효하지 않음'}</p>
-    <details open><summary>현재 코드</summary><CodeBlock source={source}/></details>
-    <details><summary>Props · 입력 상태</summary><p>DatePicker는 YYYY-MM-DD 문자열, DateRangePicker는 start/end 문자열 객체를 받습니다. value/onChange는 제어형, defaultValue는 비제어형 초기값입니다. 형식이 잘못된 편집 중 텍스트는 내부 draft에 남고 현재 코드에는 콜백으로 전달된 값이 표시됩니다.</p><p>min/max·disabledDates는 선택 범위를 제한합니다. required·error·onValidityChange를 사용해 유효성을 전달할 수 있습니다. 위 유효성은 실제 콜백 결과이며 선택적 빈 값은 유효할 수 있습니다. 달력은 키보드 방향키로 이동하고 Escape로 닫습니다. 비활성·읽기 전용·busy는 편집 및 달력 선택을 잠급니다.</p><p>샘플 값은 고정 로컬 예제입니다. presets·reset prop은 없습니다. 샘플 선택은 예제 소유자가 값과 해당 제한을 교체하고 초기화는 전체 예제 상태와 React key를 갱신해 미확정 draft와 열린 달력까지 복원합니다. 현재 코드도 이 owner reset을 포함합니다. 날짜 API는 기존 달력/기간 선택기이며 native 날짜 입력 두 개로 대체하지 않습니다.</p><p>기간 예제는 역순 날짜를 오류로 표시하고 시작일·종료일 포함 일수를 계산합니다. 이 API에는 native name/form 직렬화 prop이 없으므로 제출 데이터 연결은 소비자가 구현해야 합니다.</p></details>
+    <GalleryDocs open><summary>현재 코드</summary><CodeBlock source={source}/></GalleryDocs>
+    <GalleryDocs><summary>Props · 입력 상태</summary><p>DatePicker는 YYYY-MM-DD 문자열, DateRangePicker는 start/end 문자열 객체를 받습니다. value/onChange는 제어형, defaultValue는 비제어형 초기값입니다. 형식이 잘못된 편집 중 텍스트는 내부 draft에 남고 현재 코드에는 콜백으로 전달된 값이 표시됩니다.</p><p>min/max·disabledDates는 선택 범위를 제한합니다. required·error·onValidityChange를 사용해 유효성을 전달할 수 있습니다. 위 유효성은 실제 콜백 결과이며 선택적 빈 값은 유효할 수 있습니다. 달력은 키보드 방향키로 이동하고 Escape로 닫습니다. 비활성·읽기 전용·busy는 편집 및 달력 선택을 잠급니다.</p><p>샘플 값은 고정 로컬 예제입니다. presets·reset prop은 없습니다. 샘플 선택은 예제 소유자가 값과 해당 제한을 교체하고 초기화는 전체 예제 상태와 React key를 갱신해 미확정 draft와 열린 달력까지 복원합니다. 현재 코드도 이 owner reset을 포함합니다. 날짜 API는 기존 달력/기간 선택기이며 native 날짜 입력 두 개로 대체하지 않습니다.</p><p>기간 예제는 역순 날짜를 오류로 표시하고 시작일·종료일 포함 일수를 계산합니다. 이 API에는 native name/form 직렬화 prop이 없으므로 제출 데이터 연결은 소비자가 구현해야 합니다.</p></GalleryDocs>
   </div>;
 }
 type SampleRow={id:string;title:string;state:string;count:number};
@@ -78,8 +79,8 @@ function TableDetail() {
     <label className="inline-label">상태<Select aria-label="테이블 예제 상태" value={view} onChange={event=>{setView(event.target.value);setMessage('');}}><option value="default">기본</option><option value="loading">로딩</option><option value="error">오류</option><option value="empty">빈 데이터</option></Select></label>
     <DataTable caption="예시 작업" rows={visibleRows} columns={columns} rowKey={row=>row.id} rowLabel={row=>row.title} initialPageSize={3} loading={view==='loading'} error={view==='error'?'데이터를 가져오지 못했어요.':undefined} onRetry={()=>setView('default')} filter={{label:'상태 필터',value:row=>row.state,options:['진행 중','완료','대기']}} bulkAction={{label:'선택 확인',onAction:selected=>setMessage(selected.map(row=>row.title).join(', '))}}/>
     <p className="help" role="status">{message}</p>
-    <details open><summary>현재 코드</summary><CodeBlock source={source}/></details>
-    <details><summary>Props · 검색과 선택</summary><p>rows/columns/rowKey/caption이 필수입니다. rowKey는 고유하고 안정적인 키, columns.value는 문자열 또는 숫자를 반환합니다. sortable 열 제목을 눌러 정렬하고 검색·filter로 목록을 좁힙니다.</p><p>검색·정렬·페이지·선택은 컴포넌트 내부 상태입니다. 표시 코드의 props로 초기화되며 내부 검색값·페이지까지 제어하는 API는 없습니다. initialPageSize는 초기값입니다. bulkAction은 선택한 원본 행을 전달하고 선택을 해제합니다.</p><p>이 예제의 행은 로컬 샘플이며 서버 요청·저장·삭제는 없습니다. loading/error/onRetry는 소비자가 공급합니다. 넓은 표는 이름 있는 스크롤 영역에서 가로로 이동합니다. 가상 DataGrid나 서버 페이지네이션 API가 아닙니다.</p></details>
+    <GalleryDocs open><summary>현재 코드</summary><CodeBlock source={source}/></GalleryDocs>
+    <GalleryDocs><summary>Props · 검색과 선택</summary><p>rows/columns/rowKey/caption이 필수입니다. rowKey는 고유하고 안정적인 키, columns.value는 문자열 또는 숫자를 반환합니다. sortable 열 제목을 눌러 정렬하고 검색·filter로 목록을 좁힙니다.</p><p>검색·정렬·페이지·선택은 컴포넌트 내부 상태입니다. 표시 코드의 props로 초기화되며 내부 검색값·페이지까지 제어하는 API는 없습니다. initialPageSize는 초기값입니다. bulkAction은 선택한 원본 행을 전달하고 선택을 해제합니다.</p><p>이 예제의 행은 로컬 샘플이며 서버 요청·저장·삭제는 없습니다. loading/error/onRetry는 소비자가 공급합니다. 넓은 표는 이름 있는 스크롤 영역에서 가로로 이동합니다. 가상 DataGrid나 서버 페이지네이션 API가 아닙니다.</p></GalleryDocs>
   </div>;
 }
 export function ConnectedDetail({name}:{name:ConnectedDetailName}) {

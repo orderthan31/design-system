@@ -59,11 +59,23 @@
     system-ui,
     sans-serif;
 }
+.ds-core :where(p,h1,h2,h3,h4,legend,label,button,input,textarea,select) {
+  font-family: inherit;
+  font-style: normal;
+  text-transform: none;
+}
 .ds-core button,
 .ds-core input,
 .ds-core textarea,
 .ds-core select {
+  margin: 0;
   font: inherit;
+  letter-spacing: normal;
+  color-scheme: light;
+}
+.ds-core input:where([type="checkbox"],[type="radio"],[type="range"]) {
+  appearance: auto;
+  background: initial;
 }
 .ds-core button,
 .ds-core a,
@@ -235,7 +247,7 @@
 }
 .ds-core .button.destructive:hover:not(:disabled):not([aria-busy="true"]),
 .ds-core .button.destructive:active:not(:disabled):not([aria-busy="true"]) {
-  box-shadow:inset 0 0 0 2px var(--color-text-inverse);
+  filter:brightness(.96);
 }
 .ds-core .control:not(:disabled):not([readonly]):not([aria-invalid="true"]):hover {
   border-color:var(--color-focus);
@@ -281,7 +293,7 @@
   max-width: 100%;
   min-height: var(--size-control);
   padding: var(--ds-control-padding-block) var(--ds-control-padding-inline);
-  border: var(--ds-border-thin) solid var(--field-border);
+  border: var(--ds-border-thin) solid var(--ds-boundary-rest);
   border-radius: var(--ds-radius-control);
   background: var(--field-bg);
   color: var(--field-fg);
@@ -448,7 +460,7 @@
 .ds-core .empty {
   background: var(--empty-bg);
   color: var(--empty-fg);
-  border: var(--ds-border-thin) dashed var(--color-border-control);
+  border: 0;
   border-radius: var(--radius-lg);
   padding: var(--ds-space-9) var(--ds-space-7);
   text-align: center;

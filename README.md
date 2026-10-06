@@ -25,12 +25,10 @@ npm run dev
 
 ## 문서 구조
 
-- **개요**: Foundations/Components/Templates 진입, 실제 컴포넌트 검색·상세 링크와 저장소 실행/소스 import 안내.
-- **기초 (Foundations)**: 기준 토큰 107개(기본값 39 / 의미 역할 29 / 컴포넌트 39), 원본 별칭·해석된 값·검색·글꼴·크기·대비 사용 계약. 범위 한정 인디고/틸 테마 전환 및 기본 코어 복원.
-- **아톰 (Atoms)**: Button, IconButton, Input, Textarea, Select, Checkbox, Badge, Progress, Skeleton, Separator.
-- **몰리큘 (Molecules)**: FormField, Alert, EmptyState, Menu, Tabs, Tooltip.
-- **오가니즘 (Organisms)**: Dialog, Confirm.
-- **템플릿 (Templates)**: 제품 중립 Form/List/Feedback 미리보기와 실제 FormSection 등 재사용 조합. PC/mobile 슬롯·입력·상태·검색 예제를 제공합니다.
+- **Overview**: 실제 컴포넌트 검색·상세 링크와 저장소 실행/소스 import 안내.
+- **Foundations**: 기준 토큰 107개·글꼴·크기·대비·범위 한정 테마 전환.
+- 좌측 검색 아래 Overview/Foundations와 Atoms → Molecules → Organisms → Templates 제목을 배치합니다. Atomic 제목은 페이지 버튼이 아니며 각 그룹은 영문 public API 이름 알파벳순 canonical 상세 링크만 제공합니다. 하위 Inputs/Feedback 그룹이나 Atomic 모아보기 페이지는 없습니다.
+- 상세 페이지 제목은 public API 이름입니다. 실제 exported Shell/Container/Stack과 Tabs를 소비하며 위쪽 실제 시연, 아래쪽 Variant / Code / Docs가 같은 owner state를 공유합니다. 탭은 owner를 unmount하지 않습니다.
 
 각 기본 컴포넌트에는 미리보기·사용 코드·기준 계약이 연결됩니다. FormField는 Input, Alert는 Badge, EmptyState는 Button, Dialog는 IconButton, Confirm은 Dialog와 Button을 실제로 재사용합니다. API·토큰 식별자는 영문을 유지하며 설명과 기본 접근성 이름은 한국어 중심입니다.
 
@@ -51,6 +49,10 @@ import "./src/core.css";
 ```
 
 `src/index.ts`가 기존 18종과 추가 날짜/한국형 폼/탐색/데이터/펼침/아이콘/레이아웃/PC·모바일 템플릿을 export합니다. 기존 `componentFamilies` 18종 레지스트리는 역사 기준이며 전체 public API 목록이 아닙니다. npm 배포 패키지는 아닙니다. `core.css`는 `.ds-core` 조상 범위 안의 컴포넌트와 의미 역할만 스타일링하며, 동일 원본에서 생성한 107개 기본 토큰도 그 범위에 선언합니다. 소비 앱에서 전역 `generated/tokens.css`, `gallery.css`, `styles.css`를 import할 필요가 없습니다. 글꼴 파일은 `/source/fonts/`에서 제공해야 합니다. Pretendard font-face 등록과 `ds-core-*` 애니메이션 정의는 포함하지만 외부 일반 요소에 reset·폰트·focus 규칙을 적용하지 않습니다.
+
+**외관 동일성 계약:** 컴포넌트 자체 border·font·padding·radius·state는 exported shared core/공용 tokens가 소유합니다. gallery CSS는 문서 chrome·데모 배치만 담당하며 소비 앱에 복사하는 appearance override는 계약이 아닙니다. 사용 코드는 실제 export/props/variant/size/theme/state와 같은 소비자 조건이어야 합니다. scoped core의 기본 스타일은 소비 앱의 일반 tag reset과 분리하고 범위 밖 일반 요소를 reset하지 않습니다. 소비자가 더 강한 선택자·`!important`로 명시적으로 DS 자체를 재정의하는 경우까지 CSS 격리라고 주장하지 않습니다.
+
+**최종 별도 consumer fixture:** 디자인승인 후 same-final-SHA에서 gallery 없는 독립 fixture를 검증합니다. 공개 export와 정식 core CSS·Pretendard·theme 설정만 사용하여 모든 공개 컴포넌트의 동일 props/variant/size/state와 컨테이너 조건을 재현하고 외관·상태·필수 설정·범위 밖 누출/일반 host reset을 대조합니다. 지금은 이 범위만 보존하며 fixture 전수 확장·full-suite를 빠른 디자인 반복의 새 gate로 시작하지 않습니다. 아직 디자인수락·공개배포·소비 제품 앱 통합 승인이나 외관 전수동일성 검증 완료를 의미하지 않습니다.
 
 문서 앱은 명시적으로 `gallery.css`를 사용합니다. 이 파일의 문서 reset·탐색·데모 배치는 **gallery 전용 opt-in**이며 소비 core에 포함되지 않습니다. 이전 `styles.css` 경로는 gallery 호환 진입점일 뿐 core 소비 경로가 아닙니다.
 

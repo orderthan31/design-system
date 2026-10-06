@@ -1,3 +1,4 @@
+import {GalleryDocs,GalleryControls} from './workbench';
 import React from 'react';
 import { FormTemplate, ListTemplate, FeedbackTemplate } from '../components/templates';
 import { DetailTemplate } from '../components/composition';
@@ -44,7 +45,7 @@ export function SlotTemplateDetail({name}:{name:SlotTemplateDetailName}) {
   const source=`import { ${hooks} } from 'react';\nimport { ${imports} } from './src';\nimport './src/core.css';\nimport './src/examples.css';\n\nexport function Example() {\n${declarations}  return <div className="ds-core">\n${content}\n  </div>;\n}`;
   return <div className="connected-detail stack" data-slot-template-detail={name}>
     <div data-slot-template-preview key={revision}>{preview}</div>
-    <div className="form-detail-controls">
+    <GalleryControls className="form-detail-controls">
       {text('title',title,setTitle,'template title control')}
       {(name==='FormTemplate'||name==='DetailTemplate')&&text('자식 Input value',value,setValue,'template value control')}
       {(name==='FormTemplate'||name==='FeedbackTemplate')&&text(name==='FormTemplate'?'aside · 텍스트':'content · 텍스트',body,setBody,'template body control')}
@@ -53,8 +54,8 @@ export function SlotTemplateDetail({name}:{name:SlotTemplateDetailName}) {
       {name==='FeedbackTemplate'&&<><label className="field"><span>status · 부모 예시 상태</span><Select aria-label="feedback phase control" value={phase} onChange={event=>setPhase(event.target.value)}><option value="ready">안내</option><option value="complete">확인됨</option><option value="error">재시도 예시</option></Select></label><div className="wrap">{check('actions 전달',showPrimary,setShowPrimary)}{check('content 자식 표시',showSecondary,setShowSecondary)}</div></>}
       {name==='DetailTemplate'&&<>{text('summary · 텍스트',summary,setSummary,'template summary control')}<div className="wrap">{check('actions 전달',showPrimary,setShowPrimary)}{check('summary 자식 표시',showSecondary,setShowSecondary)}</div></>}
       <Button variant="ghost" onClick={reset}>초기화</Button>
-    </div>
-    <details open><summary>현재 코드</summary><CodeBlock source={source}/></details>
-    <details><summary>Props · 슬롯과 부모 동작</summary>{name==='FormTemplate'?<><p>title/fields/actions가 필수이고 aside는 선택적 ReactNode입니다. 템플릿은 section이며 native form·onSubmit·validation/loading API가 아닙니다. 이 예제는 전체 템플릿을 native form으로 감싸고 fields의 required Input과 actions의 명시적 type="submit" Button을 같은 form에 둡니다.</p><p>Button loading과 form 중복 실행 방어는 부모 예제 소유입니다. 제출 결과는 메모리에만 남고 저장/전송하지 않습니다. fields에만 form을 넣으면 actions는 그 form 밖에 있으므로 별도 native 연결이 필요합니다.</p></>:name==='ListTemplate'?<p>title/rows가 필수, toolbar/footer가 선택적 ReactNode입니다. toolbar wrapper는 자식 없이도 유지됩니다. 실제 검색은 부모 query와 toolbar의 native search Input·로컬 배열 filter가 소유하며 rows는 List/ListItem 조합입니다. 템플릿의 filter/selection/pagination/router 기능으로 소개하지 않습니다.</p>:name==='FeedbackTemplate'?<p>title/status/content가 필수, actions는 선택적 ReactNode입니다. status는 enum이 아니라 실제 노드 슬롯입니다. 안내·오류·재시도는 전달한 status 자식과 부모 state 소유이며 actions도 실제 Button입니다. content=null도 타입상 가능한 필수 슬롯 전달입니다. 비동기 완료/서버 재시도를 약속하지 않습니다.</p>:<p>title/summary/content가 필수, actions는 선택적 ReactNode입니다. useId로 section 제목을 연결하고 summary aside와 content div를 Grid로 배치합니다. summary=null이어도 aside wrapper는 유지됩니다. 자식 Input/확인 결과는 부모 소유이고 자동 닫기/뒤로가기/focus 복귀는 제공하지 않습니다.</p>}<p>일반 native attributes/className/children API를 추가하지 않습니다. 초기화는 슬롯 구성과 부모 state를 되돌리고 미리보기를 다시 마운트합니다.</p></details>
+    </GalleryControls>
+    <GalleryDocs open><summary>현재 코드</summary><CodeBlock source={source}/></GalleryDocs>
+    <GalleryDocs><summary>Props · 슬롯과 부모 동작</summary>{name==='FormTemplate'?<><p>title/fields/actions가 필수이고 aside는 선택적 ReactNode입니다. 템플릿은 section이며 native form·onSubmit·validation/loading API가 아닙니다. 이 예제는 전체 템플릿을 native form으로 감싸고 fields의 required Input과 actions의 명시적 type="submit" Button을 같은 form에 둡니다.</p><p>Button loading과 form 중복 실행 방어는 부모 예제 소유입니다. 제출 결과는 메모리에만 남고 저장/전송하지 않습니다. fields에만 form을 넣으면 actions는 그 form 밖에 있으므로 별도 native 연결이 필요합니다.</p></>:name==='ListTemplate'?<p>title/rows가 필수, toolbar/footer가 선택적 ReactNode입니다. toolbar wrapper는 자식 없이도 유지됩니다. 실제 검색은 부모 query와 toolbar의 native search Input·로컬 배열 filter가 소유하며 rows는 List/ListItem 조합입니다. 템플릿의 filter/selection/pagination/router 기능으로 소개하지 않습니다.</p>:name==='FeedbackTemplate'?<p>title/status/content가 필수, actions는 선택적 ReactNode입니다. status는 enum이 아니라 실제 노드 슬롯입니다. 안내·오류·재시도는 전달한 status 자식과 부모 state 소유이며 actions도 실제 Button입니다. content=null도 타입상 가능한 필수 슬롯 전달입니다. 비동기 완료/서버 재시도를 약속하지 않습니다.</p>:<p>title/summary/content가 필수, actions는 선택적 ReactNode입니다. useId로 section 제목을 연결하고 summary aside와 content div를 Grid로 배치합니다. summary=null이어도 aside wrapper는 유지됩니다. 자식 Input/확인 결과는 부모 소유이고 자동 닫기/뒤로가기/focus 복귀는 제공하지 않습니다.</p>}<p>일반 native attributes/className/children API를 추가하지 않습니다. 초기화는 슬롯 구성과 부모 state를 되돌리고 미리보기를 다시 마운트합니다.</p></GalleryDocs>
   </div>;
 }

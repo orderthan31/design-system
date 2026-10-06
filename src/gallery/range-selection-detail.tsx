@@ -1,3 +1,4 @@
+import {GalleryDocs} from './workbench';
 import {CodeBlock} from './code-block';
 import './playground.css';
 import React from "react";
@@ -94,11 +95,11 @@ export function RangeSelectionDetail({ kind }: RangeSelectionDetailProps) {
           <button type="reset" className="rs-action">초기값 복원</button>
         </form>
       </section>
-      <details>
+      <GalleryDocs>
         <summary>사용 코드</summary>
         <CodeBlock source={isSlider ? sliderCode : ratingCode}/>
-      </details>
-      <details>
+      </GalleryDocs>
+      <GalleryDocs>
         <summary>속성</summary>
         <div className="rs-api">
           <table>
@@ -125,8 +126,8 @@ export function RangeSelectionDetail({ kind }: RangeSelectionDetailProps) {
             </tbody>
           </table>
         </div>
-      </details>
-      <details>
+      </GalleryDocs>
+      <GalleryDocs>
         <summary>조합과 접근성</summary>
         <ul>
           <li>
@@ -137,7 +138,7 @@ export function RangeSelectionDetail({ kind }: RangeSelectionDetailProps) {
           <li>
             {isSlider
               ? 'label은 input type="range"의 이름입니다. 브라우저가 방향키·Home·End·터치 조작을 제공합니다. 이동 키의 세부 동작은 브라우저마다 다를 수 있습니다. 단위는 라벨이나 주변 설명에 명확히 적어 주세요.'
-              : "fieldset의 legend는 그룹 이름이며 1점~5점은 보이는 라디오 라벨입니다. Tab으로 그룹에 진입하고 방향키로 점수를 이동하며 Space로 선택합니다. 별 모양은 aria-hidden 장식이고 현재 선택은 체크 표시와 배경·글자·테두리로 구분합니다."}
+              : "fieldset의 legend는 그룹 이름이며 1점~5점은 보이는 라디오 라벨입니다. Tab으로 그룹에 진입하고 방향키로 점수를 이동하며 Space로 선택합니다. 별 모양은 aria-hidden 장식이고 선택한 점수까지 별이 채워지고 native checked 값이 현재 선택을 전달합니다. 사각 테두리나 색상만으로 선택을 표현하지 않습니다."}
           </li>
           <li>
             value를 전달하면 제어 모드이며 onValueChange에서 소유자가 갱신해야
@@ -176,7 +177,7 @@ export function RangeSelectionDetail({ kind }: RangeSelectionDetailProps) {
             사용합니다.
           </li>
         </ul>
-      </details>
+      </GalleryDocs>
     </div>
   );
 }
