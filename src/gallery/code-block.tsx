@@ -53,7 +53,7 @@ export function CodeBlock({source}: {source: string}) {
   }
   return <div className="gallery-code-block">
     <div className="gallery-code-toolbar"><span>TSX</span><button type="button" onClick={copyCurrent}>코드 복사</button></div>
-    <pre tabIndex={0} aria-label="사용 코드" data-formatted={formatted.input===source&&!formatted.failed}><code>{highlighted}</code></pre>
+    <pre className="gallery-code-content" tabIndex={0} aria-label="사용 코드" data-formatted={formatted.input===source&&!formatted.failed}><code>{highlighted}</code></pre>
     <span className="gallery-code-status" role="status">{copy.input===source?copy.message:''}</span>
     {formatted.input===source&&formatted.failed&&<small>포맷하지 못해 원문을 표시해요.</small>}
   </div>;

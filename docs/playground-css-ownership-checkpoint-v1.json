@@ -1,0 +1,67 @@
+{
+  "scope": "Gallery playground/code CSS ownership preview checkpoint; not final DS, full regression or independent hosted acceptance.",
+  "basedOn": "42d4c1552044b080aa241ca2b0eed51d838acdfa",
+  "sourceChanges": [
+    "Playground/code/props appearance literals now reference scoped semantic/scale roles.",
+    "All playground selectors scoped with :where(.ds-core), preserving original selector specificity and the actual14px core controls/reset typography.",
+    "Native pre has a gallery-code-content owner class; its scoped owner selector replaces5 important declarations without changing measured margin/padding/white-space/overflow/font.",
+    "Code formatter/highlighter/copy handlers, source-state guards, accessibility attributes and public core API remain unchanged."
+  ],
+  "lint": {
+    "previous": {
+      "jsx": 1,
+      "css": 369
+    },
+    "current": {
+      "jsx": 1,
+      "css": 328,
+      "fixtureCases": 33
+    },
+    "actualCSSFindingsRemoved": 41,
+    "wholeSourceExitCode": 1,
+    "changedScopeFindings": 0,
+    "newFindings": 0,
+    "frozen33FixturesExpected": true,
+    "policyOrFixtureChanges": false
+  },
+  "executedChecks": {
+    "node": "22.22.2",
+    "productionBuild": "passed",
+    "tsc": "passed",
+    "diffCheck": "passed",
+    "historicalTokens": 107,
+    "boundedBrowser": "Chrome/154.0.8037.98",
+    "viewports": [
+      390,
+      1440
+    ],
+    "beforeRoutes": 40,
+    "afterRoutes": 40,
+    "beforeComputedValues": 8770,
+    "afterComputedValues": 8770,
+    "exactComputedSnapshotParity": true,
+    "documentOverflow": 0,
+    "beforeAndAfterRuntimeExceptions": 0,
+    "limits": "Passive style samples on actual routes; current40route/8770value comparison does not turn earlier core or hosted checks into latest whole-system acceptance. No native pointer/keyboard, full state/theme, AT or actual IME claim."
+  },
+  "remaining": [
+    "Full-source JSX1/CSS328(exit1). All remaining CSS diagnostics are in src/gallery.css; no finding waiver/baseline removal.",
+    "Existing Stack native className control/API-policy finding retained.",
+    "PasswordInput rootcause remains open; source unchanged and no speculative timer.",
+    "Other approved completeness and final whole-system accessibility/cross-browser/actual IME acceptance remain pending."
+  ],
+  "unchanged": [
+    "Public core/native APIs",
+    "PasswordInput source",
+    "Dependency pins/lockfile",
+    "Rules/33fixtures/tests",
+    "Historical generated tokens",
+    "Recharts engine/license"
+  ],
+  "excluded": [
+    "AGENTS.md",
+    "Keypad",
+    "ZIP attachment",
+    "Public deployment"
+  ]
+}

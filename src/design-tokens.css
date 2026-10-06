@@ -59,4 +59,17 @@
   --ds-radius-bubble-tail: 4px;
   --ds-font-symbol: 28px;
   --ds-shadow-selection: 0 1px 3px #0f172a12;
+  /* Gallery-owned code/prop presentation: not a core component restyle. */
+  --ds-prop-control-font-size: 13px;
+  --ds-preview-shadow: 0 2px 12px #0f172a05;
+  --ds-code-bg: #f4f6fa;
+  --ds-code-fg: #334155;
+  --ds-code-muted: var(--color-palette-64748b);
+  --ds-code-keyword: var(--color-palette-1d4ed8);
+  --ds-code-string: #047857;
+  --ds-code-symbol: #7e22ce;
+  --ds-code-number: #b45309;
+  --ds-code-punctuation: var(--color-palette-475569);
+  --ds-code-toolbar-font: 12px/1.5 Pretendard,sans-serif;
+  --ds-code-font: 12px/1.8 ui-monospace,SFMono-Regular,Menlo,monospace;
 }
