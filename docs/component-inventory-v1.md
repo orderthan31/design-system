@@ -2,6 +2,17 @@
 
 현재 공유 기준: build/TypeScript 오류가 없는 안정 checkpoint는 먼저 Git으로 공유하고 동일 commit의 프리뷰에서 기능 점검한다. 아래 범위별 이력은 최종 전체 수락이 아니며, 과거 검수 전 push 보류를 현재 프리뷰 공유의 선행 조건으로 적용하지 않는다. 전체 coverage·동일 트리 독립 최종 수락은 별도 잔여다.
 
+## Drawer/Popover canonical 상세 checkpoint
+
+- `hasRegionOverlayDetail`는 Drawer/Popover 자기 route에 기존 실제 core·필요 props controls·현재 코드·소유권/API 제약을 연결합니다. core/tests/browser 계약과 이전 파일/주소/날짜·탐색 상세를 보존합니다.
+- Drawer는 호출자 open/title/children/onClose와 선택적 footer를 사용합니다. 실제 열기·open control·닫기 요청 후 부모 setOpen(false), native Dialog 기반 modal·기본 닫기 focus·Tab 경계·Escape/닫기 뒤 opener focus·scroll lock 복원을 시연합니다. false면 내용 unmount입니다. 일반 native attributes·width/placement/portal/router API를 추가하지 않습니다.
+- Popover는 label/title/children 필수 props만 제어하고 내부 open을 실제 trigger로 조작합니다. 내용 확인은 부모 로컬 status이며 내부 클릭/Tab-out이 닫히지 않는 계약과 Escape/외부 pointerdown/trigger 토글 닫기를 시연합니다. 소비자 컨테이너 maxWidth320만 예제에 표현하며 core 위치 결정 계약을 바꾸거나 외부 open/onClose/portal/collision/flip/placement 기능을 invent하지 않습니다.
+- 현재 코드의 title/label/본문/footer label은 JSON 문자열을 JSX expression으로 넣어 따옴표·중괄호·HTML 유사 텍스트에도 현재 preview와 맞는 유효 TSX를 유지합니다. 기존 탐색3 label도 같은 expression 형식으로 수정했습니다. 전체 다른 상세의 임의 문자열 조합 completeness를 이 제한된 수정으로 인정하지 않습니다.
+- production Chrome390/1440px overlay2 bounded 확인: closed unmount→native modal, open/title/body/footer control·footer/헤더 닫기·Escape·focus return·Tab 경계·scroll lock, Popover 본문 status·실제 Tab-out 유지·Escape/실제 외부 pointer 클릭/토글 닫기·초기화. 해당 document overflow/runtime exception 발견 없고 표시 TSX18개 typecheck 오류0입니다. 탐색3 같은 범위 재검사 및 quoted label 포함 TSX24개 오류0입니다. full suite·모든 상태/AT·디자인/독립 수락은 미완료입니다.
+- current route source: registry **80 / mounted-source 63 / blank-source 17**. 61/19는 이전 탐색 checkpoint 이력입니다. 기존 frozen 대조 core 부재 발견 없음; 이번 변경은 gallery/docs뿐입니다. 빈 상세의 controls는 부재이고 연결 상세의 전체 props/schema/API completeness는 미평가입니다. 최종검증과 source 연결은 분리합니다.
+- 현재 빈 canonical 상세: Table, Pagination, List, ListItem, Stack, Shell, ActionGroup, FormSection, ListPanel, FormTemplate, ListTemplate, FeedbackTemplate, DetailTemplate, DesktopWorkspaceTemplate, MobileWorkspaceTemplate, Icon, IconAction.
+- 다음 순서: data4(Table/Pagination/List/ListItem) → layout5(Stack/Shell/ActionGroup/FormSection/ListPanel) → templates6 → icons2. 준비 자식은 read-only이며 현재 대화만 source writer입니다. Chart/keypad/SDK·외부 provider·동일 final-tree 전체 gate/최종 디자인수락은 별도 잔여입니다.
+
 ## 탐색 3종 canonical 상세 checkpoint
 
 - `hasNavigationDetail`은 GNB/LNB/Breadcrumb 자기 route에 기존 실제 core·필요 props controls·현재 코드·API 제약을 연결합니다. 기존 문서 router/history/focus를 대체하거나 새 router/엔진을 추가하지 않습니다.
