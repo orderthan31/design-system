@@ -1,0 +1,11 @@
+{
+  "button": {"files":["primitives/button.tsx"],"requires":[]},
+  "input": {"files":["primitives/input.tsx"],"requires":[]},
+  "theme": {"files":["foundation/theme.tsx"],"requires":[]},
+  "layout": {"files":["primitives/layout.tsx"],"requires":[]},
+  "text-field": {"files":["components/text-field.tsx"],"requires":["input","button"]},
+  "select": {"files":["primitives/select.tsx","primitives/portal.tsx"],"requires":["theme"],"runtime":{"@radix-ui/react-select":"2.3.8"}},
+  "tabs": {"files":["primitives/tabs.tsx"],"requires":[],"runtime":{"@radix-ui/react-tabs":"1.1.22"}},
+  "dialog": {"files":["primitives/dialog.tsx","primitives/portal.tsx"],"requires":["theme"],"runtime":{"@radix-ui/react-dialog":"1.2.0"}},
+  "composition": {"files":["components/composition.tsx"],"requires":["layout"]}
+}

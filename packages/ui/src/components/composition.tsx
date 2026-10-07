@@ -1,0 +1,6 @@
+import { forwardRef, type HTMLAttributes, type ReactNode } from 'react';
+import { cn } from '../lib/cn';
+import { List } from '../primitives/layout';
+export type SectionProps=HTMLAttributes<HTMLElement>&{heading:string;description?:string;actions?:ReactNode};
+export const FormSection=forwardRef<HTMLElement,SectionProps>(function FormSection({heading,description,actions,className,children,...props},ref){return <section {...props} ref={ref} className={cn('grid gap-5 min-w-0',className)}><header className="flex flex-wrap items-start justify-between gap-3"><div><h2 className="text-lg font-semibold">{heading}</h2>{description && <p className="text-g-small text-g-soft mt-1">{description}</p>}</div>{actions}</header>{children}</section>;});
+export const ListPanel=forwardRef<HTMLElement,SectionProps>(function ListPanel({heading,description,actions,className,children,...props},ref){return <section {...props} ref={ref} className={cn('min-w-0',className)}><header className="flex flex-wrap items-center justify-between gap-3 border-0 border-b border-solid border-g-line pb-4"><div><h2 className="text-lg font-semibold">{heading}</h2>{description && <p className="text-g-small text-g-soft mt-1">{description}</p>}</div>{actions}</header><List>{children}</List></section>;});

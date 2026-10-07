@@ -15,7 +15,11 @@
     "check:browser": "playwright test",
     "preview": "vite preview --host 127.0.0.1",
     "lint:design": "node scripts/lint-design.mjs",
-    "lint:design:fixtures": "node --input-type=module -e \"import { verifyDesignLintFixtures } from './scripts/design-lint-fixtures.mjs'; console.log(JSON.stringify(await verifyDesignLintFixtures(), null, 2));\""
+    "lint:design:fixtures": "node --input-type=module -e \"import { verifyDesignLintFixtures } from './scripts/design-lint-fixtures.mjs'; console.log(JSON.stringify(await verifyDesignLintFixtures(), null, 2));\" && node scripts/lint-slice.mjs --fixtures",
+    "build:slice": "node scripts/build-slice-payload.mjs && npm run build -w @orderthan31/gyeol-cli && npm run generate -w @gyeol/docs && npm run build -w @gyeol/docs",
+    "typecheck:slice": "tsc -p packages/ui/tsconfig.json && tsc -p apps/docs/tsconfig.json",
+    "lint:slice": "node scripts/lint-slice.mjs",
+    "test:slice": "node --experimental-strip-types --test packages/cli/test/*.test.mjs packages/ui/test/*.test.mjs && vitest run --config packages/ui/vitest.config.ts"
   },
   "dependencies": {
     "@radix-ui/react-toggle": "1.1.19",
@@ -46,6 +50,15 @@
     "prismjs": "1.30.0",
     "typescript": "5.9.3",
     "vite": "7.3.6",
-    "vitest": "4.1.11"
-  }
+    "vitest": "4.1.11",
+    "tailwindcss": "4.3.3",
+    "@tailwindcss/vite": "4.3.3",
+    "@tailwindcss/node": "4.3.3"
+  },
+  "workspaces": [
+    "packages/ui",
+    "packages/cli",
+    "apps/docs",
+    "apps/consumer-fixture"
+  ]
 }

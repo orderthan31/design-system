@@ -1,0 +1,65 @@
+/* No host reset: only the installed Gyeol scope and themed portal boundaries. */
+@theme inline {
+  --font-g-sans: Pretendard, sans-serif;
+  --color-g-canvas: var(--g-canvas);
+  --color-g-surface: var(--g-surface);
+  --color-g-muted: var(--g-muted);
+  --color-g-line: var(--g-line);
+  --color-g-ink: var(--g-ink);
+  --color-g-soft: var(--g-soft);
+  --color-g-action: var(--g-action);
+  --color-g-action-hover: var(--g-action-hover);
+  --color-g-on-action: var(--g-on-action);
+  --color-g-focus: var(--g-focus);
+  --color-g-danger: var(--g-danger);
+  --color-g-overlay: var(--g-overlay);
+  --text-g-body: 1rem;
+  --text-g-small: .875rem;
+  --text-g-caption: .75rem;
+  --text-g-title: 2rem;
+  --radius-g-control: .5rem;
+  --radius-g-panel: .875rem;
+  --spacing-g-control: 1rem;
+}
+@layer base {
+  [data-gyeol] {
+    --g-canvas: #f5f3ed;
+    --g-surface: #fffefb;
+    --g-muted: #ebe9e1;
+    --g-line: #d7d5cb;
+    --g-ink: #282e28;
+    --g-soft: #636b61;
+    --g-action: #465c36;
+    --g-action-hover: #34472a;
+    --g-on-action: #fffefb;
+    --g-focus: #8c6232;
+    --g-danger: #a3352a;
+    --g-overlay: #20281fb3;
+    font-family: Pretendard, sans-serif;
+    color: var(--g-ink);
+    line-height: 1.5;
+    font-size: 1rem;
+  }
+  [data-gyeol][data-theme="dark"] {
+    --g-canvas: #20251f;
+    --g-surface: #292f28;
+    --g-muted: #363e34;
+    --g-line: #596154;
+    --g-ink: #f1f0e7;
+    --g-soft: #bbc2b4;
+    --g-action: #c4d5a5;
+    --g-action-hover: #d4e1bc;
+    --g-on-action: #253021;
+    --g-focus: #e4b77a;
+    --g-danger: #ffa99d;
+    --g-overlay: #0f140ed9;
+    color-scheme: dark;
+  }
+  [data-gyeol], [data-gyeol] *, [data-gyeol] *::before, [data-gyeol] *::after { box-sizing: border-box; }
+  [data-gyeol] :where(button,input,select,textarea) { font: inherit; }
+  [data-gyeol] :where(button) { cursor: pointer; }
+  [data-gyeol] :where(button):disabled { cursor: not-allowed; }
+  [data-gyeol] :where(h1,h2,h3,p,ul,ol) { margin: 0; }
+  [data-gyeol] :where(ul,ol) { padding: 0; list-style: none; }
+  [data-gyeol] :where(a) { color: inherit; }
+}

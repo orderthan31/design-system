@@ -1,0 +1,29 @@
+{
+  "name": "@orderthan31/gyeol-cli",
+  "version": "0.1.0-slice.1",
+  "type": "module",
+  "bin": {
+    "gyeol": "dist/gyeol.mjs"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "files": [
+    "dist",
+    "payload",
+    "README.md",
+    "publish-guard.mjs"
+  ],
+  "scripts": {
+    "build": "node build.mjs",
+    "prepublishOnly": "node publish-guard.mjs",
+    "prepack": "node build.mjs"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/orderthan31/design-system.git"
+  }
+}

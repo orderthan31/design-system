@@ -1,0 +1,10 @@
+import {spawnSync} from 'node:child_process';
+import {fileURLToPath} from 'node:url';
+const root=fileURLToPath(new URL('../../',import.meta.url));
+const payloadBuild=spawnSync(process.execPath,['scripts/build-slice-payload.mjs'],{cwd:root,stdio:'inherit'});
+if(payloadBuild.status!==0)process.exit(payloadBuild.status||1);
+import fs from 'node:fs';
+fs.mkdirSync('dist',{recursive:true});
+for(const name of ['gyeol.mjs','safety.mjs'])fs.copyFileSync(`src/${name}`,`dist/${name}`);
+fs.chmodSync('dist/gyeol.mjs',0o755);
+console.error('Built dependency-free executable and safety planner');

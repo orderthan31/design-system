@@ -21,3 +21,6 @@ const output=process.argv.find(arg=>arg.startsWith('--report='))?.slice(9);if(ou
 console.log(JSON.stringify({...report,diagnostics:diagnostics.slice(0,20),fixtures:undefined},null,2));
 if(sites===0)throw Error('No DS component sites recognized: empty inspection is not a pass.');
 if(jsx.some(message=>message.severity===2)||css.findings.length||fixtureError)process.exitCode=1;
+
+// The approved workspace slice is inspected independently; historical failures remain above.
+await import('./lint-slice.mjs');

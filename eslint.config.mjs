@@ -1,8 +1,9 @@
+import { sliceConfig } from './scripts/slice-eslint-policy.mjs';
 import shadcn from '@shadcn/lint';
 import tsParser from '@typescript-eslint/parser';
 import dsPolicy, { customPropertyOwners } from './scripts/design-jsx-policy.mjs';
 
-// No Tailwind migration/components.json/theme fabrication. See docs/design-rules.md.
+// Historical plain-CSS policy stays intact; the approved new slice has its own real Tailwind compiler check.
 export const componentImports = [
   '^\\.{1,2}/index$',
   '^\\.{1,2}/(?:\\.\\./)*(?:src(?:/index)?|components(?:/[^/]+)?)(?:$|/)',
@@ -20,6 +21,7 @@ export const geometryExceptions = [
 // Enumerated owners only; do not exclude the core or its four independent rules.
 const styleOwners=['atoms','primitives','molecules','icons','form-controls','date-controls','data-display','navigation','navigation-regions','templates','composition','layout','workspace-templates','text-field','list-row','bottom-cta','range-selection','progress-result','segmented-control','content-primitives','chart','input-group'];
 export default [
+ ...sliceConfig,
  {ignores:['node_modules/**','dist/**','evidence/**','public/**']},
  {files:['src/**/*.{ts,tsx}'],languageOptions:{parser:tsParser,parserOptions:{ecmaVersion:'latest',sourceType:'module',ecmaFeatures:{jsx:true}}},plugins:{shadcn,ds:dsPolicy},settings:{shadcn:{ui:'./src',componentImports,note:'Use public variant/size and semantic tokens. See docs/design-rules.md; no CSS restyle in consumers.'}},rules:{
   'shadcn/no-restyle':['error',{allow:['layout']}],
@@ -31,4 +33,8 @@ export default [
  }},
  {files:styleOwners.map(name=>`src/components/${name}.tsx`),rules:{'shadcn/no-restyle':'off'}},
  ...geometryExceptions.filter(entry=>entry.properties.length).map(entry=>({files:[entry.file],rules:{'shadcn/no-inline-styles':['error',{allow:entry.properties}]}})),
+ // Synthetic historical fixture only: preserve its existing two semantic grammar names
+ // when the plugin discovers the new workspace theme. Actual source rules stay intact.
+ {files:['src/gallery/fixture.tsx'],rules:{'shadcn/no-raw-colors':['error',{allow:['bg-primary','text-foreground']}]}},
+
 ];

@@ -1,0 +1,171 @@
+{
+  "version": "0.1.0-slice.1",
+  "common": [
+    "foundation/theme.css",
+    "lib/cn.ts"
+  ],
+  "items": {
+    "button": {
+      "files": [
+        "primitives/button.tsx"
+      ],
+      "requires": []
+    },
+    "input": {
+      "files": [
+        "primitives/input.tsx"
+      ],
+      "requires": []
+    },
+    "theme": {
+      "files": [
+        "foundation/theme.tsx"
+      ],
+      "requires": []
+    },
+    "layout": {
+      "files": [
+        "primitives/layout.tsx"
+      ],
+      "requires": []
+    },
+    "text-field": {
+      "files": [
+        "components/text-field.tsx"
+      ],
+      "requires": [
+        "input",
+        "button"
+      ]
+    },
+    "select": {
+      "files": [
+        "primitives/select.tsx",
+        "primitives/portal.tsx"
+      ],
+      "requires": [
+        "theme"
+      ],
+      "runtime": {
+        "@radix-ui/react-select": "2.3.8"
+      }
+    },
+    "tabs": {
+      "files": [
+        "primitives/tabs.tsx"
+      ],
+      "requires": [],
+      "runtime": {
+        "@radix-ui/react-tabs": "1.1.22"
+      }
+    },
+    "dialog": {
+      "files": [
+        "primitives/dialog.tsx",
+        "primitives/portal.tsx"
+      ],
+      "requires": [
+        "theme"
+      ],
+      "runtime": {
+        "@radix-ui/react-dialog": "1.2.0"
+      }
+    },
+    "composition": {
+      "files": [
+        "components/composition.tsx"
+      ],
+      "requires": [
+        "layout"
+      ]
+    }
+  },
+  "files": {
+    "components/composition.tsx": {
+      "hash": "2fece495c867584dcecfd801e0c1560fda473adafb5dd429dce71903515f9945",
+      "bytes": 1277
+    },
+    "components/text-field.tsx": {
+      "hash": "f6e26da927b12303fc3af41a96423125e6a7587ec510ff0305df41a10050e244",
+      "bytes": 2788
+    },
+    "foundation/theme.css": {
+      "hash": "c461a07798f036714e466aea5411bad1189f1a9d5cf97814b6dfe591cd56ee16",
+      "bytes": 2051
+    },
+    "foundation/theme.tsx": {
+      "hash": "a6aaabfa76f2fd6d1c87275cdd99ea7b7391aece3611a1352f6ac78ef69c01e6",
+      "bytes": 585
+    },
+    "lib/cn.ts": {
+      "hash": "8f8f4fbae84572af710b1c4aedad6ee43889436ec89d74942679c4335ff7c8ea",
+      "bytes": 518
+    },
+    "primitives/button.tsx": {
+      "hash": "d62d086a12327b8e2d7feea027081f38b4854565a5e23b9bcbd2a75b4c26d7c5",
+      "bytes": 1356
+    },
+    "primitives/dialog.tsx": {
+      "hash": "11e0ab4bf4e8dbcec45cc969034759b9a73cdedb7c4aad9b6d4695df631820e4",
+      "bytes": 2083
+    },
+    "primitives/input.tsx": {
+      "hash": "195bd2a84742ead72a2279fa1d4dc3a5e2ce0a59d27dd0cd4eb2aaf87cc27ee4",
+      "bytes": 761
+    },
+    "primitives/layout.tsx": {
+      "hash": "0301f5ebc7835b945b511d3cd20d1d68562863a843201b0c05342182ecf92401",
+      "bytes": 1024
+    },
+    "primitives/portal.tsx": {
+      "hash": "2390b20425dd8780bf8fc3de077f1417ec17842bafb15332e37d385e866a26cf",
+      "bytes": 259
+    },
+    "primitives/select.tsx": {
+      "hash": "6296e50592e223032a034030e20707dd11ea890575671b3e8de1122676f344b3",
+      "bytes": 3179
+    },
+    "primitives/tabs.tsx": {
+      "hash": "81ab68c6ff44957232596aea4d1814afc47fdd31679b06739d8a8266cf9d64d0",
+      "bytes": 1039
+    }
+  },
+  "assets": {
+    "LICENSE": {
+      "hash": "d31ddd9f2bed32fd7e302a205cf2380ba0de6529152d239ef99cfb6f261bfc04",
+      "bytes": 4418
+    },
+    "Pretendard-Bold.woff2": {
+      "hash": "4609c3356e536fafe38f4add0daeceb3d8595d3057bce13c428c33ddbd43d362",
+      "bytes": 791156
+    },
+    "Pretendard-Medium.woff2": {
+      "hash": "d03481330eeba0659ab5b87f25ceb504a35de377dd90a0d0aba2982eb2d05e2c",
+      "bytes": 778432
+    },
+    "Pretendard-Regular.woff2": {
+      "hash": "fad853f7f47c6c8b103171e7193fa095708cdcd70850a71d93aa5379e8a61d63",
+      "bytes": 765892
+    },
+    "Pretendard-SemiBold.woff2": {
+      "hash": "c863f76a7de5c1ddc1ed8b2fa794964530774592c4f31407a84e2a2ae93f17f0",
+      "bytes": 785856
+    },
+    "provenance.json": {
+      "hash": "3ca94ffbe6da16753984622184cc4d9765ba77c1cc617c5a5f5eda754b16fbee",
+      "bytes": 3041
+    }
+  },
+  "runtime": {
+    "clsx": "2.1.1",
+    "tailwind-merge": "3.7.0"
+  },
+  "build": {
+    "tailwindcss": "4.3.3",
+    "@tailwindcss/vite": "4.3.3"
+  },
+  "types": {
+    "@types/react": "19.2.2",
+    "@types/react-dom": "19.2.2"
+  }
+}
