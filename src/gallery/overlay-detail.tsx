@@ -256,10 +256,7 @@ export function Example() {
       <GalleryDocs>
         <summary>코드</summary>
         <CodeBlock source={source}/>
-        <p className="help">
-          공개 진입점은 src/index.ts예요. Confirm·Drawer·Menu·Tooltip·Input도
-          같은 경로에서 가져와요.
-        </p>
+
       </GalleryDocs>
       <GalleryDocs>
         <summary>Props</summary>
@@ -303,87 +300,31 @@ export function Example() {
           </tbody>
         </table>
         <ul>
-          <li>
-            Confirm: Omit&lt;DialogProps, "footer"&gt; + onConfirm: () =&gt;
-            void (필수), loading = false. 취소·확인 버튼을 제공해요. 확인 후
-            닫기는 소비자가 처리해요.
-          </li>
-          <li>
-            ActionGroup: children 필수, label = "동작". Button: variant =
-            "primary", size = "medium", loading = false, type = "button".
-          </li>
-          <li>
-            RadioGroup: label: string, options: ChoiceOption[] 필수. value?:
-            string, defaultValue = "", onValueChange?: (value: string) =&gt;
-            void.
-          </li>
-          <li>
-            Input: 네이티브 input 속성 + loading = false, busyLabel = "입력 확인
-            중…". label은 별도로 연결해요.
-          </li>
-          <li>
-            Menu: label = "작업 메뉴", items = ["복제", "보관"], onSelect?:
-            (value: string) =&gt; void. Tooltip: label·text: string 필수.
-          </li>
+          <li>Confirm에는 open·title·children·onClose와 onConfirm을 지정합니다. loading의 기본값은 false입니다. 취소와 확인 버튼을 제공하며 작업 완료 후 open을 갱신하세요.</li>
+          <li>ActionGroup에 관련 버튼을 넣습니다. Button의 기본값은 variant=primary, size=medium, loading=false, type=button입니다.</li>
+          <li>RadioGroup의 label과 options로 선택을 구성합니다. value/onValueChange로 관리하거나 defaultValue로 초기값을 지정하세요.</li>
+          <li>Input에는 input 속성을 전달하고 라벨을 연결하세요. loading의 기본값은 false, busyLabel은 입력 확인 중…입니다.</li>
+          <li>Menu에는 작업 목록과 onSelect를 지정합니다. Tooltip에는 버튼의 label과 설명 text를 넣습니다.</li>
         </ul>
       </GalleryDocs>
       <GalleryDocs>
         <summary>구성</summary>
-        <p>
-          <code>
-            {kind === "bottom-sheet"
-              ? "화면 → BottomSheet(작은 화면) / Dialog(PC) → 제목 + 본문(RadioGroup / Input / 스크롤) + footer(ActionGroup → Button)"
-              : "화면 → Dialog → 제목 + 본문(Menu / Tooltip / Input) + footer(ActionGroup → Button)"}
-          </code>
-        </p>
-        <p>
-          <code>
-            Dialog → Confirm / Drawer → Dialog의 공통 포커스·스크롤 소유권
-          </code>
-        </p>
-        <p className="help">
-          제목·본문은 필수예요. 단일 확인은 CTA 하나, 선택·입력은 취소와 적용을
-          함께 둬요.
-        </p>
+        <p><code>{kind === 'bottom-sheet' ? 'BottomSheet → 제목 + 본문 + footer' : 'Dialog → 제목 + 본문 + footer'}</code></p>
+        <p>내용 확인은 Dialog, 중요한 실행 전 확인은 Confirm, 옆에서 상세 내용을 보는 경우에는 Drawer를 선택하세요.</p>
+        <p>대화상자의 목적을 title에 적고 children에 내용을 넣습니다. 입력과 선택이 있으면 취소와 적용 버튼을 함께 배치하세요.</p>
       </GalleryDocs>
       <GalleryDocs>
         <summary>접근성·주의</summary>
         <ul>
-          <li>
-            title은 접근 가능한 이름이에요. 필수 입력은 label·required·설명을
-            연결하고, 공백만 있는 값은 저장하지 않아요.
-          </li>
-          <li>
-            초안과 적용값을 분리해요. 취소는 반영하지 않아요. 닫기와 Escape도
-            적용하지 않아요.
-          </li>
-          <li>
-            삭제 등 위험한 작업은 결과를 설명하고 Confirm에서 명시적으로
-            확인해요. 이 예시는 메모리 상태만 바꿔요.
-          </li>
-          <li>
-            기존 Dialog가 모달·포커스·배경 스크롤을 관리해요. 깊게 열린 자식부터
-            Escape를 처리하고, 부모를 유지해요. Menu·Tooltip도 첫 Escape를
-            소비해요.
-          </li>
-          <li>
-            닫으면 연결된 열기 버튼으로 포커스를 돌려요. 마지막 모달이 닫힐 때
-            기존 overflow 값과 !important 우선순위를 복원해요.
-          </li>
-          <li>
-            긴 본문만 스크롤하고 하단 동작은 바깥에 둬요. 작은 화면·키보드·확대
-            환경에서 입력과 CTA 가림을 확인해요.
-          </li>
+          <li>title은 대화상자의 접근 가능한 이름입니다. 입력에는 label·required와 필요한 도움말을 지정하세요.</li>
+          <li>편집 중인 값과 적용한 값을 구분하세요. 취소와 Escape로 닫을 때는 변경을 적용하지 않습니다.</li>
+          <li>삭제 등 되돌리기 어려운 동작은 결과를 설명하고 Confirm으로 실행 여부를 확인하세요.</li>
+          <li>대화상자 안에서 Menu나 Tooltip을 열면 Escape로 해당 내용을 먼저 닫습니다. 중첩 대화상자는 가장 안쪽부터 닫습니다.</li>
+          <li>닫을 때 열기 버튼으로 초점을 돌려줍니다. 마지막 대화상자를 닫으면 배경을 다시 사용할 수 있습니다.</li>
+          <li>본문이 길면 내용 영역을 스크롤합니다. 작은 화면이나 확대 상태에서도 입력과 하단 버튼을 사용할 수 있게 배치하세요.</li>
         </ul>
-        <p>
-          <a href={`#${id}-demo`}>라이브 회귀 예시</a> ·{" "}
-          <code>tests/overlay-detail.test.tsx</code> ·{" "}
-          <code>tests/modal-ownership.test.tsx</code>
-        </p>
-        <p className="help">
-          jsdom은 native modality를 인증하지 않아요. 실제 top layer·배경
-          inert·Tab 이동·모바일 배치는 Chromium 회귀 확인이 필요해요.
-        </p>
+
+
       </GalleryDocs>
     </section>
   );

@@ -46,10 +46,10 @@ export function FormInputDetail({name}:{name:FormInputDetailName}) {
     <div className="connected-preview" data-input-preview key={revision}>{preview}</div>
     <p className="help" role="status">{message}</p>
     <GalleryDocs open><summary>현재 코드</summary><CodeBlock source={source}/></GalleryDocs>
-    <GalleryDocs><summary>Props · 값과 검증</summary>
-      <p>{name==='SearchField'?'SearchField는 native search Input을 재사용합니다. value/defaultValue/onChange와 disabled/required 등 native 속성을 전달합니다. 위 검색 결과는 소비자 예제의 로컬 문자열 필터이며 검색 엔진·서버 요청이 아닙니다.':name==='PasswordInput'?'PasswordInput은 label과 native input 속성(value/defaultValue/onChange/name/required/disabled)을 전달합니다. 입력 내부 우측 eye 버튼은 실제 Radix Toggle이며 type=button/한국어 접근성 이름/aria-pressed를 제공합니다. 표시/숨김은 내부 상태입니다. readOnly는 값 편집을 막지만 보기는 바꿀 수 있고 aria-busy가 true이면 보기 토글을 막습니다. disabled는 native input과 버튼에 전달합니다. 비밀번호 강도·인증·서버 검증을 구현하지 않습니다. 예제 문자열은 실제 자격 증명이 아닙니다.':'label은 필수이며 value/defaultValue/onValueChange와 disabled/required/error/hint/name을 받습니다. value는 제어형, defaultValue는 초기 비제어형 값입니다.'}</p>
-      <p>{isNumber?'value는 number 또는 빈 문자열입니다. min/max/step 기준을 검사하고 증가·감소 버튼은 경계에서 비활성화합니다. 범위·단위에 맞지 않는 수동 편집은 내부 draft에 남고 유효한 값만 onValueChange로 전달합니다. 현재 코드·value control은 확정 값을 표시하므로 invalid draft와 다를 수 있습니다. blur 뒤 오류 안내를 확인하세요.':name==='CurrencyInput'?'value는 쉼표 없는 문자열이며 편집 후 blur에서 유효한 금액을 ko-KR 천 단위로 표시합니다. 0 이상의 안전한 정수 범위만 유효합니다. formatted 표시와 원본 value를 구분하세요.':name==='PhoneInput'?'전화번호 입력은 tel 형식이며 지역/휴대전화 패턴을 검사합니다. 빈 필수 값 또는 잘못된 값은 blur 뒤 안내하고 native validity를 함께 사용합니다. 연락처의 실제 존재·인증 여부는 확인하지 않습니다.':name==='EmailInput'?'이메일 형식과 native validity를 사용하고 blur 뒤 오류를 안내합니다. 이메일 계정의 실제 존재·인증 여부는 확인하지 않습니다.':'미리보기에서 편집한 값은 value control과 현재 코드에도 반영됩니다. 표시/숨김 등 컴포넌트 내부 상태에는 외부 제어 prop이 없습니다.'}</p>
-      <p>초기화 버튼은 이 제어형 예제가 소유한 value와 설정을 초기 값으로 되돌립니다. native form.reset()과는 별도 동작입니다.</p>
+    <GalleryDocs><summary>속성 · 값과 오류</summary>
+      <p>{name==='SearchField'?'value/defaultValue·onChange와 input 속성을 사용합니다. 검색할 대상을 라벨로 설명하고 onChange에서 검색어를 필터나 요청에 연결하세요.':name==='PasswordInput'?'label과 input 속성을 전달합니다. 표시·숨김 버튼은 비밀번호의 보기 방식을 전환합니다. readOnly에서는 편집을 막지만 보기는 바꿀 수 있고 aria-busy가 true이면 보기 전환을 막습니다. disabled는 입력과 버튼에 적용합니다.':'label과 value/defaultValue·onValueChange를 사용합니다. value는 앱에서 관리하는 값이며 defaultValue는 초기값입니다. required·disabled·error·hint·name을 지정할 수 있습니다.'}</p>
+      <p>{isNumber?'value는 숫자 또는 빈 문자열입니다. min·max·step으로 범위와 단위를 지정합니다. 범위에 맞지 않는 편집은 입력에 남고 유효한 값만 onValueChange로 전달합니다. 입력을 마친 뒤 오류 안내를 확인하세요.':name==='CurrencyInput'?'value에는 쉼표 없는 문자열을 사용합니다. 입력을 마치면 0 이상의 안전한 정수를 한국어 천 단위로 표시합니다. 저장에는 원본 value를 사용하세요.':name==='PhoneInput'?'전화번호 형식을 확인하고 입력을 마친 뒤 오류를 안내합니다. 실제 연락처 확인이 필요하면 별도 인증을 연결하세요.':name==='EmailInput'?'이메일 형식을 확인하고 입력을 마친 뒤 오류를 안내합니다. autoComplete=email로 입력을 돕고 계정 확인은 인증에 연결하세요.':'미리보기의 입력값은 현재 코드에도 반영됩니다. 비밀번호 보기 방식은 입력 옆 버튼으로 바꿀 수 있습니다.'}</p>
+      <p>예제의 초기화 버튼은 입력값과 설정을 시작 상태로 되돌립니다. 앱의 폼을 초기화할 때는 관리하는 value도 함께 갱신하세요.</p>
     </GalleryDocs>
   </div>;
 }

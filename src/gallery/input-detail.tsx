@@ -41,12 +41,12 @@ export function InputDetail() {
         <TextField label="빠른 검색" prefix={<Icon name="search" />} placeholder="문서 검색" defaultValue="디자인" clearable clearLabel="검색 지우기" />
         <TextField label="금액" prefix="₩" suffix="원" inputMode="numeric" defaultValue="12000" />
         <div className="input-detail-example">
-          <TextField label="검증 이메일" type="email" value={email}
+          <TextField label="이메일 형식 확인" type="email" value={email}
             onChange={event => { setEmail(event.currentTarget.value); setResult(null); }}
-            clearable clearLabel="검증 이메일 지우기"
+            clearable clearLabel="이메일 입력 지우기"
             error={result === 'invalid' ? '이메일 형식을 확인해 주세요.' : undefined}
             aria-describedby={result === 'valid' ? successId : undefined}
-            trailingAction={<Button variant="secondary" onClick={() => setResult(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ? 'valid' : 'invalid')}>검증</Button>} />
+            trailingAction={<Button variant="secondary" onClick={() => setResult(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ? 'valid' : 'invalid')}>형식 확인</Button>} />
           {result === 'valid' && <p className="help" role="status" id={successId}>이메일 형식이 올바릅니다.</p>}
         </div>
       </div>
@@ -107,14 +107,14 @@ export function Example() {
     </GalleryDocs>
     <GalleryDocs><summary>조합과 접근성</summary>
       <ul>
-        <li>FormField의 라벨·필수 표시·도움말·오류 연결을 유지하고 내부 Input에 전달합니다. 오류는 role="alert", 확인 상태는 role="status"로 표시합니다.</li>
-        <li>앞뒤 슬롯은 네이티브 속성이 아닌 형제 요소입니다. 장식 아이콘은 Icon을 사용하고 의미 있는 단위는 description에도 설명해 주세요. 슬롯이 입력의 접근 가능한 이름이나 설명에 자동 포함되지는 않습니다.</li>
-        <li>지우기는 type="button"이며 onChange에 빈 값을 전달하고 입력 초점을 복원합니다. 비활성·읽기 전용 입력은 지울 수 없습니다. 빈 입력에서도 지우기 버튼은 유지됩니다.</li>
-        <li>value를 전달하면 소유자가 onChange에서 값을 갱신해야 합니다. 소유자가 거절한 변경은 유지되지 않습니다. defaultValue는 비제어 초기값이며 이후 편집은 네이티브 입력에 남습니다. 제어 모드는 도중에 바꾸지 마세요.</li>
-        <li>loading은 입력을 잠그지 않습니다. 이 예시의 확인 시작·종료는 상태 전환 데모이며 서버 요청이 아닙니다. 비동기 결과의 취소·순서·오래된 값 처리는 소유자 책임입니다.</li>
-        <li>후행 동작의 이름, type="button", disabled·readOnly 처리와 서비스 로직은 슬롯 소유자 책임입니다. 컴포넌트는 임의 슬롯의 동작을 변경하지 않습니다.</li>
-        <li>이메일 데모는 간단한 형식 확인만 하며 주소 존재나 소유권을 확인하지 않습니다. 서버 검증, 폼 제출, 고유한 id·name, 자동 완성, 입력 목적별 type·inputMode·pattern은 소유자가 지정합니다.</li>
-        <li>텍스트 계열 입력에 사용합니다. 체크박스·라디오·파일 선택은 전용 컴포넌트를 사용하세요. 공개 Input이 ref를 전달하지 않아 TextField도 입력 ref API를 제공하지 않습니다. 공통 스타일은 .ds-core 안에서 적용됩니다.</li>
+        <li>라벨과 필수 표시, 도움말, 오류를 함께 보여줍니다. error에는 사용자가 수정할 내용을 적으세요.</li>
+        <li>prefix와 suffix에 아이콘이나 단위를 넣을 수 있습니다. 중요한 단위는 description에도 설명하세요.</li>
+        <li>clearable을 켜면 지우기 버튼을 표시합니다. 누르면 onChange에 빈 값을 전달하고 입력으로 초점을 돌려줍니다. disabled와 readOnly에서는 지우기를 제한합니다.</li>
+        <li>value를 전달하면 onChange에서 값을 갱신하세요. defaultValue는 초기값에 사용합니다. 사용 중 제어형과 비제어형을 바꾸지 마세요.</li>
+        <li>loading은 진행 상태를 안내하며 입력 편집을 유지합니다. 편집을 잠가야 한다면 readOnly 또는 disabled를 함께 지정하세요.</li>
+        <li>동작 슬롯의 버튼에는 이름과 type=button을 지정하고 입력 상태에 맞춰 disabled를 설정하세요.</li>
+        <li>이메일 형식 확인과 주소 인증을 구분하세요. 입력 목적에 맞춰 autoComplete·type·inputMode·pattern을 지정하고 각 필드에 고유한 id·name을 사용하세요.</li>
+        <li>텍스트 계열 입력에 사용합니다. 선택에는 Checkbox나 RadioGroup을, 파일에는 FileInput을 사용하세요.</li>
       </ul>
     </GalleryDocs>
   </div>;

@@ -46,8 +46,8 @@ export function RangeSelectionDetail({ kind }: RangeSelectionDetailProps) {
         <h2>직접 사용하기</h2>
         <p>
           {isSlider
-            ? "0~100 사이의 음량을 5 단위로 조절합니다. 숫자 변경과 실제 폼 값을 확인해 보세요."
-            : "1~5점 중 하나를 선택하세요. 별은 장식이며 각 점수는 라디오 선택입니다. 지우면 필수 선택이 다시 필요합니다."}
+            ? "이 예제는 음량을 0~100 범위에서 5 단위로 조절합니다. 값을 바꾸고 폼에 제출해 보세요."
+            : "1~5점 중 하나를 선택하세요. 이 예제에서는 지우기를 켜 두었습니다. 필수 평가를 지웠다면 다시 점수를 선택해 주세요."}
         </p>
         <Checkbox label="데모 비활성화" checked={disabled} onChange={event=>setDisabled(event.currentTarget.checked)}/>
         <form
@@ -125,52 +125,14 @@ export function RangeSelectionDetail({ kind }: RangeSelectionDetailProps) {
       <GalleryDocs>
         <summary>조합과 접근성</summary>
         <ul>
-          <li>
-            선택 설치: <code>npx shadcn@4.21.3 add orderthan31/design-system/{kind}</code>.
-            설치한 owner를 .ds-core 안에서 사용하세요. 아래 폼 조합의 Button은 별도 button 선택 설치가 필요합니다. 컴포넌트가 자체 CSS를 가져오므로 core/gallery CSS는 필요하지 않습니다.
-            Pretendard와 기존 테마 역할 변수를 그대로 사용합니다.
-          </li>
-          <li>
-            {isSlider
-              ? 'label은 input type="range"의 이름입니다. 브라우저가 방향키·Home·End·터치 조작을 제공합니다. 이동 키의 세부 동작은 브라우저마다 다를 수 있습니다. 단위는 라벨이나 주변 설명에 명확히 적어 주세요.'
-              : "fieldset의 legend는 그룹 이름이며 1점~5점은 보이는 라디오 라벨입니다. Tab으로 그룹에 진입하고 방향키로 점수를 이동하며 Space로 선택합니다. 별 모양은 aria-hidden 장식이고 선택한 점수까지 별이 채워지고 native checked 값이 현재 선택을 전달합니다. 사각 테두리나 색상만으로 선택을 표현하지 않습니다."}
-          </li>
-          <li>
-            value를 전달하면 제어 모드이며 onValueChange에서 소유자가 갱신해야
-            합니다. 거절한 변경은 남지 않습니다. defaultValue는 초기값만
-            설정합니다. 부모가 다시 렌더링해도 입력 노드와 비제어 편집 값을
-            유지합니다. 제어/비제어 모드는 중간에 바꾸지 마세요.
-          </li>
-          <li>
-            {isSlider
-              ? "min·max는 유한한 숫자이고 min ≤ max여야 합니다. step은 유한한 양수 또는 any입니다. value/defaultValue는 유한하며 범위 안에 있어야 하고 숫자 step은 min 기준 단위와 맞아야 합니다(부동소수점 단위 오차 허용치 1e-8). 계약 위반은 렌더 중 RangeError로 즉시 알립니다. 자동으로 범위를 잘라 저장하지 않습니다. 범위를 동적으로 바꿀 때 현재 값도 함께 맞춰 주세요."
-              : "점수는 0~5 정수입니다. 0은 미선택으로 폼 데이터에 점수가 없습니다. 비유한·소수·범위 밖 값은 렌더 중 RangeError입니다. required는 최소 한 라디오 선택을 요구하며 브라우저의 폼 검증을 사용합니다."}
-          </li>
-          <li>
-            {isSlider
-              ? "range에는 항상 숫자 값이 있으므로 required/빈 값 API를 제공하지 않습니다. 양 끝 값과 숫자 형식은 네이티브 range 제약을 유지합니다. DOM을 통해 단위에 맞지 않는 변경이 전달되어도 콜백을 호출하지 않습니다."
-              : 'clearable을 명시해야 지우기 버튼이 나타납니다. type="button"으로 폼을 제출하지 않으며 0을 전달합니다. required 상태에서 지운 뒤에는 다시 점수를 선택해야 합니다. disabled 또는 상위 fieldset 비활성 상태에서는 지우기도 차단됩니다. 버튼을 다른 버튼 안에 넣지 마세요.'}
-          </li>
-          <li>
-            폼의 name은 서비스가 지정합니다. Rating은 name을 생략하면
-            인스턴스마다 고유한 라디오 그룹 이름을 생성합니다. 서로 다른
-            Rating에 같은 name을 지정하면 네이티브 라디오가 같은 그룹으로
-            동작하므로 피하세요. form은 외부 폼 id와 연결합니다.
-          </li>
-          <li>
-            컴포넌트는 네이티브 form.reset 기본 동작 뒤 microtask에서
-            비제어 초기값 또는 최신 제어 value로 DOM·폼 값을 동기화합니다.
-            취소된 reset은 편집 값을 유지하며 reset 자체는 변경 콜백을 호출하지 않습니다.
-            제어 초기화가 필요하면 소유자가 value를 초기값으로 갱신하세요.
-            서버 요청·저장은 이 데모에 없으며
-            서버에서도 값과 허용 범위를 검증해야 합니다.
-          </li>
-          <li>
-            320px 폭에서는 점수 행이 줄바꿈되고 입력은 가용 폭에 맞춰집니다.
-            사용 코드와 속성 표는 필요한 경우 내부에서 가로 스크롤됩니다.
-            브라우저별 range 모양과 비활성 라디오 모양은 네이티브 렌더링을
-            사용합니다.
-          </li>
+
+          <li>{isSlider?'방향키·Home·End로 값을 조절할 수 있습니다. 단위는 라벨이나 주변 설명에 적으세요. 브라우저마다 키 동작이 다를 수 있습니다.':'Tab으로 그룹에 들어가 방향키로 점수를 이동하고 Space로 선택합니다. 각 점수의 이름과 선택 상태를 함께 안내합니다.'}</li>
+          <li>value/onValueChange로 값을 관리하거나 defaultValue로 초기값을 지정하세요. 사용 중 제어형과 비제어형을 바꾸지 마세요.</li>
+          <li>{isSlider?'min과 max에는 유한한 숫자를 지정하고 min을 max 이하로 설정하세요. step은 양수 또는 any입니다. 값은 범위와 단위에 맞아야 하며 잘못된 설정에는 RangeError가 발생합니다. 범위를 바꿀 때 현재 값도 맞춰 주세요.':'점수는 0~5의 정수입니다. 0은 미선택을 뜻하며 폼에 점수를 제출하지 않습니다. 잘못된 점수에는 RangeError가 발생합니다. required를 지정하면 점수를 선택해야 합니다.'}</li>
+          <li>{isSlider?'Slider는 항상 숫자 값을 갖습니다. 정확한 허용 범위와 단위를 지정하고 저장 전에도 값을 확인하세요.':'clearable을 켜면 지우기 버튼을 표시하고 누르면 0으로 돌아갑니다. required인 상태에서는 다시 점수를 선택해야 합니다. 비활성화한 입력은 지우기도 제한합니다.'}</li>
+          <li>폼에 제출할 이름을 name에 지정하세요. 각 Rating에는 다른 name을 사용합니다. form으로 외부 폼 id에 연결할 수 있습니다.</li>
+          <li>form.reset의 기본 동작 뒤 비제어 입력은 초기값, 제어 입력은 최신 value로 맞춥니다. 취소된 reset은 값을 유지하며 reset은 변경 콜백을 호출하지 않습니다. 제어 입력을 초기값으로 되돌리려면 앱의 value를 갱신하세요.</li>
+          <li>좁은 공간에서는 점수 행이 줄바꿈하며 Slider는 가용 너비에 맞춰집니다. 브라우저의 기본 입력 동작을 사용합니다.</li>
         </ul>
       </GalleryDocs>
     </div>

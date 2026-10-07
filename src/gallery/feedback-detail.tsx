@@ -24,7 +24,6 @@ export function FeedbackDetail({name}:{name:FeedbackDetailName}) {
   const imports=name==='ErrorState'?'ErrorState, LoadingSpinner, Button':isDisclosure?name:`${name}, Button`;
   const state=name==='ErrorState'?`  const [loading, setLoading] = useState(${loading});\n`:isDisclosure?'':`  const [visible, setVisible] = useState(${visible});\n`;
   const component=name==='LoadingSpinner'?`<Button variant="secondary" onClick={() => setVisible(value => !value)}>{visible ? '로딩 숨기기' : '로딩 표시'}</Button>\n      {visible && <LoadingSpinner label=${JSON.stringify(text)} />}`:name==='ErrorState'?`<Button variant="secondary" onClick={() => setLoading(false)}>오류 다시 표시</Button>\n      {loading ? <LoadingSpinner label="다시 불러오는 중" /> : <ErrorState message=${JSON.stringify(text)} onRetry={() => setLoading(true)} />}`:name==='Toast'?`<Button variant="secondary" disabled={visible} onClick={() => setVisible(true)}>알림 표시</Button>\n      {visible && <Toast message=${JSON.stringify(text)} onDismiss={() => setVisible(false)} />}`:name==='Accordion'?`<Accordion items={items} multiple={${multiple}} />`:`<Collapse title=${JSON.stringify(text)}>{${JSON.stringify(content)}}</Collapse>`;
-  const installName=name.replace(/([a-z])([A-Z])/g,'$1-$2').toLowerCase();
   const importLines=imports.split(', ').map(symbol=>`import { ${symbol} } from './src/gyeol/components/${symbol.replace(/([a-z])([A-Z])/g,'$1-$2').toLowerCase()}';`).join('\n');
   const source=`${isDisclosure?'':"import { useState } from 'react';\n"}${importLines}\n${name==='Accordion'?`\nconst items = ${JSON.stringify(items)};\n`:''}\nexport function Example() {\n${state}  return (\n    <div className="ds-core">\n      ${component}\n    </div>\n  );\n}`;
   return <div className="connected-detail stack" data-feedback-detail={name}>
@@ -38,12 +37,11 @@ export function FeedbackDetail({name}:{name:FeedbackDetailName}) {
     </GalleryControls>
     <p className="help" role="status">{message}</p>
     <GalleryDocs open><summary>현재 코드</summary><CodeBlock source={source}/></GalleryDocs>
-    <p className="help">선택 설치: <code>npx shadcn@4.21.3 add orderthan31/design-system/{installName}</code>. 예제의 추가 Button/LoadingSpinner는 별도로 설치합니다. 컴포넌트가 own CSS를 가져오고 font 자산은 수동 배치합니다.</p>
     <GalleryDocs><summary>Props · 동작과 상태</summary>
-      <p>{name==='LoadingSpinner'?'label은 status의 접근성 이름과 표시 문구이며 기본값은 불러오는 중입니다. 표시 여부는 부모가 조건부 렌더링으로 정합니다. visible/loading/진행률/완료 콜백은 이 컴포넌트의 props가 아닙니다.':name==='ErrorState'?'message는 표시 문구이며 onRetry는 필수 콜백입니다. 재시도 버튼은 콜백만 호출합니다. 이 예제의 부모는 오류 대신 로딩 표시로 전환하고 오류 다시 표시 버튼으로 되돌립니다. disabled/재시도 중 상태 prop은 없습니다.':name==='Toast'?'message와 onDismiss는 필수입니다. 알림 닫기 버튼은 콜백만 호출하고 부모가 표시 상태를 false로 바꿔 제거합니다. role은 status이며 자동 닫힘·duration·타이머·알림 queue가 없습니다.':name==='Accordion'?'items는 고유한 id/title/content 및 항목 disabled를 받습니다. multiple 기본값은 false입니다. 단일 모드는 새 항목을 누르면 이전 항목을 닫고 복수 모드는 항목을 추가로 펼칩니다. 버튼의 aria-expanded/aria-controls와 hidden 패널을 사용합니다.':'title과 children은 필수입니다. 실제 버튼 클릭 또는 Enter/Space로 펼치고 접습니다. aria-expanded/aria-controls와 hidden 패널을 사용합니다.'}</p>
-      <p>{isDisclosure?'펼침은 내부 상태이며 처음에는 전부 접혀 있습니다. 외부 open/defaultOpen/onOpenChange props가 없습니다. 현재 코드는 items/title/children 등의 설정을 표현하며 내부 펼침 상태를 외부 제어 값으로 보여주지 않습니다. 초기화는 미리보기를 다시 열어 접힌 상태로 되돌립니다.':'이 예제의 표시·재시도 상태는 로컬 메모리입니다. 서버 요청이나 실제 작업 완료를 실행하지 않으며 로딩을 자동으로 끝내지 않습니다.'}</p>
-      {name==='Accordion'&&<p>multiple 설정 변경만으로 기존 열린 항목을 정규화하거나 접지 않습니다. 새 모드는 이후 버튼 조작에 적용됩니다. disabled 항목은 native 버튼으로 변경을 막지만 이미 열려 있던 내용 자체를 숨기지는 않습니다.</p>}
-      {name==='Collapse'&&<p>collapsed/disabled 등의 외부 상태 prop은 없습니다. 여러 Collapse를 조합하면 각각 독립적으로 펼쳐집니다.</p>}
+      <p>{name==='LoadingSpinner'?'label은 표시 문구와 상태 이름입니다. 작업이 시작되면 표시하고 끝나면 결과 안내로 바꾸세요.':name==='ErrorState'?'message에 실패 원인과 재시도 안내를 적으세요. onRetry에서 다시 요청하고 진행 중에는 로딩 표시로 바꾸세요.':name==='Toast'?'message와 onDismiss를 지정합니다. 닫기 버튼을 누르면 onDismiss를 호출하며 화면에서 메시지를 제거합니다.':name==='Accordion'?'각 항목에 고유한 id·title·content를 지정합니다. multiple을 켜면 여러 항목을 함께 열 수 있습니다. 제목 버튼의 Enter와 Space로 펼치고 접습니다.':'title에 내용을 요약하고 children에 상세 내용을 넣습니다. 제목 버튼의 Enter와 Space로 펼치고 접습니다.'}</p>
+      <p>{isDisclosure?'처음에는 모든 내용을 접어서 표시합니다. 제목을 누르면 내용을 펼칩니다. 예제의 초기화 버튼은 접힌 상태로 되돌립니다.':'작업의 진행 상태와 결과에 맞춰 표시할 내용을 갱신하세요. 예제의 상태 버튼으로 로딩과 결과 안내를 비교할 수 있습니다.'}</p>
+      {name==='Accordion'&&<p>multiple 변경은 이후의 항목 조작에 적용됩니다. 이미 펼친 항목은 유지합니다. disabled는 제목 버튼의 조작을 막으며 이미 열린 내용을 숨기지는 않습니다.</p>}
+      {name==='Collapse'&&<p>여러 Collapse를 함께 배치하면 각각 독립적으로 펼치고 접을 수 있습니다.</p>}
     </GalleryDocs>
   </div>;
 }

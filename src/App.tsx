@@ -56,7 +56,6 @@ import { DataDisplayGallery } from "./components/data-display";
 import { NavigationRegionsGallery } from "./components/navigation-regions";
 
 import core from "./generated/core.json";
-import contracts from "./generated/components.json";
 import { resolveTokens } from "./tokens";
 import longText from "./long-text.json";
 export const pages = ['Overview','Foundations'] as const;
@@ -454,11 +453,7 @@ function Demo({ name }: { name: string }) {
     </>
   );
 }
-function StateContract({name}:{name:string}) {
-  const historical=(contracts as Record<string,{states:string[]}>)[name];
-  if(!historical)return null;
-  return <GalleryDocs className="contract"><summary>기준 상태 계약</summary><p>원본 상태 계약이며 현재 구현의 전체 검증 통과를 의미하지 않습니다.</p><div className="wrap">{historical.states.map(state=><span className="state-chip" key={state}>{state}</span>)}</div><p>텍스트는 줄바꿈하고 컨테이너는 늘어납니다. 초점은 처리 중·오류·선택 상태와 독립적입니다. 범위별 예외는 원본 계약에서 확인하세요.</p><a href="/source/contracts/components.json">원본 계약 보기 ↗</a></GalleryDocs>;
-}
+
 function RelatedExamples({name}:{name:string}) {
   const examples=name==='Button'?<StateGallery/>:name==='FormField'?<FormControlsGallery/>:name==='Alert'?<FeedbackGallery/>:name==='DatePicker'?<DateControlsGallery/>:name==='DataTable'?<DataDisplayGallery/>:name==='Dialog'?<NavigationRegionsGallery/>:null;
   return examples?<GalleryDocs><summary>관련 상태 · 조합 예제</summary>{examples}</GalleryDocs>:null;
@@ -642,7 +637,7 @@ export function App() {
               {hasPlayground(entry.name)?<VariantExamples><CanonicalDetail name={entry.name}/></VariantExamples>:<CanonicalDetail name={entry.name}/>}
 
 
-              <StateContract name={entry.name}/>
+
               <RelatedExamples name={entry.name}/></ComponentWorkbench>
             </section>
           ) : page === "Overview" ? (

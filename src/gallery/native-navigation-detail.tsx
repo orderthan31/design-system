@@ -29,8 +29,8 @@ export function NativeNavigationDetail({name}:{name:NativeNavigationDetailName})
   </GalleryControls>
   <GalleryDocs open><summary>현재 코드</summary><CodeBlock source={source}/></GalleryDocs>
   <GalleryDocs><summary>Props · 동작과 상태</summary>
-   <p>선택 설치: <code>npx shadcn@4.21.3 add orderthan31/design-system/{name.toLowerCase()}</code>. 자체 owner CSS와 실제 transitive style만 가져오며 Pretendard 자산은 수동 배치합니다.</p>
-   <p>{name==='Tabs'?'items는 label/content 배열이며 필수입니다. label 기본값은 보기 전환입니다. 실제 native button의 ArrowLeft/ArrowRight/Home/End가 선택과 focus를 함께 갱신하고 aria-controls/aria-labelledby 및 hidden panel을 유지합니다. 콘텐츠는 숨겨져도 계속 mounted입니다. 선택한 인덱스가 items 축소로 사라지면 기존 첫 보기 기본값으로 복원합니다. controlled value/onValueChange/disabled/방향 API는 없습니다.':name==='Menu'?'label 기본 작업 메뉴, items 기본 복제/보관이며 onSelect는 선택 콜백입니다. ArrowDown으로 열고 native menuitem의 Up/Down/Home/End로 이동합니다. 선택과 Escape는 trigger에 focus를 돌려주고 외부 blur는 외부 focus를 유지하며 닫습니다. 콜백은 서버 동작을 수행하지 않습니다. open/placement/portal/disabled API는 없습니다.':'label/text는 필수 문자열입니다. native trigger focus 또는 pointer enter로 열고 blur/leave 또는 Escape로 닫습니다. 표시 중인 tooltip id를 aria-describedby로 연결합니다. 기존 inline 위치 owner이며 portal/placement/open/타이머 API는 없습니다.'}</p>
+
+   <p>{name==='Tabs'?'items에 label·content 배열을 전달합니다. 기본 label은 보기 전환입니다. 좌우 방향키·Home·End로 탭을 선택하고 초점을 이동합니다. 숨겨진 콘텐츠도 유지하며 선택한 인덱스가 항목 축소로 사라지면 첫 탭을 선택합니다.':name==='Menu'?'기본 label은 작업 메뉴, items는 복제·보관입니다. onSelect에서 선택한 작업을 처리하세요. ArrowDown으로 열고 방향키·Home·End로 이동합니다. 선택과 Escape 후 버튼으로 초점을 돌려줍니다.':'label은 버튼 문구, text는 보충 설명입니다. 버튼에 초점을 두거나 포인터를 올리면 표시하고 초점을 옮기거나 포인터를 벗어나거나 Escape를 누르면 닫습니다.'}</p>
   </GalleryDocs>
  </div>;
 }

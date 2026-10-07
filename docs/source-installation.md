@@ -1,6 +1,10 @@
-# Gyeol Design — 선택 소스 설치 계약
+# Gyeol Design — 설치와 사용 시작
 
-저장소는 private gallery 앱이며 npm 배포 패키지가 아닙니다. `registry.json`은 공식 shadcn GitHub source registry입니다. 별도 registry 서버·자체 CLI·컴포넌트별 npm package는 없습니다. 실제 제품 앱 통합은 별도입니다.
+Gyeol Design의 컴포넌트 소스를 React 프로젝트에 추가해 사용합니다. 필요한 컴포넌트만 선택 설치하거나 저장소 전체 소스를 연결할 수 있습니다. 두 방식의 import와 스타일 설정은 아래 안내를 따르세요.
+
+## 필요한 컴포넌트만 설치하기
+
+프로젝트의 shadcn 설정을 준비한 뒤 프로젝트 루트에서 원하는 명령을 실행합니다. 공식 GitHub registry 경로를 사용합니다. 저장소에 접근할 수 있는 GitHub 환경이 필요합니다.
 
 ```sh
 npx shadcn@4.21.3 add orderthan31/design-system/button
@@ -38,44 +42,73 @@ npx shadcn@4.21.3 add orderthan31/design-system/menu
 npx shadcn@4.21.3 add orderthan31/design-system/tooltip
 ```
 
-- 설치 위치: `src/gyeol/`. 소비 앱의 기존 경로로 옮길 때 상대 import도 함께 유지합니다. `~/` target은 프로젝트 루트 기준이며 전역 홈 설치가 아닙니다.
-- `button`은 React만 필요하고 Input/PasswordInput/Chart/갤러리 소스와 Radix/Lucide/Recharts는 가져오지 않습니다.
-- `input`은 React만 필요합니다. `password-input`은 실제 Input·InputGroup·필드 프레임과 Radix Toggle/Lucide만 포함합니다. `chart`는 실제 Chart·Table과 React/Recharts/react-is만 포함합니다. 다른 데이터 컨트롤·갤러리는 포함하지 않습니다.
-- `icon-button`은 실제 Button과 React만, `textarea`/`select`/`checkbox`는 자신의 native owner/style과 React만 포함합니다. `icon`은 정적 Lucide subset만 포함하고 IconAction/버튼/갤러리는 가져오지 않습니다. `icon-action`은 실제 Icon→IconButton→Button만 추가합니다. native className/ref는 실제 control에 전달되며 Checkbox의 mixed는 native indeterminate로 유지합니다.
-- manifest의 dependency/devDependency는 소비자의 package.json과 lockfile에 CLI가 반영합니다. npm의 저장 접두사 정책에 따라 package.json에는 `^`가 붙을 수 있으므로 실제 resolution은 lockfile로 확인합니다. 이미 설치된 React 환경과 충돌하면 소비자가 기존 환경과 조율해야 합니다.
-- 컴포넌트 source가 자신의 CSS를 import합니다. 애플리케이션 범위의 `.ds-core` 안에서 사용하며 core/gallery/styles.css를 복사할 필요가 없습니다. 범위 밖 host reset은 하지 않습니다.
+위 목록의 33개 컴포넌트가 선택 설치를 지원합니다. 그 외 컴포넌트는 아래 전체 소스 방식으로 사용할 수 있습니다. 특정 버전으로 고정하려면 경로 뒤에 `#<commit-SHA>`를 붙입니다.
+
+소스는 프로젝트의 `src/gyeol/`에 설치됩니다. `~/` 설치 대상은 프로젝트 루트를 뜻합니다. 경로를 옮길 때는 관련 파일과 상대 import를 함께 유지하세요.
 
 ```tsx
 import { Button } from './src/gyeol/components/button';
 import { Input } from './src/gyeol/components/input';
 
-<div className="ds-core">
-  <Button className="rounded-none px-8">저장</Button>
-  <Input name="title" aria-label="제목" />
-</div>
+export function Example() {
+  return <div className="ds-core">
+    <Input name="title" aria-label="제목" />
+    <Button type="button">저장</Button>
+  </div>;
+}
 ```
 
-현재 canonical gallery75항목 중 선택 설치33항목입니다. 나머지42항목은 component 부재가 아니라 standalone 설치 coverage 미완료입니다.
+컴포넌트 파일이 필요한 CSS를 가져옵니다. 선택 설치에서는 별도로 전체 `core.css`나 `gallery.css`를 가져오지 않습니다. 예제에서 추가로 사용하는 컴포넌트는 각각 설치하세요. 예를 들어 Shell의 navigation에 Button을 넣으려면 button도 설치합니다.
 
-- Switch/RadioGroup/MultiSelect/CheckboxGroup/Slider/Rating은 필요한 field/choice/reset/checkbox/button owner와 React만 포함하며 Recharts/Lucide/Radix를 가져오지 않습니다. form.reset()은 native default action 후 microtask에서 uncontrolled 초기값 또는 latest controlled owner 값으로 DOM/표시 state를 맞추며 change callback을 만들지 않습니다. cancelled reset은 동기화하지 않습니다.
+## 의존성과 라이선스
 
-- Badge/Separator/Skeleton은 자기 owner와 React만 포함합니다. Skeleton의 숨김 안내·pulse/reduced-motion은 해당 owner에 포함하며 Progress/Alert/Input/Chart/갤러리를 가져오지 않습니다.
+설치 명령은 컴포넌트에 필요한 dependency·devDependency를 프로젝트의 `package.json`과 lockfile에 반영합니다. 기존 React 버전과 프로젝트 설정을 확인하고 변경한 lockfile을 함께 보관하세요.
 
-- Container/Stack/Grid/Shell은 자신의 native layout/style과 React만 설치합니다. Shell의 navigation/header/children 슬롯은 소비자가 별도로 제공하고 필요한 Button 등은 별도 선택 설치합니다. mainAs는 기존 main/div만 지원하며 gallery 안에서는 div를 지정합니다. Container/Stack/Grid의 native div props/className/ref는 actual div에 연결됩니다.
+- Button, Input, 일반 HTML 입력·선택·배치 컴포넌트는 React를 사용합니다.
+- PasswordInput은 Input·InputGroup·필드 프레임과 Radix Toggle·Lucide를 사용합니다.
+- Icon과 IconAction 및 아이콘을 사용하는 ErrorState·Toast·Accordion은 필요한 아이콘 소스를 포함합니다.
+- Chart는 Table·Recharts·react-is를 사용합니다. 다른 컴포넌트만 설치할 때 차트 라이브러리가 따라오지는 않습니다.
 
-- Alert/EmptyState/LoadingSpinner/Collapse는 필요한 Badge/Button과 React만, ErrorState/Toast/Accordion은 실제 Icon transitive owner와 Lucide subset을 추가합니다. Progress/다른 feedback/gallery는 설치하지 않습니다. retry/dismiss/disclosure는 기존 caller callback/native Button·internal state이며 서버 요청/자동완료/알림 queue/타이머를 추가하지 않습니다.
+원본 소스와 의존성의 라이선스·저작권 고지를 유지하세요. Pretendard의 LICENSE와 provenance.json은 글꼴 파일과 함께 제공합니다.
 
-## Pretendard 자산 — 별도 필수 설정
+## 전체 소스로 사용하기
 
-CSS의 `font-face.css`는 400/500/600/700을 등록하고 `/source/fonts/Pretendard-{Regular,Medium,SemiBold,Bold}.woff2`를 요청합니다. **woff2 binary는 현재 CLI source item으로 자동 복사하지 않습니다.** 설치한 컴포넌트만으로 해당 자산을 확보했다고 간주하지 않습니다. registry item의 `meta.fontAssets`에 정확한 원본·소비자 경로·URL·SHA-256을 넣었습니다.
+저장소의 `src/`를 프로젝트에 복사하거나 연결하고 해당 경로의 공개 진입점과 core.css를 사용합니다. 저장소의 `package.json`을 참고해 사용하는 컴포넌트의 의존성을 준비하세요.
 
-동일 Git checkpoint의 `public/source/fonts/`에서 네 woff2와 `LICENSE`, `provenance.json`을 소비자 `public/source/fonts/`에 그대로 복사하고 실제 정적 URL이 올바른 MIME/bytes로 응답하게 합니다. subpath 배포에서는 `src/gyeol/font-face.css`의 네 URL을 소비자의 실제 asset URL로 조정합니다. 원본 font bytes와 license는 바꾸지 않습니다. 자산이 없으면 system sans fallback이며 동일 외관을 주장할 수 없습니다.
+```tsx
+import { Button, TextField } from './src/index';
+import './src/core.css';
 
-## override와 native/slot 계약
+export function Example() {
+  return <div className="ds-core">
+    <TextField label="이름" name="name" autoComplete="name" />
+    <Button type="button">확인</Button>
+  </div>;
+}
+```
 
-순서는 `theme → base → components → utilities`입니다. Tailwind의 layer 순서를 먼저 선언하고, 소비자 unlayered CSS 또는 utilities는 기본 컴포넌트 규칙보다 우선합니다. 상태·focus를 없앤 override의 접근성 책임은 소비자에게 있습니다.
+`gallery.css`는 문서 앱용입니다. 소비하는 화면에는 컴포넌트 스타일과 `.ds-core` 범위를 적용하세요.
 
-semantic 기본값은 소비 요소에서 해석합니다. 예를 들어 `background: var(--button-bg-default, var(--color-action-primary-bg-default))`입니다. 선택적 component override는 기본 `initial`로 역사 literal을 무효화하므로 조상에서 semantic만 바꾸거나 하위 컨테이너에서 semantic을 다시 바꾸어도 실제 Button에 도달합니다. component override를 명시하면 그것이 우선하며 해당 값은 후손에 상속됩니다. `.ds-core`를 다시 붙인 별도 DS root는 기본 테마를 새로 선언합니다.
+## Pretendard 글꼴 설정
+
+글꼴 파일은 선택 설치 명령으로 자동 복사되지 않으므로 별도로 준비합니다. 사용한 소스와 같은 버전의 `public/source/fonts/`에서 다음 파일을 앱의 `public/source/fonts/`로 복사하세요.
+
+- `Pretendard-Regular.woff2` — 400
+- `Pretendard-Medium.woff2` — 500
+- `Pretendard-SemiBold.woff2` — 600
+- `Pretendard-Bold.woff2` — 700
+- `LICENSE`
+- `provenance.json`
+
+`font-face.css`는 `/source/fonts/`에서 네 글꼴을 요청합니다. 앱의 정적 파일 설정에 맞춰 해당 URL이 글꼴을 제공하도록 구성하세요. 하위 경로에 배포하면 font-face.css의 URL을 실제 자산 경로로 바꿉니다. 원본 글꼴 파일과 LICENSE는 그대로 유지합니다. 파일이 없으면 시스템 글꼴을 사용합니다.
+
+선택 설치 항목의 `meta.fontAssets`에는 원본 경로, 대상 경로, URL과 SHA-256이 있습니다. 이를 사용해 복사한 파일을 확인할 수 있습니다.
+
+## 스타일과 테마 조정
+
+스타일 순서는 `theme → base → components → utilities`입니다. Tailwind를 함께 쓰면 이 layer 순서를 먼저 선언하세요. 컴포넌트의 className과 style은 해당 컴포넌트가 제공하는 속성에 맞춰 사용합니다. 선택·오류·키보드 초점 표시가 사라지지 않도록 조정하세요.
+
+CSS 변수로 전체 영역이나 하위 영역의 의미 색상, 특정 컴포넌트 색상을 바꿀 수 있습니다. 컴포넌트 변수를 지정하면 해당 값이 의미 색상보다 우선합니다.
 
 ```css
 .application.ds-core { --color-action-primary-bg-default: #0f766e; }
@@ -83,6 +116,14 @@ semantic 기본값은 소비 요소에서 해석합니다. 예를 들어 `backgr
 .application .special-button { --button-bg-default: #1e40af; }
 ```
 
-Button/Input의 native rest/className/ref는 실제 button/input에 도달합니다. InputGroupInput은 `input-group-control` slot을 보존하고 caller data-slot도 유지합니다. InputGroup/Addon은 native div rest/className/ref를 전달합니다. Password의 기존 className/ref/native attrs는 input 소유이며 field/label/description/error·input-group/control/addon·password-trigger는 data-slot으로 찾아 조합합니다. 별도 rootProps/portal/placement/open/timezone API를 만들지 않습니다.
+중첩 영역의 의미 변수를 바꾸면 그 안의 컴포넌트에 적용됩니다. `.ds-core`를 새 영역에 다시 지정하면 기본 테마로 시작합니다. 저장소 전체 소스에서는 공개 `applyTheme`와 theme API를 사용할 수도 있습니다.
 
-현재 빠른 checkpoint의 검증과 디자인/전체 브라우저·AT/IME·전수 consumer 수락은 별개입니다. 공식 schema/사용 계약 참고: https://ui.shadcn.com/docs/registry/github 및 https://ui.shadcn.com/docs/registry/registry-item-json.
+## 입력과 폼 연결
+
+입력의 name, 필수 입력, 오류 안내를 화면의 폼에 맞춰 설정하세요. `value/checked`를 전달하는 제어 입력은 변경 콜백에서 값을 갱신합니다. `defaultValue/defaultChecked`는 비제어 입력의 초기값입니다. 컴포넌트별 지원 속성과 초기화 동작은 Docs에서 확인하세요.
+
+Button·Input의 className과 ref는 실제 입력 요소에 연결됩니다. PasswordInput의 className·ref·input 속성은 비밀번호 입력에 적용됩니다. InputGroup·Addon은 div 속성을 전달하며, 내부 요소는 data-slot으로 구분할 수 있습니다.
+
+## 문서 실행
+
+저장소 루트에서 `npm ci` 후 `npm run dev`를 실행합니다. Variant에서 설정과 상태를 비교하고 Code에서 해당 설정의 예제를 확인할 수 있습니다.

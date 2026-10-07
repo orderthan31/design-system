@@ -26,9 +26,9 @@ export function NavigationDetail({name}:{name:NavigationDetailName}) {
       <Button variant="ghost" onClick={reset}>초기화</Button>
     </GalleryControls>
     <GalleryDocs open><summary>현재 코드</summary><CodeBlock source={source}/></GalleryDocs>
-    <GalleryDocs><summary>Props · 탐색과 선택</summary><p>{name==='Breadcrumb'?'items는 label과 선택적 href를 받습니다. 앞 항목의 href는 native 링크이며 실제 문서 페이지로 이동합니다. 마지막 항목은 href를 주어도 aria-current="page"인 span으로 표시합니다. 긴 경로 예시는 부모 items 배열에 설명용 단계를 더하며 링크는 기존 문서 상세로 이동합니다. 별도 경로 계층 엔진을 만들지 않습니다. 선택 callback·router·별도 focus 관리 API는 없습니다.':'selectedId/onSelect는 호출자 제어형 선택입니다. items는 id/label/선택적 disabled를 받으며 LNB는 id/label/items의 groups로 전달합니다. 이 예제의 선택은 로컬 selectedId만 바꾸며 실제 router 이동이나 heading focus를 자동 수행하지 않습니다.'}</p>
-      {name!=='Breadcrumb'&&<p>{name==='GNB'?'640px 이하에서는 실제 펼침 버튼으로 목록을 엽니다. 항목을 선택하면 콜백을 호출하고 모바일 펼침을 닫습니다. 펼침은 내부 상태이며 외부 expanded 제어 prop이 없습니다.':'전체 접기와 그룹별 접기는 내부 상태이며 선택값을 바꾸지 않습니다. 외부 expanded/defaultExpanded/onExpandedChange 제어 prop은 없습니다.'} native 버튼의 Tab/Shift+Tab과 Enter/Space를 사용하며 방향키·Home/End·roving tabindex·Escape 접기 API는 없습니다. disabled는 항목별 native 버튼에 적용합니다.</p>}
-      <p>초기화는 예제 설정과 소유 선택값을 초기 값으로 되돌리고 미리보기를 다시 마운트해 내부 접힘도 초기화합니다. 문서 앱의 기존 hash/history·모바일 메뉴·선택 후 제목 focus 동작은 별도 소유이며 이 컴포넌트 구현으로 대체하지 않습니다.</p>
+    <GalleryDocs><summary>Props · 탐색과 선택</summary><p>{name==='Breadcrumb'?'items에 label과 선택적 href를 지정합니다. 앞 항목은 상위 화면 링크, 마지막 항목은 현재 페이지로 표시합니다. 실제 탐색 경로의 순서로 항목을 구성하세요.':'selectedId와 onSelect로 선택을 관리합니다. 항목에는 id·label·disabled를 지정합니다. LNB는 관련 항목을 groups에 묶습니다. onSelect에서 선택값과 화면 이동을 연결하세요.'}</p>
+      {name!=='Breadcrumb'&&<p>{name==='GNB'?'640px 이하에서는 펼침 버튼으로 목록을 엽니다. 항목 선택 후 메뉴를 닫습니다.':'전체 또는 그룹별로 접고 펼칠 수 있습니다. 접어도 선택값을 유지합니다.'} Tab과 Shift+Tab으로 이동하고 Enter 또는 Space로 선택합니다. disabled인 항목은 선택할 수 없습니다.</p>}
+      <p>화면이 바뀌면 selectedId를 갱신하세요. 예제의 초기화 버튼은 선택과 펼침 상태를 처음으로 되돌립니다.</p>
     </GalleryDocs>
   </div>;
 }

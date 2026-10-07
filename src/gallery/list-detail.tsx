@@ -175,64 +175,33 @@ export function ListDetail() {
         <GalleryDocs>
           <summary>가져오기</summary>
           <CodeBlock source={'import { List, ListRow, ListHeader, ListFooter } from "./src/index";\nimport "./src/core.css";'}/>
-          <p>공개 진입점에서 가져오고 부모에 ds-core 클래스를 적용합니다.</p>
+
         </GalleryDocs>
         <GalleryDocs>
           <summary>속성</summary>
-          <p>
-            ListRow: title(필수 문자열), description, leading, content,
-            trailing(ReactNode), selected, disabled(boolean),
-            onSelectionChange(boolean 콜백), action(label, onClick).
-          </p>
-          <p>
-            ListHeader: title(필수 문자열), description, children, actions.
-            ListFooter: children, actions. 노드 슬롯에는 ReactNode를 사용합니다.
-          </p>
+          <p>ListRow에는 필수 title과 description·leading·content·trailing을 넣습니다. selected/onSelectionChange로 선택을 관리하고 disabled로 선택과 action을 제한합니다. action에는 label과 onClick을 지정합니다.</p>
+          <p>ListHeader에는 title과 description·children·actions를 넣습니다. ListFooter에는 children과 actions를 넣습니다. 슬롯에는 ReactNode를 사용할 수 있습니다.</p>
         </GalleryDocs>
         <GalleryDocs>
           <summary>타입</summary>
-          <p>ListRowProps, ListHeaderProps, ListFooterProps를 제공합니다.</p>
+          <p>ListRowProps·ListHeaderProps·ListFooterProps를 사용해 속성 객체의 타입을 지정할 수 있습니다.</p>
           <CodeBlock source={"onSelectionChange?: (selected: boolean) => void;\naction?: { label: string; onClick: () => void };"}/>
         </GalleryDocs>
         <GalleryDocs>
           <summary>기본값</summary>
-          <p>
-            selected=false, disabled=false. 나머지 선택 속성은 생략합니다.
-            콜백이 없으면 선택 체크박스도 없습니다.
-          </p>
+          <p>ListRow의 selected와 disabled 기본값은 false입니다. onSelectionChange를 지정하면 선택 체크박스를 표시합니다.</p>
         </GalleryDocs>
         <GalleryDocs>
           <summary>조합</summary>
-          <p>
-            ListHeader → List → ListRow → ListFooter 순서로 조합합니다. 머리와
-            바닥은 ul 밖에 둡니다. leading은 아이콘, content는 제목·설명 아래
-            추가 내용, trailing은 메타데이터나 독립 버튼입니다.
-          </p>
-          <p>
-            기존 ListItem은 thumbnail/title/description/action만 받습니다. 임의
-            오른쪽 슬롯은 ListRow에서 제공합니다. 이 예시는 PC DataTable이나
-            기존 목록 템플릿을 대체하지 않습니다.
-          </p>
+          <p>ListHeader, List, ListFooter 순서로 배치하고 List 안에 ListRow를 넣습니다. leading은 아이콘, content는 추가 내용, trailing은 메타데이터나 독립 버튼에 사용합니다.</p>
+          <p>단순한 제목·설명·이미지 목록에는 ListItem을, 앞뒤 슬롯과 비활성 선택이 필요한 항목에는 ListRow를 사용하세요.</p>
           <CodeBlock source={'<ListRow title="항목" leading={<Icon name="file" />}\n  trailing={<span>초안</span>}\n  selected={selected} onSelectionChange={setSelected}\n  action={{ label: "열기", onClick: open }} />'}/>
         </GalleryDocs>
         <GalleryDocs>
           <summary>접근성</summary>
-          <p>
-            List의 ul 안에 ListRow의 li를 둡니다. 행은 클릭 대상이 아니며
-            체크박스와 버튼만 키보드로 조작합니다. 장식 아이콘은 숨기고 독립
-            버튼에는 구별되는 이름을 제공합니다.
-          </p>
-          <p>
-            selected는 제어 값입니다. disabled는 컴포넌트가 만든 선택과 action
-            콜백을 차단합니다. 소비자가 제공한 leading/content/trailing 및
-            머리·바닥 슬롯의 버튼 이름, 비활성화, 콜백 처리는 소비자 책임입니다.
-            슬롯 안에 중첩 버튼을 만들지 마세요.
-          </p>
-          <p>
-            긴 설명은 줄바꿈하며 좁은 화면에서는 오른쪽 동작을 다음 줄로
-            배치합니다. 데이터와 상태는 메모리에만 유지되며 새로고침하면
-            초기화됩니다.
-          </p>
+          <p>List의 ul 안에 ListRow를 배치합니다. 체크박스와 버튼을 키보드로 조작할 수 있습니다. 장식 아이콘의 의미는 텍스트로 전달하고 독립 버튼에는 이름을 지정하세요.</p>
+          <p>selected를 관리할 때 onSelectionChange에서 값을 갱신하세요. 슬롯에 넣은 버튼에도 이름과 disabled를 지정하세요. 버튼 안에 버튼을 중첩하지 마세요.</p>
+          <p>긴 설명은 줄바꿈하고 좁은 화면에서는 오른쪽 동작을 다음 줄로 배치합니다.</p>
         </GalleryDocs>
       </Stack>
     </section>
