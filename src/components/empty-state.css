@@ -1,0 +1,48 @@
+@import "./control-base.css";
+@layer components {
+:where(.ds-core) .empty {
+  background: var(--empty-bg);
+  color: var(--empty-fg);
+  border: 0;
+  border-radius: var(--radius-lg);
+  padding: var(--ds-space-9) var(--ds-space-7);
+  text-align: center;
+  display: grid;
+  justify-items: center;
+  gap: 16px;
+  overflow-wrap: anywhere;
+}
+:where(.ds-core) .empty-icon {
+  display: grid;
+  place-items: center;
+  background: var(--color-bg-canvas);
+  border: var(--ds-border-thin) solid var(--color-border-subtle);
+  border-radius: var(--ds-radius-symbol);
+  width: 56px;
+  height: 56px;
+  font-size: var(--font-size-title);
+  color: var(--color-link);
+}
+:where(.ds-core) .empty h3 {
+  font-size:var(--ds-font-section);line-height:var(--ds-line-relaxed);font-weight:var(--ds-weight-semibold);margin:0;
+  color: var(--color-text-primary);
+}
+:where(.ds-core) .empty > div {
+  font-size: var(--ds-control-font-size);
+  line-height: var(--ds-line-body);
+  max-width: 650px;
+}
+:where(.ds-core) .empty p {
+  margin: 0;
+}
+@media(max-width:700px){
+:where(.ds-core) .empty {
+    padding: var(--ds-space-7) var(--ds-space-4-5);
+  }
+:where(.ds-core) .empty > div {
+    font-size: var(--ds-control-font-size);
+    line-height: var(--ds-line-body);
+  }
+}
+
+}

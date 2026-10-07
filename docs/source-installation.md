@@ -26,6 +26,13 @@ npx shadcn@4.21.3 add orderthan31/design-system/container
 npx shadcn@4.21.3 add orderthan31/design-system/stack
 npx shadcn@4.21.3 add orderthan31/design-system/grid
 npx shadcn@4.21.3 add orderthan31/design-system/shell
+npx shadcn@4.21.3 add orderthan31/design-system/alert
+npx shadcn@4.21.3 add orderthan31/design-system/empty-state
+npx shadcn@4.21.3 add orderthan31/design-system/loading-spinner
+npx shadcn@4.21.3 add orderthan31/design-system/error-state
+npx shadcn@4.21.3 add orderthan31/design-system/toast
+npx shadcn@4.21.3 add orderthan31/design-system/accordion
+npx shadcn@4.21.3 add orderthan31/design-system/collapse
 ```
 
 - 설치 위치: `src/gyeol/`. 소비 앱의 기존 경로로 옮길 때 상대 import도 함께 유지합니다. `~/` target은 프로젝트 루트 기준이며 전역 홈 설치가 아닙니다.
@@ -45,13 +52,15 @@ import { Input } from './src/gyeol/components/input';
 </div>
 ```
 
-현재 canonical gallery75항목 중 선택 설치23항목입니다. 나머지52항목은 component 부재가 아니라 standalone 설치 coverage 미완료입니다.
+현재 canonical gallery75항목 중 선택 설치30항목입니다. 나머지45항목은 component 부재가 아니라 standalone 설치 coverage 미완료입니다.
 
 - Switch/RadioGroup/MultiSelect/CheckboxGroup/Slider/Rating은 필요한 field/choice/reset/checkbox/button owner와 React만 포함하며 Recharts/Lucide/Radix를 가져오지 않습니다. form.reset()은 native default action 후 microtask에서 uncontrolled 초기값 또는 latest controlled owner 값으로 DOM/표시 state를 맞추며 change callback을 만들지 않습니다. cancelled reset은 동기화하지 않습니다.
 
 - Badge/Separator/Skeleton은 자기 owner와 React만 포함합니다. Skeleton의 숨김 안내·pulse/reduced-motion은 해당 owner에 포함하며 Progress/Alert/Input/Chart/갤러리를 가져오지 않습니다.
 
 - Container/Stack/Grid/Shell은 자신의 native layout/style과 React만 설치합니다. Shell의 navigation/header/children 슬롯은 소비자가 별도로 제공하고 필요한 Button 등은 별도 선택 설치합니다. mainAs는 기존 main/div만 지원하며 gallery 안에서는 div를 지정합니다. Container/Stack/Grid의 native div props/className/ref는 actual div에 연결됩니다.
+
+- Alert/EmptyState/LoadingSpinner/Collapse는 필요한 Badge/Button과 React만, ErrorState/Toast/Accordion은 실제 Icon transitive owner와 Lucide subset을 추가합니다. Progress/다른 feedback/gallery는 설치하지 않습니다. retry/dismiss/disclosure는 기존 caller callback/native Button·internal state이며 서버 요청/자동완료/알림 queue/타이머를 추가하지 않습니다.
 
 ## Pretendard 자산 — 별도 필수 설정
 

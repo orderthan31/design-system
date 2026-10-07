@@ -1,0 +1,6 @@
+@import "./control-base.css";
+@layer components {
+:where(.ds-core) .ds-accordion > section { border-bottom: var(--ds-border-thin) solid var(--color-border-subtle); }
+:where(.ds-core) .ds-accordion h3 .button { width: 100%; justify-content: space-between; white-space: normal; text-align: left; }
+:where(.ds-core) .ds-accordion [role="region"] { padding: var(--space-4); }
+}

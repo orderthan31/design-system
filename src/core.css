@@ -31,6 +31,13 @@
 @import "./components/badge.css";
 @import "./components/separator.css";
 @import "./components/skeleton.css";
+@import "./components/alert.css";
+@import "./components/empty-state.css";
+@import "./components/loading-spinner.css";
+@import "./components/error-state.css";
+@import "./components/toast.css";
+@import "./components/accordion.css";
+@import "./components/collapse.css";
 @import "./components/progress-result.css";
 @layer components {
 :where(.ds-core), :where(.ds-core) * {
@@ -218,8 +225,7 @@
   background: var(--color-status-review-bg);
   color: var(--color-status-review-fg);
 }
-:where(.ds-core) .error.badge,
-:where(.ds-core) .alert.error {
+:where(.ds-core) .error.badge {
   background: var(--color-status-error-bg);
   color: var(--color-status-error-fg);
 }
@@ -246,58 +252,6 @@
 }
 :where(.ds-core) .indeterminate {
   animation: ds-core-indeterminate 1.5s ease infinite;
-}
-:where(.ds-core) .alert {
-  padding: var(--ds-space-4-5) var(--ds-space-5);
-  border-radius: var(--ds-radius-control);
-  font-size: var(--ds-control-font-size);
-  line-height: var(--ds-line-body);
-  display: grid;
-  gap: var(--space-2);
-  overflow-wrap: anywhere;
-}
-:where(.ds-core) .alert .badge {
-  padding: 0;
-  font-size: var(--ds-control-font-size);
-  font-weight: var(--ds-weight-semibold);
-  justify-self: start;
-}
-:where(.ds-core) .alert p {
-  margin: 0;
-}
-:where(.ds-core) .empty {
-  background: var(--empty-bg);
-  color: var(--empty-fg);
-  border: 0;
-  border-radius: var(--radius-lg);
-  padding: var(--ds-space-9) var(--ds-space-7);
-  text-align: center;
-  display: grid;
-  justify-items: center;
-  gap: 16px;
-  overflow-wrap: anywhere;
-}
-:where(.ds-core) .empty-icon {
-  display: grid;
-  place-items: center;
-  background: var(--color-bg-canvas);
-  border: var(--ds-border-thin) solid var(--color-border-subtle);
-  border-radius: var(--ds-radius-symbol);
-  width: 56px;
-  height: 56px;
-  font-size: var(--font-size-title);
-  color: var(--color-link);
-}
-:where(.ds-core) .empty h3 {
-  color: var(--color-text-primary);
-}
-:where(.ds-core) .empty > div {
-  font-size: var(--ds-control-font-size);
-  line-height: var(--ds-line-body);
-  max-width: 650px;
-}
-:where(.ds-core) .empty p {
-  margin: 0;
 }
 :where(.ds-core) .result {
   padding: var(--space-3) var(--ds-space-7-5);
@@ -474,13 +428,6 @@
   :where(.ds-core) .inline-label .control {
     max-width: 100%;
   }
-  :where(.ds-core) .empty {
-    padding: var(--ds-space-7) var(--ds-space-4-5);
-  }
-  :where(.ds-core) .empty > div {
-    font-size: var(--ds-control-font-size);
-    line-height: var(--ds-line-body);
-  }
   :where(.ds-core) .tooltip {
     max-width: 220px;
   }
@@ -525,14 +472,6 @@
 :where(.ds-core) .ds-icon-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 100px), 1fr)); gap: var(--space-3); margin-block: var(--space-4); }
 :where(.ds-core) .ds-icon-grid > div { display: grid; justify-items: center; gap: var(--space-2); padding: var(--space-3); border: 0; border-radius: var(--radius-md); background: var(--color-bg-surface); min-width: 0; }
 :where(.ds-core) .ds-icon-grid code { font-size: var(--font-size-caption); overflow-wrap: anywhere; }
-:where(.ds-core) .ds-accordion > section { border-bottom: var(--ds-border-thin) solid var(--color-border-subtle); }
-:where(.ds-core) .ds-accordion h3 .button { width: 100%; justify-content: space-between; white-space: normal; text-align: left; }
-:where(.ds-core) .ds-accordion [role="region"], :where(.ds-core) .ds-collapse > div:not([hidden]) { padding: var(--space-4); }
-:where(.ds-core) .ds-toast { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-3); border: var(--ds-border-thin) solid var(--color-border-control); border-radius: var(--radius-md); background: var(--color-bg-surface); margin-block: var(--space-4); overflow-wrap: anywhere; }
-:where(.ds-core) .ds-toast > span { flex: 1; min-width: 0; }
-:where(.ds-core) .ds-toast svg { flex-shrink: 0; }
-:where(.ds-core) .ds-loading { display: inline-flex; align-items: center; gap: var(--space-2); }
-:where(.ds-core) .ds-collapse { margin-block: var(--space-4); }
 :where(.ds-core) [aria-label="상태와 펼침"] > h2 { margin-block: var(--space-6) var(--space-3); }
 
 }
