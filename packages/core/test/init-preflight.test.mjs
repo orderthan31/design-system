@@ -21,17 +21,17 @@ function host() {
 }
 function snapshot(dir, base=dir) {
   const files = {};
-  if(dir===base)files['.']={mtime:fs.lstatSync(dir,{bigint:true}).mtimeNs.toString()};
+  if(dir===base)files['.']={mtimeNs:fs.lstatSync(dir,{bigint:true}).mtimeNs.toString(),mode:fs.lstatSync(dir,{bigint:true}).mode.toString()};
   for (const entry of fs.readdirSync(dir,{withFileTypes:true})) {
     const p = path.join(dir,entry.name), stat = fs.lstatSync(p,{bigint:true});
-    files[path.relative(base,p)] = {mtime:stat.mtimeNs?.toString() ?? stat.mtimeMs, ...(entry.isFile()?{hash:createHash('sha256').update(fs.readFileSync(p)).digest('hex')}:{}), ...(entry.isSymbolicLink()?{link:fs.readlinkSync(p)}:{})};
+    files[path.relative(base,p)] = {mtimeNs:stat.mtimeNs.toString(),mode:stat.mode.toString(), ...(entry.isFile()?{hash:createHash('sha256').update(fs.readFileSync(p)).digest('hex')}:{}), ...(entry.isSymbolicLink()?{link:fs.readlinkSync(p)}:{})};
     if (entry.isDirectory()) Object.assign(files,snapshot(p,base));
   }
   return files;
 }
 function run(dir,args,expected,env=process.env) {
-  const start=performance.now(), result=spawnSync(process.execPath,['--input-type=module','-e',wrapper,...args],{cwd:dir,encoding:'utf8',env});
-  fs.writeFileSync(path.join(evidence,`source-preflight-${Date.now()}-${process.hrtime.bigint()}.json`),JSON.stringify({command:[process.execPath,'--input-type=module','-e',wrapper,...args],cwd:dir,runtime:process.version,durationMs:performance.now()-start,exit:result.status,expectedExit:expected,stdout:result.stdout,stderr:result.stderr},null,2));
+  const start=performance.now(), started=new Date().toISOString(), result=spawnSync(process.execPath,['--input-type=module','-e',wrapper,...args],{cwd:dir,encoding:'utf8',env});
+  fs.writeFileSync(path.join(evidence,`source-preflight-${Date.now()}-${process.hrtime.bigint()}.json`),JSON.stringify({command:[process.execPath,'--input-type=module','-e',wrapper,...args],cwd:dir,started,runtime:process.version,durationMs:performance.now()-start,exit:result.status,expectedExit:expected,stdout:result.stdout,stderr:result.stderr},null,2));
   assert.equal(result.status,expected,result.stdout+'\n'+result.stderr);
   return result;
 }
@@ -226,4 +226,38 @@ test('review fix3 preserves normal UI and unrelated near-prefix aliases individu
 test('review fix3 generated UI alias remains safe and cannot select mandatory imports',()=>{
   for(const name of ['tailwindcss','tailwindcss/theme.css','tailwindcss/utilities.css']){const dir=host();rejected(dir,['init','--alias',name],/alias must be a safe @name path/);}
   const dir=host();run(dir,['init','--alias','@tailwindcss'],0);assert.match(fs.readFileSync(path.join(dir,'vite.config.ts'),'utf8'),/"@tailwindcss"/);const before=snapshot(dir);run(dir,['init'],0);assert.deepEqual(snapshot(dir),before);
+});
+
+const p2Settings={schemaVersion:1,sourceRoot:'ui/system',stylePath:'styles/theme.css',publicRoot:'static',fontPath:'assets/type',alias:'@hangyeol',installed:{},components:[]};
+function p2SourceHost(base,mode) {
+  const dir=host(),config={...p2Settings,basePath:base};
+  fs.writeFileSync(path.join(dir,'package-lock.json'),JSON.stringify({lockfileVersion:3,packages:{'':JSON.parse(fs.readFileSync(path.join(dir,'package.json')))}})+'\n');
+  for(const [file,bytes] of [['styles/theme.css',Buffer.from('body { color: chocolate; }\n')],['ui/system/lib/cn.ts',fs.readFileSync(path.join(payload,'source/lib/cn.ts'))],['static/assets/type/owner.txt',Buffer.from('owner asset\n')],['.gyeol-backups/sentinel/owner.txt',Buffer.from('owner backup\n')],['node_modules/owner.txt',Buffer.from('source-only fixture sentinel\n')],['owner-metadata.json',Buffer.from('{"owner":"sentinel"}\n')]]){fs.mkdirSync(path.dirname(path.join(dir,file)),{recursive:true});fs.writeFileSync(path.join(dir,file),bytes);}
+  fs.symlinkSync('owner-metadata.json',path.join(dir,'owner-link'));
+  if(mode==='config')fs.writeFileSync(path.join(dir,'gyeol.json'),JSON.stringify(config,null,2)+'\n');
+  const flags=mode==='config'?[]:['--source-root',config.sourceRoot,'--style-path',config.stylePath,'--public-root',config.publicRoot,'--font-path',config.fontPath,'--alias',config.alias,'--base-path',base];
+  const trap=path.join(dir,'fixture-bin'),trace=path.join(evidence,`p2-source-npm-${process.hrtime.bigint()}.txt`);fs.mkdirSync(trap);fs.writeFileSync(trace,'');fs.writeFileSync(path.join(trap,'npm'),'#!/bin/sh\nprintf "npm invoked\\n" >> "$CORE02_NPM_TRACE"\nexit 93\n');fs.chmodSync(path.join(trap,'npm'),0o755);
+  return {dir,base,mode,config,flags,trace,env:{...process.env,PATH:trap+path.delimiter+process.env.PATH,CORE02_NPM_TRACE:trace}};
+}
+function p2SourceCall(fixture,args) {
+  const {dir,base,mode,trace,env}=fixture,command=[process.execPath,'--input-type=module','-e',wrapper,...args],before=snapshot(dir),started=new Date().toISOString(),start=performance.now();
+  const result=spawnSync(command[0],command.slice(1),{cwd:dir,encoding:'utf8',env}),after=snapshot(dir),file=path.join(dir,'ui/system/foundation/fonts.css');
+  const origin='https://host.example',urls=fs.existsSync(file)?[...fs.readFileSync(file,'utf8').matchAll(/url\("([^"\n]+)"\)/g)].map(([,input])=>{const url=new URL(input,origin);return {input,origin:url.origin,pathname:url.pathname};}):[];
+  fs.writeFileSync(path.join(evidence,`p2-source-call-${process.hrtime.bigint()}.json`),JSON.stringify({runner:'source',base,mode,input:fixture.config,args,command,cwd:dir,started,durationMs:performance.now()-start,runtime:process.version,exit:result.status,stdout:result.stdout,stderr:result.stderr,before,after,npmTrace:trace,npmInvocations:fs.readFileSync(trace,'utf8'),generatedFontURLs:urls,installerSha256:createHash('sha256').update(fs.readFileSync(path.join(root,'packages/cli/src/installer.mjs'))).digest('hex'),fixtureKind:'source subprocess with predeclared dependencies/synthetic lock; not installed acceptance'},null,2));
+  return {result,before,after,urls};
+}
+for(const base of ['//','//cdn/'])for(const mode of ['flags','config'])test(`basePath P2 refuses source ${mode} ${base} atomically`,()=>{
+  const fixture=p2SourceHost(base,mode),{result,before,after}=p2SourceCall(fixture,['init',...fixture.flags]);
+  assert.equal(result.status,1,result.stdout+'\n'+result.stderr);assert.match(result.stderr,/basePath.*same-origin root-relative.*leading \/\//i);assert.deepEqual(after,before,'complete bytes/mtimeNs/modes/links must remain unchanged');assert.equal(fs.readFileSync(fixture.trace,'utf8'),'');
+});
+for(const base of ['/','/design/'])for(const mode of ['flags','config'])test(`basePath P2 preserves source ${mode} ${base} same-origin fonts/no-op`,()=>{
+  const fixture=p2SourceHost(base,mode),first=p2SourceCall(fixture,['init',...fixture.flags]);assert.equal(first.result.status,0,first.result.stderr);assert.equal(first.urls.length,4);
+  for(const url of first.urls){assert.equal(url.origin,'https://host.example');assert.ok(url.pathname.startsWith(base+'assets/type/'));}
+  assert.deepEqual(first.urls.map(url=>url.pathname),['Regular','Medium','SemiBold','Bold'].map(name=>base+'assets/type/Pretendard-'+name+'.woff2'));
+  const repeat=p2SourceCall(fixture,['init']);assert.equal(repeat.result.status,0,repeat.result.stderr);assert.deepEqual(repeat.after,repeat.before);assert.equal(fs.readFileSync(fixture.trace,'utf8'),'');
+});
+test('basePath P2 common source guard covers add/dry-run/overwrite without bypass',()=>{
+  for(const args of [['init','--dry-run'],['init','--overwrite'],['add','button'],['add','button','--dry-run','--overwrite']]){
+    const fixture=p2SourceHost('//cdn/','config'),call=p2SourceCall(fixture,args);assert.equal(call.result.status,1,call.result.stderr);assert.match(call.result.stderr,/basePath.*same-origin root-relative.*leading \/\//i);assert.deepEqual(call.after,call.before);assert.equal(fs.readFileSync(fixture.trace,'utf8'),'');
+  }
 });

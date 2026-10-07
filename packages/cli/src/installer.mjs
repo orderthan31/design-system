@@ -30,12 +30,15 @@ function discover(root){
  for(const name of ['react','react-dom'])if(!/^\^?19\./.test(all[name]))throw Error(`Unsupported ${name}: first adapter is tested with React 19; host is not downgraded`);
  return pkg;
 }
+function validateBasePath(base){
+ if(typeof base!=='string'||!/^\/(?:[a-zA-Z0-9_/-]*\/)?$/.test(base)||base.includes('..')||base.startsWith('//'))throw Error('basePath must be a same-origin root-relative path ending in /; leading // is not allowed');
+}
 function fontCSS(config){const base=config.basePath,dir=config.fontPath;return [['Regular',400],['Medium',500],['SemiBold',600],['Bold',700]].map(([name,weight])=>`@font-face { font-family: Pretendard; font-style: normal; font-weight: ${weight}; font-display: swap; src: url("${base}${dir}/Pretendard-${name}.woff2") format("woff2"); }`).join('\n')+'\n';}
 function relativeImport(from,to){let rel=path.posix.relative(path.posix.dirname(from),to);return rel.startsWith('.')?rel:'./'+rel;}
 function buildInit(root,config){
+ validateBasePath(config.basePath);
  for(const filename of [...viteConfigs,'tsconfig.json'])if(config.installed?.[filename]){const full=safeTarget(root,filename);if(!fs.existsSync(full)||hash(fs.readFileSync(full))!==config.installed[filename].hash)throw Error(`conflict: edited/missing managed host config ${filename}; restore/review explicitly, host config migration is outside init`);}
  const files=[];const graph=sourceFiles(config,[]);files.push(...graph.files);
- const base=config.basePath;if(!/^\/(?:[a-zA-Z0-9_/-]*\/)?$/.test(base)||base.includes('..'))throw Error('basePath must be an absolute URL path ending in /');
  for(const name of Object.keys(manifest.assets)){const bytes=fs.readFileSync(path.join(payload,'assets',name));files.push({path:`${config.publicRoot}/${config.fontPath}/${name}`,bytes,hash:manifest.assets[name].hash});}
  files.push({path:`${config.sourceRoot}/foundation/fonts.css`,bytes:Buffer.from(fontCSS(config))});
  const stylePath=safeTarget(root,config.stylePath),existing=fs.existsSync(stylePath)?fs.readFileSync(stylePath,'utf8'):'';
@@ -72,6 +75,7 @@ try{
  if(command==='add'&&!previous)throw Error('Run gyeol init first');
  const defaults={schemaVersion:1,sourceRoot:'src/gyeol',stylePath:'src/gyeol.css',publicRoot:'public',fontPath:'fonts/gyeol',basePath:'/',alias:null,installed:{}};
  const config={...defaults,...previous,...(!previous?options:{})};
+ validateBasePath(config.basePath);
  for(const [key,value] of Object.entries(options))if(previous&&config[key]!==value)throw Error(`Flag ${key} conflicts with gyeol.json; changing installed settings is outside init/add`);
  if(config.schemaVersion!==1||!config.installed||typeof config.installed!=='object'||Array.isArray(config.installed)||config.components&&!Array.isArray(config.components))throw Error('Unsupported/invalid gyeol.json schema or install records');
  if(config.integration&&JSON.stringify(settings(config.integration.settings||{}))!==JSON.stringify(settings(config)))throw Error('gyeol.json conflicts with installed integration settings; no update/migration engine');
@@ -87,7 +91,6 @@ try{
  }
  const overlap=(a,b)=>{a=a.toLowerCase();b=b.toLowerCase();return a===b||a.startsWith(b+'/')||b.startsWith(a+'/');};
  if(overlap(config.sourceRoot,config.publicRoot)||overlap(config.stylePath,config.publicRoot)||config.stylePath===config.sourceRoot)throw Error('Configured source/style/public roots overlap unsafely');
- if(typeof config.basePath!=='string'||!/^\/(?:[a-zA-Z0-9_/-]*\/)?$/.test(config.basePath)||config.basePath.includes('..'))throw Error('basePath must be an absolute URL path ending in /');
  if(config.alias!==null&&(typeof config.alias!=='string'||!/^@[a-zA-Z][\w/-]*$/.test(config.alias)))throw Error('alias must be a safe @name path');
  if(Object.keys(config.installed).length){const required=[...manifest.common.map(name=>`${config.sourceRoot}/${name}`),...Object.keys(manifest.assets).map(name=>`${config.publicRoot}/${config.fontPath}/${name}`),`${config.sourceRoot}/foundation/fonts.css`,config.stylePath];for(const name of required)if(!config.installed[name]||!/^\w{64}$/.test(config.installed[name].hash??''))throw Error('Installed records conflict with configured roots; init cannot adopt changed managed config');}
  const requested=command==='add'?components:[];

@@ -17,7 +17,7 @@ The illustrative relative artifact location must point to the file actually pack
 
 ## Settings and generated files
 
-`gyeol.json` is the settings/installation record. A pre-authored configuration can specify `sourceRoot`, `stylePath`, `publicRoot`, `fontPath`, `basePath` and `alias`; omitted settings use the existing defaults. The equivalent init flags are:
+`gyeol.json` is the settings/installation record. `basePath` must be a same-origin root-relative path ending in `/`, such as `/` or `/design/`. Leading `//` (including `//cdn/`) is rejected rather than normalized, since URL interpretation treats it as an off-origin network path. The same guard validates merged defaults/flags/pre-authored settings before generation or writes, including add, dry-run and overwrite. A pre-authored configuration can specify `sourceRoot`, `stylePath`, `publicRoot`, `fontPath`, `basePath` and `alias`; omitted settings use the existing defaults. The equivalent init flags are:
 
 ```sh
 ./node_modules/.bin/hangyeol init \

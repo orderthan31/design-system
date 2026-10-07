@@ -19,7 +19,7 @@ function run(label,command,args,cwd,expected=0,options={}) {
 }
 function snapshot(dir,base=dir) {
   const result={};
-  if(dir===base)result['.']={mtimeNs:fs.lstatSync(dir,{bigint:true}).mtimeNs.toString()};
+  if(dir===base)result['.']={mtimeNs:fs.lstatSync(dir,{bigint:true}).mtimeNs.toString(),mode:fs.lstatSync(dir,{bigint:true}).mode.toString()};
   for(const entry of fs.readdirSync(dir,{withFileTypes:true})) {
     const p=path.join(dir,entry.name),stat=fs.lstatSync(p,{bigint:true});
     result[path.relative(base,p)]={mtimeNs:stat.mtimeNs.toString(),mode:stat.mode.toString(),...(entry.isFile()?{sha256:digest(fs.readFileSync(p))}:{}),...(entry.isSymbolicLink()?{link:fs.readlinkSync(p)}:{})};
@@ -243,4 +243,40 @@ test('installed review fix3 generated UI alias cannot select mandatory imports',
   const {host,bin}=reviewHost('fix3-generated');
   for(const name of ['tailwindcss','tailwindcss/theme.css','tailwindcss/utilities.css'])unchanged('fix3-generated-alias',host,bin,['init','--alias',name],1,{diagnostic:/alias must be a safe @name path/});
   run('fix3-generated-compatible',bin,['init','--alias','@tailwindcss'],host);unchanged('fix3-generated-repeat',host,bin,['init'],0);
+});
+
+function p2InstalledHost(base,mode) {
+  const {host,bin}=reviewHost('p2-base'),installed=path.join(host,'node_modules/hangyeol-core'),config={schemaVersion:1,sourceRoot:'ui/system',stylePath:'styles/theme.css',publicRoot:'static',fontPath:'assets/type',alias:'@hangyeol',installed:{},components:[],basePath:base};
+  for(const [file,bytes] of [['styles/theme.css',Buffer.from('body { color: chocolate; }\n')],['ui/system/lib/cn.ts',fs.readFileSync(path.join(installed,'payload/source/lib/cn.ts'))],['static/assets/type/owner.txt',Buffer.from('owner asset\n')],['.gyeol-backups/sentinel/owner.txt',Buffer.from('owner backup\n')],['owner-metadata.json',Buffer.from('{"owner":"sentinel"}\n')]]){fs.mkdirSync(path.dirname(path.join(host,file)),{recursive:true});fs.writeFileSync(path.join(host,file),bytes);}
+  fs.symlinkSync('owner-metadata.json',path.join(host,'owner-link'));
+  if(mode==='config')fs.writeFileSync(path.join(host,'gyeol.json'),JSON.stringify(config,null,2)+'\n');
+  const flags=mode==='config'?[]:['--source-root',config.sourceRoot,'--style-path',config.stylePath,'--public-root',config.publicRoot,'--font-path',config.fontPath,'--alias',config.alias,'--base-path',base];
+  const trap=path.join(host,'fixture-bin'),trace=path.join(evidence,`p2-installed-npm-${process.hrtime.bigint()}.txt`);fs.mkdirSync(trap);fs.writeFileSync(trace,'');fs.writeFileSync(path.join(trap,'npm'),'#!/bin/sh\nprintf "npm invoked\\n" >> "$CORE02_NPM_TRACE"\nexit 93\n');fs.chmodSync(path.join(trap,'npm'),0o755);
+  return {host,bin,installed,base,mode,config,flags,trace,env:{...process.env,PATH:trap+path.delimiter+process.env.PATH,CORE02_NPM_TRACE:trace}};
+}
+function p2InstalledCall(fixture,args) {
+  const {host,bin,installed,base,mode,trace,env}=fixture,command=[bin,...args],before=snapshot(host),started=new Date().toISOString(),start=performance.now();
+  const result=spawnSync(bin,args,{cwd:host,encoding:'utf8',env,maxBuffer:16e6}),after=snapshot(host),file=path.join(host,'ui/system/foundation/fonts.css');
+  const origin='https://host.example',urls=fs.existsSync(file)?[...fs.readFileSync(file,'utf8').matchAll(/url\("([^"\n]+)"\)/g)].map(([,input])=>{const url=new URL(input,origin);return {input,origin:url.origin,pathname:url.pathname};}):[];
+  const pkg=JSON.parse(fs.readFileSync(path.join(host,'package.json'))),lock=JSON.parse(fs.readFileSync(path.join(host,'package-lock.json'))),coreLock=lock.packages['node_modules/hangyeol-core'];
+  assert.equal(coreLock.version,artifact.version);assert.equal(coreLock.dev,true);assert.equal(coreLock.integrity,'sha512-'+crypto.createHash('sha512').update(fs.readFileSync(artifact.tarball)).digest('base64'));assert.equal(lock.packages[''].devDependencies['hangyeol-core'],pkg.devDependencies['hangyeol-core']);
+  fs.writeFileSync(path.join(evidence,`p2-installed-call-${process.hrtime.bigint()}.json`),JSON.stringify({runner:'physical-installed',base,mode,input:fixture.config,args,command,cwd:host,started,durationMs:performance.now()-start,runtime:process.version,exit:result.status,stdout:result.stdout,stderr:result.stderr,before,after,npmTrace:trace,npmInvocations:fs.readFileSync(trace,'utf8'),generatedFontURLs:urls,installerSha256:digest(fs.readFileSync(path.join(installed,'dist/tools/installer.mjs'))),bin,binResolved:fs.realpathSync(bin),physicalPackage:!fs.lstatSync(installed).isSymbolicLink(),tarball:artifact.tarball,tarballSha256:digest(fs.readFileSync(artifact.tarball)),coreLock,coreDevPin:pkg.devDependencies['hangyeol-core'],lockRootCorePin:lock.packages[''].devDependencies['hangyeol-core']},null,2));
+  return {result,before,after,urls};
+}
+for(const base of ['//','//cdn/'])for(const mode of ['flags','config'])test(`basePath P2 refuses installed ${mode} ${base} atomically`,()=>{
+  const fixture=p2InstalledHost(base,mode),{result,before,after}=p2InstalledCall(fixture,['init',...fixture.flags]);
+  assert.equal(result.status,1,result.stdout+'\n'+result.stderr);assert.match(result.stderr,/basePath.*same-origin root-relative.*leading \/\//i);assert.deepEqual(after,before,'complete bytes/mtimeNs/modes/links including node_modules must remain unchanged');assert.equal(fs.readFileSync(fixture.trace,'utf8'),'');
+});
+for(const base of ['/','/design/'])for(const mode of ['flags','config'])test(`basePath P2 preserves installed ${mode} ${base} same-origin fonts/no-op`,()=>{
+  const fixture=p2InstalledHost(base,mode),first=p2InstalledCall(fixture,['init',...fixture.flags]);assert.equal(first.result.status,0,first.result.stderr);assert.equal(first.urls.length,4);
+  for(const url of first.urls){assert.equal(url.origin,'https://host.example');assert.ok(url.pathname.startsWith(base+'assets/type/'));}
+  assert.deepEqual(first.urls.map(url=>url.pathname),['Regular','Medium','SemiBold','Bold'].map(name=>base+'assets/type/Pretendard-'+name+'.woff2'));
+  const manifest=JSON.parse(fs.readFileSync(path.join(fixture.installed,'payload/manifest.json')));for(const [name,record] of Object.entries(manifest.assets))assert.equal(digest(fs.readFileSync(path.join(fixture.host,'static/assets/type',name))),record.hash);
+  const repeat=p2InstalledCall(fixture,['init']);assert.equal(repeat.result.status,0,repeat.result.stderr);assert.deepEqual(repeat.after,repeat.before);assert.equal(fs.readFileSync(fixture.trace,'utf8'),'');
+});
+test('basePath P2 common installed guard covers add/dry-run/overwrite without bypass',()=>{
+  const fixture=p2InstalledHost('//cdn/','config');
+  for(const args of [['init','--dry-run'],['init','--overwrite'],['add','button'],['add','button','--dry-run','--overwrite']]){
+    const call=p2InstalledCall(fixture,args);assert.equal(call.result.status,1,call.result.stderr);assert.match(call.result.stderr,/basePath.*same-origin root-relative.*leading \/\//i);assert.deepEqual(call.after,call.before);assert.equal(fs.readFileSync(fixture.trace,'utf8'),'');
+  }
 });
