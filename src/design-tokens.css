@@ -74,3 +74,47 @@
   --ds-code-toolbar-font: 12px/1.5 Pretendard,sans-serif;
   --ds-code-font: 12px/1.8 ui-monospace,SFMono-Regular,Menlo,monospace;
 }
+/* Gallery document/preview role defaults; historical107 identifiers stay untouched. */
+.ds-core {
+  --ds-gallery-font-preview-micro: 7px;
+  --ds-gallery-font-preview-small: 8px;
+  --ds-gallery-font-meta-compact: 9px;
+  --ds-gallery-font-caption-compact: 10px;
+  --ds-gallery-font-nav-fine: 11px;
+  --ds-gallery-font-label: 13px;
+  --ds-gallery-font-body-emphasis: 15px;
+  --ds-gallery-font-heading: 20px;
+  --ds-gallery-font-display: 21px;
+  --ds-gallery-line-glyph: 10px;
+  --ds-gallery-line-mini: 15px;
+  --ds-gallery-line-compact: 16px;
+  --ds-gallery-line-label: 21px;
+  --ds-gallery-line-dense: 23px;
+  --ds-gallery-line-reading: 25px;
+  --ds-gallery-line-copy: 27px;
+  --ds-gallery-line-display: 36px;
+  --ds-gallery-space-tight: 7px;
+  --ds-gallery-space-item: 11px;
+  --ds-gallery-space-control: 15px;
+  --ds-gallery-space-inline: 17px;
+  --ds-gallery-space-caption: 19px;
+  --ds-gallery-space-card: 23px;
+  --ds-gallery-space-section: 25px;
+  --ds-gallery-space-panel: 26px;
+  --ds-gallery-space-header: 70px;
+  --ds-gallery-radius-panel: 10px;
+  --ds-gallery-radius-preview: 11px;
+  --ds-gallery-tracking-title: -1px;
+  --ds-gallery-tracking-tight: -0.5px;
+  --ds-gallery-tracking-small: 0.2px;
+  --ds-gallery-tracking-label: 1px;
+  --ds-gallery-tracking-caption: 1.6px;
+  --ds-gallery-tracking-eyebrow: 1.8px;
+  --ds-gallery-tracking-brand: 2.1px;
+  --ds-gallery-tracking-spread: 3px;
+  --ds-gallery-shadow-preview: 0 2px 12px #0f172a06;
+  --ds-gallery-shadow-card: 0 1px 3px #0f172a08;
+  --ds-gallery-shadow-panel: 0 5px 20px #0f172a06;
+  --ds-weight-bold: 700;
+  --ds-border-accent: 3px;
+}
