@@ -1,0 +1,93 @@
+@import "./control-base.css";
+@import "./list-description.css";
+@layer components {
+.ds-core .ds-list-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 12px;
+  padding: var(--space-4) 0;
+  min-width: 0;
+  color: var(--color-text-primary);
+  background: transparent;
+  overflow-wrap: anywhere;
+}
+}
+@layer components {
+.ds-core .ds-list-row + .ds-list-row {
+  border-block-start: 1px solid var(--color-border-subtle);
+}
+}
+@layer components {
+.ds-core .ds-list-row[data-selected] {
+  background: var(--color-selected-bg);
+  color: var(--color-selected-fg);
+}
+}
+@layer components {
+.ds-core .ds-list-row-content {
+  flex: 1 1 160px;
+  min-width: 0;
+  line-height: var(--ds-control-line-height);
+}
+}
+@layer components {
+.ds-core .ds-list-row-leading {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  max-width: 100%;
+}
+}
+@layer components {
+.ds-core .ds-list-row-trailing {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  min-width: 0;
+  max-width: 100%;
+  margin-inline-start: auto;
+}
+}
+@layer components {
+.ds-core .ds-list-row .checkbox {
+  min-width: 0;
+  min-height: 44px;
+  align-items: center;
+}
+}
+@layer components {
+.ds-core .ds-list-row .checkbox span {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+}
+@layer components {
+.ds-core .ds-list-row-trailing .button {
+  min-height: 44px;
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+}
+@layer components {
+@media (max-width: 480px) {
+.ds-core .ds-list-row {
+    padding: var(--space-3) 0;
+    gap: 8px;
+  }
+}
+}
+@layer components {
+@media (max-width: 480px) {
+.ds-core .ds-list-row-trailing {
+    flex-basis: 100%;
+  }
+}
+}

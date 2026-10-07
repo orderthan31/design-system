@@ -1,0 +1,10 @@
+@import "./control-base.css";
+@layer components {
+.ds-core .ds-list-row-description {
+  margin-block-start: 4px;
+  color: var(--color-text-secondary);
+  font-size: var(--ds-control-font-size);
+  line-height: var(--ds-control-line-height);
+  overflow-wrap: anywhere;
+}
+}

@@ -55,9 +55,21 @@ npx shadcn@4.21.3 add orderthan31/design-system/date-range-picker
 npx shadcn@4.21.3 add orderthan31/design-system/month-picker
 npx shadcn@4.21.3 add orderthan31/design-system/time-input
 npx shadcn@4.21.3 add orderthan31/design-system/date-time-input
+npx shadcn@4.21.3 add orderthan31/design-system/grid-list
+npx shadcn@4.21.3 add orderthan31/design-system/highlight
+npx shadcn@4.21.3 add orderthan31/design-system/bubble
+npx shadcn@4.21.3 add orderthan31/design-system/table
+npx shadcn@4.21.3 add orderthan31/design-system/data-table
+npx shadcn@4.21.3 add orderthan31/design-system/pagination
+npx shadcn@4.21.3 add orderthan31/design-system/list
+npx shadcn@4.21.3 add orderthan31/design-system/list-item
+npx shadcn@4.21.3 add orderthan31/design-system/list-row
+npx shadcn@4.21.3 add orderthan31/design-system/list-header
+npx shadcn@4.21.3 add orderthan31/design-system/list-footer
+npx shadcn@4.21.3 add orderthan31/design-system/action-group
 ```
 
-위 목록의 48개 컴포넌트가 선택 설치를 지원합니다. 그 외 컴포넌트는 아래 전체 소스 방식으로 사용할 수 있습니다. 특정 버전으로 고정하려면 경로 뒤에 `#<commit-SHA>`를 붙입니다.
+위 목록의 60개 컴포넌트가 선택 설치를 지원합니다. 그 외 컴포넌트는 아래 전체 소스 방식으로 사용할 수 있습니다. 특정 버전으로 고정하려면 경로 뒤에 `#<commit-SHA>`를 붙입니다.
 
 소스는 프로젝트의 `src/gyeol/`에 설치됩니다. `~/` 설치 대상은 프로젝트 루트를 뜻합니다. 경로를 옮길 때는 관련 파일과 상대 import를 함께 유지하세요.
 

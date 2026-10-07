@@ -1,0 +1,68 @@
+@import "./control-base.css";
+@layer components {
+.ds-core .ds-list-content p {
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+}
+@layer components {
+.ds-core .ds-list-item[data-selected] {
+  background: var(--color-selected-bg);
+  color: var(--color-selected-fg);
+}
+}
+@layer components {
+.ds-core .ds-list-item {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: var(--space-4);
+}
+}
+@layer components {
+.ds-core .ds-list-item + .ds-list-item {
+  border-block-start: 1px solid var(--color-border-subtle);
+}
+}
+@layer components {
+.ds-core .ds-list-content {
+  flex: 1 1 160px;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+}
+@layer components {
+.ds-core .ds-list-content p {
+  margin: 4px 0 0;
+  font-size: var(--ds-control-font-size);
+}
+}
+@layer components {
+.ds-core .ds-list-thumbnail {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  flex: 0 0 48px;
+  border-radius: var(--ds-radius-control);
+  background: var(--color-bg-subtle);
+  color: var(--color-text-secondary);
+  font-size: var(--ds-font-symbol);
+}
+}
+@layer components {
+@media (max-width: 480px) {
+.ds-core .ds-list-item {
+    padding: var(--space-3);
+  }
+}
+}
+@layer components {
+@media (max-width: 480px) {
+.ds-core .ds-list-item > .checkbox {
+    flex-basis: 100%;
+  }
+}
+}

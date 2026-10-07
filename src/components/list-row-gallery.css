@@ -1,0 +1,42 @@
+@layer components {
+.ds-core .ds-list-detail,
+.ds-core .ds-list-detail .ds-stack {
+  min-width: 0;
+  max-width: 100%;
+}
+}
+@layer components {
+.ds-core .ds-list-detail-tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+}
+@layer components {
+.ds-core .ds-list-detail-tools > label {
+  display: grid;
+  flex: 1 1 160px;
+  gap: 4px;
+  min-width: 0;
+}
+}
+@layer components {
+.ds-core .ds-list-detail-tools .control {
+  width: 100%;
+  min-width: 0;
+}
+}
+@layer components {
+.ds-core .ds-list-detail details {
+  min-width: 0;
+  padding-block: var(--space-3);
+  border-block-start: 1px solid var(--color-border-subtle);
+  overflow-wrap: anywhere;
+}
+}
+@layer components {
+.ds-core .ds-list-detail pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+}

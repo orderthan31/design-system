@@ -1,0 +1,13 @@
+@import "./control-base.css";
+@layer components {
+.ds-core .ds-bubble {position:relative;width:fit-content;max-width:100%;padding:var(--space-3) var(--space-4);border-radius:var(--ds-radius-bubble);background:var(--color-bg-subtle);color:var(--color-text-primary);overflow-wrap:anywhere;}
+}
+@layer components {
+.ds-core .ds-bubble[data-align="start"] {margin-right:auto;border-bottom-left-radius:var(--ds-radius-bubble-tail);}
+}
+@layer components {
+.ds-core .ds-bubble[data-align="end"] {margin-left:auto;border-bottom-right-radius:var(--ds-radius-bubble-tail);}
+}
+@layer components {
+.ds-core .ds-bubble[data-tone="info"] {background:var(--color-info-surface);color:var(--color-info-text);}
+}

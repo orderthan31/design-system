@@ -2,19 +2,8 @@ import React, { useId } from "react";
 import { Input } from "./atoms";
 import { Stack } from "./layout";
 import "./layout.css";
-export function ActionGroup({
-  children,
-  label = "동작",
-}: {
-  children: React.ReactNode;
-  label?: string;
-}) {
-  return (
-    <div role="group" aria-label={label} className="ds-actions">
-      {children}
-    </div>
-  );
-}
+import { ActionGroup } from "./action-group";
+export { ActionGroup } from "./action-group";
 export { SearchField } from "./search-field";
 export function FormSection({
   title,

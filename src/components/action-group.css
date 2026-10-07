@@ -1,0 +1,12 @@
+@import "./control-base.css";
+@layer components {
+.ds-core .ds-actions > * { min-width: 0; max-width: 100%; }
+}
+@layer components {
+.ds-core .ds-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+}

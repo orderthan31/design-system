@@ -1,5 +1,5 @@
+@import "./action-group.css";
 @layer components {
- .ds-core .ds-actions > * { min-width: 0; max-width: 100%; }
 .ds-core .ds-section {
   background: var(--color-bg-surface);
   border: 0;
@@ -7,13 +7,9 @@
   border-radius: var(--radius-lg);
   min-width: 0;
 }
+}
+@layer components {
 .ds-core .ds-section h3 {
   margin-bottom: 16px;
-}
-.ds-core .ds-actions {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-  margin-top: 20px;
 }
 }
