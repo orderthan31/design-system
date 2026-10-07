@@ -58,6 +58,7 @@
   "workspaces": [
     "packages/ui",
     "packages/cli",
+    "packages/core",
     "apps/docs",
     "apps/consumer-fixture"
   ]

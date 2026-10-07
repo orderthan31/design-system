@@ -1,0 +1,14 @@
+First-party package/source licensing: UNLICENSED.
+
+No first-party repository license or redistribution grant was found for this
+local candidate. This file grants no rights and assigns no ownership. The
+package is private and publication is blocked pending an explicit owner
+licensing/release decision.
+
+The bundled unmodified Pretendard font files are separately covered by the
+existing SIL Open Font License 1.1 in payload/assets/LICENSE, with their original
+provenance in payload/assets/provenance.json. This first-party restriction does
+not replace that third-party license.
+
+External tool dependencies retain their own licenses and installed notices.
+See THIRD_PARTY_NOTICES.md. No external dependency source is relicensed here.

@@ -1,0 +1,34 @@
+{
+  "name": "hangyeol-core",
+  "version": "0.1.0-s2.1",
+  "private": true,
+  "license": "UNLICENSED",
+  "type": "module",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "bin": {
+    "hangyeol": "bin/hangyeol.mjs"
+  },
+  "files": [
+    "bin",
+    "dist",
+    "payload",
+    "README.md",
+    "LICENSE",
+    "THIRD_PARTY_NOTICES.md",
+    "publish-guard.mjs"
+  ],
+  "scripts": {
+    "build": "node build.mjs",
+    "prepack": "node build.mjs",
+    "prepublishOnly": "node publish-guard.mjs",
+    "test": "node --test test/package-boundary.test.mjs test/packed-artifact.test.mjs && node --test test/installed-core.test.mjs"
+  },
+  "dependencies": {
+    "@shadcn/lint": "0.2.0",
+    "@typescript-eslint/parser": "8.71.1",
+    "eslint": "9.39.5",
+    "postcss": "8.5.28"
+  }
+}

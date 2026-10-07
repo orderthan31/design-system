@@ -1,0 +1,115 @@
+import assert from 'node:assert/strict';
+import crypto from 'node:crypto';
+import fs from 'node:fs';
+import path from 'node:path';
+import { spawnSync } from 'node:child_process';
+import test from 'node:test';
+
+const evidence = process.env.CORE01_EVIDENCE_DIR;
+assert.ok(evidence, 'External fixtures require an explicit CORE01_EVIDENCE_DIR');
+const artifact = JSON.parse(fs.readFileSync(path.join(evidence, 'artifact.json')));
+const digest = bytes => crypto.createHash('sha256').update(bytes).digest('hex');
+
+function run(label, command, args, cwd, expected = 0) {
+  const started = new Date().toISOString(), start = performance.now();
+  const result = spawnSync(command, args, { cwd, encoding: 'utf8', maxBuffer: 16e6 });
+  fs.writeFileSync(path.join(evidence, `installed-${label}-${Date.now()}.json`), JSON.stringify({
+    command: [command, ...args], cwd, started, runtime: process.version,
+    exit: result.status, durationMs: Math.round(performance.now() - start),
+    stdout: result.stdout, stderr: result.stderr,
+  }, null, 2));
+  assert.equal(result.status, expected, `${label}: ${result.stdout}\n${result.stderr}`);
+  return result.stdout;
+}
+
+test('external host retains core as a pinned devDependency and runs only its installed bin', () => {
+  const host = fs.mkdtempSync(path.join(evidence, 'host-'));
+  const corePackage = JSON.parse(fs.readFileSync(path.join(artifact.unpacked, 'package/package.json')));
+  const manifest = JSON.parse(fs.readFileSync(path.join(artifact.unpacked, 'package/payload/manifest.json')));
+  fs.writeFileSync(path.join(host, 'package.json'), JSON.stringify({
+    name: 'core01-external-host', version: '1.0.0', private: true, type: 'module',
+    dependencies: { react: '19.2.0', 'react-dom': '19.2.0', ...manifest.runtime },
+    devDependencies: { vite: '7.3.6', ...manifest.build, ...manifest.types },
+  }, null, 2));
+  run('install', 'npm', ['install', '--offline', '--save-dev', '--save-exact', artifact.tarball], host);
+  const pkg = JSON.parse(fs.readFileSync(path.join(host, 'package.json')));
+  const lock = JSON.parse(fs.readFileSync(path.join(host, 'package-lock.json')));
+  assert.ok(pkg.devDependencies['hangyeol-core']);
+  assert.ok(pkg.devDependencies['hangyeol-core'].startsWith('file:'), 'Local tarball is pinned, not a floating registry range');
+  assert.ok(!pkg.dependencies['hangyeol-core']);
+  assert.equal(lock.packages['node_modules/hangyeol-core'].version, artifact.version);
+  assert.equal(lock.packages['node_modules/hangyeol-core'].dev, true);
+  assert.equal(lock.packages[''].devDependencies['hangyeol-core'], pkg.devDependencies['hangyeol-core']);
+  const installed = path.join(host, 'node_modules/hangyeol-core');
+  assert.ok(!fs.lstatSync(installed).isSymbolicLink(), 'External core must be physical, not a workspace link');
+  assert.ok(!fs.existsSync(path.join(host, 'src')), 'Package install must not generate UI');
+  const bin = path.join(host, 'node_modules/.bin/hangyeol');
+  assert.equal(fs.realpathSync(bin), path.join(installed, corePackage.bin.hangyeol));
+  assert.equal(run('version', bin, ['--version'], host).trim(), artifact.version);
+  const inspect = JSON.parse(run('inspect', bin, ['inspect'], host));
+  assert.equal(inspect.package, 'hangyeol-core');
+  assert.equal(inspect.integrity, 'verified');
+  const packedManifest = path.join(installed, 'payload/manifest.json');
+  const manifestBytes = fs.readFileSync(packedManifest);
+  fs.writeFileSync(packedManifest, JSON.stringify({ ...manifest, version: '0.0.0-wrong' }));
+  run('version-mismatch-rejected', bin, ['--version'], host, 1);
+  fs.writeFileSync(packedManifest, manifestBytes);
+  const beforePackage = fs.readFileSync(path.join(host, 'package.json'));
+  const beforeLock = fs.readFileSync(path.join(host, 'package-lock.json'));
+  const init = JSON.parse(run('init-plan', bin, ['init', '--dry-run'], host));
+  assert.equal(init.version, artifact.version);
+  assert.equal(init.dryRun, true);
+  assert.ok(!fs.existsSync(path.join(host, 'src')));
+  assert.deepEqual(fs.readFileSync(path.join(host, 'package.json')), beforePackage);
+  assert.deepEqual(fs.readFileSync(path.join(host, 'package-lock.json')), beforeLock);
+  run('init', bin, ['init'], host);
+  const add = JSON.parse(run('add-plan', bin, ['add', 'button', '--dry-run'], host));
+  assert.equal(add.dryRun, true);
+  assert.ok(!fs.existsSync(path.join(host, 'src/gyeol/primitives/button.tsx')));
+  run('add', bin, ['add', 'button'], host);
+  run('add-noop', bin, ['add', 'button'], host);
+  const config = JSON.parse(fs.readFileSync(path.join(host, 'gyeol.json')));
+  assert.deepEqual(config.tool, { package: 'hangyeol-core', version: artifact.version });
+  for (const [source, record] of Object.entries(manifest.files)) {
+    const target = path.join(host, 'src/gyeol', source);
+    if (fs.existsSync(target)) assert.equal(digest(fs.readFileSync(target)), record.hash);
+  }
+  assert.ok(!fs.existsSync(path.join(host, 'src/gyeol/primitives/select.tsx')));
+  assert.ok(!fs.existsSync(path.join(host, 'src/gyeol/index.ts')));
+  const button = path.join(host, 'src/gyeol/primitives/button.tsx');
+  fs.appendFileSync(button, '\n// external owner edit\n');
+  const edit = fs.readFileSync(button), previousConfig = fs.readFileSync(path.join(host, 'gyeol.json'));
+  run('add-conflict', bin, ['add', 'button'], host, 1);
+  assert.deepEqual(fs.readFileSync(button), edit);
+  assert.deepEqual(fs.readFileSync(path.join(host, 'gyeol.json')), previousConfig);
+  run('add-overwrite', bin, ['add', 'button', '--overwrite'], host);
+  assert.equal(digest(fs.readFileSync(button)), manifest.files['primitives/button.tsx'].hash);
+  const backups = fs.readdirSync(path.join(host, '.gyeol-backups'));
+  assert.ok(backups.some(dir => {
+    const backup = path.join(host, '.gyeol-backups', dir, 'src/gyeol/primitives/button.tsx');
+    return fs.existsSync(backup) && fs.readFileSync(backup).equals(edit);
+  }));
+  const lint = JSON.parse(run('lint-inspect', bin, ['lint', 'inspect'], host));
+  assert.equal(lint.dependencies.length, 4);
+  const tokens = JSON.parse(run('tokens-inspect', bin, ['tokens', 'inspect'], host));
+  assert.ok(tokens.declarations.length > 0);
+  run('lint-deferred', bin, ['lint'], host, 2);
+  run('tokens-deferred', bin, ['tokens'], host, 2);
+  const theme = path.join(installed, 'payload/source/foundation/theme.css');
+  const original = fs.readFileSync(theme);
+  fs.appendFileSync(theme, '\n/* tamper */\n');
+  run('tamper-rejected', bin, ['inspect'], host, 1);
+  fs.writeFileSync(theme, original);
+  const finalPackage = JSON.parse(fs.readFileSync(path.join(host, 'package.json')));
+  assert.equal(finalPackage.devDependencies['hangyeol-core'], pkg.devDependencies['hangyeol-core']);
+  assert.ok(!finalPackage.dependencies['recharts']);
+  assert.ok(!finalPackage.dependencies['react-is']);
+  const installedModules = fs.readFileSync(path.join(installed, 'dist/router.mjs'), 'utf8');
+  assert.ok(!installedModules.includes('packages/cli') && !installedModules.includes('scripts/'));
+  fs.writeFileSync(path.join(evidence, 'external-host.json'), JSON.stringify({
+    host, localBin: bin, coreDevDependency: pkg.devDependencies['hangyeol-core'],
+    installedVersion: lock.packages['node_modules/hangyeol-core'].version,
+    lockRetained: true, physicalCorePackage: true, noPostinstallGeneration: true,
+    payloadVersion: manifest.version, sourceClosure: config.components,
+  }, null, 2));
+});
