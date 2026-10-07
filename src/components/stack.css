@@ -1,0 +1,6 @@
+@import "./control-base.css";
+@layer components {
+:where(.ds-core) .ds-stack>*{min-width:0;max-width:100%;}
+:where(.ds-core) .ds-stack{overflow-wrap:anywhere;}
+:where(.ds-core) .ds-stack{display:grid;gap:var(--space-4);min-width:0;}
+}

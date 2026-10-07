@@ -1,29 +1,5 @@
 @layer components {
-.ds-core .ds-container {
-  width: 100%;
-  max-width: 1200px;
-  margin-inline: auto;
-  min-width: 0;
-}
-.ds-core .ds-grid > *, .ds-core .ds-actions > *, .ds-core .ds-shell > * { min-width: 0; max-width: 100%; }
-.ds-core .ds-stack {
-  display: grid;
-  gap: var(--space-4, 16px);
-  min-width: 0;
-}
-.ds-core .ds-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
-  gap: 16px;
-  min-width: 0;
-}
-.ds-core .ds-shell {
-  display: grid;
-  grid-template-columns: minmax(160px, 240px) minmax(0, 1fr);
-}
-.ds-core .ds-shell .ds-shell-content {
-  padding: var(--space-6);
-}
+ .ds-core .ds-actions > * { min-width: 0; max-width: 100%; }
 .ds-core .ds-section {
   background: var(--color-bg-surface);
   border: 0;
@@ -39,13 +15,5 @@
   gap: 12px;
   flex-wrap: wrap;
   margin-top: 20px;
-}
-.ds-core .ds-container > section {
-  margin-top: 24px;
-}
-@media (max-width: 700px) {
-  .ds-core .ds-shell {
-    grid-template-columns: 1fr;
-  }
 }
 }

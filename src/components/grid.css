@@ -1,0 +1,6 @@
+@import "./control-base.css";
+@layer components {
+:where(.ds-core) .ds-grid{overflow-wrap:anywhere;}
+:where(.ds-core) .ds-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:var(--space-4);min-width:0;}
+:where(.ds-core) .ds-grid>*{min-width:0;max-width:100%;}
+}

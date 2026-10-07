@@ -10,6 +10,10 @@
 @import "./components/textarea.css";
 @import "./components/chart.css";
 @import "./components/layout.css";
+@import "./components/container.css";
+@import "./components/stack.css";
+@import "./components/grid.css";
+@import "./components/shell.css";
 @import "./components/content-primitives.css";
 @import "./components/date-controls.css";
 @import "./components/data-display.css";
@@ -37,7 +41,7 @@
   background: var(--color-bg-canvas);
   color: var(--color-text-primary);
   font:
-    var(--ds-weight-normal) var(--font-size-body) / var(--font-line-body) Pretendard,
+    var(--ds-weight-normal) var(--ds-control-font-size) / var(--ds-control-line-height) Pretendard,
     "Apple SD Gothic Neo",
     "Hiragino Kaku Gothic ProN",
     "Yu Gothic",
