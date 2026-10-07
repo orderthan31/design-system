@@ -1,14 +1,23 @@
-import React, {
-  useEffect,
-  useId,
-  useRef,
-  useState,
-} from "react";
-import { Dialog, type DialogProps } from "./organisms";
-import { Button } from "./atoms";
+import React, { useId, useState } from "react";
+import { Button } from "./button";
 import { Tabs, Menu, Tooltip } from "./navigation";
 import "./navigation-regions.css";
-
+import { Popover } from "./popover";
+export { Popover } from "./popover";
+import { Drawer } from "./drawer";
+export { Drawer } from "./drawer";
+import { BottomSheet } from "./bottom-sheet";
+export { BottomSheet } from "./bottom-sheet";
+import { Breadcrumb } from "./breadcrumb";
+export { Breadcrumb } from "./breadcrumb";
+import { GNB } from "./gnb";
+export { GNB } from "./gnb";
+import { LNB } from "./lnb";
+export { LNB } from "./lnb";
+export type { PopoverProps } from "./popover";
+export type { ModalRegionProps } from "./modal-region";
+export type { BreadcrumbItem } from "./breadcrumb";
+export type { NavigationItem, NavigationProps, NavigationGroup } from "./navigation-types";
 export function NavigationRegionsGallery() {
   const id = useId();
   const destinations = [
@@ -203,224 +212,5 @@ export function NavigationRegionsGallery() {
         {sheetBody}
       </BottomSheet>
     </section>
-  );
-}
-
-export type PopoverProps = {
-  label: string;
-  title: string;
-  children: React.ReactNode;
-};
-export function Popover({ label, title, children }: PopoverProps) {
-  const [open, setOpen] = useState(false);
-  const root = useRef<HTMLDivElement>(null);
-  const trigger = useRef<HTMLButtonElement>(null);
-  const id = useId();
-  function close() {
-    setOpen(false);
-    trigger.current?.focus();
-  }
-  useEffect(() => {
-    if (!open) return;
-    function outside(event: PointerEvent) {
-      if (event.target instanceof Node && !root.current?.contains(event.target))
-        close();
-    }
-    function escape(event: KeyboardEvent) {
-      if (event.key === "Escape" && !event.defaultPrevented) {
-        event.preventDefault();
-        close();
-      }
-    }
-    document.addEventListener("pointerdown", outside);
-    document.addEventListener("keydown", escape);
-    return () => {
-      document.removeEventListener("pointerdown", outside);
-      document.removeEventListener("keydown", escape);
-    };
-  }, [open]);
-  return (
-    <div
-      className="nr-popover"
-      ref={root}
-      onKeyDown={(event) => {
-        if (open && event.key === "Escape" && !event.defaultPrevented) {
-          event.preventDefault();
-          event.stopPropagation();
-          close();
-        }
-      }}
-    >
-      <button
-        type="button"
-        className="button secondary"
-        ref={trigger}
-        aria-haspopup="dialog"
-        aria-expanded={open}
-        aria-controls={open ? id : undefined}
-        onClick={() => (open ? close() : setOpen(true))}
-      >
-        {label}
-      </button>
-      {open && (
-        <div
-          className="nr-popover-panel"
-          id={id}
-          role="dialog"
-          aria-modal="false"
-          aria-labelledby={`${id}-title`}
-        >
-          <h3 id={`${id}-title`}>{title}</h3>
-          {children}
-        </div>
-      )}
-    </div>
-  );
-}
-
-export type ModalRegionProps = DialogProps;
-function ModalRegion({kind,...props}: ModalRegionProps & {kind:"drawer"|"sheet"}) {
-  return props.open ? <div className={`nr-modal nr-${kind}`}><Dialog {...props}/></div> : null;
-}
-export function Drawer(props: ModalRegionProps) {
-  return <ModalRegion {...props} kind="drawer" />;
-}
-export function BottomSheet(props: ModalRegionProps) {
-  return <ModalRegion {...props} kind="sheet" />;
-}
-
-export type BreadcrumbItem = { label: string; href?: string };
-export function Breadcrumb({
-  items,
-  label = "현재 위치",
-}: {
-  items: BreadcrumbItem[];
-  label?: string;
-}) {
-  return (
-    <nav className="nr-breadcrumb" aria-label={label}>
-      <ol>
-        {items.map((item, index) => (
-          <li key={`${item.label}-${index}`}>
-            {index === items.length - 1 ? (
-              <span aria-current="page">{item.label}</span>
-            ) : item.href ? (
-              <a href={item.href}>{item.label}</a>
-            ) : (
-              <span>{item.label}</span>
-            )}
-          </li>
-        ))}
-      </ol>
-    </nav>
-  );
-}
-
-export type NavigationItem = { id: string; label: string; disabled?: boolean };
-export type NavigationProps = {
-  items: NavigationItem[];
-  selectedId: string;
-  onSelect: (id: string) => void;
-  label?: string;
-};
-export type NavigationGroup = {
-  id: string;
-  label: string;
-  items: NavigationItem[];
-};
-export function LNB({
-  groups,
-  selectedId,
-  onSelect,
-  label = "영역 탐색",
-}: Omit<NavigationProps, "items"> & { groups: NavigationGroup[] }) {
-  const [expanded, setExpanded] = useState(true);
-  const [collapsed, setCollapsed] = useState<string[]>([]);
-  const id = useId();
-  return (
-    <nav className="nr-lnb" aria-label={label}>
-      <Button
-        variant="secondary"
-        aria-expanded={expanded}
-        aria-controls={id}
-        onClick={() => setExpanded(!expanded)}
-      >
-        {label} {expanded ? "접기" : "펼치기"}
-      </Button>
-      <div id={id} hidden={!expanded}>
-        {groups.map((group) => (
-          <section key={group.id}>
-            <Button
-              variant="quiet"
-              aria-expanded={!collapsed.includes(group.id)}
-              aria-controls={`${id}-${group.id}`}
-              onClick={() =>
-                setCollapsed((current) =>
-                  current.includes(group.id)
-                    ? current.filter((value) => value !== group.id)
-                    : [...current, group.id],
-                )
-              }
-            >
-              {group.label}
-            </Button>
-            <ul id={`${id}-${group.id}`} hidden={collapsed.includes(group.id)}>
-              {group.items.map((item) => (
-                <li key={item.id}>
-                  <Button
-                    variant="ghost"
-                    disabled={item.disabled}
-                    aria-current={selectedId === item.id ? "page" : undefined}
-                    onClick={() => onSelect(item.id)}
-                  >
-                    {item.label}
-                  </Button>
-                </li>
-              ))}
-            </ul>
-          </section>
-        ))}
-      </div>
-    </nav>
-  );
-}
-
-export function GNB({
-  items,
-  selectedId,
-  onSelect,
-  label = "전체 탐색",
-}: NavigationProps) {
-  const [expanded, setExpanded] = useState(false);
-  const id = useId();
-  return (
-    <nav className="nr-gnb" aria-label={label} data-expanded={expanded}>
-      <Button
-        variant="secondary"
-        className="nr-mobile-toggle"
-        aria-expanded={expanded}
-        aria-controls={id}
-        onClick={() => setExpanded(!expanded)}
-      >
-        {label} {expanded ? "접기" : "펼치기"}
-      </Button>
-      <ul id={id}>
-        {items.map((item) => (
-          <li key={item.id}>
-            <Button
-              variant="ghost"
-              disabled={item.disabled}
-              aria-current={selectedId === item.id ? "page" : undefined}
-              onClick={() => {
-                onSelect(item.id);
-                setExpanded(false);
-              }}
-            >
-              {item.label}
-            </Button>
-          </li>
-        ))}
-      </ul>
-    </nav>
   );
 }

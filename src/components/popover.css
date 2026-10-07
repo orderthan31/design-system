@@ -1,0 +1,45 @@
+@import "./control-base.css";
+@layer components {
+.ds-core .nr-popover button:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+}
+@layer components {
+.ds-core .nr-popover {
+  position: relative;
+  max-width: 100%;
+}
+}
+@layer components {
+.ds-core .nr-popover-panel {
+  position: absolute;
+  inset-block-start: calc(100% + var(--space-2));
+  inset-inline-end: 0;
+  width: min(320px, calc(100vw - var(--space-8)));
+  max-height: min(480px, 70dvh);
+  overflow: auto;
+  z-index: 20;
+  border: var(--ds-border-thin) solid var(--color-border-control);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  background: var(--color-bg-surface);
+  color: var(--color-text-primary);
+  box-shadow: 0 var(--space-2) var(--space-6)
+    var(--color-scrim, var(--color-border-subtle));
+  overflow-wrap: anywhere;
+}
+}
+@layer components {
+.ds-core .nr-popover-panel h3 {
+  margin-bottom: var(--space-3);
+}
+}
+@layer components {
+@media (max-width: 640px) {
+.ds-core .nr-popover-panel {
+    inset-inline-start: 0;
+    inset-inline-end: auto;
+  }
+}
+}

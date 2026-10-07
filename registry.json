@@ -6138,6 +6138,818 @@
           "target": "~/src/gyeol/INSTALL.md"
         }
       ]
+    },
+    {
+      "name": "dialog",
+      "type": "registry:item",
+      "title": "Dialog",
+      "description": "Dialog with isolated scoped source/style/dependencies.",
+      "dependencies": [
+        "react@19.2.0"
+      ],
+      "devDependencies": [
+        "@types/react@19.2.2"
+      ],
+      "meta": {
+        "fontAssets": [
+          {
+            "source": "public/source/fonts/Pretendard-Bold.woff2",
+            "target": "public/source/fonts/Pretendard-Bold.woff2",
+            "url": "/source/fonts/Pretendard-Bold.woff2",
+            "sha256": "4609c3356e536fafe38f4add0daeceb3d8595d3057bce13c428c33ddbd43d362"
+          },
+          {
+            "source": "public/source/fonts/Pretendard-Medium.woff2",
+            "target": "public/source/fonts/Pretendard-Medium.woff2",
+            "url": "/source/fonts/Pretendard-Medium.woff2",
+            "sha256": "d03481330eeba0659ab5b87f25ceb504a35de377dd90a0d0aba2982eb2d05e2c"
+          },
+          {
+            "source": "public/source/fonts/Pretendard-Regular.woff2",
+            "target": "public/source/fonts/Pretendard-Regular.woff2",
+            "url": "/source/fonts/Pretendard-Regular.woff2",
+            "sha256": "fad853f7f47c6c8b103171e7193fa095708cdcd70850a71d93aa5379e8a61d63"
+          },
+          {
+            "source": "public/source/fonts/Pretendard-SemiBold.woff2",
+            "target": "public/source/fonts/Pretendard-SemiBold.woff2",
+            "url": "/source/fonts/Pretendard-SemiBold.woff2",
+            "sha256": "c863f76a7de5c1ddc1ed8b2fa794964530774592c4f31407a84e2a2ae93f17f0"
+          }
+        ],
+        "fontAssetsAutomatic": false,
+        "fontLicense": "public/source/fonts/LICENSE"
+      },
+      "files": [
+        {
+          "path": "src/default-theme.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/default-theme.css"
+        },
+        {
+          "path": "src/design-tokens.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/design-tokens.css"
+        },
+        {
+          "path": "src/font-face.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/font-face.css"
+        },
+        {
+          "path": "src/generated/scoped-tokens.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/generated/scoped-tokens.css"
+        },
+        {
+          "path": "src/components/button.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/button.css"
+        },
+        {
+          "path": "src/components/button.tsx",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/button.tsx"
+        },
+        {
+          "path": "src/components/control-base.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/control-base.css"
+        },
+        {
+          "path": "src/components/dialog.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/dialog.css"
+        },
+        {
+          "path": "src/components/dialog.tsx",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/dialog.tsx"
+        },
+        {
+          "path": "src/components/icon-button.tsx",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/icon-button.tsx"
+        },
+        {
+          "path": "docs/source-installation.md",
+          "type": "registry:file",
+          "target": "~/src/gyeol/INSTALL.md"
+        }
+      ]
+    },
+    {
+      "name": "confirm",
+      "type": "registry:item",
+      "title": "Confirm",
+      "description": "Confirm with isolated scoped source/style/dependencies.",
+      "dependencies": [
+        "react@19.2.0"
+      ],
+      "devDependencies": [
+        "@types/react@19.2.2"
+      ],
+      "meta": {
+        "fontAssets": [
+          {
+            "source": "public/source/fonts/Pretendard-Bold.woff2",
+            "target": "public/source/fonts/Pretendard-Bold.woff2",
+            "url": "/source/fonts/Pretendard-Bold.woff2",
+            "sha256": "4609c3356e536fafe38f4add0daeceb3d8595d3057bce13c428c33ddbd43d362"
+          },
+          {
+            "source": "public/source/fonts/Pretendard-Medium.woff2",
+            "target": "public/source/fonts/Pretendard-Medium.woff2",
+            "url": "/source/fonts/Pretendard-Medium.woff2",
+            "sha256": "d03481330eeba0659ab5b87f25ceb504a35de377dd90a0d0aba2982eb2d05e2c"
+          },
+          {
+            "source": "public/source/fonts/Pretendard-Regular.woff2",
+            "target": "public/source/fonts/Pretendard-Regular.woff2",
+            "url": "/source/fonts/Pretendard-Regular.woff2",
+            "sha256": "fad853f7f47c6c8b103171e7193fa095708cdcd70850a71d93aa5379e8a61d63"
+          },
+          {
+            "source": "public/source/fonts/Pretendard-SemiBold.woff2",
+            "target": "public/source/fonts/Pretendard-SemiBold.woff2",
+            "url": "/source/fonts/Pretendard-SemiBold.woff2",
+            "sha256": "c863f76a7de5c1ddc1ed8b2fa794964530774592c4f31407a84e2a2ae93f17f0"
+          }
+        ],
+        "fontAssetsAutomatic": false,
+        "fontLicense": "public/source/fonts/LICENSE"
+      },
+      "files": [
+        {
+          "path": "src/default-theme.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/default-theme.css"
+        },
+        {
+          "path": "src/design-tokens.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/design-tokens.css"
+        },
+        {
+          "path": "src/font-face.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/font-face.css"
+        },
+        {
+          "path": "src/generated/scoped-tokens.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/generated/scoped-tokens.css"
+        },
+        {
+          "path": "src/components/button.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/button.css"
+        },
+        {
+          "path": "src/components/button.tsx",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/button.tsx"
+        },
+        {
+          "path": "src/components/confirm.tsx",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/confirm.tsx"
+        },
+        {
+          "path": "src/components/control-base.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/control-base.css"
+        },
+        {
+          "path": "src/components/dialog.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/dialog.css"
+        },
+        {
+          "path": "src/components/dialog.tsx",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/dialog.tsx"
+        },
+        {
+          "path": "src/components/icon-button.tsx",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/icon-button.tsx"
+        },
+        {
+          "path": "docs/source-installation.md",
+          "type": "registry:file",
+          "target": "~/src/gyeol/INSTALL.md"
+        }
+      ]
+    },
+    {
+      "name": "bottom-sheet",
+      "type": "registry:item",
+      "title": "BottomSheet",
+      "description": "BottomSheet with isolated scoped source/style/dependencies.",
+      "dependencies": [
+        "react@19.2.0"
+      ],
+      "devDependencies": [
+        "@types/react@19.2.2"
+      ],
+      "meta": {
+        "fontAssets": [
+          {
+            "source": "public/source/fonts/Pretendard-Bold.woff2",
+            "target": "public/source/fonts/Pretendard-Bold.woff2",
+            "url": "/source/fonts/Pretendard-Bold.woff2",
+            "sha256": "4609c3356e536fafe38f4add0daeceb3d8595d3057bce13c428c33ddbd43d362"
+          },
+          {
+            "source": "public/source/fonts/Pretendard-Medium.woff2",
+            "target": "public/source/fonts/Pretendard-Medium.woff2",
+            "url": "/source/fonts/Pretendard-Medium.woff2",
+            "sha256": "d03481330eeba0659ab5b87f25ceb504a35de377dd90a0d0aba2982eb2d05e2c"
+          },
+          {
+            "source": "public/source/fonts/Pretendard-Regular.woff2",
+            "target": "public/source/fonts/Pretendard-Regular.woff2",
+            "url": "/source/fonts/Pretendard-Regular.woff2",
+            "sha256": "fad853f7f47c6c8b103171e7193fa095708cdcd70850a71d93aa5379e8a61d63"
+          },
+          {
+            "source": "public/source/fonts/Pretendard-SemiBold.woff2",
+            "target": "public/source/fonts/Pretendard-SemiBold.woff2",
+            "url": "/source/fonts/Pretendard-SemiBold.woff2",
+            "sha256": "c863f76a7de5c1ddc1ed8b2fa794964530774592c4f31407a84e2a2ae93f17f0"
+          }
+        ],
+        "fontAssetsAutomatic": false,
+        "fontLicense": "public/source/fonts/LICENSE"
+      },
+      "files": [
+        {
+          "path": "src/default-theme.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/default-theme.css"
+        },
+        {
+          "path": "src/design-tokens.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/design-tokens.css"
+        },
+        {
+          "path": "src/font-face.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/font-face.css"
+        },
+        {
+          "path": "src/generated/scoped-tokens.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/generated/scoped-tokens.css"
+        },
+        {
+          "path": "src/components/bottom-sheet.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/bottom-sheet.css"
+        },
+        {
+          "path": "src/components/bottom-sheet.tsx",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/bottom-sheet.tsx"
+        },
+        {
+          "path": "src/components/button.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/button.css"
+        },
+        {
+          "path": "src/components/button.tsx",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/button.tsx"
+        },
+        {
+          "path": "src/components/control-base.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/control-base.css"
+        },
+        {
+          "path": "src/components/dialog.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/dialog.css"
+        },
+        {
+          "path": "src/components/dialog.tsx",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/dialog.tsx"
+        },
+        {
+          "path": "src/components/icon-button.tsx",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/icon-button.tsx"
+        },
+        {
+          "path": "src/components/modal-region.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/modal-region.css"
+        },
+        {
+          "path": "src/components/modal-region.tsx",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/modal-region.tsx"
+        },
+        {
+          "path": "docs/source-installation.md",
+          "type": "registry:file",
+          "target": "~/src/gyeol/INSTALL.md"
+        }
+      ]
+    },
+    {
+      "name": "drawer",
+      "type": "registry:item",
+      "title": "Drawer",
+      "description": "Drawer with isolated scoped source/style/dependencies.",
+      "dependencies": [
+        "react@19.2.0"
+      ],
+      "devDependencies": [
+        "@types/react@19.2.2"
+      ],
+      "meta": {
+        "fontAssets": [
+          {
+            "source": "public/source/fonts/Pretendard-Bold.woff2",
+            "target": "public/source/fonts/Pretendard-Bold.woff2",
+            "url": "/source/fonts/Pretendard-Bold.woff2",
+            "sha256": "4609c3356e536fafe38f4add0daeceb3d8595d3057bce13c428c33ddbd43d362"
+          },
+          {
+            "source": "public/source/fonts/Pretendard-Medium.woff2",
+            "target": "public/source/fonts/Pretendard-Medium.woff2",
+            "url": "/source/fonts/Pretendard-Medium.woff2",
+            "sha256": "d03481330eeba0659ab5b87f25ceb504a35de377dd90a0d0aba2982eb2d05e2c"
+          },
+          {
+            "source": "public/source/fonts/Pretendard-Regular.woff2",
+            "target": "public/source/fonts/Pretendard-Regular.woff2",
+            "url": "/source/fonts/Pretendard-Regular.woff2",
+            "sha256": "fad853f7f47c6c8b103171e7193fa095708cdcd70850a71d93aa5379e8a61d63"
+          },
+          {
+            "source": "public/source/fonts/Pretendard-SemiBold.woff2",
+            "target": "public/source/fonts/Pretendard-SemiBold.woff2",
+            "url": "/source/fonts/Pretendard-SemiBold.woff2",
+            "sha256": "c863f76a7de5c1ddc1ed8b2fa794964530774592c4f31407a84e2a2ae93f17f0"
+          }
+        ],
+        "fontAssetsAutomatic": false,
+        "fontLicense": "public/source/fonts/LICENSE"
+      },
+      "files": [
+        {
+          "path": "src/default-theme.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/default-theme.css"
+        },
+        {
+          "path": "src/design-tokens.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/design-tokens.css"
+        },
+        {
+          "path": "src/font-face.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/font-face.css"
+        },
+        {
+          "path": "src/generated/scoped-tokens.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/generated/scoped-tokens.css"
+        },
+        {
+          "path": "src/components/button.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/button.css"
+        },
+        {
+          "path": "src/components/button.tsx",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/button.tsx"
+        },
+        {
+          "path": "src/components/control-base.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/control-base.css"
+        },
+        {
+          "path": "src/components/dialog.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/dialog.css"
+        },
+        {
+          "path": "src/components/dialog.tsx",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/dialog.tsx"
+        },
+        {
+          "path": "src/components/drawer.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/drawer.css"
+        },
+        {
+          "path": "src/components/drawer.tsx",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/drawer.tsx"
+        },
+        {
+          "path": "src/components/icon-button.tsx",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/icon-button.tsx"
+        },
+        {
+          "path": "src/components/modal-region.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/modal-region.css"
+        },
+        {
+          "path": "src/components/modal-region.tsx",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/modal-region.tsx"
+        },
+        {
+          "path": "docs/source-installation.md",
+          "type": "registry:file",
+          "target": "~/src/gyeol/INSTALL.md"
+        }
+      ]
+    },
+    {
+      "name": "popover",
+      "type": "registry:item",
+      "title": "Popover",
+      "description": "Popover with isolated scoped source/style/dependencies.",
+      "dependencies": [
+        "react@19.2.0"
+      ],
+      "devDependencies": [
+        "@types/react@19.2.2"
+      ],
+      "meta": {
+        "fontAssets": [
+          {
+            "source": "public/source/fonts/Pretendard-Bold.woff2",
+            "target": "public/source/fonts/Pretendard-Bold.woff2",
+            "url": "/source/fonts/Pretendard-Bold.woff2",
+            "sha256": "4609c3356e536fafe38f4add0daeceb3d8595d3057bce13c428c33ddbd43d362"
+          },
+          {
+            "source": "public/source/fonts/Pretendard-Medium.woff2",
+            "target": "public/source/fonts/Pretendard-Medium.woff2",
+            "url": "/source/fonts/Pretendard-Medium.woff2",
+            "sha256": "d03481330eeba0659ab5b87f25ceb504a35de377dd90a0d0aba2982eb2d05e2c"
+          },
+          {
+            "source": "public/source/fonts/Pretendard-Regular.woff2",
+            "target": "public/source/fonts/Pretendard-Regular.woff2",
+            "url": "/source/fonts/Pretendard-Regular.woff2",
+            "sha256": "fad853f7f47c6c8b103171e7193fa095708cdcd70850a71d93aa5379e8a61d63"
+          },
+          {
+            "source": "public/source/fonts/Pretendard-SemiBold.woff2",
+            "target": "public/source/fonts/Pretendard-SemiBold.woff2",
+            "url": "/source/fonts/Pretendard-SemiBold.woff2",
+            "sha256": "c863f76a7de5c1ddc1ed8b2fa794964530774592c4f31407a84e2a2ae93f17f0"
+          }
+        ],
+        "fontAssetsAutomatic": false,
+        "fontLicense": "public/source/fonts/LICENSE"
+      },
+      "files": [
+        {
+          "path": "src/default-theme.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/default-theme.css"
+        },
+        {
+          "path": "src/design-tokens.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/design-tokens.css"
+        },
+        {
+          "path": "src/font-face.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/font-face.css"
+        },
+        {
+          "path": "src/generated/scoped-tokens.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/generated/scoped-tokens.css"
+        },
+        {
+          "path": "src/components/button.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/button.css"
+        },
+        {
+          "path": "src/components/control-base.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/control-base.css"
+        },
+        {
+          "path": "src/components/popover.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/popover.css"
+        },
+        {
+          "path": "src/components/popover.tsx",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/popover.tsx"
+        },
+        {
+          "path": "docs/source-installation.md",
+          "type": "registry:file",
+          "target": "~/src/gyeol/INSTALL.md"
+        }
+      ]
+    },
+    {
+      "name": "gnb",
+      "type": "registry:item",
+      "title": "GNB",
+      "description": "GNB with isolated scoped source/style/dependencies.",
+      "dependencies": [
+        "react@19.2.0"
+      ],
+      "devDependencies": [
+        "@types/react@19.2.2"
+      ],
+      "meta": {
+        "fontAssets": [
+          {
+            "source": "public/source/fonts/Pretendard-Bold.woff2",
+            "target": "public/source/fonts/Pretendard-Bold.woff2",
+            "url": "/source/fonts/Pretendard-Bold.woff2",
+            "sha256": "4609c3356e536fafe38f4add0daeceb3d8595d3057bce13c428c33ddbd43d362"
+          },
+          {
+            "source": "public/source/fonts/Pretendard-Medium.woff2",
+            "target": "public/source/fonts/Pretendard-Medium.woff2",
+            "url": "/source/fonts/Pretendard-Medium.woff2",
+            "sha256": "d03481330eeba0659ab5b87f25ceb504a35de377dd90a0d0aba2982eb2d05e2c"
+          },
+          {
+            "source": "public/source/fonts/Pretendard-Regular.woff2",
+            "target": "public/source/fonts/Pretendard-Regular.woff2",
+            "url": "/source/fonts/Pretendard-Regular.woff2",
+            "sha256": "fad853f7f47c6c8b103171e7193fa095708cdcd70850a71d93aa5379e8a61d63"
+          },
+          {
+            "source": "public/source/fonts/Pretendard-SemiBold.woff2",
+            "target": "public/source/fonts/Pretendard-SemiBold.woff2",
+            "url": "/source/fonts/Pretendard-SemiBold.woff2",
+            "sha256": "c863f76a7de5c1ddc1ed8b2fa794964530774592c4f31407a84e2a2ae93f17f0"
+          }
+        ],
+        "fontAssetsAutomatic": false,
+        "fontLicense": "public/source/fonts/LICENSE"
+      },
+      "files": [
+        {
+          "path": "src/default-theme.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/default-theme.css"
+        },
+        {
+          "path": "src/design-tokens.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/design-tokens.css"
+        },
+        {
+          "path": "src/font-face.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/font-face.css"
+        },
+        {
+          "path": "src/generated/scoped-tokens.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/generated/scoped-tokens.css"
+        },
+        {
+          "path": "src/components/button.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/button.css"
+        },
+        {
+          "path": "src/components/button.tsx",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/button.tsx"
+        },
+        {
+          "path": "src/components/control-base.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/control-base.css"
+        },
+        {
+          "path": "src/components/gnb.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/gnb.css"
+        },
+        {
+          "path": "src/components/gnb.tsx",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/gnb.tsx"
+        },
+        {
+          "path": "src/components/navigation-types.ts",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/navigation-types.ts"
+        },
+        {
+          "path": "docs/source-installation.md",
+          "type": "registry:file",
+          "target": "~/src/gyeol/INSTALL.md"
+        }
+      ]
+    },
+    {
+      "name": "lnb",
+      "type": "registry:item",
+      "title": "LNB",
+      "description": "LNB with isolated scoped source/style/dependencies.",
+      "dependencies": [
+        "react@19.2.0"
+      ],
+      "devDependencies": [
+        "@types/react@19.2.2"
+      ],
+      "meta": {
+        "fontAssets": [
+          {
+            "source": "public/source/fonts/Pretendard-Bold.woff2",
+            "target": "public/source/fonts/Pretendard-Bold.woff2",
+            "url": "/source/fonts/Pretendard-Bold.woff2",
+            "sha256": "4609c3356e536fafe38f4add0daeceb3d8595d3057bce13c428c33ddbd43d362"
+          },
+          {
+            "source": "public/source/fonts/Pretendard-Medium.woff2",
+            "target": "public/source/fonts/Pretendard-Medium.woff2",
+            "url": "/source/fonts/Pretendard-Medium.woff2",
+            "sha256": "d03481330eeba0659ab5b87f25ceb504a35de377dd90a0d0aba2982eb2d05e2c"
+          },
+          {
+            "source": "public/source/fonts/Pretendard-Regular.woff2",
+            "target": "public/source/fonts/Pretendard-Regular.woff2",
+            "url": "/source/fonts/Pretendard-Regular.woff2",
+            "sha256": "fad853f7f47c6c8b103171e7193fa095708cdcd70850a71d93aa5379e8a61d63"
+          },
+          {
+            "source": "public/source/fonts/Pretendard-SemiBold.woff2",
+            "target": "public/source/fonts/Pretendard-SemiBold.woff2",
+            "url": "/source/fonts/Pretendard-SemiBold.woff2",
+            "sha256": "c863f76a7de5c1ddc1ed8b2fa794964530774592c4f31407a84e2a2ae93f17f0"
+          }
+        ],
+        "fontAssetsAutomatic": false,
+        "fontLicense": "public/source/fonts/LICENSE"
+      },
+      "files": [
+        {
+          "path": "src/default-theme.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/default-theme.css"
+        },
+        {
+          "path": "src/design-tokens.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/design-tokens.css"
+        },
+        {
+          "path": "src/font-face.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/font-face.css"
+        },
+        {
+          "path": "src/generated/scoped-tokens.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/generated/scoped-tokens.css"
+        },
+        {
+          "path": "src/components/button.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/button.css"
+        },
+        {
+          "path": "src/components/button.tsx",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/button.tsx"
+        },
+        {
+          "path": "src/components/control-base.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/control-base.css"
+        },
+        {
+          "path": "src/components/lnb.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/lnb.css"
+        },
+        {
+          "path": "src/components/lnb.tsx",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/lnb.tsx"
+        },
+        {
+          "path": "src/components/navigation-types.ts",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/navigation-types.ts"
+        },
+        {
+          "path": "docs/source-installation.md",
+          "type": "registry:file",
+          "target": "~/src/gyeol/INSTALL.md"
+        }
+      ]
+    },
+    {
+      "name": "breadcrumb",
+      "type": "registry:item",
+      "title": "Breadcrumb",
+      "description": "Breadcrumb with isolated scoped source/style/dependencies.",
+      "dependencies": [
+        "react@19.2.0"
+      ],
+      "devDependencies": [
+        "@types/react@19.2.2"
+      ],
+      "meta": {
+        "fontAssets": [
+          {
+            "source": "public/source/fonts/Pretendard-Bold.woff2",
+            "target": "public/source/fonts/Pretendard-Bold.woff2",
+            "url": "/source/fonts/Pretendard-Bold.woff2",
+            "sha256": "4609c3356e536fafe38f4add0daeceb3d8595d3057bce13c428c33ddbd43d362"
+          },
+          {
+            "source": "public/source/fonts/Pretendard-Medium.woff2",
+            "target": "public/source/fonts/Pretendard-Medium.woff2",
+            "url": "/source/fonts/Pretendard-Medium.woff2",
+            "sha256": "d03481330eeba0659ab5b87f25ceb504a35de377dd90a0d0aba2982eb2d05e2c"
+          },
+          {
+            "source": "public/source/fonts/Pretendard-Regular.woff2",
+            "target": "public/source/fonts/Pretendard-Regular.woff2",
+            "url": "/source/fonts/Pretendard-Regular.woff2",
+            "sha256": "fad853f7f47c6c8b103171e7193fa095708cdcd70850a71d93aa5379e8a61d63"
+          },
+          {
+            "source": "public/source/fonts/Pretendard-SemiBold.woff2",
+            "target": "public/source/fonts/Pretendard-SemiBold.woff2",
+            "url": "/source/fonts/Pretendard-SemiBold.woff2",
+            "sha256": "c863f76a7de5c1ddc1ed8b2fa794964530774592c4f31407a84e2a2ae93f17f0"
+          }
+        ],
+        "fontAssetsAutomatic": false,
+        "fontLicense": "public/source/fonts/LICENSE"
+      },
+      "files": [
+        {
+          "path": "src/default-theme.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/default-theme.css"
+        },
+        {
+          "path": "src/design-tokens.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/design-tokens.css"
+        },
+        {
+          "path": "src/font-face.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/font-face.css"
+        },
+        {
+          "path": "src/generated/scoped-tokens.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/generated/scoped-tokens.css"
+        },
+        {
+          "path": "src/components/breadcrumb.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/breadcrumb.css"
+        },
+        {
+          "path": "src/components/breadcrumb.tsx",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/breadcrumb.tsx"
+        },
+        {
+          "path": "src/components/control-base.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/control-base.css"
+        },
+        {
+          "path": "docs/source-installation.md",
+          "type": "registry:file",
+          "target": "~/src/gyeol/INSTALL.md"
+        }
+      ]
     }
   ]
 }

@@ -41,6 +41,7 @@
 @import "./components/tabs.css";
 @import "./components/menu.css";
 @import "./components/tooltip.css";
+@import "./components/dialog.css";
 @import "./components/progress-result.css";
 @layer components {
 :where(.ds-core), :where(.ds-core) * {
@@ -259,53 +260,14 @@
   font-size: var(--font-size-label);
   color: var(--color-status-success-fg);
 }
-:where(.ds-core) dialog {
-  width: 560px;
-  max-width: calc(100vw - 32px);
-  max-height: calc(100dvh - 40px);
-  padding: 0;
-  border: var(--ds-border-thin) solid var(--color-border-subtle);
-  border-radius: var(--radius-lg);
-  background: var(--dialog-bg);
-  color: var(--dialog-fg);
-  box-shadow: var(--ds-shadow-dialog);
-}
-:where(.ds-core) dialog::backdrop {
-  background: var(--color-scrim);
-  backdrop-filter: blur(3px);
-}
-:where(.ds-core) .dialog-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-  padding: var(--ds-space-5) var(--space-6);
-  border-bottom: var(--ds-border-thin) solid var(--color-border-subtle);
-}
-:where(.ds-core) .dialog-head h2 {
-  font-size: var(--ds-chart-title-size);
-  line-height: var(--ds-line-title);
-}
-:where(.ds-core) .dialog-body {
-  padding: var(--ds-space-5);
-  font-size: var(--ds-control-font-size);
-  line-height: var(--ds-line-relaxed);
-  overflow-wrap: anywhere;
-}
-:where(.ds-core) .dialog-body p:last-child {
-  margin-bottom: 0;
-}
-:where(.ds-core) .dialog-actions {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-  gap: 12px;
-  padding: var(--ds-space-5) var(--space-6);
-  border-top: var(--ds-border-thin) solid var(--color-border-subtle);
-}
-:where(.ds-core) .dialog-actions .primary {
-  min-height: var(--size-control);
-}
+
+
+
+
+
+
+
+
 :where(.ds-core) .list-row {
   display: flex;
   flex-wrap: wrap;
