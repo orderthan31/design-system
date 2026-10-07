@@ -38,6 +38,9 @@
 @import "./components/toast.css";
 @import "./components/accordion.css";
 @import "./components/collapse.css";
+@import "./components/tabs.css";
+@import "./components/menu.css";
+@import "./components/tooltip.css";
 @import "./components/progress-result.css";
 @layer components {
 :where(.ds-core), :where(.ds-core) * {
@@ -156,10 +159,6 @@
   justify-content: space-between;
   gap: 16px;
 }
-:where(.ds-core) .tabs [role="tab"] { border-radius:var(--ds-radius-control) var(--ds-radius-control) 0 0; display:inline-flex; align-items:center; gap:8px; }
-:where(.ds-core) .tabs [role="tab"]:hover:not(:disabled),
-:where(.ds-core) .tabs [role="tab"]:active:not(:disabled) { background:var(--color-bg-subtle); color:var(--color-text-primary); }
-:where(.ds-core) .tabs [role="tab"]:disabled { color:var(--color-disabled-fg); }
 :where(.ds-core) .spinner {
   display: inline-block;
   width: 14px;
@@ -260,84 +259,6 @@
   font-size: var(--font-size-label);
   color: var(--color-status-success-fg);
 }
-:where(.ds-core) .tabs [role="tablist"] {
-  display: flex;
-  gap: 8px;
-  border-bottom: var(--ds-border-thin) solid var(--color-border-subtle);
-  flex-wrap: wrap;
-}
-:where(.ds-core) .tabs [role="tab"] {
-  border: 0;
-  border-bottom: var(--ds-border-strong) solid transparent;
-  background: none;
-  padding: var(--ds-space-2-5) var(--space-4);
-  min-height: 44px;
-  font-size: var(--ds-control-font-size);
-  color: var(--color-text-secondary);
-}
-:where(.ds-core) .tabs [role="tab"][aria-selected="true"] {
-  color: var(--color-link);
-  border-color: var(--color-link);
-}
-:where(.ds-core) .tabs [role="tabpanel"] {
-  padding: var(--ds-space-5-5) 0 0;
-  font-size: var(--ds-control-font-size);
-}
-:where(.ds-core) .tabs [role="tabpanel"] p {
-  margin: 0;
-}
-:where(.ds-core) .menu-wrap,
-:where(.ds-core) .tooltip-wrap {
-  position: relative;
-  display: inline-block;
-  width: fit-content;
-  max-width: 100%;
-}
-:where(.ds-core) .menu-popup {
-  position: absolute;
-  top: calc(100% + 7px);
-  left: 0;
-  min-width: 170px;
-  background: var(--color-bg-surface);
-  border: var(--ds-border-thin) solid var(--color-border-subtle);
-  box-shadow: var(--ds-shadow-menu);
-  border-radius: var(--ds-radius-control);
-  padding: var(--ds-space-1-25);
-  z-index: 5;
-}
-:where(.ds-core) .menu-popup button {
-  display: block;
-  width: 100%;
-  text-align: left;
-  border: 0;
-  background: none;
-  color: var(--color-text-primary);
-  min-height: 44px;
-  padding: var(--ds-space-2-5) var(--space-3);
-  font-size: var(--font-size-label);
-  border-radius: var(--ds-radius-menu-item);
-}
-:where(.ds-core) .menu-popup button:hover,
-:where(.ds-core) .menu-popup button:focus {
-  background: var(--color-selected-bg);
-  color: var(--color-selected-fg);
-}
-:where(.ds-core) .tooltip {
-  position: absolute;
-  z-index: 6;
-  left: 0;
-  top: calc(100% + 9px);
-  padding: var(--ds-space-2-25) var(--space-3);
-  max-width: 230px;
-  width: max-content;
-  border-radius: var(--ds-radius-badge);
-  background: var(--color-text-primary);
-  color: var(--color-text-inverse);
-  font-size: var(--font-size-caption);
-  line-height: var(--ds-line-compact);
-  overflow-wrap: anywhere;
-  box-shadow: var(--ds-shadow-tooltip);
-}
 :where(.ds-core) dialog {
   width: 560px;
   max-width: calc(100vw - 32px);
@@ -428,9 +349,6 @@
   :where(.ds-core) .inline-label .control {
     max-width: 100%;
   }
-  :where(.ds-core) .tooltip {
-    max-width: 220px;
-  }
 }
 @media (prefers-reduced-motion: reduce) {
   :where(.ds-core), :where(.ds-core) *,
@@ -458,16 +376,6 @@
 }
 
 /* Native entry, selection and navigation cues; validation and focus stay independent. */
-:where(.ds-core) .menu-popup button:active {
-  background: var(--color-action-ghost-pressed, var(--color-selected-bg));
-  color: var(--color-selected-fg);
-}
-:where(.ds-core) .tabs [role="tab"]:hover {
-  background: var(--color-bg-subtle);
-}
-:where(.ds-core) .tabs [role="tab"]:active {
-  background: var(--color-selected-bg);
-}
 
 :where(.ds-core) .ds-icon-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 100px), 1fr)); gap: var(--space-3); margin-block: var(--space-4); }
 :where(.ds-core) .ds-icon-grid > div { display: grid; justify-items: center; gap: var(--space-2); padding: var(--space-3); border: 0; border-radius: var(--radius-md); background: var(--color-bg-surface); min-width: 0; }

@@ -1,0 +1,33 @@
+@import "./control-base.css";
+@import "./button.css";
+@layer components {
+
+:where(.ds-core) .tooltip-wrap {
+  position: relative;
+  display: inline-block;
+  width: fit-content;
+  max-width: 100%;
+}
+:where(.ds-core) .tooltip {
+  position: absolute;
+  z-index: 6;
+  left: 0;
+  top: calc(100% + 9px);
+  padding: var(--ds-space-2-25) var(--space-3);
+  max-width: 230px;
+  width: max-content;
+  border-radius: var(--ds-radius-badge);
+  background: var(--color-text-primary);
+  color: var(--color-text-inverse);
+  font-size: var(--font-size-caption);
+  line-height: var(--ds-line-compact);
+  overflow-wrap: anywhere;
+  box-shadow: var(--ds-shadow-tooltip);
+}
+@media (max-width: 700px) {
+  :where(.ds-core) .tooltip {
+    max-width: 220px;
+  }
+}
+:where(.ds-core) .tooltip-wrap>.button {max-width:100%;white-space:normal;overflow-wrap:anywhere;}
+}
