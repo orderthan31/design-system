@@ -2,7 +2,7 @@ import {Input,Textarea,Select,Switch} from '../index';
 import {GalleryDocs,GalleryControls} from './workbench';
 import React from 'react';
 import {Button,type ButtonProps} from '../components/atoms';
-import {Badge,Progress,type Tone} from '../components/primitives';
+import {Badge,Progress,Skeleton,Separator,type Tone} from '../components/primitives';
 import {Alert} from '../components/feedback';
 import {TextField} from '../components/text-field';
 import {Slider,Rating} from '../components/range-selection';
@@ -24,6 +24,8 @@ const options=[{value:'all',label:'전체'},{value:'ready',label:'준비 완료'
 const schemas:Record<string,readonly Control[]>={
  Button:[choice('variant','primary',variants),choice('size','medium',['small','medium','large']),boolean('disabled'),boolean('loading'),text('children','변경 사항 저장')],
  Badge:[choice('tone','neutral',tones),text('children','준비 완료')],
+ Skeleton:[text('label','콘텐츠 불러오는 중')],
+ Separator:[],
  Alert:[choice('tone','running',tones),text('title','안내'),text('children','변경 사항을 확인해 주세요.')],
  Progress:[number('value',65,0,100),text('label','진행률'),boolean('indeterminate')],
  TextField:[choice('type','text',['text','email','tel','url','search']),text('label','표시 이름'),text('placeholder','이름 입력'),text('value','디자이너'),boolean('clearable',true),boolean('required'),boolean('disabled'),boolean('readOnly'),boolean('loading'),text('error','')],
@@ -53,6 +55,8 @@ export function Playground({name}:{name:string}){
  const settings=Object.fromEntries(Object.entries(values).filter(([key])=>key!=='children'&&key!=='value'));
  switch(name){
   case 'Button':preview=<Button variant={values.variant as ButtonProps['variant']} size={values.size as ButtonProps['size']} disabled={disabled} loading={Boolean(values.loading)} onClick={click}>{children}</Button>;source=`<Button {...settings} onClick={() => setMessage('동작을 실행했습니다.')}>${'{'+literal(children)+'}'}</Button>`;break;
+  case 'Skeleton':preview=<Skeleton label={label}/>;source='<Skeleton {...settings} />';break;
+  case 'Separator':preview=<><p>첫 번째 그룹</p><Separator/><p>두 번째 그룹</p></>;source='<p>첫 번째 그룹</p><Separator/><p>두 번째 그룹</p>';break;
   case 'Badge':preview=<Badge tone={values.tone as Tone}>{children}</Badge>;source=`<Badge {...settings}>{${literal(children)}}</Badge>`;break;
   case 'Alert':preview=<Alert title={String(values.title)} tone={values.tone as Tone}>{children}</Alert>;source=`<Alert {...settings}>{${literal(children)}}</Alert>`;break;
   case 'Progress':{delete settings.indeterminate;preview=Boolean(values.indeterminate)?<Progress label={label}/>:<Progress value={value} label={label}/>;source=Boolean(values.indeterminate)?'<Progress {...settings} />':'<Progress {...settings} value={value} />';break;}
@@ -73,11 +77,13 @@ export function Playground({name}:{name:string}){
  const usesValue=['TextField','Slider','Rating','SegmentedControl'].includes(name)||(name==='Progress'&&!Boolean(values.indeterminate));
  const usesMessage=['Button','GridList'].includes(name);
  const stateLine=usesValue?`const [value,setValue]=useState(${literal(values.value)});`:'';
- const code=`${usesValue||usesMessage?"import { useState } from 'react';\n":''}import { ${name}${name==='GridList'?', Button':''} } from './src/index';\nimport './src/core.css';\n\nexport function Example() {\n${usesMessage?"const [message,setMessage]=useState('');":''}\n${stateLine}\nconst settings=${literal(settings)} as const;\nreturn <div className="ds-core">${source}${usesMessage?'{message && <p role="status">{message}</p>}':''}</div>;\n}`;
+ const standalone=['Button','Badge','Skeleton','Separator'].includes(name);
+ const installedItem=name.toLowerCase();
+ const code=`${usesValue||usesMessage?"import { useState } from 'react';\n":''}import { ${name}${name==='GridList'?', Button':''} } from '${standalone?'./src/gyeol/components/'+installedItem:'./src/index'}';${standalone?'':"\nimport './src/core.css';"}\n\nexport function Example() {\n${usesMessage?"const [message,setMessage]=useState('');":''}\n${stateLine}\n${name==='Separator'?'':`const settings=${literal(settings)} as const;`}\nreturn <div className="ds-core">${source}${usesMessage?'{message && <p role="status">{message}</p>}':''}</div>;\n}`;
  return <section className="gallery-playground" aria-label={`${name} 속성 시연`}>
   <div className="gallery-playground-layout">
    <div className="gallery-playground-preview" data-preview={name}>{preview}{message&&<p role="status">{message}</p>}</div>
-   <GalleryControls as="fieldset" className="gallery-props"><legend>Props</legend>
+   {schema.length>0&&<GalleryControls as="fieldset" className="gallery-props"><legend>Props</legend>
     {schema.map(control=><div className="gallery-prop" key={control.name}>
      {typeof control.default!=='boolean'&&<label htmlFor={`${id}-${control.name}`}><code>{control.name}</code></label>}
      {control.options?<Select id={`${id}-${control.name}`} value={String(values[control.name])} onChange={e=>update(control.name,e.currentTarget.value)}>{control.options.map(option=><option key={option}>{option}</option>)}</Select>
@@ -87,9 +93,9 @@ export function Playground({name}:{name:string}){
      {typeof control.default==='number'&&<output htmlFor={`${id}-${control.name}`}>{String(values[control.name])}</output>}
     </div>)}
     <span className="gallery-props-reset"><Button type="button" variant="ghost" onClick={()=>{setValues(defaults());setMessage('');}}>기본값으로 초기화</Button></span>
-   </GalleryControls>
+   </GalleryControls>}
   </div>
   <GalleryDocs className="gallery-playground-code"><summary>Code</summary><CodeBlock source={code}/></GalleryDocs>
-  <GalleryDocs className="gallery-props-reference"><summary>시연 설정 · API</summary>{name==='Progress'&&<p>value는 선택 숫자 prop입니다. 예제의 indeterminate control을 켜면 실제 value prop을 생략하고 진행 중 표시와 aria-valuenow 없는 progressbar를 보여줍니다. indeterminate는 Progress의 public prop이 아닙니다. 끄면 보존한 value를 다시 표시하고 초기화는 value65/label/모드를 함께 복원합니다.</p>}{name==='GridList'&&<p><code>items / renderItem / getKey / label</code>은 필수. getKey는 고유한 키를 반환하고 columns는 1~4 정수입니다. 좁은 컨테이너에서는 열을 줄입니다. 정렬·필터·선택은 소유자 로직입니다.</p>}{name==='Highlight'&&<p><code>text / query</code>는 필수 문자열. query는 정규식이 아닌 검색할 원문이며 빈 값이면 강조하지 않습니다. 기본은 대소문자를 구분하지 않습니다.</p>}{name==='Bubble'&&<p>children과 네이티브 div 속성을 받습니다. 비모달 말풍선이며 tooltip·live region·채팅 전송 기능은 포함하지 않습니다.</p>}<dl>{schema.map(item=><div key={item.name}><dt><code>{item.name}</code></dt><dd>{item.options?item.options.join(' | '):typeof item.default} · <code>{String(item.default)}</code></dd></div>)}</dl></GalleryDocs>
+  <GalleryDocs className="gallery-props-reference"><summary>시연 설정 · API</summary>{standalone&&<p>선택 설치: <code>npx shadcn@4.21.3 add orderthan31/design-system/{installedItem}</code>. 자체 owner CSS를 가져옵니다. .ds-core 범위·수동 Pretendard 자산 계약은 source-installation 문서를 따릅니다.</p>}{name==='Badge'&&<p>children은 필수 내용이며 tone은 neutral/running/success/review/error, 기본 neutral입니다. 표시 전용 span이며 상호작용·상태 알림 role을 자동 추가하지 않습니다.</p>}{name==='Skeleton'&&<p>label은 숨겨진 한국어 status 안내입니다. 기본값은 콘텐츠 불러오는 중입니다. 실제 로딩 상태는 소비자가 표시·제거하고 서버 요청·가짜 진행률·자동 완료를 만들지 않습니다. reduced-motion에서는 pulse를 중단합니다. size/width/loading props는 없습니다.</p>}{name==='Separator'&&<p>native hr로 문서 구분 의미를 제공합니다. 공개 props는 없습니다. 방향/size/label/interactive API를 만들지 않습니다.</p>}{name==='Progress'&&<p>value는 선택 숫자 prop입니다. 예제의 indeterminate control을 켜면 실제 value prop을 생략하고 진행 중 표시와 aria-valuenow 없는 progressbar를 보여줍니다. indeterminate는 Progress의 public prop이 아닙니다. 끄면 보존한 value를 다시 표시하고 초기화는 value65/label/모드를 함께 복원합니다.</p>}{name==='GridList'&&<p><code>items / renderItem / getKey / label</code>은 필수. getKey는 고유한 키를 반환하고 columns는 1~4 정수입니다. 좁은 컨테이너에서는 열을 줄입니다. 정렬·필터·선택은 소유자 로직입니다.</p>}{name==='Highlight'&&<p><code>text / query</code>는 필수 문자열. query는 정규식이 아닌 검색할 원문이며 빈 값이면 강조하지 않습니다. 기본은 대소문자를 구분하지 않습니다.</p>}{name==='Bubble'&&<p>children과 네이티브 div 속성을 받습니다. 비모달 말풍선이며 tooltip·live region·채팅 전송 기능은 포함하지 않습니다.</p>}<dl>{schema.map(item=><div key={item.name}><dt><code>{item.name}</code></dt><dd>{item.options?item.options.join(' | '):typeof item.default} · <code>{String(item.default)}</code></dd></div>)}</dl></GalleryDocs>
  </section>;
 }

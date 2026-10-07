@@ -19,6 +19,9 @@ npx shadcn@4.21.3 add orderthan31/design-system/multi-select
 npx shadcn@4.21.3 add orderthan31/design-system/checkbox-group
 npx shadcn@4.21.3 add orderthan31/design-system/slider
 npx shadcn@4.21.3 add orderthan31/design-system/rating
+npx shadcn@4.21.3 add orderthan31/design-system/badge
+npx shadcn@4.21.3 add orderthan31/design-system/separator
+npx shadcn@4.21.3 add orderthan31/design-system/skeleton
 ```
 
 - 설치 위치: `src/gyeol/`. 소비 앱의 기존 경로로 옮길 때 상대 import도 함께 유지합니다. `~/` target은 프로젝트 루트 기준이며 전역 홈 설치가 아닙니다.
@@ -38,9 +41,11 @@ import { Input } from './src/gyeol/components/input';
 </div>
 ```
 
-현재 canonical gallery75항목 중 선택 설치16항목입니다. 나머지59항목은 component 부재가 아니라 standalone 설치 coverage 미완료입니다.
+현재 canonical gallery75항목 중 선택 설치19항목입니다. 나머지56항목은 component 부재가 아니라 standalone 설치 coverage 미완료입니다.
 
 - Switch/RadioGroup/MultiSelect/CheckboxGroup/Slider/Rating은 필요한 field/choice/reset/checkbox/button owner와 React만 포함하며 Recharts/Lucide/Radix를 가져오지 않습니다. form.reset()은 native default action 후 microtask에서 uncontrolled 초기값 또는 latest controlled owner 값으로 DOM/표시 state를 맞추며 change callback을 만들지 않습니다. cancelled reset은 동기화하지 않습니다.
+
+- Badge/Separator/Skeleton은 자기 owner와 React만 포함합니다. Skeleton의 숨김 안내·pulse/reduced-motion은 해당 owner에 포함하며 Progress/Alert/Input/Chart/갤러리를 가져오지 않습니다.
 
 ## Pretendard 자산 — 별도 필수 설정
 

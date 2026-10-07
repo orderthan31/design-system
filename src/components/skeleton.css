@@ -1,0 +1,17 @@
+@import "./control-base.css";
+@import "./accessibility.css";
+@layer components {
+:where(.ds-core) .skeleton {
+  height: 22px;
+  max-width: 420px;
+  border-radius: var(--ds-radius-badge);
+  background: var(--color-border-subtle);
+  margin-bottom: 12px;
+  animation: ds-core-pulse 1.8s ease infinite;
+}
+:where(.ds-core) .skeleton.short {
+  width: 62%;
+}
+@keyframes ds-core-pulse {50% {opacity:.55;}}
+@media (prefers-reduced-motion:reduce){:where(.ds-core) .skeleton {animation:none;}}
+}

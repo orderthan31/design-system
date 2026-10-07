@@ -1,22 +1,11 @@
 import React from "react";
 import "./input.css";
-export function Separator() {
-  return <hr className="separator" />;
-}
+export {Separator} from "./separator";
 export {Textarea} from "./textarea";
 export {Select} from "./select";
 export {Checkbox} from "./checkbox";
 export {IconButton} from "./icon-button";
-export type Tone = "neutral" | "running" | "success" | "review" | "error";
-export function Badge({
-  tone = "neutral",
-  children,
-}: {
-  tone?: Tone;
-  children: React.ReactNode;
-}) {
-  return <span className={`badge ${tone}`}>{children}</span>;
-}
+export {Badge,type Tone} from "./badge";
 export function Progress({
   value,
   label = "진행률",
@@ -57,12 +46,4 @@ export function Progress({
     </div>
   );
 }
-export function Skeleton({ label = "콘텐츠 불러오는 중" }: { label?: string }) {
-  return (
-    <div role="status">
-      <span className="sr-only">{label}</span>
-      <div className="skeleton" aria-hidden="true" />
-      <div className="skeleton short" aria-hidden="true" />
-    </div>
-  );
-}
+export {Skeleton} from "./skeleton";
