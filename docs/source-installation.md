@@ -7,11 +7,18 @@ npx shadcn@4.21.3 add orderthan31/design-system/button
 npx shadcn@4.21.3 add orderthan31/design-system/input
 npx shadcn@4.21.3 add orderthan31/design-system/password-input
 npx shadcn@4.21.3 add orderthan31/design-system/chart
+npx shadcn@4.21.3 add orderthan31/design-system/icon-button
+npx shadcn@4.21.3 add orderthan31/design-system/textarea
+npx shadcn@4.21.3 add orderthan31/design-system/select
+npx shadcn@4.21.3 add orderthan31/design-system/checkbox
+npx shadcn@4.21.3 add orderthan31/design-system/icon
+npx shadcn@4.21.3 add orderthan31/design-system/icon-action
 ```
 
 - 설치 위치: `src/gyeol/`. 소비 앱의 기존 경로로 옮길 때 상대 import도 함께 유지합니다. `~/` target은 프로젝트 루트 기준이며 전역 홈 설치가 아닙니다.
 - `button`은 React만 필요하고 Input/PasswordInput/Chart/갤러리 소스와 Radix/Lucide/Recharts는 가져오지 않습니다.
 - `input`은 React만 필요합니다. `password-input`은 실제 Input·InputGroup·필드 프레임과 Radix Toggle/Lucide만 포함합니다. `chart`는 실제 Chart·Table과 React/Recharts/react-is만 포함합니다. 다른 데이터 컨트롤·갤러리는 포함하지 않습니다.
+- `icon-button`은 실제 Button과 React만, `textarea`/`select`/`checkbox`는 자신의 native owner/style과 React만 포함합니다. `icon`은 정적 Lucide subset만 포함하고 IconAction/버튼/갤러리는 가져오지 않습니다. `icon-action`은 실제 Icon→IconButton→Button만 추가합니다. native className/ref는 실제 control에 전달되며 Checkbox의 mixed는 native indeterminate로 유지합니다.
 - manifest의 dependency/devDependency는 소비자의 package.json과 lockfile에 CLI가 반영합니다. npm의 저장 접두사 정책에 따라 package.json에는 `^`가 붙을 수 있으므로 실제 resolution은 lockfile로 확인합니다. 이미 설치된 React 환경과 충돌하면 소비자가 기존 환경과 조율해야 합니다.
 - 컴포넌트 source가 자신의 CSS를 import합니다. 애플리케이션 범위의 `.ds-core` 안에서 사용하며 core/gallery/styles.css를 복사할 필요가 없습니다. 범위 밖 host reset은 하지 않습니다.
 
@@ -29,7 +36,7 @@ import { Input } from './src/gyeol/components/input';
 
 CSS의 `font-face.css`는 400/500/600/700을 등록하고 `/source/fonts/Pretendard-{Regular,Medium,SemiBold,Bold}.woff2`를 요청합니다. **woff2 binary는 현재 CLI source item으로 자동 복사하지 않습니다.** 설치한 컴포넌트만으로 해당 자산을 확보했다고 간주하지 않습니다. registry item의 `meta.fontAssets`에 정확한 원본·소비자 경로·URL·SHA-256을 넣었습니다.
 
-동일 Git checkpoint의 `public/source/fonts/`에서 네 woff2와 `LICENSE.txt`, `provenance.json`을 소비자 `public/source/fonts/`에 그대로 복사하고 실제 정적 URL이 올바른 MIME/bytes로 응답하게 합니다. subpath 배포에서는 `src/gyeol/font-face.css`의 네 URL을 소비자의 실제 asset URL로 조정합니다. 원본 font bytes와 license는 바꾸지 않습니다. 자산이 없으면 system sans fallback이며 동일 외관을 주장할 수 없습니다.
+동일 Git checkpoint의 `public/source/fonts/`에서 네 woff2와 `LICENSE`, `provenance.json`을 소비자 `public/source/fonts/`에 그대로 복사하고 실제 정적 URL이 올바른 MIME/bytes로 응답하게 합니다. subpath 배포에서는 `src/gyeol/font-face.css`의 네 URL을 소비자의 실제 asset URL로 조정합니다. 원본 font bytes와 license는 바꾸지 않습니다. 자산이 없으면 system sans fallback이며 동일 외관을 주장할 수 없습니다.
 
 ## override와 native/slot 계약
 

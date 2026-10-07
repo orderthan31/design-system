@@ -1,0 +1,8 @@
+@import "./control-base.css";
+@layer components {
+ :where(.ds-core) .checkbox {display:flex;align-items:center;gap:var(--space-2);min-height:var(--size-control);min-width:0;font-size:var(--ds-control-font-size);line-height:var(--ds-control-line-height);font-weight:var(--ds-weight-medium);color:var(--color-text-primary);cursor:pointer;}
+ :where(.ds-core) .checkbox input {appearance:auto;background:initial;width:var(--ds-chart-title-size);height:var(--ds-chart-title-size);accent-color:var(--color-action-primary-bg-default);margin:0;flex-shrink:0;}
+ :where(.ds-core) .checkbox span {overflow-wrap:anywhere;}
+ :where(.ds-core) .checkbox:has(input:disabled) {color:var(--color-disabled-fg);cursor:not-allowed;}
+ :where(.ds-core) .checkbox:hover:not(:has(input:disabled)),:where(.ds-core) .checkbox:active:not(:has(input:disabled)) {color:var(--color-text-primary);}
+}

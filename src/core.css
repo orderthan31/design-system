@@ -6,6 +6,8 @@
 @import "./font-face.css" layer(base);
 @import "./components/button.css";
 @import "./components/input.css";
+@import "./components/checkbox.css";
+@import "./components/textarea.css";
 @import "./components/chart.css";
 @import "./components/layout.css";
 @import "./components/content-primitives.css";
@@ -140,7 +142,6 @@
 :where(.ds-core) .tabs [role="tab"]:hover:not(:disabled),
 :where(.ds-core) .tabs [role="tab"]:active:not(:disabled) { background:var(--color-bg-subtle); color:var(--color-text-primary); }
 :where(.ds-core) .tabs [role="tab"]:disabled { color:var(--color-disabled-fg); }
-:where(.ds-core) .checkbox:hover:not(:has(input:disabled)) { color:var(--color-link); }
 :where(.ds-core) .spinner {
   display: inline-block;
   width: 14px;
@@ -166,10 +167,6 @@
   font-weight: var(--ds-weight-normal);
   color: var(--color-text-secondary);
 }
-:where(.ds-core) .textarea {
-  resize: vertical;
-  min-height: 112px;
-}
 :where(.ds-core) .help {
   font-size: var(--font-size-caption);
   line-height: var(--font-line-caption);
@@ -193,29 +190,6 @@
 :where(.ds-core) .inline-label .control {
   width: auto;
   min-width: 150px;
-}
-:where(.ds-core) .checkbox {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  min-height: 48px;
-  font-size: var(--ds-control-font-size);
-  font-weight: var(--ds-weight-medium);
-  cursor: pointer;
-}
-:where(.ds-core) .checkbox input {
-  width: 20px;
-  height: 20px;
-  accent-color: var(--color-action-primary-bg-default);
-  margin: 0;
-  flex-shrink: 0;
-}
-:where(.ds-core) .checkbox span {
-  overflow-wrap: anywhere;
-}
-:where(.ds-core) .checkbox:has(input:disabled) {
-  color: var(--color-disabled-fg);
-  cursor: not-allowed;
 }
 :where(.ds-core) .badge {
   display: inline-flex;
@@ -553,12 +527,6 @@
 }
 
 /* Native entry, selection and navigation cues; validation and focus stay independent. */
-:where(.ds-core) .checkbox:hover:not(:has(input:disabled)) {
-  background: var(--color-bg-subtle);
-}
-:where(.ds-core) .checkbox:active:not(:has(input:disabled)) {
-  background: var(--color-selected-bg);
-}
 :where(.ds-core) .menu-popup button:active {
   background: var(--color-action-ghost-pressed, var(--color-selected-bg));
   color: var(--color-selected-fg);

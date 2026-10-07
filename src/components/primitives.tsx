@@ -3,55 +3,10 @@ import "./input.css";
 export function Separator() {
   return <hr className="separator" />;
 }
-import { Button, type ButtonProps } from "./atoms";
-export function Textarea(
-  props: React.TextareaHTMLAttributes<HTMLTextAreaElement>,
-) {
-  return (
-    <textarea
-      {...props}
-      className={`control textarea ${props.className ?? ""}`}
-    />
-  );
-}
-export function Select(props: React.SelectHTMLAttributes<HTMLSelectElement>) {
-  return <select data-slot="native-select" {...props} className={`control ${props.className ?? ""}`} />;
-}
-export function Checkbox({
-  label,
-  mixed = false,
-  ...props
-}: {
-  label: string;
-  mixed?: boolean;
-} & React.InputHTMLAttributes<HTMLInputElement>) {
-  const ref = React.useRef<HTMLInputElement>(null);
-  React.useEffect(() => {
-    if (ref.current) ref.current.indeterminate = mixed;
-  }, [mixed]);
-  return (
-    <label className="checkbox">
-      <input {...props} ref={ref} type="checkbox" />
-      <span>{label}</span>
-    </label>
-  );
-}
-export function IconButton({
-  label,
-  children,
-  ...props
-}: { label: string } & ButtonProps) {
-  return (
-    <Button
-      {...props}
-      variant={props.variant ?? "secondary"}
-      data-slot="icon-button"
-      aria-label={label}
-    >
-      {children}
-    </Button>
-  );
-}
+export {Textarea} from "./textarea";
+export {Select} from "./select";
+export {Checkbox} from "./checkbox";
+export {IconButton} from "./icon-button";
 export type Tone = "neutral" | "running" | "success" | "review" | "error";
 export function Badge({
   tone = "neutral",
