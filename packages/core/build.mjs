@@ -29,6 +29,7 @@ const copies = [
   ...['common', 'lint', 'tokens'].map(name => [`packages/core/src/tools/${name}.mjs`, `dist/tools/${name}.mjs`]),
   ['packages/cli/src/installer.mjs', 'dist/tools/installer.mjs'],
   ['packages/cli/src/safety.mjs', 'dist/tools/safety.mjs'],
+  ['packages/cli/src/host-config.mjs', 'dist/tools/host-config.mjs'],
 ];
 const files = {};
 for (const [from, to] of copies) {

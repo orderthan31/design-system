@@ -101,6 +101,15 @@ test('external host retains core as a pinned devDependency and runs only its ins
   run('tamper-rejected', bin, ['inspect'], host, 1);
   fs.writeFileSync(theme, original);
   const finalPackage = JSON.parse(fs.readFileSync(path.join(host, 'package.json')));
+  const finalLock = JSON.parse(fs.readFileSync(path.join(host, 'package-lock.json')));
+  const finalCoreRecord = finalLock.packages['node_modules/hangyeol-core'];
+  assert.equal(finalCoreRecord.version, artifact.version);
+  assert.equal(finalCoreRecord.dev, true);
+  assert.equal(finalCoreRecord.integrity, lock.packages['node_modules/hangyeol-core'].integrity);
+  assert.match(finalCoreRecord.integrity, /^sha512-/);
+  assert.equal(finalCoreRecord.resolved, lock.packages['node_modules/hangyeol-core'].resolved);
+  assert.match(finalCoreRecord.resolved, /^file:/);
+  assert.equal(finalLock.packages[''].devDependencies['hangyeol-core'], finalPackage.devDependencies['hangyeol-core']);
   assert.equal(finalPackage.devDependencies['hangyeol-core'], pkg.devDependencies['hangyeol-core']);
   assert.ok(!finalPackage.dependencies['recharts']);
   assert.ok(!finalPackage.dependencies['react-is']);
@@ -108,7 +117,7 @@ test('external host retains core as a pinned devDependency and runs only its ins
   assert.ok(!installedModules.includes('packages/cli') && !installedModules.includes('scripts/'));
   fs.writeFileSync(path.join(evidence, 'external-host.json'), JSON.stringify({
     host, localBin: bin, coreDevDependency: pkg.devDependencies['hangyeol-core'],
-    installedVersion: lock.packages['node_modules/hangyeol-core'].version,
+    installedVersion: finalCoreRecord.version, finalCoreLockRecord: finalCoreRecord,
     lockRetained: true, physicalCorePackage: true, noPostinstallGeneration: true,
     payloadVersion: manifest.version, sourceClosure: config.components,
   }, null, 2));

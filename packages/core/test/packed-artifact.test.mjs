@@ -29,7 +29,7 @@ test('packed core owns its executable, shared installer and same-version canonic
   const dry = JSON.parse(invoke('dry-run', 'npm', ['pack', '--dry-run', '--json', '--workspace=hangyeol-core']))[0];
   const files = new Set(dry.files.map(entry => entry.path));
   for (const file of ['bin/hangyeol.mjs', 'dist/router.mjs', 'dist/tools/installer.mjs',
-    'dist/tools/safety.mjs', 'dist/tools/common.mjs', 'dist/tools/lint.mjs',
+    'dist/tools/safety.mjs', 'dist/tools/host-config.mjs', 'dist/tools/common.mjs', 'dist/tools/lint.mjs',
     'dist/tools/tokens.mjs', 'payload/manifest.json', 'LICENSE', 'THIRD_PARTY_NOTICES.md',
     'payload/assets/LICENSE', 'payload/assets/provenance.json']) assert.ok(files.has(file), `Missing packed boundary: ${file}`);
   assert.ok(!dry.files.some(file => /^(src|test|build\.mjs)\//.test(file.path)));

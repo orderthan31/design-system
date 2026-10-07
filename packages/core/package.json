@@ -23,7 +23,8 @@
     "build": "node build.mjs",
     "prepack": "node build.mjs",
     "prepublishOnly": "node publish-guard.mjs",
-    "test": "node --test test/package-boundary.test.mjs test/packed-artifact.test.mjs && node --test test/installed-core.test.mjs"
+    "test": "node build.mjs && node --test test/package-boundary.test.mjs test/init-contract.test.mjs test/init-preflight.test.mjs test/packed-artifact.test.mjs && node --test test/installed-core.test.mjs test/installed-init.test.mjs",
+    "test:init:http": "node --test test/installed-init-http.test.mjs"
   },
   "dependencies": {
     "@shadcn/lint": "0.2.0",

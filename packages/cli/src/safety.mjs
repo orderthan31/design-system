@@ -10,13 +10,15 @@ export function safeTarget(root,relative){
  // Reject symlinks in the project root ancestry too.
  while(current!==path.dirname(current)){if(fs.lstatSync(current).isSymbolicLink())throw Error('symlink project root');current=path.dirname(current);}
  current=path.resolve(root);
- for(const part of relative.split('/')){current=path.join(current,part);let stat;try{stat=fs.lstatSync(current);}catch(error){if(error.code==='ENOENT')break;throw error;}if(stat.isSymbolicLink())throw Error(`symlink target: ${relative}`);}
+ const parts=relative.split('/');
+ for(let i=0;i<parts.length;i++){current=path.join(current,parts[i]);let stat;try{stat=fs.lstatSync(current);}catch(error){if(error.code==='ENOENT')break;throw error;}if(stat.isSymbolicLink())throw Error(`symlink target: ${relative}`);if(i<parts.length-1&&!stat.isDirectory())throw Error(`file ancestor: ${relative}`);}
  return full;
 }
 export function planFiles(root,files,{overwrite=false}={}){
  const seen=new Set(),stamp=crypto.randomUUID();
  return files.map(file=>{
-  if(seen.has(file.path))throw Error(`duplicate target: ${file.path}`);seen.add(file.path);
+  const folded=file.path.toLowerCase();
+  for(const previous of seen){if(folded===previous)throw Error(`duplicate target: ${file.path}`);if(folded.startsWith(previous+'/')||previous.startsWith(folded+'/'))throw Error(`file/directory target overlap: ${file.path}`);}seen.add(folded);
   const full=safeTarget(root,file.path),bytes=Buffer.from(file.bytes),digest=hash(bytes);
   if(file.hash&&file.hash!==digest)throw Error(`payload hash mismatch: ${file.path}`);
   let action='create',previous;

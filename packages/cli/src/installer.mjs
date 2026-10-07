@@ -2,12 +2,18 @@ import fs from 'node:fs';
 import path from 'node:path';
 import {spawnSync} from 'node:child_process';
 import {planFiles,applyPlan,safeTarget,hash} from './safety.mjs';
+import {validateViteConfig,validateHostScripts,validateTypeScriptAliases} from './host-config.mjs';
 export function runInstaller(inputArgs, { payloadRoot }) {
 const payload=payloadRoot;
 const manifest=JSON.parse(fs.readFileSync(path.join(payload,'manifest.json')));
 const args=[...inputArgs],command=args.shift();
 const overwrite=args.includes('--overwrite'),dryRun=args.includes('--dry-run');
-function flag(name,fallback){const i=args.indexOf(name);return i<0?fallback:args[i+1];}
+const settingsFlags={'--source-root':'sourceRoot','--style-path':'stylePath','--public-root':'publicRoot','--font-path':'fontPath','--base-path':'basePath','--alias':'alias'};
+const options={},components=[];
+function parseArgs(){const seen=new Set();for(let i=0;i<args.length;i++){const arg=args[i];if(!arg.startsWith('--')){components.push(arg);continue;}if(seen.has(arg))throw Error(`Duplicate flag: ${arg}`);seen.add(arg);if(['--dry-run','--overwrite'].includes(arg))continue;const key=settingsFlags[arg];if(!key)throw Error(`Unknown flag: ${arg}`);const value=args[++i];if(!value||value.startsWith('--'))throw Error(`Missing value for ${arg}`);options[key]=value;}if(command==='init'&&components.length)throw Error('init does not add components; use add separately');}
+const settingKeys=Object.values(settingsFlags);
+const viteConfigs=['vite.config.js','vite.config.mjs','vite.config.ts','vite.config.cjs','vite.config.mts','vite.config.cts'];
+function settings(config){return Object.fromEntries(settingKeys.map(key=>[key,config[key]]));}
 function sourceFiles(config,items){
  const names=new Set(manifest.common),runtime={...manifest.runtime},visited=new Set();
  function visit(name){if(visited.has(name))return;const item=manifest.items[name];if(!item)throw Error(`Unknown component: ${name}`);visited.add(name);for(const edge of item.requires)visit(edge);for(const file of item.files)names.add(file);Object.assign(runtime,item.runtime);}
@@ -18,6 +24,7 @@ function discover(root){
  for(const name of ['package-lock.json','node_modules','gyeol.json'])safeTarget(root,name);
  const packageFile=safeTarget(root,'package.json');if(!fs.existsSync(packageFile))throw Error('Run inside a React/Vite host with package.json');
  const pkg=JSON.parse(fs.readFileSync(packageFile)),all={...pkg.dependencies,...pkg.devDependencies};
+ validateHostScripts(pkg.scripts);
  if(!all.react||!all['react-dom']||!all.vite)throw Error('Unsupported host: first adapter requires React, React DOM and Vite');
  if(all.tailwindcss&&!/^\^?4\./.test(all.tailwindcss))throw Error('Unsupported Tailwind version; v3 migration is outside this adapter');
  for(const name of ['react','react-dom'])if(!/^\^?19\./.test(all[name]))throw Error(`Unsupported ${name}: first adapter is tested with React 19; host is not downgraded`);
@@ -26,31 +33,64 @@ function discover(root){
 function fontCSS(config){const base=config.basePath,dir=config.fontPath;return [['Regular',400],['Medium',500],['SemiBold',600],['Bold',700]].map(([name,weight])=>`@font-face { font-family: Pretendard; font-style: normal; font-weight: ${weight}; font-display: swap; src: url("${base}${dir}/Pretendard-${name}.woff2") format("woff2"); }`).join('\n')+'\n';}
 function relativeImport(from,to){let rel=path.posix.relative(path.posix.dirname(from),to);return rel.startsWith('.')?rel:'./'+rel;}
 function buildInit(root,config){
+ for(const filename of [...viteConfigs,'tsconfig.json'])if(config.installed?.[filename]){const full=safeTarget(root,filename);if(!fs.existsSync(full)||hash(fs.readFileSync(full))!==config.installed[filename].hash)throw Error(`conflict: edited/missing managed host config ${filename}; restore/review explicitly, host config migration is outside init`);}
  const files=[];const graph=sourceFiles(config,[]);files.push(...graph.files);
  const base=config.basePath;if(!/^\/(?:[a-zA-Z0-9_/-]*\/)?$/.test(base)||base.includes('..'))throw Error('basePath must be an absolute URL path ending in /');
  for(const name of Object.keys(manifest.assets)){const bytes=fs.readFileSync(path.join(payload,'assets',name));files.push({path:`${config.publicRoot}/${config.fontPath}/${name}`,bytes,hash:manifest.assets[name].hash});}
  files.push({path:`${config.sourceRoot}/foundation/fonts.css`,bytes:Buffer.from(fontCSS(config))});
  const stylePath=safeTarget(root,config.stylePath),existing=fs.existsSync(stylePath)?fs.readFileSync(stylePath,'utf8'):'';
- if(/@import\s+['"]tailwindcss['"]/.test(existing)||existing.includes('preflight'))throw Error('Host stylesheet imports a reset or umbrella Tailwind import; split it explicitly before init');
+ const activeCSS=existing.replace(/\/\*[\s\S]*?\*\//g,'');
+ if(/@import\s+(?:url\(\s*)?(['"]?)tailwindcss(?:\/index\.css)?\1(?=[\s);]|$)/i.test(activeCSS)||/preflight|@tailwind\b|@import\s+[^;]*(?:normalize|reset)/i.test(activeCSS)||/(?:^|[;}])\s*(?:\*|html\s*,\s*body|html\s*,\s*body\s*,[^{}]*)\s*\{[^}]*\b(?:margin|padding|all)\s*:/i.test(activeCSS))throw Error('Host stylesheet imports/contains a reset or legacy Tailwind directive; split it explicitly before init');
  const css=`@layer theme, base, components, utilities;\n@import "tailwindcss/theme.css" layer(theme);\n@import "tailwindcss/utilities.css" layer(utilities);\n@import "${relativeImport(config.stylePath,`${config.sourceRoot}/foundation/theme.css`)}";\n@import "${relativeImport(config.stylePath,`${config.sourceRoot}/foundation/fonts.css`)}";\n@source "${relativeImport(config.stylePath,config.sourceRoot)}";\n`;
  const marker='/* Gyeol managed integration v1 */';
- if(existing.includes(marker)){const old=JSON.parse(fs.readFileSync(safeTarget(root,'gyeol.json')));if(old.stylePath!==config.stylePath||old.sourceRoot!==config.sourceRoot)throw Error('Changing installed roots requires a new reviewed host; no update engine in this slice');files.push({path:config.stylePath,bytes:Buffer.from(css+marker+'\n'+existing.split(marker+'\n')[1])});}
- else files.push({path:config.stylePath,bytes:Buffer.from(css+marker+'\n'+existing),integrate:!!existing});
- const configs=['vite.config.ts','vite.config.mjs','vite.config.js'].filter(p=>fs.existsSync(path.join(root,p)));
- if(configs.length){const text=fs.readFileSync(safeTarget(root,configs[0]),'utf8');if(config.alias && (!text.includes(config.alias)||!text.includes(config.sourceRoot)))throw Error('Existing Vite config must explicitly resolve the configured alias to sourceRoot');if(!text.includes('@tailwindcss/vite'))throw Error('Existing Vite config must explicitly use @tailwindcss/vite; init will not rewrite arbitrary config');}
+ let styleBody=existing;
+ if(existing.includes(marker)){
+   if(!config.installed?.[config.stylePath]||existing.split(marker+'\n').length!==2)throw Error('Unowned/ambiguous managed stylesheet; review integration explicitly');
+   if(hash(Buffer.from(existing))!==config.installed[config.stylePath].hash&&!overwrite)throw Error('conflict: edited managed stylesheet; review then use --overwrite for a backup');
+   styleBody=config.integration?.styleBody??existing.split(marker+'\n')[1];
+   if(typeof styleBody!=='string')throw Error('Invalid integration styleBody');
+   const expected=css+marker+'\n'+styleBody;
+   if(existing!==expected&&!overwrite)throw Error('conflict: managed stylesheet header/body differs; no automatic adoption');
+   files.push({path:config.stylePath,bytes:Buffer.from(expected)});
+ }else{
+   if(config.installed?.[config.stylePath])throw Error('conflict: installed stylesheet marker removed; restore/review explicitly');
+   files.push({path:config.stylePath,bytes:Buffer.from(css+marker+'\n'+existing),integrate:!!existing});
+ }
+ const configs=viteConfigs.filter(p=>fs.existsSync(path.join(root,p)));
+ if(configs.length>1)throw Error('Ambiguous host: multiple Vite configs; keep one explicit supported config before init');
+ if(configs.length)validateViteConfig(fs.readFileSync(safeTarget(root,configs[0]),'utf8'),config);
  else files.push({path:'vite.config.ts',bytes:Buffer.from(`import {defineConfig} from 'vite';\nimport {fileURLToPath} from 'node:url';\nimport tailwindcss from '@tailwindcss/vite';\nexport default defineConfig({base:${JSON.stringify(config.basePath)},publicDir:${JSON.stringify(config.publicRoot)},${config.alias?`resolve:{alias:{${JSON.stringify(config.alias)}:fileURLToPath(new URL(${JSON.stringify('./'+config.sourceRoot)},import.meta.url))}},`:''}plugins:[tailwindcss()]});\n`)});
- if(config.alias){if(!/^@[a-zA-Z][\w/-]*$/.test(config.alias))throw Error('alias must be a safe @name path');const filename=fs.existsSync(path.join(root,'tsconfig.json'))?'tsconfig.json':'tsconfig.json';const current=fs.existsSync(path.join(root,filename))?JSON.parse(fs.readFileSync(safeTarget(root,filename),'utf8')):{};current.compilerOptions??={};current.compilerOptions.paths??={};const key=config.alias+'/*';if(current.compilerOptions.paths[key] && JSON.stringify(current.compilerOptions.paths[key])!==JSON.stringify(['./'+config.sourceRoot+'/*']))throw Error('Existing alias conflicts');current.compilerOptions.paths[key]=['./'+config.sourceRoot+'/*'];files.push({path:filename,bytes:Buffer.from(JSON.stringify(current,null,2)+'\n'),integrate:true});}
- return {files,runtime:graph.runtime,items:[]};
+ if(config.alias){const filename='tsconfig.json';const current=fs.existsSync(path.join(root,filename))?JSON.parse(fs.readFileSync(safeTarget(root,filename),'utf8')):{};if(current.extends||current.references||current.compilerOptions?.baseUrl&&current.compilerOptions.baseUrl!=='.')throw Error('Ambiguous TypeScript alias: supported subset requires one plain tsconfig.json without extends/references and baseUrl omitted or "."; configure the effective host explicitly');current.compilerOptions??={};current.compilerOptions.paths??={};validateTypeScriptAliases(current.compilerOptions.paths,config.alias);const key=config.alias+'/*';if(current.compilerOptions.paths[key] && JSON.stringify(current.compilerOptions.paths[key])!==JSON.stringify(['./'+config.sourceRoot+'/*']))throw Error('Existing alias conflicts');current.compilerOptions.paths[key]=['./'+config.sourceRoot+'/*'];files.push({path:filename,bytes:Buffer.from(JSON.stringify(current,null,2)+'\n'),integrate:!config.installed?.[filename]});}
+ return {files,runtime:graph.runtime,items:[],integration:{settings:settings(config),styleBody}};
 }
 try{
  if(command==='--version'){console.log(manifest.version);return 0;}
  if(!['init','add'].includes(command))throw Error('Usage: gyeol init [--source-root src/gyeol --style-path src/gyeol.css --public-root public --font-path fonts/gyeol --base-path / --alias @gyeol] | gyeol add button ... [--overwrite] [--dry-run]');
+ parseArgs();
  const root=process.cwd(),pkg=discover(root),configFile=safeTarget(root,'gyeol.json');
  const previous=fs.existsSync(configFile)?JSON.parse(fs.readFileSync(configFile)):null;
  if(command==='add'&&!previous)throw Error('Run gyeol init first');
- const config=previous||{schemaVersion:1,sourceRoot:flag('--source-root','src/gyeol'),stylePath:flag('--style-path','src/gyeol.css'),publicRoot:flag('--public-root','public'),fontPath:flag('--font-path','fonts/gyeol'),basePath:flag('--base-path','/'),alias:flag('--alias',null),installed:{}};
- for(const key of ['sourceRoot','stylePath','publicRoot','fontPath']){if(typeof config[key]!=='string'||!/^[a-zA-Z0-9_./-]+$/.test(config[key]))throw Error(`Unsafe configurable path: ${key}`);safeTarget(root,config[key]);}
- const requested=command==='add'?args.filter(a=>!a.startsWith('--')):[];
+ const defaults={schemaVersion:1,sourceRoot:'src/gyeol',stylePath:'src/gyeol.css',publicRoot:'public',fontPath:'fonts/gyeol',basePath:'/',alias:null,installed:{}};
+ const config={...defaults,...previous,...(!previous?options:{})};
+ for(const [key,value] of Object.entries(options))if(previous&&config[key]!==value)throw Error(`Flag ${key} conflicts with gyeol.json; changing installed settings is outside init/add`);
+ if(config.schemaVersion!==1||!config.installed||typeof config.installed!=='object'||Array.isArray(config.installed)||config.components&&!Array.isArray(config.components))throw Error('Unsupported/invalid gyeol.json schema or install records');
+ if(config.integration&&JSON.stringify(settings(config.integration.settings||{}))!==JSON.stringify(settings(config)))throw Error('gyeol.json conflicts with installed integration settings; no update/migration engine');
+ if(config.tool&&(config.tool.package!==manifest.package||config.tool.version!==manifest.version))throw Error('Installed tool/version conflicts with this payload; no update engine');
+ for(const key of ['sourceRoot','stylePath','publicRoot','fontPath']){
+   if(typeof config[key]!=='string'||!/^[a-zA-Z0-9_./-]+$/.test(config[key]))throw Error(`Unsafe configurable path: ${key}`);
+   const parts=config[key].split('/').map(part=>part.toLowerCase());
+   // User-controlled roots cannot impersonate host config files/directories.
+   // buildInit's explicit generated Vite/TS config targets remain permitted.
+   if(parts.some(part=>viteConfigs.includes(part)||/^tsconfig(?:\.[\w-]+)*\.json$/.test(part)))throw Error(`Reserved host config target in ${key}: ${config[key]}`);
+   if(parts.some(part=>['node_modules','.git','.gyeol-backups','gyeol.json','package.json','package-lock.json'].includes(part)))throw Error(`Unsafe configurable path: ${key}`);
+   const full=safeTarget(root,config[key]);if(key!=='stylePath'&&fs.existsSync(full)&&!fs.statSync(full).isDirectory())throw Error(`Configurable directory is a file: ${key}`);
+ }
+ const overlap=(a,b)=>{a=a.toLowerCase();b=b.toLowerCase();return a===b||a.startsWith(b+'/')||b.startsWith(a+'/');};
+ if(overlap(config.sourceRoot,config.publicRoot)||overlap(config.stylePath,config.publicRoot)||config.stylePath===config.sourceRoot)throw Error('Configured source/style/public roots overlap unsafely');
+ if(typeof config.basePath!=='string'||!/^\/(?:[a-zA-Z0-9_/-]*\/)?$/.test(config.basePath)||config.basePath.includes('..'))throw Error('basePath must be an absolute URL path ending in /');
+ if(config.alias!==null&&(typeof config.alias!=='string'||!/^@[a-zA-Z][\w/-]*$/.test(config.alias)))throw Error('alias must be a safe @name path');
+ if(Object.keys(config.installed).length){const required=[...manifest.common.map(name=>`${config.sourceRoot}/${name}`),...Object.keys(manifest.assets).map(name=>`${config.publicRoot}/${config.fontPath}/${name}`),`${config.sourceRoot}/foundation/fonts.css`,config.stylePath];for(const name of required)if(!config.installed[name]||!/^\w{64}$/.test(config.installed[name].hash??''))throw Error('Installed records conflict with configured roots; init cannot adopt changed managed config');}
+ const requested=command==='add'?components:[];
  if(command==='add'&&!requested.length)throw Error('Specify at least one component');
  const result=command==='init'?buildInit(root,config):sourceFiles(config,requested);
  // All source+metadata+host integration paths/collisions/hashes are planned before ANY write or npm action.
@@ -60,6 +100,7 @@ try{
  const all={...pkg.dependencies,...pkg.devDependencies},needed={};
  for(const [kind,values] of Object.entries(deps)){needed[kind]=[];for(const [name,version]of Object.entries(values)){if(all[name]&&all[name]!==version)throw Error(`Dependency conflict: ${name} host=${all[name]} requested=${version}; resolve explicitly`);if(!all[name])needed[kind].push(`${name}@${version}`);}}
  const next=structuredClone(config);next.version=manifest.version;if(manifest.package)next.tool={package:manifest.package,version:manifest.version};next.installed??={};
+ if(command==='init'&&manifest.package)next.integration=result.integration;
  for(const file of sourcePlan)next.installed[file.path]={version:manifest.version,hash:file.hash};
  next.components=[...new Set([...(config.components||[]),...result.items])];
  if(sourcePlan.some(file=>file.path==='gyeol.json'||file.path==='package.json'||file.path==='package-lock.json'))throw Error('unsafe source/metadata/dependency target overlap');
