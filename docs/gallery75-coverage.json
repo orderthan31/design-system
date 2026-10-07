@@ -1,0 +1,6143 @@
+{
+  "scope": "Gyeol Design canonical75 local production gallery correction, not final DS acceptance or deployed-site verification",
+  "baseCommit": "da3061dbe3a4d46646405e8732aaa7916a8316b3",
+  "browser": "macOS Chrome 154.0.8037.98 headless CDP",
+  "viewports": [
+    390,
+    1440
+  ],
+  "coverage": {
+    "canonical": 75,
+    "routes": 75,
+    "routeViewportPairs": 150,
+    "missing": 0,
+    "duplicates": 0,
+    "additionalPrimaryActionPages": 35
+  },
+  "method": "실제 sidebar/탭/설정/reset pointer·keyboard 관측, source dispatch/children 대조, 화면 캡처 검토. 지정 Select 6페이지는 popup 조작 실패와 handler probe를 분리함. Code75 가상 TypeScript 컴파일에는 실제 소스 경로의 동등 alias 해석을 사용함.",
+  "limits": [
+    "NumberInput/FileInput/DatePicker/DateRangePicker/DataTable/Icon의 대표 Select 변경은 native popup 선택 검증이 아닌 DOM value/change handler probe이다.",
+    "두 viewport 관측은 모바일 실기기·Safari/Firefox·AT/IME·전체 소비앱 parity·최종 디자인 수락을 인증하지 않는다.",
+    "선택 설치 마지막7 WIP 및 font binary 자동 copy/Linux145 Password는 별도 미완료.",
+    "배포된 preview의 수정 여부는 확인하지 않았고 새 배포를 하지 않았다."
+  ],
+  "rows": [
+    {
+      "name": "Chart",
+      "route": "#/components/chart",
+      "primary": {
+        "text": "문서 처리 현황\n\n로컬 데이터 예시입니다.\n\n막대 차트. 입력 순서의 번호와 원본 값은 아래 표에서 확인합니다. 0 기준선 위는 양수, 아래는 음수입니다.\n\n1\n2\n3\n4\n0\n3\n6\n9\n12\n1. 자료 정리\n12\n2",
+        "owner": "src/gallery/chart-detail.tsx",
+        "purpose": "수치를 비교하거나 변화와 구성 비율을 보여주는 차트입니다. 항목 비교에는 막대, 흐름에는 선, 전체의 구성 비율에는 도넛을 사용합니다."
+      },
+      "variantSettings": [
+        "chart type control",
+        "chart title control",
+        "chart description control",
+        "chart fixture control",
+        "chart label 0",
+        "chart value 0",
+        "chart label 1",
+        "chart value 1",
+        "chart label 2",
+        "chart value 2",
+        "chart label 3",
+        "chart value 3",
+        "showLegend"
+      ],
+      "codePurpose": "동일 owner의 실제 공개 컴포넌트와 현재 예제 설정",
+      "docsPurpose": "수치를 비교하거나 변화와 구성 비율을 보여주는 차트입니다. 항목 비교에는 막대, 흐름에는 선, 전체의 구성 비율에는 도넛을 사용합니다.",
+      "correction": [
+        "공통 단일 owner·Variant/Code/Docs 분리·설정 영역·전체 reset",
+        "현재 owner/JSX Code 문자열 정합화"
+      ],
+      "observations": [
+        {
+          "width": 390,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "문서 처리 현황",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 390,
+          "setting": {
+            "label": "chart title control",
+            "before": "문서 처리 현황",
+            "after": "문서 처리 현황검토-Chart \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": null
+        },
+        {
+          "width": 1440,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "문서 처리 현황",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 1440,
+          "setting": {
+            "label": "chart title control",
+            "before": "문서 처리 현황",
+            "after": "문서 처리 현황검토-Chart \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": null
+        }
+      ]
+    },
+    {
+      "name": "GridList",
+      "route": "#/components/grid-list",
+      "primary": {
+        "text": "문서 정리\n화면 검토\n초안 작성",
+        "owner": "src/gallery/playground.tsx",
+        "purpose": "카드나 항목을 여러 열로 배치하는 목록입니다. 상품, 파일, 프로젝트처럼 같은 형태의 항목을 훑어보는 화면에 사용합니다."
+      },
+      "variantSettings": [
+        "columns",
+        "items",
+        "label"
+      ],
+      "codePurpose": "동일 owner의 실제 공개 컴포넌트와 현재 예제 설정",
+      "docsPurpose": "카드나 항목을 여러 열로 배치하는 목록입니다. 상품, 파일, 프로젝트처럼 같은 형태의 항목을 훑어보는 화면에 사용합니다.",
+      "correction": [
+        "공통 단일 owner·Variant/Code/Docs 분리·설정 영역·전체 reset"
+      ],
+      "observations": [
+        {
+          "width": 390,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "문서 정리\n화면 검토\n초안 작성",
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 390,
+          "setting": {
+            "label": null,
+            "before": "문서 정리\n화면 검토\n초안 작성",
+            "after": "문서 정리\n화면 검토\n초안 작성검토-GridList \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": null
+        },
+        {
+          "width": 1440,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "문서 정리\n화면 검토\n초안 작성",
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 1440,
+          "setting": {
+            "label": null,
+            "before": "문서 정리\n화면 검토\n초안 작성",
+            "after": "문서 정리\n화면 검토\n초안 작성검토-GridList \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": null
+        }
+      ]
+    },
+    {
+      "name": "Highlight",
+      "route": "#/components/highlight",
+      "primary": {
+        "text": "디자인 시스템으로 일관된 디자인을 만듭니다.",
+        "owner": "src/gallery/playground.tsx",
+        "purpose": "텍스트에서 검색어와 일치하는 부분을 강조합니다. 검색 결과의 제목이나 설명에서 검색어를 빠르게 찾도록 도울 때 사용합니다."
+      },
+      "variantSettings": [
+        "text",
+        "query",
+        "caseSensitive"
+      ],
+      "codePurpose": "동일 owner의 실제 공개 컴포넌트와 현재 예제 설정",
+      "docsPurpose": "텍스트에서 검색어와 일치하는 부분을 강조합니다. 검색 결과의 제목이나 설명에서 검색어를 빠르게 찾도록 도울 때 사용합니다.",
+      "correction": [
+        "공통 단일 owner·Variant/Code/Docs 분리·설정 영역·전체 reset"
+      ],
+      "observations": [
+        {
+          "width": 390,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "디자인 시스템으로 일관된 디자인을 만듭니다.",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 390,
+          "setting": {
+            "label": null,
+            "before": "디자인 시스템으로 일관된 디자인을 만듭니다.",
+            "after": "디자인 시스템으로검토-Highlight \"예제\" 일관된 디자인을 만듭니다.",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": null
+        },
+        {
+          "width": 1440,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "디자인 시스템으로 일관된 디자인을 만듭니다.",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 1440,
+          "setting": {
+            "label": null,
+            "before": "디자인 시스템으로 일관된 디자인을 만듭니다.",
+            "after": "디자인 시스템으로 일관된 디자인을 만듭니다.검토-Highlight \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": null
+        }
+      ]
+    },
+    {
+      "name": "Bubble",
+      "route": "#/components/bubble",
+      "primary": {
+        "text": "내용을 확인했어요.",
+        "owner": "src/gallery/playground.tsx",
+        "purpose": "짧은 메시지나 부가 설명을 말풍선 형태로 표시합니다. 대화 내용이나 화면 안의 간단한 안내에 사용합니다."
+      },
+      "variantSettings": [
+        "tone",
+        "align",
+        "children"
+      ],
+      "codePurpose": "동일 owner의 실제 공개 컴포넌트와 현재 예제 설정",
+      "docsPurpose": "짧은 메시지나 부가 설명을 말풍선 형태로 표시합니다. 대화 내용이나 화면 안의 간단한 안내에 사용합니다.",
+      "correction": [
+        "공통 단일 owner·Variant/Code/Docs 분리·설정 영역·전체 reset"
+      ],
+      "observations": [
+        {
+          "width": 390,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "내용을 확인했어요.",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 390,
+          "setting": {
+            "label": null,
+            "before": "내용을 확인했어요.",
+            "after": "내용을 확인했어요검토-Bubble \"예제\".",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": null
+        },
+        {
+          "width": 1440,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "내용을 확인했어요.",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 1440,
+          "setting": {
+            "label": null,
+            "before": "내용을 확인했어요.",
+            "after": "내용을 확인했어요.검토-Bubble \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": null
+        }
+      ]
+    },
+    {
+      "name": "BottomCTA",
+      "route": "#/components/bottom-cta",
+      "primary": {
+        "text": "신청 제목 (필수)\n필수 제목을 입력한 뒤 신청하세요.\n취소\n신청하기",
+        "owner": "src/gallery/bottom-cta-detail.tsx",
+        "purpose": "화면 아래에 주요 작업 버튼을 모아 보여줍니다. 긴 신청서의 다음 단계나 확인·적용처럼 계속 보이는 동작이 필요한 화면에 사용합니다."
+      },
+      "variantSettings": [
+        "하단 동작 개수 설정",
+        "하단 안내 설정",
+        "actions.loading",
+        "actions.disabled",
+        "safeArea"
+      ],
+      "codePurpose": "동일 owner의 실제 공개 컴포넌트와 현재 예제 설정",
+      "docsPurpose": "화면 아래에 주요 작업 버튼을 모아 보여줍니다. 긴 신청서의 다음 단계나 확인·적용처럼 계속 보이는 동작이 필요한 화면에 사용합니다.",
+      "correction": [
+        "공통 단일 owner·Variant/Code/Docs 분리·설정 영역·전체 reset",
+        "현재 컴포넌트 전용 시연·설정·Code로 교정",
+        "현재 owner/JSX Code 문자열 정합화"
+      ],
+      "observations": [
+        {
+          "width": 390,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "필수 제목을 입력한 뒤 신청하세요.",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 390,
+          "setting": {
+            "label": "하단 안내 설정",
+            "before": "필수 제목을 입력한 뒤 신청하세요.",
+            "after": "필수 제목을 입력한 뒤 신청하세검토-BottomCTA \"예제\"요.",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": {
+            "target": {
+              "label": "취소",
+              "type": "button"
+            },
+            "openDialogs": 0,
+            "closedDialogs": null
+          }
+        },
+        {
+          "width": 1440,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "필수 제목을 입력한 뒤 신청하세요.",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 1440,
+          "setting": {
+            "label": "하단 안내 설정",
+            "before": "필수 제목을 입력한 뒤 신청하세요.",
+            "after": "필수 제목을 입력한 뒤 신청하세요.검토-BottomCTA \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": {
+            "target": {
+              "label": "취소",
+              "type": "button"
+            },
+            "openDialogs": 0,
+            "closedDialogs": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "Slider",
+      "route": "#/components/slider",
+      "primary": {
+        "text": "음량",
+        "owner": "src/gallery/playground.tsx",
+        "purpose": "정해진 범위 안에서 숫자를 연속적으로 조절합니다. 음량, 밝기, 비율처럼 값을 움직이며 조정하는 설정에 사용합니다."
+      },
+      "variantSettings": [
+        "value",
+        "label",
+        "disabled"
+      ],
+      "codePurpose": "동일 owner의 실제 공개 컴포넌트와 현재 예제 설정",
+      "docsPurpose": "정해진 범위 안에서 숫자를 연속적으로 조절합니다. 음량, 밝기, 비율처럼 값을 움직이며 조정하는 설정에 사용합니다.",
+      "correction": [
+        "공통 단일 owner·Variant/Code/Docs 분리·설정 영역·전체 reset"
+      ],
+      "observations": [
+        {
+          "width": 390,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "음량",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 390,
+          "setting": {
+            "label": null,
+            "before": "음량",
+            "after": "음량검토-Slider \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": {
+            "target": {
+              "label": "",
+              "type": "range"
+            },
+            "openDialogs": 0,
+            "closedDialogs": null
+          }
+        },
+        {
+          "width": 1440,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "음량",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 1440,
+          "setting": {
+            "label": null,
+            "before": "음량",
+            "after": "음량검토-Slider \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": {
+            "target": {
+              "label": "",
+              "type": "range"
+            },
+            "openDialogs": 0,
+            "closedDialogs": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "Rating",
+      "route": "#/components/rating",
+      "primary": {
+        "text": "만족도\n☆\n1점\n☆\n2점\n☆\n3점\n☆\n4점\n☆\n5점\n만족도 지우기",
+        "owner": "src/gallery/playground.tsx",
+        "purpose": "1~5점 중 하나를 별점으로 선택합니다. 만족도나 사용 경험의 평가를 받을 때 사용합니다."
+      },
+      "variantSettings": [
+        "value",
+        "label",
+        "clearable",
+        "required",
+        "disabled"
+      ],
+      "codePurpose": "동일 owner의 실제 공개 컴포넌트와 현재 예제 설정",
+      "docsPurpose": "1~5점 중 하나를 별점으로 선택합니다. 만족도나 사용 경험의 평가를 받을 때 사용합니다.",
+      "correction": [
+        "공통 단일 owner·Variant/Code/Docs 분리·설정 영역·전체 reset"
+      ],
+      "observations": [
+        {
+          "width": 390,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "만족도",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 390,
+          "setting": {
+            "label": null,
+            "before": "만족도",
+            "after": "만족도검토-Rating \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": {
+            "target": {
+              "label": "",
+              "type": "radio"
+            },
+            "openDialogs": 0,
+            "closedDialogs": null
+          }
+        },
+        {
+          "width": 1440,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "만족도",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 1440,
+          "setting": {
+            "label": null,
+            "before": "만족도",
+            "after": "만족도검토-Rating \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": {
+            "target": {
+              "label": "",
+              "type": "radio"
+            },
+            "openDialogs": 0,
+            "closedDialogs": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "ProgressStepper",
+      "route": "#/components/progress-stepper",
+      "primary": {
+        "text": "1\n정보 입력\n진행 중\n2\n내용 확인\n대기\n3\n신청 완료\n대기",
+        "owner": "src/gallery/stepper-component-detail.tsx",
+        "purpose": "여러 단계로 진행되는 작업의 현재 위치를 표시합니다. 가입, 신청, 결제처럼 순서가 있는 흐름에서 전체 단계와 진행 위치를 안내할 때 사용합니다."
+      },
+      "variantSettings": [
+        "진행 단계 이름 설정",
+        "단계 목록 설정",
+        "현재 단계 설정"
+      ],
+      "codePurpose": "동일 owner의 실제 공개 컴포넌트와 현재 예제 설정",
+      "docsPurpose": "여러 단계로 진행되는 작업의 현재 위치를 표시합니다. 가입, 신청, 결제처럼 순서가 있는 흐름에서 전체 단계와 진행 위치를 안내할 때 사용합니다.",
+      "correction": [
+        "공통 단일 owner·Variant/Code/Docs 분리·설정 영역·전체 reset",
+        "현재 컴포넌트 전용 시연·설정·Code로 교정",
+        "현재 owner/JSX Code 문자열 정합화"
+      ],
+      "observations": [
+        {
+          "width": 390,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "신청 단계",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 390,
+          "setting": {
+            "label": "진행 단계 이름 설정",
+            "before": "신청 단계",
+            "after": "신청 단계검토-ProgressStepper \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": null
+        },
+        {
+          "width": 1440,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "신청 단계",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 1440,
+          "setting": {
+            "label": "진행 단계 이름 설정",
+            "before": "신청 단계",
+            "after": "신청 단계검토-ProgressStepper \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": null
+        }
+      ]
+    },
+    {
+      "name": "Result",
+      "route": "#/components/result",
+      "primary": {
+        "text": "처리 결과\n완료\n\n연결을 확인한 뒤 다시 시도해 주세요.\n\n입력 내용은 유지됩니다.",
+        "owner": "src/gallery/playground.tsx",
+        "purpose": "작업의 성공, 오류, 빈 결과 또는 안내를 제목과 설명으로 보여줍니다. 제출 후 결과 화면이나 사용자가 다음 행동을 선택해야 하는 상태에 사용합니다."
+      },
+      "variantSettings": [
+        "variant",
+        "heading",
+        "children",
+        "guidance"
+      ],
+      "codePurpose": "동일 owner의 실제 공개 컴포넌트와 현재 예제 설정",
+      "docsPurpose": "작업의 성공, 오류, 빈 결과 또는 안내를 제목과 설명으로 보여줍니다. 제출 후 결과 화면이나 사용자가 다음 행동을 선택해야 하는 상태에 사용합니다.",
+      "correction": [
+        "공통 단일 owner·Variant/Code/Docs 분리·설정 영역·전체 reset"
+      ],
+      "observations": [
+        {
+          "width": 390,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "처리 결과",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 390,
+          "setting": {
+            "label": null,
+            "before": "처리 결과",
+            "after": "처리 결과검토-Result \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": null
+        },
+        {
+          "width": 1440,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "처리 결과",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 1440,
+          "setting": {
+            "label": null,
+            "before": "처리 결과",
+            "after": "처리 결과검토-Result \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": null
+        }
+      ]
+    },
+    {
+      "name": "SegmentedControl",
+      "route": "#/components/segmented-control",
+      "primary": {
+        "text": "검토 범위\n전체\n✓\n준비 완료\n초안",
+        "owner": "src/gallery/playground.tsx",
+        "purpose": "서로 관련된 소수의 선택지 중 하나를 고릅니다. 목록 표시 방식이나 간단한 필터처럼 선택을 바로 비교할 수 있는 설정에 사용합니다."
+      },
+      "variantSettings": [
+        "value",
+        "label",
+        "disabled",
+        "required"
+      ],
+      "codePurpose": "동일 owner의 실제 공개 컴포넌트와 현재 예제 설정",
+      "docsPurpose": "서로 관련된 소수의 선택지 중 하나를 고릅니다. 목록 표시 방식이나 간단한 필터처럼 선택을 바로 비교할 수 있는 설정에 사용합니다.",
+      "correction": [
+        "공통 단일 owner·Variant/Code/Docs 분리·설정 영역·전체 reset"
+      ],
+      "observations": [
+        {
+          "width": 390,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "검토 범위",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 390,
+          "setting": {
+            "label": null,
+            "before": "검토 범위",
+            "after": "검토 범위검토-SegmentedControl \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": null
+        },
+        {
+          "width": 1440,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "검토 범위",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 1440,
+          "setting": {
+            "label": null,
+            "before": "검토 범위",
+            "after": "검토 범위검토-SegmentedControl \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": null
+        }
+      ]
+    },
+    {
+      "name": "TextField",
+      "route": "#/components/text-field",
+      "primary": {
+        "text": "표시 이름",
+        "owner": "src/gallery/playground.tsx",
+        "purpose": "입력란에 라벨, 도움말, 오류와 앞뒤 보조 내용을 함께 제공합니다. 단위, 아이콘, 지우기 동작이 필요한 텍스트 입력에 사용합니다."
+      },
+      "variantSettings": [
+        "type",
+        "label",
+        "placeholder",
+        "value",
+        "clearable",
+        "required",
+        "disabled",
+        "readOnly",
+        "loading",
+        "error"
+      ],
+      "codePurpose": "동일 owner의 실제 공개 컴포넌트와 현재 예제 설정",
+      "docsPurpose": "입력란에 라벨, 도움말, 오류와 앞뒤 보조 내용을 함께 제공합니다. 단위, 아이콘, 지우기 동작이 필요한 텍스트 입력에 사용합니다.",
+      "correction": [
+        "공통 단일 owner·Variant/Code/Docs 분리·설정 영역·전체 reset"
+      ],
+      "observations": [
+        {
+          "width": 390,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "표시 이름",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 390,
+          "setting": {
+            "label": null,
+            "before": "표시 이름",
+            "after": "표시 이름검토-TextField \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": null
+        },
+        {
+          "width": 1440,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "표시 이름",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 1440,
+          "setting": {
+            "label": null,
+            "before": "표시 이름",
+            "after": "표시 이름검토-TextField \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": null
+        }
+      ]
+    },
+    {
+      "name": "ListRow",
+      "route": "#/components/list-row",
+      "primary": {
+        "text": "검토 목록 선택\n검토 목록\n항목의 상태와 다음 동작을 확인하세요.\n오늘\n항목 열기",
+        "owner": "src/gallery/list-component-detail.tsx",
+        "purpose": "제목, 설명, 보조 내용과 독립 동작을 한 목록 행에 배치합니다. 선택 체크박스나 오른쪽 메타데이터가 필요한 상세 목록에 사용합니다."
+      },
+      "variantSettings": [
+        "목록 제목 설정",
+        "목록 설명 설정",
+        "action 전달",
+        "selected",
+        "disabled",
+        "onSelectionChange 전달"
+      ],
+      "codePurpose": "동일 owner의 실제 공개 컴포넌트와 현재 예제 설정",
+      "docsPurpose": "제목, 설명, 보조 내용과 독립 동작을 한 목록 행에 배치합니다. 선택 체크박스나 오른쪽 메타데이터가 필요한 상세 목록에 사용합니다.",
+      "correction": [
+        "공통 단일 owner·Variant/Code/Docs 분리·설정 영역·전체 reset",
+        "현재 컴포넌트 전용 시연·설정·Code로 교정",
+        "현재 owner/JSX Code 문자열 정합화"
+      ],
+      "observations": [
+        {
+          "width": 390,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "검토 목록",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 390,
+          "setting": {
+            "label": "목록 제목 설정",
+            "before": "검토 목록",
+            "after": "검토 목록검토-ListRow \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": null
+        },
+        {
+          "width": 1440,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "검토 목록",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 1440,
+          "setting": {
+            "label": "목록 제목 설정",
+            "before": "검토 목록",
+            "after": "검토 목록검토-ListRow \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": null
+        }
+      ]
+    },
+    {
+      "name": "ListHeader",
+      "route": "#/components/list-header",
+      "primary": {
+        "text": "검토 목록\n항목의 상태와 다음 동작을 확인하세요.\n항목 추가\n\n목록 검색 도구를 넣을 수 있는 children 영역입니다.",
+        "owner": "src/gallery/list-component-detail.tsx",
+        "purpose": "목록 위에 제목, 설명과 도구를 배치합니다. 목록 이름과 항목 추가 버튼, 검색 안내를 한곳에 보여줄 때 사용합니다."
+      },
+      "variantSettings": [
+        "목록 제목 설정",
+        "목록 설명 설정",
+        "actions 전달"
+      ],
+      "codePurpose": "동일 owner의 실제 공개 컴포넌트와 현재 예제 설정",
+      "docsPurpose": "목록 위에 제목, 설명과 도구를 배치합니다. 목록 이름과 항목 추가 버튼, 검색 안내를 한곳에 보여줄 때 사용합니다.",
+      "correction": [
+        "공통 단일 owner·Variant/Code/Docs 분리·설정 영역·전체 reset",
+        "현재 컴포넌트 전용 시연·설정·Code로 교정",
+        "현재 owner/JSX Code 문자열 정합화"
+      ],
+      "observations": [
+        {
+          "width": 390,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "검토 목록",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 390,
+          "setting": {
+            "label": "목록 제목 설정",
+            "before": "검토 목록",
+            "after": "검토 목록검토-ListHeader \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": null
+        },
+        {
+          "width": 1440,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "검토 목록",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 1440,
+          "setting": {
+            "label": "목록 제목 설정",
+            "before": "검토 목록",
+            "after": "검토 목록검토-ListHeader \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": null
+        }
+      ]
+    },
+    {
+      "name": "ListFooter",
+      "route": "#/components/list-footer",
+      "primary": {
+        "text": "2개 선택\n선택 완료",
+        "owner": "src/gallery/list-component-detail.tsx",
+        "purpose": "목록 아래에 안내와 후속 동작을 배치합니다. 선택한 항목 수, 더 보기, 일괄 작업 등을 목록 뒤에 보여줄 때 사용합니다."
+      },
+      "variantSettings": [
+        "선택 수 문구 설정",
+        "actions 전달"
+      ],
+      "codePurpose": "동일 owner의 실제 공개 컴포넌트와 현재 예제 설정",
+      "docsPurpose": "목록 아래에 안내와 후속 동작을 배치합니다. 선택한 항목 수, 더 보기, 일괄 작업 등을 목록 뒤에 보여줄 때 사용합니다.",
+      "correction": [
+        "공통 단일 owner·Variant/Code/Docs 분리·설정 영역·전체 reset",
+        "현재 컴포넌트 전용 시연·설정·Code로 교정",
+        "현재 owner/JSX Code 문자열 정합화"
+      ],
+      "observations": [
+        {
+          "width": 390,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "2",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 390,
+          "setting": {
+            "label": "선택 수 문구 설정",
+            "before": "2",
+            "after": "2검토-ListFooter \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": null
+        },
+        {
+          "width": 1440,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "2",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 1440,
+          "setting": {
+            "label": "선택 수 문구 설정",
+            "before": "2",
+            "after": "2검토-ListFooter \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": null
+        }
+      ]
+    },
+    {
+      "name": "Button",
+      "route": "#/components/button",
+      "primary": {
+        "text": "변경 사항 저장",
+        "owner": "src/gallery/playground.tsx",
+        "purpose": "사용자가 작업을 실행하거나 다음 행동을 선택하는 버튼입니다. 저장, 적용, 취소, 삭제처럼 명확한 동작에 사용합니다."
+      },
+      "variantSettings": [
+        "variant",
+        "size",
+        "disabled",
+        "loading",
+        "children"
+      ],
+      "codePurpose": "동일 owner의 실제 공개 컴포넌트와 현재 예제 설정",
+      "docsPurpose": "사용자가 작업을 실행하거나 다음 행동을 선택하는 버튼입니다. 저장, 적용, 취소, 삭제처럼 명확한 동작에 사용합니다.",
+      "correction": [
+        "공통 단일 owner·Variant/Code/Docs 분리·설정 영역·전체 reset",
+        "현재 컴포넌트 전용 시연·설정·Code로 교정"
+      ],
+      "observations": [
+        {
+          "width": 390,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "변경 사항 저장",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 390,
+          "setting": {
+            "label": null,
+            "before": "변경 사항 저장",
+            "after": "변경 사항 저장검토-Button \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": {
+            "target": {
+              "label": "변경 사항 저장",
+              "type": "button"
+            },
+            "openDialogs": 0,
+            "closedDialogs": null
+          }
+        },
+        {
+          "width": 1440,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "변경 사항 저장",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 1440,
+          "setting": {
+            "label": null,
+            "before": "변경 사항 저장",
+            "after": "변경 사항 저장검토-Button \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": {
+            "target": {
+              "label": "변경 사항 저장",
+              "type": "button"
+            },
+            "openDialogs": 0,
+            "closedDialogs": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "IconButton",
+      "route": "#/components/icon-button",
+      "primary": {
+        "text": "부모 값: 0",
+        "owner": "src/gallery/native-input-detail.tsx",
+        "purpose": "텍스트 대신 아이콘을 표시하는 버튼입니다. 닫기, 펼치기처럼 의미가 분명하고 공간을 적게 쓰는 동작에 사용합니다."
+      },
+      "variantSettings": [
+        "native label control",
+        "disabled",
+        "loading",
+        "native variant control",
+        "native size control",
+        "native icon control"
+      ],
+      "codePurpose": "동일 owner의 실제 공개 컴포넌트와 현재 예제 설정",
+      "docsPurpose": "텍스트 대신 아이콘을 표시하는 버튼입니다. 닫기, 펼치기처럼 의미가 분명하고 공간을 적게 쓰는 동작에 사용합니다.",
+      "correction": [
+        "공통 단일 owner·Variant/Code/Docs 분리·설정 영역·전체 reset",
+        "현재 owner/JSX Code 문자열 정합화"
+      ],
+      "observations": [
+        {
+          "width": 390,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "예제 입력",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 390,
+          "setting": {
+            "label": "native label control",
+            "before": "예제 입력",
+            "after": "예제 입력검토-IconButton \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": {
+            "target": {
+              "label": "예제 입력",
+              "type": "button"
+            },
+            "openDialogs": 0,
+            "closedDialogs": null
+          }
+        },
+        {
+          "width": 1440,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "예제 입력",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 1440,
+          "setting": {
+            "label": "native label control",
+            "before": "예제 입력",
+            "after": "예제 입력검토-IconButton \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": {
+            "target": {
+              "label": "예제 입력",
+              "type": "button"
+            },
+            "openDialogs": 0,
+            "closedDialogs": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "Input",
+      "route": "#/components/input",
+      "primary": {
+        "text": "부모 값: 예시 내용",
+        "owner": "src/gallery/native-input-detail.tsx",
+        "purpose": "한 줄의 텍스트나 값을 입력합니다. 간단한 입력을 화면의 라벨과 직접 조합할 때 사용합니다. 라벨과 오류까지 묶으려면 TextField를 선택하세요."
+      },
+      "variantSettings": [
+        "native label control",
+        "native value control",
+        "native placeholder control",
+        "disabled",
+        "required",
+        "readOnly",
+        "aria-invalid",
+        "loading"
+      ],
+      "codePurpose": "동일 owner의 실제 공개 컴포넌트와 현재 예제 설정",
+      "docsPurpose": "한 줄의 텍스트나 값을 입력합니다. 간단한 입력을 화면의 라벨과 직접 조합할 때 사용합니다. 라벨과 오류까지 묶으려면 TextField를 선택하세요.",
+      "correction": [
+        "공통 단일 owner·Variant/Code/Docs 분리·설정 영역·전체 reset",
+        "현재 owner/JSX Code 문자열 정합화"
+      ],
+      "observations": [
+        {
+          "width": 390,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "예제 입력",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 390,
+          "setting": {
+            "label": "native label control",
+            "before": "예제 입력",
+            "after": "예제 입력검토-Input \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": null
+        },
+        {
+          "width": 1440,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "예제 입력",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 1440,
+          "setting": {
+            "label": "native label control",
+            "before": "예제 입력",
+            "after": "예제 입력검토-Input \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": null
+        }
+      ]
+    },
+    {
+      "name": "Textarea",
+      "route": "#/components/textarea",
+      "primary": {
+        "text": "부모 값: 예시 내용",
+        "owner": "src/gallery/native-input-detail.tsx",
+        "purpose": "여러 줄의 텍스트를 입력합니다. 설명, 의견, 긴 메시지를 받을 때 사용합니다."
+      },
+      "variantSettings": [
+        "native label control",
+        "native value control",
+        "native placeholder control",
+        "disabled",
+        "required",
+        "readOnly",
+        "aria-invalid",
+        "native rows control"
+      ],
+      "codePurpose": "동일 owner의 실제 공개 컴포넌트와 현재 예제 설정",
+      "docsPurpose": "여러 줄의 텍스트를 입력합니다. 설명, 의견, 긴 메시지를 받을 때 사용합니다.",
+      "correction": [
+        "공통 단일 owner·Variant/Code/Docs 분리·설정 영역·전체 reset",
+        "현재 owner/JSX Code 문자열 정합화"
+      ],
+      "observations": [
+        {
+          "width": 390,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "예제 입력",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 390,
+          "setting": {
+            "label": "native label control",
+            "before": "예제 입력",
+            "after": "예제 입력검토-Textarea \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": null
+        },
+        {
+          "width": 1440,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "예제 입력",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 1440,
+          "setting": {
+            "label": "native label control",
+            "before": "예제 입력",
+            "after": "예제 입력검토-Textarea \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": null
+        }
+      ]
+    },
+    {
+      "name": "Select",
+      "route": "#/components/select",
+      "primary": {
+        "text": "첫 항목\n둘째 항목\n\n부모 값: a",
+        "owner": "src/gallery/native-input-detail.tsx",
+        "purpose": "정해진 목록에서 한 항목을 선택합니다. 선택지의 이름을 알고 있고 검색이 필요하지 않은 입력에 사용합니다."
+      },
+      "variantSettings": [
+        "native label control",
+        "native value control",
+        "disabled",
+        "required",
+        "aria-invalid"
+      ],
+      "codePurpose": "동일 owner의 실제 공개 컴포넌트와 현재 예제 설정",
+      "docsPurpose": "정해진 목록에서 한 항목을 선택합니다. 선택지의 이름을 알고 있고 검색이 필요하지 않은 입력에 사용합니다.",
+      "correction": [
+        "공통 단일 owner·Variant/Code/Docs 분리·설정 영역·전체 reset",
+        "현재 owner/JSX Code 문자열 정합화"
+      ],
+      "observations": [
+        {
+          "width": 390,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "예제 입력",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 390,
+          "setting": {
+            "label": "native label control",
+            "before": "예제 입력",
+            "after": "예제 입력검토-Select \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": null
+        },
+        {
+          "width": 1440,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "예제 입력",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 1440,
+          "setting": {
+            "label": "native label control",
+            "before": "예제 입력",
+            "after": "예제 입력검토-Select \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": null
+        }
+      ]
+    },
+    {
+      "name": "Checkbox",
+      "route": "#/components/checkbox",
+      "primary": {
+        "text": "예제 입력\n\n부모 값: false",
+        "owner": "src/gallery/native-input-detail.tsx",
+        "purpose": "하나의 항목을 선택하거나 해제합니다. 동의, 복수 선택, 켜고 끌 수 있는 선택 항목에 사용합니다."
+      },
+      "variantSettings": [
+        "native label control",
+        "disabled",
+        "required",
+        "checked",
+        "mixed"
+      ],
+      "codePurpose": "동일 owner의 실제 공개 컴포넌트와 현재 예제 설정",
+      "docsPurpose": "하나의 항목을 선택하거나 해제합니다. 동의, 복수 선택, 켜고 끌 수 있는 선택 항목에 사용합니다.",
+      "correction": [
+        "공통 단일 owner·Variant/Code/Docs 분리·설정 영역·전체 reset",
+        "현재 owner/JSX Code 문자열 정합화"
+      ],
+      "observations": [
+        {
+          "width": 390,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "예제 입력",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 390,
+          "setting": {
+            "label": "native label control",
+            "before": "예제 입력",
+            "after": "예제 입력검토-Checkbox \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": {
+            "target": {
+              "label": "",
+              "type": "checkbox"
+            },
+            "openDialogs": 0,
+            "closedDialogs": null
+          }
+        },
+        {
+          "width": 1440,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "예제 입력",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 1440,
+          "setting": {
+            "label": "native label control",
+            "before": "예제 입력",
+            "after": "예제 입력검토-Checkbox \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": {
+            "target": {
+              "label": "",
+              "type": "checkbox"
+            },
+            "openDialogs": 0,
+            "closedDialogs": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "FormField",
+      "route": "#/components/form-field",
+      "primary": {
+        "text": "예제 입력\n\n입력 예시입니다.\n\n부모 값: 예시 내용",
+        "owner": "src/gallery/native-input-detail.tsx",
+        "purpose": "입력 요소를 라벨, 필수 표시, 도움말과 오류로 감쌉니다. 기존 입력에 일관된 설명과 오류 연결을 추가할 때 사용합니다."
+      },
+      "variantSettings": [
+        "native label control",
+        "native value control",
+        "native placeholder control",
+        "disabled",
+        "required",
+        "readOnly",
+        "error",
+        "children 분기 · Input 슬롯"
+      ],
+      "codePurpose": "동일 owner의 실제 공개 컴포넌트와 현재 예제 설정",
+      "docsPurpose": "입력 요소를 라벨, 필수 표시, 도움말과 오류로 감쌉니다. 기존 입력에 일관된 설명과 오류 연결을 추가할 때 사용합니다.",
+      "correction": [
+        "공통 단일 owner·Variant/Code/Docs 분리·설정 영역·전체 reset",
+        "현재 owner/JSX Code 문자열 정합화"
+      ],
+      "observations": [
+        {
+          "width": 390,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "예제 입력",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 390,
+          "setting": {
+            "label": "native label control",
+            "before": "예제 입력",
+            "after": "예제 입력검토-FormField \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": null
+        },
+        {
+          "width": 1440,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "예제 입력",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 1440,
+          "setting": {
+            "label": "native label control",
+            "before": "예제 입력",
+            "after": "예제 입력검토-FormField \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": null
+        }
+      ]
+    },
+    {
+      "name": "PasswordInput",
+      "route": "#/components/password-input",
+      "primary": {
+        "text": "예시 비밀번호\n\n문서 예제입니다. 실제 비밀번호를 입력하지 마세요.",
+        "owner": "src/gallery/form-input-detail.tsx",
+        "purpose": "비밀번호 입력과 표시·숨김 버튼을 제공합니다. 로그인이나 비밀번호 설정 화면에 사용합니다."
+      },
+      "variantSettings": [
+        "예제 value",
+        "disabled",
+        "required",
+        "error",
+        "readOnly",
+        "aria-busy"
+      ],
+      "codePurpose": "동일 owner의 실제 공개 컴포넌트와 현재 예제 설정",
+      "docsPurpose": "비밀번호 입력과 표시·숨김 버튼을 제공합니다. 로그인이나 비밀번호 설정 화면에 사용합니다.",
+      "correction": [
+        "공통 단일 owner·Variant/Code/Docs 분리·설정 영역·전체 reset",
+        "현재 owner/JSX Code 문자열 정합화"
+      ],
+      "observations": [
+        {
+          "width": 390,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "demo-only",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 390,
+          "setting": {
+            "label": "예제 value",
+            "before": "demo-only",
+            "after": "demo-only검토-PasswordInput \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": null
+        },
+        {
+          "width": 1440,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "demo-only",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 1440,
+          "setting": {
+            "label": "예제 value",
+            "before": "demo-only",
+            "after": "demo-only검토-PasswordInput \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": null
+        }
+      ]
+    },
+    {
+      "name": "NumberInput",
+      "route": "#/components/number-input",
+      "primary": {
+        "text": "수량\n−\n+",
+        "owner": "src/gallery/form-input-detail.tsx",
+        "purpose": "숫자를 입력하거나 증가·감소 버튼으로 조절합니다. 수량처럼 정확한 숫자와 변화 단위가 중요한 입력에 사용합니다."
+      },
+      "variantSettings": [
+        "예제 value",
+        "disabled",
+        "required",
+        "error",
+        "min 0 / max 10",
+        "숫자 입력 단위"
+      ],
+      "codePurpose": "동일 owner의 실제 공개 컴포넌트와 현재 예제 설정",
+      "docsPurpose": "숫자를 입력하거나 증가·감소 버튼으로 조절합니다. 수량처럼 정확한 숫자와 변화 단위가 중요한 입력에 사용합니다.",
+      "correction": [
+        "공통 단일 owner·Variant/Code/Docs 분리·설정 영역·전체 reset",
+        "현재 owner/JSX Code 문자열 정합화"
+      ],
+      "observations": [
+        {
+          "width": 390,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "1",
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 390,
+          "setting": {
+            "label": "숫자 입력 단위",
+            "before": "1",
+            "after": "2",
+            "method": "pointer focus + DOM value/change handler probe; native popup choice not observed"
+          },
+          "primaryPointerProbe": {
+            "target": {
+              "label": "수량 감소",
+              "type": "button"
+            },
+            "openDialogs": 0,
+            "closedDialogs": null
+          }
+        },
+        {
+          "width": 1440,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "1",
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 1440,
+          "setting": {
+            "label": "숫자 입력 단위",
+            "before": "1",
+            "after": "2",
+            "method": "pointer focus + DOM value/change handler probe; native popup choice not observed"
+          },
+          "primaryPointerProbe": {
+            "target": {
+              "label": "수량 감소",
+              "type": "button"
+            },
+            "openDialogs": 0,
+            "closedDialogs": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "CurrencyInput",
+      "route": "#/components/currency-input",
+      "primary": {
+        "text": "금액\n원",
+        "owner": "src/gallery/form-input-detail.tsx",
+        "purpose": "금액을 입력하고 천 단위로 읽기 쉽게 표시합니다. 원 단위처럼 0 이상의 정수 금액을 받는 화면에 사용합니다."
+      },
+      "variantSettings": [
+        "예제 value",
+        "disabled",
+        "required",
+        "error"
+      ],
+      "codePurpose": "동일 owner의 실제 공개 컴포넌트와 현재 예제 설정",
+      "docsPurpose": "금액을 입력하고 천 단위로 읽기 쉽게 표시합니다. 원 단위처럼 0 이상의 정수 금액을 받는 화면에 사용합니다.",
+      "correction": [
+        "공통 단일 owner·Variant/Code/Docs 분리·설정 영역·전체 reset",
+        "현재 owner/JSX Code 문자열 정합화"
+      ],
+      "observations": [
+        {
+          "width": 390,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "12000",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 390,
+          "setting": {
+            "label": "예제 value",
+            "before": "12000",
+            "after": "12000검토-CurrencyInput \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": null
+        },
+        {
+          "width": 1440,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "12000",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 1440,
+          "setting": {
+            "label": "예제 value",
+            "before": "12000",
+            "after": "12000검토-CurrencyInput \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": null
+        }
+      ]
+    },
+    {
+      "name": "PhoneInput",
+      "route": "#/components/phone-input",
+      "primary": {
+        "text": "전화번호",
+        "owner": "src/gallery/form-input-detail.tsx",
+        "purpose": "전화번호를 입력하고 형식 오류를 안내합니다. 연락처를 받는 신청서나 계정 화면에 사용합니다."
+      },
+      "variantSettings": [
+        "예제 value",
+        "disabled",
+        "required",
+        "error"
+      ],
+      "codePurpose": "동일 owner의 실제 공개 컴포넌트와 현재 예제 설정",
+      "docsPurpose": "전화번호를 입력하고 형식 오류를 안내합니다. 연락처를 받는 신청서나 계정 화면에 사용합니다.",
+      "correction": [
+        "공통 단일 owner·Variant/Code/Docs 분리·설정 영역·전체 reset",
+        "현재 owner/JSX Code 문자열 정합화"
+      ],
+      "observations": [
+        {
+          "width": 390,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "010-1234-5678",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 390,
+          "setting": {
+            "label": "예제 value",
+            "before": "010-1234-5678",
+            "after": "010-1234-5678검토-PhoneInput \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": null
+        },
+        {
+          "width": 1440,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "010-1234-5678",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 1440,
+          "setting": {
+            "label": "예제 value",
+            "before": "010-1234-5678",
+            "after": "010-1234-5678검토-PhoneInput \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": null
+        }
+      ]
+    },
+    {
+      "name": "EmailInput",
+      "route": "#/components/email-input",
+      "primary": {
+        "text": "이메일",
+        "owner": "src/gallery/form-input-detail.tsx",
+        "purpose": "이메일 주소를 입력하고 형식 오류를 안내합니다. 연락용 이메일이나 계정 주소를 받는 화면에 사용합니다."
+      },
+      "variantSettings": [
+        "예제 value",
+        "disabled",
+        "required",
+        "error"
+      ],
+      "codePurpose": "동일 owner의 실제 공개 컴포넌트와 현재 예제 설정",
+      "docsPurpose": "이메일 주소를 입력하고 형식 오류를 안내합니다. 연락용 이메일이나 계정 주소를 받는 화면에 사용합니다.",
+      "correction": [
+        "공통 단일 owner·Variant/Code/Docs 분리·설정 영역·전체 reset",
+        "현재 owner/JSX Code 문자열 정합화"
+      ],
+      "observations": [
+        {
+          "width": 390,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "demo@example.kr",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 390,
+          "setting": {
+            "label": "예제 value",
+            "before": "demo@example.kr",
+            "after": "demo@example.kr검토-EmailInput \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": null
+        },
+        {
+          "width": 1440,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "demo@example.kr",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 1440,
+          "setting": {
+            "label": "예제 value",
+            "before": "demo@example.kr",
+            "after": "demo@example.kr검토-EmailInput \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": null
+        }
+      ]
+    },
+    {
+      "name": "Combobox",
+      "route": "#/components/combobox",
+      "primary": {
+        "text": "검색어를 입력해도 확정 value는 유지됩니다. 목록에서 항목을 선택하면 value와 현재 코드가 바뀝니다.\n\n검토 분야\n\n필요한 항목을 선택하세요.\n\n확정 value: \"design\"",
+        "owner": "src/gallery/selection-detail.tsx",
+        "purpose": "검색으로 선택지를 좁힌 뒤 한 항목을 선택합니다. 긴 목록에서 이름을 찾아 선택해야 하는 입력에 사용합니다."
+      },
+      "variantSettings": [
+        "예제 label",
+        "예제 hint",
+        "예제 name",
+        "확정 value control",
+        "disabled",
+        "required",
+        "error",
+        "리서치 옵션 disabled"
+      ],
+      "codePurpose": "동일 owner의 실제 공개 컴포넌트와 현재 예제 설정",
+      "docsPurpose": "검색으로 선택지를 좁힌 뒤 한 항목을 선택합니다. 긴 목록에서 이름을 찾아 선택해야 하는 입력에 사용합니다.",
+      "correction": [
+        "공통 단일 owner·Variant/Code/Docs 분리·설정 영역·전체 reset",
+        "현재 owner/JSX Code 문자열 정합화"
+      ],
+      "observations": [
+        {
+          "width": 390,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "검토 분야",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 390,
+          "setting": {
+            "label": "예제 label",
+            "before": "검토 분야",
+            "after": "검토 분야검토-Combobox \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": {
+            "target": {
+              "label": "",
+              "type": "text"
+            },
+            "openDialogs": 0,
+            "closedDialogs": null
+          }
+        },
+        {
+          "width": 1440,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "검토 분야",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 1440,
+          "setting": {
+            "label": "예제 label",
+            "before": "검토 분야",
+            "after": "검토 분야검토-Combobox \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": {
+            "target": {
+              "label": "",
+              "type": "text"
+            },
+            "openDialogs": 0,
+            "closedDialogs": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "MultiSelect",
+      "route": "#/components/multi-select",
+      "primary": {
+        "text": "검토 분야\n디자인\n×\n디자인\n개발\n리서치\n\n필요한 항목을 선택하세요.\n\n확정 value: [\"design\"]",
+        "owner": "src/gallery/selection-detail.tsx",
+        "purpose": "여러 항목을 선택하고 선택 결과를 태그로 보여줍니다. 관심 분야, 담당자 등 복수 선택을 요약해 보여줄 때 사용합니다."
+      },
+      "variantSettings": [
+        "예제 label",
+        "예제 hint",
+        "예제 name",
+        "value: design",
+        "value: development",
+        "value: research",
+        "disabled",
+        "required",
+        "error",
+        "리서치 옵션 disabled",
+        "showTags · 선택 태그 표시"
+      ],
+      "codePurpose": "동일 owner의 실제 공개 컴포넌트와 현재 예제 설정",
+      "docsPurpose": "여러 항목을 선택하고 선택 결과를 태그로 보여줍니다. 관심 분야, 담당자 등 복수 선택을 요약해 보여줄 때 사용합니다.",
+      "correction": [
+        "공통 단일 owner·Variant/Code/Docs 분리·설정 영역·전체 reset",
+        "현재 owner/JSX Code 문자열 정합화"
+      ],
+      "observations": [
+        {
+          "width": 390,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "검토 분야",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 390,
+          "setting": {
+            "label": "예제 label",
+            "before": "검토 분야",
+            "after": "검토 분야검토-MultiSelect \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": {
+            "target": {
+              "label": "",
+              "type": "checkbox"
+            },
+            "openDialogs": 0,
+            "closedDialogs": null
+          }
+        },
+        {
+          "width": 1440,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "검토 분야",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 1440,
+          "setting": {
+            "label": "예제 label",
+            "before": "검토 분야",
+            "after": "검토 분야검토-MultiSelect \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": {
+            "target": {
+              "label": "",
+              "type": "checkbox"
+            },
+            "openDialogs": 0,
+            "closedDialogs": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "RadioGroup",
+      "route": "#/components/radio-group",
+      "primary": {
+        "text": "검토 분야\n디자인\n개발\n리서치\n\n필요한 항목을 선택하세요.\n\n확정 value: \"design\"",
+        "owner": "src/gallery/selection-detail.tsx",
+        "purpose": "관련된 선택지 중 하나만 선택합니다. 모든 선택지를 한눈에 보여주고 비교해야 하는 입력에 사용합니다."
+      },
+      "variantSettings": [
+        "예제 label",
+        "예제 hint",
+        "예제 name",
+        "확정 value control",
+        "disabled",
+        "required",
+        "error",
+        "리서치 옵션 disabled"
+      ],
+      "codePurpose": "동일 owner의 실제 공개 컴포넌트와 현재 예제 설정",
+      "docsPurpose": "관련된 선택지 중 하나만 선택합니다. 모든 선택지를 한눈에 보여주고 비교해야 하는 입력에 사용합니다.",
+      "correction": [
+        "공통 단일 owner·Variant/Code/Docs 분리·설정 영역·전체 reset",
+        "현재 owner/JSX Code 문자열 정합화"
+      ],
+      "observations": [
+        {
+          "width": 390,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "검토 분야",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 390,
+          "setting": {
+            "label": "예제 label",
+            "before": "검토 분야",
+            "after": "검토 분야검토-RadioGroup \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": {
+            "target": {
+              "label": "",
+              "type": "radio"
+            },
+            "openDialogs": 0,
+            "closedDialogs": null
+          }
+        },
+        {
+          "width": 1440,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "검토 분야",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 1440,
+          "setting": {
+            "label": "예제 label",
+            "before": "검토 분야",
+            "after": "검토 분야검토-RadioGroup \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": {
+            "target": {
+              "label": "",
+              "type": "radio"
+            },
+            "openDialogs": 0,
+            "closedDialogs": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "CheckboxGroup",
+      "route": "#/components/checkbox-group",
+      "primary": {
+        "text": "검토 분야\n디자인\n개발\n리서치\n\n필요한 항목을 선택하세요.\n\n확정 value: [\"design\"]",
+        "owner": "src/gallery/selection-detail.tsx",
+        "purpose": "관련된 여러 선택 항목을 한 그룹으로 보여줍니다. 선택 결과를 태그보다 목록에서 확인하는 복수 선택 입력에 사용합니다."
+      },
+      "variantSettings": [
+        "예제 label",
+        "예제 hint",
+        "예제 name",
+        "value: design",
+        "value: development",
+        "value: research",
+        "disabled",
+        "required",
+        "error",
+        "리서치 옵션 disabled"
+      ],
+      "codePurpose": "동일 owner의 실제 공개 컴포넌트와 현재 예제 설정",
+      "docsPurpose": "관련된 여러 선택 항목을 한 그룹으로 보여줍니다. 선택 결과를 태그보다 목록에서 확인하는 복수 선택 입력에 사용합니다.",
+      "correction": [
+        "공통 단일 owner·Variant/Code/Docs 분리·설정 영역·전체 reset",
+        "현재 owner/JSX Code 문자열 정합화"
+      ],
+      "observations": [
+        {
+          "width": 390,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "검토 분야",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 390,
+          "setting": {
+            "label": "예제 label",
+            "before": "검토 분야",
+            "after": "검토 분야검토-CheckboxGroup \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": {
+            "target": {
+              "label": "",
+              "type": "checkbox"
+            },
+            "openDialogs": 0,
+            "closedDialogs": null
+          }
+        },
+        {
+          "width": 1440,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "검토 분야",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 1440,
+          "setting": {
+            "label": "예제 label",
+            "before": "검토 분야",
+            "after": "검토 분야검토-CheckboxGroup \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": {
+            "target": {
+              "label": "",
+              "type": "checkbox"
+            },
+            "openDialogs": 0,
+            "closedDialogs": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "Switch",
+      "route": "#/components/switch",
+      "primary": {
+        "text": "자동 저장\n\n현재 checked: false",
+        "owner": "src/gallery/selection-detail.tsx",
+        "purpose": "설정의 켜짐과 꺼짐을 전환합니다. 알림 수신처럼 두 상태가 분명한 설정에 사용합니다."
+      },
+      "variantSettings": [
+        "예제 label",
+        "예제 hint",
+        "예제 name",
+        "checked",
+        "disabled",
+        "required",
+        "error"
+      ],
+      "codePurpose": "동일 owner의 실제 공개 컴포넌트와 현재 예제 설정",
+      "docsPurpose": "설정의 켜짐과 꺼짐을 전환합니다. 알림 수신처럼 두 상태가 분명한 설정에 사용합니다.",
+      "correction": [
+        "공통 단일 owner·Variant/Code/Docs 분리·설정 영역·전체 reset",
+        "현재 owner/JSX Code 문자열 정합화"
+      ],
+      "observations": [
+        {
+          "width": 390,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "자동 저장",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 390,
+          "setting": {
+            "label": "예제 label",
+            "before": "자동 저장",
+            "after": "자동 저장검토-Switch \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": {
+            "target": {
+              "label": "",
+              "type": "checkbox"
+            },
+            "openDialogs": 0,
+            "closedDialogs": null
+          }
+        },
+        {
+          "width": 1440,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "자동 저장",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 1440,
+          "setting": {
+            "label": "예제 label",
+            "before": "자동 저장",
+            "after": "자동 저장검토-Switch \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": {
+            "target": {
+              "label": "",
+              "type": "checkbox"
+            },
+            "openDialogs": 0,
+            "closedDialogs": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "FileInput",
+      "route": "#/components/file-input",
+      "primary": {
+        "text": "첨부 파일\n\n파일을 끌어 놓거나 선택하세요\n\n파일 선택\n\n허용 형식: .txt\n\n선택한 파일 없음\n\n선택한 파일은 업로드하거나 외부로 전송하지 않습니다.",
+        "owner": "src/gallery/extended-input-detail.tsx",
+        "purpose": "파일을 선택하거나 끌어 놓고 선택한 파일 이름을 확인합니다. 첨부할 파일을 고르는 화면에 사용합니다."
+      },
+      "variantSettings": [
+        "허용 파일 형식",
+        "multiple",
+        "required",
+        "disabled",
+        "error"
+      ],
+      "codePurpose": "동일 owner의 실제 공개 컴포넌트와 현재 예제 설정",
+      "docsPurpose": "파일을 선택하거나 끌어 놓고 선택한 파일 이름을 확인합니다. 첨부할 파일을 고르는 화면에 사용합니다.",
+      "correction": [
+        "공통 단일 owner·Variant/Code/Docs 분리·설정 영역·전체 reset",
+        "현재 owner/JSX Code 문자열 정합화"
+      ],
+      "observations": [
+        {
+          "width": 390,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": ".txt",
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 390,
+          "setting": {
+            "label": "허용 파일 형식",
+            "before": ".txt",
+            "after": "image/*",
+            "method": "pointer focus + DOM value/change handler probe; native popup choice not observed"
+          },
+          "primaryPointerProbe": null
+        },
+        {
+          "width": 1440,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": ".txt",
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 1440,
+          "setting": {
+            "label": "허용 파일 형식",
+            "before": ".txt",
+            "after": "image/*",
+            "method": "pointer focus + DOM value/change handler probe; native popup choice not observed"
+          },
+          "primaryPointerProbe": null
+        }
+      ]
+    },
+    {
+      "name": "AddressField",
+      "route": "#/components/address-field",
+      "primary": {
+        "text": "예시 주소\n로컬 샘플 선택\n우편번호\n도로명 주소\n지번 주소\n상세 주소\n\n로컬 샘플입니다. 실제 주소 검색 서비스가 아닙니다.",
+        "owner": "src/gallery/extended-input-detail.tsx",
+        "purpose": "우편번호, 도로명·지번 주소와 상세 주소를 함께 입력합니다. 배송지나 연락 주소를 받는 폼에 사용합니다."
+      },
+      "variantSettings": [
+        "확정 postal control",
+        "확정 road control",
+        "확정 jibun control",
+        "확정 detail control",
+        "disabled",
+        "required",
+        "error"
+      ],
+      "codePurpose": "동일 owner의 실제 공개 컴포넌트와 현재 예제 설정",
+      "docsPurpose": "우편번호, 도로명·지번 주소와 상세 주소를 함께 입력합니다. 배송지나 연락 주소를 받는 폼에 사용합니다.",
+      "correction": [
+        "공통 단일 owner·Variant/Code/Docs 분리·설정 영역·전체 reset",
+        "현재 owner/JSX Code 문자열 정합화"
+      ],
+      "observations": [
+        {
+          "width": 390,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 390,
+          "setting": {
+            "label": "확정 postal control",
+            "before": "",
+            "after": "검토-AddressField \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": {
+            "target": {
+              "label": "로컬 샘플 선택",
+              "type": "button"
+            },
+            "openDialogs": 0,
+            "closedDialogs": null
+          }
+        },
+        {
+          "width": 1440,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 1440,
+          "setting": {
+            "label": "확정 postal control",
+            "before": "",
+            "after": "검토-AddressField \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": {
+            "target": {
+              "label": "로컬 샘플 선택",
+              "type": "button"
+            },
+            "openDialogs": 0,
+            "closedDialogs": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "DatePicker",
+      "route": "#/components/date-picker",
+      "primary": {
+        "text": "기준 날짜\n2026년 10월 6일",
+        "owner": "src/gallery/connected-detail.tsx",
+        "purpose": "달력 또는 직접 입력으로 날짜를 선택합니다. 예약일, 시작일 등 하루를 지정하는 입력에 사용합니다."
+      },
+      "variantSettings": [
+        "날짜 예제 상태",
+        "날짜 샘플 값",
+        "required",
+        "10월 범위 제한",
+        "10월 8일 선택 불가"
+      ],
+      "codePurpose": "동일 owner의 실제 공개 컴포넌트와 현재 예제 설정",
+      "docsPurpose": "달력 또는 직접 입력으로 날짜를 선택합니다. 예약일, 시작일 등 하루를 지정하는 입력에 사용합니다.",
+      "correction": [
+        "공통 단일 owner·Variant/Code/Docs 분리·설정 영역·전체 reset",
+        "현재 owner/JSX Code 문자열 정합화"
+      ],
+      "observations": [
+        {
+          "width": 390,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "default",
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 390,
+          "setting": {
+            "label": "날짜 예제 상태",
+            "before": "default",
+            "after": "disabled",
+            "method": "pointer focus + DOM value/change handler probe; native popup choice not observed"
+          },
+          "primaryPointerProbe": {
+            "target": {
+              "label": "기준 날짜: 2026년 10월 6일",
+              "type": "button"
+            },
+            "openDialogs": 0,
+            "closedDialogs": null
+          }
+        },
+        {
+          "width": 1440,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "default",
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 1440,
+          "setting": {
+            "label": "날짜 예제 상태",
+            "before": "default",
+            "after": "disabled",
+            "method": "pointer focus + DOM value/change handler probe; native popup choice not observed"
+          },
+          "primaryPointerProbe": {
+            "target": {
+              "label": "기준 날짜: 2026년 10월 6일",
+              "type": "button"
+            },
+            "openDialogs": 0,
+            "closedDialogs": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "DateRangePicker",
+      "route": "#/components/date-range-picker",
+      "primary": {
+        "text": "조회 기간\n시작 날짜\n2026년 10월 6일\n종료 날짜\n2026년 10월 9일\n\n총 4일 (시작일·종료일 포함)",
+        "owner": "src/gallery/connected-detail.tsx",
+        "purpose": "시작일과 종료일을 함께 선택합니다. 여행 기간, 조회 기간처럼 연속된 날짜 범위가 필요한 입력에 사용합니다."
+      },
+      "variantSettings": [
+        "날짜 예제 상태",
+        "날짜 샘플 값",
+        "required",
+        "10월 범위 제한",
+        "10월 8일 선택 불가"
+      ],
+      "codePurpose": "동일 owner의 실제 공개 컴포넌트와 현재 예제 설정",
+      "docsPurpose": "시작일과 종료일을 함께 선택합니다. 여행 기간, 조회 기간처럼 연속된 날짜 범위가 필요한 입력에 사용합니다.",
+      "correction": [
+        "공통 단일 owner·Variant/Code/Docs 분리·설정 영역·전체 reset",
+        "현재 owner/JSX Code 문자열 정합화"
+      ],
+      "observations": [
+        {
+          "width": 390,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "default",
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 390,
+          "setting": {
+            "label": "날짜 예제 상태",
+            "before": "default",
+            "after": "disabled",
+            "method": "pointer focus + DOM value/change handler probe; native popup choice not observed"
+          },
+          "primaryPointerProbe": {
+            "target": {
+              "label": "시작 날짜: 2026년 10월 6일",
+              "type": "button"
+            },
+            "openDialogs": 0,
+            "closedDialogs": null
+          }
+        },
+        {
+          "width": 1440,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "default",
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 1440,
+          "setting": {
+            "label": "날짜 예제 상태",
+            "before": "default",
+            "after": "disabled",
+            "method": "pointer focus + DOM value/change handler probe; native popup choice not observed"
+          },
+          "primaryPointerProbe": {
+            "target": {
+              "label": "시작 날짜: 2026년 10월 6일",
+              "type": "button"
+            },
+            "openDialogs": 0,
+            "closedDialogs": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "MonthPicker",
+      "route": "#/components/month-picker",
+      "primary": {
+        "text": "기준 월\n2026년 10월",
+        "owner": "src/gallery/extended-input-detail.tsx",
+        "purpose": "연도와 월을 선택합니다. 월별 조회나 청구 기간처럼 날짜 없이 월 단위로 지정할 때 사용합니다."
+      },
+      "variantSettings": [
+        "확정 value control",
+        "disabled",
+        "readOnly",
+        "busy",
+        "required",
+        "error",
+        "범위 제한"
+      ],
+      "codePurpose": "동일 owner의 실제 공개 컴포넌트와 현재 예제 설정",
+      "docsPurpose": "연도와 월을 선택합니다. 월별 조회나 청구 기간처럼 날짜 없이 월 단위로 지정할 때 사용합니다.",
+      "correction": [
+        "공통 단일 owner·Variant/Code/Docs 분리·설정 영역·전체 reset",
+        "현재 owner/JSX Code 문자열 정합화"
+      ],
+      "observations": [
+        {
+          "width": 390,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "2026-10",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 390,
+          "setting": {
+            "label": "확정 value control",
+            "before": "2026-10",
+            "after": "2026-10검토-MonthPicker \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": {
+            "target": {
+              "label": "기준 월: 2026년 10월",
+              "type": "button"
+            },
+            "openDialogs": 0,
+            "closedDialogs": null
+          }
+        },
+        {
+          "width": 1440,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "2026-10",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 1440,
+          "setting": {
+            "label": "확정 value control",
+            "before": "2026-10",
+            "after": "2026-10검토-MonthPicker \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": {
+            "target": {
+              "label": "기준 월: 2026년 10월",
+              "type": "button"
+            },
+            "openDialogs": 0,
+            "closedDialogs": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "TimeInput",
+      "route": "#/components/time-input",
+      "primary": {
+        "text": "기준 시간\n10:30",
+        "owner": "src/gallery/extended-input-detail.tsx",
+        "purpose": "시와 분을 선택해 시간을 입력합니다. 예약 시간이나 일정의 시작 시간을 지정할 때 사용합니다."
+      },
+      "variantSettings": [
+        "확정 value control",
+        "disabled",
+        "readOnly",
+        "busy",
+        "required",
+        "error",
+        "범위 제한"
+      ],
+      "codePurpose": "동일 owner의 실제 공개 컴포넌트와 현재 예제 설정",
+      "docsPurpose": "시와 분을 선택해 시간을 입력합니다. 예약 시간이나 일정의 시작 시간을 지정할 때 사용합니다.",
+      "correction": [
+        "공통 단일 owner·Variant/Code/Docs 분리·설정 영역·전체 reset",
+        "현재 owner/JSX Code 문자열 정합화"
+      ],
+      "observations": [
+        {
+          "width": 390,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "10:30",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 390,
+          "setting": {
+            "label": "확정 value control",
+            "before": "10:30",
+            "after": "10:30검토-TimeInput \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": {
+            "target": {
+              "label": "기준 시간: 10:30",
+              "type": "button"
+            },
+            "openDialogs": 0,
+            "closedDialogs": null
+          }
+        },
+        {
+          "width": 1440,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "10:30",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 1440,
+          "setting": {
+            "label": "확정 value control",
+            "before": "10:30",
+            "after": "10:30검토-TimeInput \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": {
+            "target": {
+              "label": "기준 시간: 10:30",
+              "type": "button"
+            },
+            "openDialogs": 0,
+            "closedDialogs": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "DateTimeInput",
+      "route": "#/components/date-time-input",
+      "primary": {
+        "text": "기준 날짜와 시간\n날짜\n2026년 10월 6일\n시간\n10:30\n\n2026-10-06 10:30",
+        "owner": "src/gallery/extended-input-detail.tsx",
+        "purpose": "날짜와 시간을 하나의 입력으로 선택합니다. 예약 시작이나 일정 마감처럼 날짜와 분 단위 시간이 함께 필요한 입력에 사용합니다."
+      },
+      "variantSettings": [
+        "확정 value control",
+        "disabled",
+        "readOnly",
+        "busy",
+        "required",
+        "error",
+        "범위 제한",
+        "2026-10-10 선택 제한"
+      ],
+      "codePurpose": "동일 owner의 실제 공개 컴포넌트와 현재 예제 설정",
+      "docsPurpose": "날짜와 시간을 하나의 입력으로 선택합니다. 예약 시작이나 일정 마감처럼 날짜와 분 단위 시간이 함께 필요한 입력에 사용합니다.",
+      "correction": [
+        "공통 단일 owner·Variant/Code/Docs 분리·설정 영역·전체 reset",
+        "현재 owner/JSX Code 문자열 정합화"
+      ],
+      "observations": [
+        {
+          "width": 390,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "2026-10-06T10:30",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 390,
+          "setting": {
+            "label": "확정 value control",
+            "before": "2026-10-06T10:30",
+            "after": "2026-10-06T10:30검토-DateTimeInput \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": {
+            "target": {
+              "label": "날짜: 2026년 10월 6일",
+              "type": "button"
+            },
+            "openDialogs": 0,
+            "closedDialogs": null
+          }
+        },
+        {
+          "width": 1440,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "2026-10-06T10:30",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 1440,
+          "setting": {
+            "label": "확정 value control",
+            "before": "2026-10-06T10:30",
+            "after": "2026-10-06T10:30검토-DateTimeInput \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": {
+            "target": {
+              "label": "날짜: 2026년 10월 6일",
+              "type": "button"
+            },
+            "openDialogs": 0,
+            "closedDialogs": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "SearchField",
+      "route": "#/components/search-field",
+      "primary": {
+        "text": "컴포넌트 검색\nButton\nTextField\nSelect\nGrid\nDatePicker\nDataTable\n\n검색 결과 6개",
+        "owner": "src/gallery/form-input-detail.tsx",
+        "purpose": "검색어를 입력하는 한 줄 검색 필드입니다. 목록이나 콘텐츠를 검색하는 화면에 사용합니다."
+      },
+      "variantSettings": [
+        "예제 value",
+        "disabled",
+        "required",
+        "error"
+      ],
+      "codePurpose": "동일 owner의 실제 공개 컴포넌트와 현재 예제 설정",
+      "docsPurpose": "검색어를 입력하는 한 줄 검색 필드입니다. 목록이나 콘텐츠를 검색하는 화면에 사용합니다.",
+      "correction": [
+        "공통 단일 owner·Variant/Code/Docs 분리·설정 영역·전체 reset",
+        "현재 owner/JSX Code 문자열 정합화"
+      ],
+      "observations": [
+        {
+          "width": 390,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 390,
+          "setting": {
+            "label": "예제 value",
+            "before": "",
+            "after": "검토-SearchField \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": null
+        },
+        {
+          "width": 1440,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 1440,
+          "setting": {
+            "label": "예제 value",
+            "before": "",
+            "after": "검토-SearchField \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": null
+        }
+      ]
+    },
+    {
+      "name": "GNB",
+      "route": "#/components/gnb",
+      "primary": {
+        "text": "작업\n자료\n설정\n\nselectedId: work",
+        "owner": "src/gallery/navigation-detail.tsx",
+        "purpose": "서비스의 주요 영역을 탐색하는 메뉴입니다. 여러 주요 화면을 오가는 최상위 탐색에 사용합니다."
+      },
+      "variantSettings": [
+        "탐색 label control",
+        "selectedId control",
+        "설정 항목 disabled"
+      ],
+      "codePurpose": "동일 owner의 실제 공개 컴포넌트와 현재 예제 설정",
+      "docsPurpose": "서비스의 주요 영역을 탐색하는 메뉴입니다. 여러 주요 화면을 오가는 최상위 탐색에 사용합니다.",
+      "correction": [
+        "공통 단일 owner·Variant/Code/Docs 분리·설정 영역·전체 reset"
+      ],
+      "observations": [
+        {
+          "width": 390,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "전체 탐색",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 390,
+          "setting": {
+            "label": "탐색 label control",
+            "before": "전체 탐색",
+            "after": "전체 탐색검토-GNB \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": {
+            "target": {
+              "label": "전체 탐색 펼치기",
+              "type": "button"
+            },
+            "openDialogs": 0,
+            "closedDialogs": null
+          }
+        },
+        {
+          "width": 1440,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "전체 탐색",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 1440,
+          "setting": {
+            "label": "탐색 label control",
+            "before": "전체 탐색",
+            "after": "전체 탐색검토-GNB \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": {
+            "target": {
+              "label": "전체 탐색 펼치기",
+              "type": "button"
+            },
+            "openDialogs": 0,
+            "closedDialogs": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "LNB",
+      "route": "#/components/lnb",
+      "primary": {
+        "text": "영역 탐색 접기\n프로젝트\n작업\n자료\n도구\n설정\n\nselectedId: work",
+        "owner": "src/gallery/navigation-detail.tsx",
+        "purpose": "현재 영역 안에서 하위 메뉴를 그룹별로 탐색합니다. 설정이나 관리 화면의 사이드 탐색에 사용합니다."
+      },
+      "variantSettings": [
+        "탐색 label control",
+        "selectedId control",
+        "설정 항목 disabled"
+      ],
+      "codePurpose": "동일 owner의 실제 공개 컴포넌트와 현재 예제 설정",
+      "docsPurpose": "현재 영역 안에서 하위 메뉴를 그룹별로 탐색합니다. 설정이나 관리 화면의 사이드 탐색에 사용합니다.",
+      "correction": [
+        "공통 단일 owner·Variant/Code/Docs 분리·설정 영역·전체 reset"
+      ],
+      "observations": [
+        {
+          "width": 390,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "영역 탐색",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 390,
+          "setting": {
+            "label": "탐색 label control",
+            "before": "영역 탐색",
+            "after": "영역 탐색검토-LNB \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": {
+            "target": {
+              "label": "영역 탐색 접기",
+              "type": "button"
+            },
+            "openDialogs": 0,
+            "closedDialogs": null
+          }
+        },
+        {
+          "width": 1440,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "영역 탐색",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 1440,
+          "setting": {
+            "label": "탐색 label control",
+            "before": "영역 탐색",
+            "after": "영역 탐색검토-LNB \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": {
+            "target": {
+              "label": "영역 탐색 접기",
+              "type": "button"
+            },
+            "openDialogs": 0,
+            "closedDialogs": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "Breadcrumb",
+      "route": "#/components/breadcrumb",
+      "primary": {
+        "text": "개요\nAtoms\nButton",
+        "owner": "src/gallery/navigation-detail.tsx",
+        "purpose": "현재 화면이 전체 경로에서 어디에 있는지 표시합니다. 계층이 있는 상세 화면에서 상위 화면으로 돌아갈 수 있게 할 때 사용합니다."
+      },
+      "variantSettings": [
+        "탐색 label control",
+        "현재 위치 label control",
+        "긴 경로 예시",
+        "앞 항목 href",
+        "마지막 항목 href"
+      ],
+      "codePurpose": "동일 owner의 실제 공개 컴포넌트와 현재 예제 설정",
+      "docsPurpose": "현재 화면이 전체 경로에서 어디에 있는지 표시합니다. 계층이 있는 상세 화면에서 상위 화면으로 돌아갈 수 있게 할 때 사용합니다.",
+      "correction": [
+        "공통 단일 owner·Variant/Code/Docs 분리·설정 영역·전체 reset"
+      ],
+      "observations": [
+        {
+          "width": 390,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "현재 위치",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 390,
+          "setting": {
+            "label": "탐색 label control",
+            "before": "현재 위치",
+            "after": "현재 위치검토-Breadcrumb \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": null
+        },
+        {
+          "width": 1440,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "현재 위치",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 1440,
+          "setting": {
+            "label": "탐색 label control",
+            "before": "현재 위치",
+            "after": "현재 위치검토-Breadcrumb \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": null
+        }
+      ]
+    },
+    {
+      "name": "Tabs",
+      "route": "#/components/tabs",
+      "primary": {
+        "text": "미리보기\n사용법\n상태\n1번째 보기의 내용입니다.",
+        "owner": "src/gallery/native-navigation-detail.tsx",
+        "purpose": "같은 화면 안의 관련 콘텐츠를 탭으로 전환합니다. 정보, 설정, 기록처럼 맥락을 유지하며 내용을 나누는 화면에 사용합니다."
+      },
+      "variantSettings": [
+        "예제 label",
+        "예제 내용"
+      ],
+      "codePurpose": "동일 owner의 실제 공개 컴포넌트와 현재 예제 설정",
+      "docsPurpose": "같은 화면 안의 관련 콘텐츠를 탭으로 전환합니다. 정보, 설정, 기록처럼 맥락을 유지하며 내용을 나누는 화면에 사용합니다.",
+      "correction": [
+        "공통 단일 owner·Variant/Code/Docs 분리·설정 영역·전체 reset",
+        "현재 owner/JSX Code 문자열 정합화"
+      ],
+      "observations": [
+        {
+          "width": 390,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "예시 보기",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 390,
+          "setting": {
+            "label": "예제 label",
+            "before": "예시 보기",
+            "after": "예시 보기검토-Tabs \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": {
+            "target": {
+              "label": "사용법",
+              "type": "button"
+            },
+            "openDialogs": 0,
+            "closedDialogs": null
+          }
+        },
+        {
+          "width": 1440,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "예시 보기",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 1440,
+          "setting": {
+            "label": "예제 label",
+            "before": "예시 보기",
+            "after": "예시 보기검토-Tabs \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": {
+            "target": {
+              "label": "사용법",
+              "type": "button"
+            },
+            "openDialogs": 0,
+            "closedDialogs": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "Menu",
+      "route": "#/components/menu",
+      "primary": {
+        "text": "작업 메뉴\n⌄",
+        "owner": "src/gallery/native-navigation-detail.tsx",
+        "purpose": "버튼을 눌러 관련 작업 목록을 펼칩니다. 복제, 보관처럼 한 항목에 연결된 보조 작업이 여러 개일 때 사용합니다."
+      },
+      "variantSettings": [
+        "예제 label",
+        "예제 내용"
+      ],
+      "codePurpose": "동일 owner의 실제 공개 컴포넌트와 현재 예제 설정",
+      "docsPurpose": "버튼을 눌러 관련 작업 목록을 펼칩니다. 복제, 보관처럼 한 항목에 연결된 보조 작업이 여러 개일 때 사용합니다.",
+      "correction": [
+        "공통 단일 owner·Variant/Code/Docs 분리·설정 영역·전체 reset",
+        "현재 owner/JSX Code 문자열 정합화"
+      ],
+      "observations": [
+        {
+          "width": 390,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "작업 메뉴",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 390,
+          "setting": {
+            "label": "예제 label",
+            "before": "작업 메뉴",
+            "after": "작업 메뉴검토-Menu \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": {
+            "target": {
+              "label": "작업 메뉴 ⌄",
+              "type": "button"
+            },
+            "openDialogs": 0,
+            "closedDialogs": null
+          }
+        },
+        {
+          "width": 1440,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "작업 메뉴",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 1440,
+          "setting": {
+            "label": "예제 label",
+            "before": "작업 메뉴",
+            "after": "작업 메뉴검토-Menu \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": {
+            "target": {
+              "label": "작업 메뉴 ⌄",
+              "type": "button"
+            },
+            "openDialogs": 0,
+            "closedDialogs": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "BottomSheet",
+      "route": "#/components/bottom-sheet",
+      "primary": {
+        "text": "BottomSheet 열기",
+        "owner": "src/gallery/modal-component-detail.tsx",
+        "purpose": "작은 화면의 아래쪽에서 내용과 작업을 보여줍니다. 모바일의 옵션 선택이나 짧은 입력에 사용합니다."
+      },
+      "variantSettings": [
+        "대화상자 제목 설정",
+        "대화상자 본문 설정",
+        "footer 전달"
+      ],
+      "codePurpose": "동일 owner의 실제 공개 컴포넌트와 현재 예제 설정",
+      "docsPurpose": "작은 화면의 아래쪽에서 내용과 작업을 보여줍니다. 모바일의 옵션 선택이나 짧은 입력에 사용합니다.",
+      "correction": [
+        "공통 단일 owner·Variant/Code/Docs 분리·설정 영역·전체 reset",
+        "현재 컴포넌트 전용 시연·설정·Code로 교정",
+        "현재 owner/JSX Code 문자열 정합화"
+      ],
+      "observations": [
+        {
+          "width": 390,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "내용 확인",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 390,
+          "setting": {
+            "label": "대화상자 제목 설정",
+            "before": "내용 확인",
+            "after": "내용 확인검토-BottomSheet \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": {
+            "target": {
+              "label": "BottomSheet 열기",
+              "type": "button"
+            },
+            "openDialogs": 1,
+            "closedDialogs": 0
+          }
+        },
+        {
+          "width": 1440,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "내용 확인",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 1440,
+          "setting": {
+            "label": "대화상자 제목 설정",
+            "before": "내용 확인",
+            "after": "내용 확인검토-BottomSheet \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": {
+            "target": {
+              "label": "BottomSheet 열기",
+              "type": "button"
+            },
+            "openDialogs": 1,
+            "closedDialogs": 0
+          }
+        }
+      ]
+    },
+    {
+      "name": "Dialog",
+      "route": "#/components/dialog",
+      "primary": {
+        "text": "Dialog 열기",
+        "owner": "src/gallery/modal-component-detail.tsx",
+        "purpose": "현재 작업에 집중하도록 배경 위에 대화상자를 표시합니다. 정보 확인, 선택, 짧은 폼처럼 완료하거나 취소한 뒤 원래 화면으로 돌아오는 작업에 사용합니다."
+      },
+      "variantSettings": [
+        "대화상자 제목 설정",
+        "대화상자 본문 설정",
+        "footer 전달"
+      ],
+      "codePurpose": "동일 owner의 실제 공개 컴포넌트와 현재 예제 설정",
+      "docsPurpose": "현재 작업에 집중하도록 배경 위에 대화상자를 표시합니다. 정보 확인, 선택, 짧은 폼처럼 완료하거나 취소한 뒤 원래 화면으로 돌아오는 작업에 사용합니다.",
+      "correction": [
+        "공통 단일 owner·Variant/Code/Docs 분리·설정 영역·전체 reset",
+        "현재 컴포넌트 전용 시연·설정·Code로 교정",
+        "현재 owner/JSX Code 문자열 정합화"
+      ],
+      "observations": [
+        {
+          "width": 390,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "내용 확인",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 390,
+          "setting": {
+            "label": "대화상자 제목 설정",
+            "before": "내용 확인",
+            "after": "내용 확인검토-Dialog \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": {
+            "target": {
+              "label": "Dialog 열기",
+              "type": "button"
+            },
+            "openDialogs": 1,
+            "closedDialogs": 0
+          }
+        },
+        {
+          "width": 1440,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "내용 확인",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 1440,
+          "setting": {
+            "label": "대화상자 제목 설정",
+            "before": "내용 확인",
+            "after": "내용 확인검토-Dialog \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": {
+            "target": {
+              "label": "Dialog 열기",
+              "type": "button"
+            },
+            "openDialogs": 1,
+            "closedDialogs": 0
+          }
+        }
+      ]
+    },
+    {
+      "name": "Confirm",
+      "route": "#/components/confirm",
+      "primary": {
+        "text": "Confirm 열기",
+        "owner": "src/gallery/modal-component-detail.tsx",
+        "purpose": "중요한 작업을 실행하기 전에 사용자의 확인을 받습니다. 삭제나 되돌리기 어려운 변경을 확인하는 화면에 사용합니다."
+      },
+      "variantSettings": [
+        "대화상자 제목 설정",
+        "대화상자 본문 설정",
+        "loading"
+      ],
+      "codePurpose": "동일 owner의 실제 공개 컴포넌트와 현재 예제 설정",
+      "docsPurpose": "중요한 작업을 실행하기 전에 사용자의 확인을 받습니다. 삭제나 되돌리기 어려운 변경을 확인하는 화면에 사용합니다.",
+      "correction": [
+        "공통 단일 owner·Variant/Code/Docs 분리·설정 영역·전체 reset",
+        "현재 컴포넌트 전용 시연·설정·Code로 교정",
+        "현재 owner/JSX Code 문자열 정합화"
+      ],
+      "observations": [
+        {
+          "width": 390,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "변경 사항을 적용할까요?",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 390,
+          "setting": {
+            "label": "대화상자 제목 설정",
+            "before": "변경 사항을 적용할까요?",
+            "after": "변경 사항을 적용할까요?검토-Confirm \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": {
+            "target": {
+              "label": "Confirm 열기",
+              "type": "button"
+            },
+            "openDialogs": 1,
+            "closedDialogs": 0
+          }
+        },
+        {
+          "width": 1440,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "변경 사항을 적용할까요?",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 1440,
+          "setting": {
+            "label": "대화상자 제목 설정",
+            "before": "변경 사항을 적용할까요?",
+            "after": "변경 사항을 적용할까요?검토-Confirm \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": {
+            "target": {
+              "label": "Confirm 열기",
+              "type": "button"
+            },
+            "openDialogs": 1,
+            "closedDialogs": 0
+          }
+        }
+      ]
+    },
+    {
+      "name": "Drawer",
+      "route": "#/components/drawer",
+      "primary": {
+        "text": "Drawer 열기\n\nopen: false",
+        "owner": "src/gallery/region-overlay-detail.tsx",
+        "purpose": "화면 오른쪽에서 보조 내용을 펼쳐 보여줍니다. 원래 화면을 유지하며 상세 정보나 설정을 확인할 때 사용합니다."
+      },
+      "variantSettings": [
+        "overlay title control",
+        "overlay children control",
+        "open",
+        "footer",
+        "Drawer footer label control"
+      ],
+      "codePurpose": "동일 owner의 실제 공개 컴포넌트와 현재 예제 설정",
+      "docsPurpose": "화면 오른쪽에서 보조 내용을 펼쳐 보여줍니다. 원래 화면을 유지하며 상세 정보나 설정을 확인할 때 사용합니다.",
+      "correction": [
+        "공통 단일 owner·Variant/Code/Docs 분리·설정 영역·전체 reset"
+      ],
+      "observations": [
+        {
+          "width": 390,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "추가 안내",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 390,
+          "setting": {
+            "label": "overlay title control",
+            "before": "추가 안내",
+            "after": "추가 안내검토-Drawer \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": {
+            "target": {
+              "label": "Drawer 열기",
+              "type": "button"
+            },
+            "openDialogs": 1,
+            "closedDialogs": 0
+          }
+        },
+        {
+          "width": 1440,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "추가 안내",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 1440,
+          "setting": {
+            "label": "overlay title control",
+            "before": "추가 안내",
+            "after": "추가 안내검토-Drawer \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": {
+            "target": {
+              "label": "Drawer 열기",
+              "type": "button"
+            },
+            "openDialogs": 1,
+            "closedDialogs": 0
+          }
+        }
+      ]
+    },
+    {
+      "name": "Popover",
+      "route": "#/components/popover",
+      "primary": {
+        "text": "안내 보기\n\n아직 확인 전",
+        "owner": "src/gallery/region-overlay-detail.tsx",
+        "purpose": "버튼 가까이에 짧은 내용과 보조 작업을 펼칩니다. 설명, 간단한 설정 등 화면을 떠나지 않고 확인할 내용에 사용합니다."
+      },
+      "variantSettings": [
+        "Popover label control",
+        "overlay title control",
+        "overlay children control"
+      ],
+      "codePurpose": "동일 owner의 실제 공개 컴포넌트와 현재 예제 설정",
+      "docsPurpose": "버튼 가까이에 짧은 내용과 보조 작업을 펼칩니다. 설명, 간단한 설정 등 화면을 떠나지 않고 확인할 내용에 사용합니다.",
+      "correction": [
+        "공통 단일 owner·Variant/Code/Docs 분리·설정 영역·전체 reset"
+      ],
+      "observations": [
+        {
+          "width": 390,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "안내 보기",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 390,
+          "setting": {
+            "label": "Popover label control",
+            "before": "안내 보기",
+            "after": "안내 보기검토-Popover \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": {
+            "target": {
+              "label": "안내 보기",
+              "type": "button"
+            },
+            "openDialogs": 0,
+            "closedDialogs": null
+          }
+        },
+        {
+          "width": 1440,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "안내 보기",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 1440,
+          "setting": {
+            "label": "Popover label control",
+            "before": "안내 보기",
+            "after": "안내 보기검토-Popover \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": {
+            "target": {
+              "label": "안내 보기",
+              "type": "button"
+            },
+            "openDialogs": 0,
+            "closedDialogs": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "Tooltip",
+      "route": "#/components/tooltip",
+      "primary": {
+        "text": "간격 안내",
+        "owner": "src/gallery/native-navigation-detail.tsx",
+        "purpose": "버튼에 대한 짧은 보충 설명을 보여줍니다. 화면의 문구만으로 부족한 간단한 설명을 더할 때 사용합니다."
+      },
+      "variantSettings": [
+        "예제 label",
+        "예제 내용"
+      ],
+      "codePurpose": "동일 owner의 실제 공개 컴포넌트와 현재 예제 설정",
+      "docsPurpose": "버튼에 대한 짧은 보충 설명을 보여줍니다. 화면의 문구만으로 부족한 간단한 설명을 더할 때 사용합니다.",
+      "correction": [
+        "공통 단일 owner·Variant/Code/Docs 분리·설정 영역·전체 reset",
+        "현재 owner/JSX Code 문자열 정합화"
+      ],
+      "observations": [
+        {
+          "width": 390,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "간격 안내",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 390,
+          "setting": {
+            "label": "예제 label",
+            "before": "간격 안내",
+            "after": "간격 안내검토-Tooltip \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": {
+            "target": {
+              "label": "간격 안내",
+              "type": "button"
+            },
+            "openDialogs": 0,
+            "closedDialogs": null
+          }
+        },
+        {
+          "width": 1440,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "간격 안내",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 1440,
+          "setting": {
+            "label": "예제 label",
+            "before": "간격 안내",
+            "after": "간격 안내검토-Tooltip \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": {
+            "target": {
+              "label": "간격 안내",
+              "type": "button"
+            },
+            "openDialogs": 0,
+            "closedDialogs": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "Table",
+      "route": "#/components/table",
+      "primary": {
+        "text": "작업 목록\n번호\t제목\t담당\n1\t문서 정리\t디자인\n2\t컴포넌트 점검\t개발\n3\t예시 확인\t공통",
+        "owner": "src/gallery/data-detail.tsx",
+        "purpose": "행과 열로 정리된 데이터를 표로 보여줍니다. 데이터를 비교해 읽는 기본 표에 사용합니다. 검색과 선택이 필요하면 DataTable을 선택하세요."
+      },
+      "variantSettings": [
+        "data label control",
+        "data count control",
+        "cell render control",
+        "담당 열 표시",
+        "넓은 셀 render"
+      ],
+      "codePurpose": "동일 owner의 실제 공개 컴포넌트와 현재 예제 설정",
+      "docsPurpose": "행과 열로 정리된 데이터를 표로 보여줍니다. 데이터를 비교해 읽는 기본 표에 사용합니다. 검색과 선택이 필요하면 DataTable을 선택하세요.",
+      "correction": [
+        "공통 단일 owner·Variant/Code/Docs 분리·설정 영역·전체 reset"
+      ],
+      "observations": [
+        {
+          "width": 390,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "작업 목록",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 390,
+          "setting": {
+            "label": "data label control",
+            "before": "작업 목록",
+            "after": "작업 목록검토-Table \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": null
+        },
+        {
+          "width": 1440,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "작업 목록",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 1440,
+          "setting": {
+            "label": "data label control",
+            "before": "작업 목록",
+            "after": "작업 목록검토-Table \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": null
+        }
+      ]
+    },
+    {
+      "name": "DataTable",
+      "route": "#/components/data-table",
+      "primary": {
+        "text": "데이터 검색\n상태 필터\n전체\n진행 중\n완료\n대기\n0개 선택됨\n선택 확인\n예시 작업\n현재 페이지 전체 선택\n\t작업 ↕\t상태 ↕\t항목 ↕\n\n문서 정리 선택\n\t문서 정리\t진행 중\t8\n\n아이콘 점검 선택\n\t아이콘 점검\t완료",
+        "owner": "src/gallery/connected-detail.tsx",
+        "purpose": "검색, 정렬, 필터와 선택 작업을 함께 제공하는 표입니다. 많은 행을 찾아보고 여러 항목을 처리하는 관리 화면에 사용합니다."
+      },
+      "variantSettings": [
+        "테이블 예제 상태"
+      ],
+      "codePurpose": "동일 owner의 실제 공개 컴포넌트와 현재 예제 설정",
+      "docsPurpose": "검색, 정렬, 필터와 선택 작업을 함께 제공하는 표입니다. 많은 행을 찾아보고 여러 항목을 처리하는 관리 화면에 사용합니다.",
+      "correction": [
+        "공통 단일 owner·Variant/Code/Docs 분리·설정 영역·전체 reset",
+        "현재 owner/JSX Code 문자열 정합화"
+      ],
+      "observations": [
+        {
+          "width": 390,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "default",
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 390,
+          "setting": {
+            "label": "테이블 예제 상태",
+            "before": "default",
+            "after": "loading",
+            "method": "pointer focus + DOM value/change handler probe; native popup choice not observed"
+          },
+          "primaryPointerProbe": null
+        },
+        {
+          "width": 1440,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "default",
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 1440,
+          "setting": {
+            "label": "테이블 예제 상태",
+            "before": "default",
+            "after": "loading",
+            "method": "pointer focus + DOM value/change handler probe; native popup choice not observed"
+          },
+          "primaryPointerProbe": null
+        }
+      ]
+    },
+    {
+      "name": "Pagination",
+      "route": "#/components/pagination",
+      "primary": {
+        "text": "이전\n1\n2\n…\n12\n다음\n\n부모 page: 1 · 표시 page: 1 / 12",
+        "owner": "src/gallery/data-detail.tsx",
+        "purpose": "페이지를 나누어 이동하는 탐색 버튼입니다. 목록이나 검색 결과를 여러 페이지로 보여줄 때 사용합니다."
+      },
+      "variantSettings": [
+        "data label control",
+        "page control",
+        "pageCount control"
+      ],
+      "codePurpose": "동일 owner의 실제 공개 컴포넌트와 현재 예제 설정",
+      "docsPurpose": "페이지를 나누어 이동하는 탐색 버튼입니다. 목록이나 검색 결과를 여러 페이지로 보여줄 때 사용합니다.",
+      "correction": [
+        "공통 단일 owner·Variant/Code/Docs 분리·설정 영역·전체 reset"
+      ],
+      "observations": [
+        {
+          "width": 390,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "페이지 탐색",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 390,
+          "setting": {
+            "label": "data label control",
+            "before": "페이지 탐색",
+            "after": "페이지 탐색검토-Pagination \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": null
+        },
+        {
+          "width": 1440,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "페이지 탐색",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 1440,
+          "setting": {
+            "label": "data label control",
+            "before": "페이지 탐색",
+            "after": "페이지 탐색검토-Pagination \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": null
+        }
+      ]
+    },
+    {
+      "name": "List",
+      "route": "#/components/list",
+      "primary": {
+        "text": "문서 정리\n\n디자인\n\n컴포넌트 점검\n\n개발\n\n예시 확인\n\n공통",
+        "owner": "src/gallery/data-detail.tsx",
+        "purpose": "관련된 항목을 세로 목록으로 묶습니다. 제목과 설명 중심으로 항목을 읽는 화면에 사용합니다."
+      },
+      "variantSettings": [
+        "data label control",
+        "data count control",
+        "List id control"
+      ],
+      "codePurpose": "동일 owner의 실제 공개 컴포넌트와 현재 예제 설정",
+      "docsPurpose": "관련된 항목을 세로 목록으로 묶습니다. 제목과 설명 중심으로 항목을 읽는 화면에 사용합니다.",
+      "correction": [
+        "공통 단일 owner·Variant/Code/Docs 분리·설정 영역·전체 reset"
+      ],
+      "observations": [
+        {
+          "width": 390,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "문서 목록",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 390,
+          "setting": {
+            "label": "data label control",
+            "before": "문서 목록",
+            "after": "문서 목록검토-List \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": null
+        },
+        {
+          "width": 1440,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "문서 목록",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 1440,
+          "setting": {
+            "label": "data label control",
+            "before": "문서 목록",
+            "after": "문서 목록검토-List \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": null
+        }
+      ]
+    },
+    {
+      "name": "ListItem",
+      "route": "#/components/list-item",
+      "primary": {
+        "text": "문서 정리 선택\n문\n문서 정리\n\n로컬 예시 항목입니다.\n\n열기\n\nselected: false · 동작 횟수: 0",
+        "owner": "src/gallery/data-detail.tsx",
+        "purpose": "목록에 제목, 설명, 이미지와 동작을 표시합니다. 내용 구성이 단순한 목록 항목에 사용합니다."
+      },
+      "variantSettings": [
+        "data label control",
+        "ListItem title control",
+        "ListItem description control",
+        "ListItem action label control",
+        "description 전달",
+        "thumbnail 전달",
+        "selected",
+        "onSelectionChange 전달",
+        "action 전달"
+      ],
+      "codePurpose": "동일 owner의 실제 공개 컴포넌트와 현재 예제 설정",
+      "docsPurpose": "목록에 제목, 설명, 이미지와 동작을 표시합니다. 내용 구성이 단순한 목록 항목에 사용합니다.",
+      "correction": [
+        "공통 단일 owner·Variant/Code/Docs 분리·설정 영역·전체 reset"
+      ],
+      "observations": [
+        {
+          "width": 390,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "문서 목록",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 390,
+          "setting": {
+            "label": "data label control",
+            "before": "문서 목록",
+            "after": "문서 목록검토-ListItem \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": null
+        },
+        {
+          "width": 1440,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "문서 목록",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 1440,
+          "setting": {
+            "label": "data label control",
+            "before": "문서 목록",
+            "after": "문서 목록검토-ListItem \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": null
+        }
+      ]
+    },
+    {
+      "name": "Badge",
+      "route": "#/components/badge",
+      "primary": {
+        "text": "준비 완료",
+        "owner": "src/gallery/playground.tsx",
+        "purpose": "짧은 상태나 분류를 작은 표시로 보여줍니다. 진행 상태, 분류, 개수처럼 빠르게 읽을 정보를 강조할 때 사용합니다."
+      },
+      "variantSettings": [
+        "tone",
+        "children"
+      ],
+      "codePurpose": "동일 owner의 실제 공개 컴포넌트와 현재 예제 설정",
+      "docsPurpose": "짧은 상태나 분류를 작은 표시로 보여줍니다. 진행 상태, 분류, 개수처럼 빠르게 읽을 정보를 강조할 때 사용합니다.",
+      "correction": [
+        "공통 단일 owner·Variant/Code/Docs 분리·설정 영역·전체 reset"
+      ],
+      "observations": [
+        {
+          "width": 390,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "준비 완료",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 390,
+          "setting": {
+            "label": null,
+            "before": "준비 완료",
+            "after": "준비 완료검토-Badge \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": null
+        },
+        {
+          "width": 1440,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "준비 완료",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 1440,
+          "setting": {
+            "label": null,
+            "before": "준비 완료",
+            "after": "준비 완료검토-Badge \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": null
+        }
+      ]
+    },
+    {
+      "name": "Alert",
+      "route": "#/components/alert",
+      "primary": {
+        "text": "안내\n변경 사항을 확인해 주세요.",
+        "owner": "src/gallery/playground.tsx",
+        "purpose": "현재 화면에서 알아야 할 안내나 오류를 표시합니다. 입력 오류, 처리 상태, 주의사항처럼 내용을 읽고 행동해야 하는 안내에 사용합니다."
+      },
+      "variantSettings": [
+        "tone",
+        "title",
+        "children"
+      ],
+      "codePurpose": "동일 owner의 실제 공개 컴포넌트와 현재 예제 설정",
+      "docsPurpose": "현재 화면에서 알아야 할 안내나 오류를 표시합니다. 입력 오류, 처리 상태, 주의사항처럼 내용을 읽고 행동해야 하는 안내에 사용합니다.",
+      "correction": [
+        "공통 단일 owner·Variant/Code/Docs 분리·설정 영역·전체 reset"
+      ],
+      "observations": [
+        {
+          "width": 390,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "안내",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 390,
+          "setting": {
+            "label": null,
+            "before": "안내",
+            "after": "안내검토-Alert \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": null
+        },
+        {
+          "width": 1440,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "안내",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 1440,
+          "setting": {
+            "label": null,
+            "before": "안내",
+            "after": "안내검토-Alert \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": null
+        }
+      ]
+    },
+    {
+      "name": "Progress",
+      "route": "#/components/progress",
+      "primary": {
+        "text": "진행률\n65%",
+        "owner": "src/gallery/playground.tsx",
+        "purpose": "작업의 완료 비율이나 진행 중 상태를 표시합니다. 완료량을 알 수 있는 처리나 아직 비율을 알 수 없는 대기 상태에 사용합니다."
+      },
+      "variantSettings": [
+        "value",
+        "label",
+        "indeterminate"
+      ],
+      "codePurpose": "동일 owner의 실제 공개 컴포넌트와 현재 예제 설정",
+      "docsPurpose": "작업의 완료 비율이나 진행 중 상태를 표시합니다. 완료량을 알 수 있는 처리나 아직 비율을 알 수 없는 대기 상태에 사용합니다.",
+      "correction": [
+        "공통 단일 owner·Variant/Code/Docs 분리·설정 영역·전체 reset"
+      ],
+      "observations": [
+        {
+          "width": 390,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "진행률",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 390,
+          "setting": {
+            "label": null,
+            "before": "진행률",
+            "after": "진행률검토-Progress \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": null
+        },
+        {
+          "width": 1440,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "진행률",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 1440,
+          "setting": {
+            "label": null,
+            "before": "진행률",
+            "after": "진행률검토-Progress \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": null
+        }
+      ]
+    },
+    {
+      "name": "Skeleton",
+      "route": "#/components/skeleton",
+      "primary": {
+        "text": "콘텐츠 불러오는 중",
+        "owner": "src/gallery/playground.tsx",
+        "purpose": "콘텐츠를 기다리는 동안 자리 표시를 보여줍니다. 읽을 내용이 로딩될 때 빈 공간의 위치를 안내하는 데 사용합니다."
+      },
+      "variantSettings": [
+        "label"
+      ],
+      "codePurpose": "동일 owner의 실제 공개 컴포넌트와 현재 예제 설정",
+      "docsPurpose": "콘텐츠를 기다리는 동안 자리 표시를 보여줍니다. 읽을 내용이 로딩될 때 빈 공간의 위치를 안내하는 데 사용합니다.",
+      "correction": [
+        "공통 단일 owner·Variant/Code/Docs 분리·설정 영역·전체 reset"
+      ],
+      "observations": [
+        {
+          "width": 390,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "콘텐츠 불러오는 중",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 390,
+          "setting": {
+            "label": null,
+            "before": "콘텐츠 불러오는 중",
+            "after": "콘텐츠 불러오는 중검토-Skeleton \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": null
+        },
+        {
+          "width": 1440,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "콘텐츠 불러오는 중",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 1440,
+          "setting": {
+            "label": null,
+            "before": "콘텐츠 불러오는 중",
+            "after": "콘텐츠 불러오는 중검토-Skeleton \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": null
+        }
+      ]
+    },
+    {
+      "name": "LoadingSpinner",
+      "route": "#/components/loading-spinner",
+      "primary": {
+        "text": "로딩 숨기기\n불러오는 중",
+        "owner": "src/gallery/feedback-detail.tsx",
+        "purpose": "작업이 진행 중임을 짧은 문구와 회전 표시로 안내합니다. 완료 비율을 알기 어려운 짧은 대기에 사용합니다."
+      },
+      "variantSettings": [
+        "예제 문구",
+        "부모의 미리보기 표시"
+      ],
+      "codePurpose": "동일 owner의 실제 공개 컴포넌트와 현재 예제 설정",
+      "docsPurpose": "작업이 진행 중임을 짧은 문구와 회전 표시로 안내합니다. 완료 비율을 알기 어려운 짧은 대기에 사용합니다.",
+      "correction": [
+        "공통 단일 owner·Variant/Code/Docs 분리·설정 영역·전체 reset",
+        "현재 owner/JSX Code 문자열 정합화"
+      ],
+      "observations": [
+        {
+          "width": 390,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "불러오는 중",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 390,
+          "setting": {
+            "label": "예제 문구",
+            "before": "불러오는 중",
+            "after": "불러오는 중검토-LoadingSpinner \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": {
+            "target": {
+              "label": "로딩 숨기기",
+              "type": "button"
+            },
+            "openDialogs": 0,
+            "closedDialogs": null
+          }
+        },
+        {
+          "width": 1440,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "불러오는 중",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 1440,
+          "setting": {
+            "label": "예제 문구",
+            "before": "불러오는 중",
+            "after": "불러오는 중검토-LoadingSpinner \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": {
+            "target": {
+              "label": "로딩 숨기기",
+              "type": "button"
+            },
+            "openDialogs": 0,
+            "closedDialogs": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "EmptyState",
+      "route": "#/components/empty-state",
+      "primary": {
+        "text": "◇\n결과 없음\n조건을 바꾸거나 항목을 추가하세요.\n항목 추가",
+        "owner": "src/gallery/playground.tsx",
+        "purpose": "표시할 항목이 없을 때 이유와 다음 동작을 안내합니다. 첫 사용, 빈 목록, 검색 결과가 없을 때 사용합니다."
+      },
+      "variantSettings": [
+        "title",
+        "children",
+        "action",
+        "loading"
+      ],
+      "codePurpose": "동일 owner의 실제 공개 컴포넌트와 현재 예제 설정",
+      "docsPurpose": "표시할 항목이 없을 때 이유와 다음 동작을 안내합니다. 첫 사용, 빈 목록, 검색 결과가 없을 때 사용합니다.",
+      "correction": [
+        "공통 단일 owner·Variant/Code/Docs 분리·설정 영역·전체 reset"
+      ],
+      "observations": [
+        {
+          "width": 390,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "결과 없음",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 390,
+          "setting": {
+            "label": null,
+            "before": "결과 없음",
+            "after": "결과 없음검토-EmptyState \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": {
+            "target": {
+              "label": "항목 추가",
+              "type": "button"
+            },
+            "openDialogs": 0,
+            "closedDialogs": null
+          }
+        },
+        {
+          "width": 1440,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "결과 없음",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 1440,
+          "setting": {
+            "label": null,
+            "before": "결과 없음",
+            "after": "결과 없음검토-EmptyState \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": {
+            "target": {
+              "label": "항목 추가",
+              "type": "button"
+            },
+            "openDialogs": 0,
+            "closedDialogs": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "ErrorState",
+      "route": "#/components/error-state",
+      "primary": {
+        "text": "오류 다시 표시\n연결을 확인하고 다시 시도해 주세요.\n다시 시도",
+        "owner": "src/gallery/feedback-detail.tsx",
+        "purpose": "내용을 불러오지 못했을 때 오류와 재시도를 보여줍니다. 목록이나 콘텐츠 로딩 실패에 복구 동작을 제공할 때 사용합니다."
+      },
+      "variantSettings": [
+        "예제 문구"
+      ],
+      "codePurpose": "동일 owner의 실제 공개 컴포넌트와 현재 예제 설정",
+      "docsPurpose": "내용을 불러오지 못했을 때 오류와 재시도를 보여줍니다. 목록이나 콘텐츠 로딩 실패에 복구 동작을 제공할 때 사용합니다.",
+      "correction": [
+        "공통 단일 owner·Variant/Code/Docs 분리·설정 영역·전체 reset",
+        "현재 owner/JSX Code 문자열 정합화"
+      ],
+      "observations": [
+        {
+          "width": 390,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "연결을 확인하고 다시 시도해 주세요.",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 390,
+          "setting": {
+            "label": "예제 문구",
+            "before": "연결을 확인하고 다시 시도해 주세요.",
+            "after": "연결을 확인하고 다시 시도해 주검토-ErrorState \"예제\"세요.",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": {
+            "target": {
+              "label": "오류 다시 표시",
+              "type": "button"
+            },
+            "openDialogs": 0,
+            "closedDialogs": null
+          }
+        },
+        {
+          "width": 1440,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "연결을 확인하고 다시 시도해 주세요.",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 1440,
+          "setting": {
+            "label": "예제 문구",
+            "before": "연결을 확인하고 다시 시도해 주세요.",
+            "after": "연결을 확인하고 다시 시도해 주세요.검토-ErrorState \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": {
+            "target": {
+              "label": "오류 다시 표시",
+              "type": "button"
+            },
+            "openDialogs": 0,
+            "closedDialogs": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "Toast",
+      "route": "#/components/toast",
+      "primary": {
+        "text": "알림 표시\n변경 내용을 확인했어요.",
+        "owner": "src/gallery/feedback-detail.tsx",
+        "purpose": "작업 결과를 짧게 알리는 메시지입니다. 저장 완료처럼 현재 작업을 방해하지 않는 결과 안내에 사용합니다."
+      },
+      "variantSettings": [
+        "예제 문구",
+        "부모의 미리보기 표시"
+      ],
+      "codePurpose": "동일 owner의 실제 공개 컴포넌트와 현재 예제 설정",
+      "docsPurpose": "작업 결과를 짧게 알리는 메시지입니다. 저장 완료처럼 현재 작업을 방해하지 않는 결과 안내에 사용합니다.",
+      "correction": [
+        "공통 단일 owner·Variant/Code/Docs 분리·설정 영역·전체 reset",
+        "현재 owner/JSX Code 문자열 정합화"
+      ],
+      "observations": [
+        {
+          "width": 390,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "변경 내용을 확인했어요.",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 390,
+          "setting": {
+            "label": "예제 문구",
+            "before": "변경 내용을 확인했어요.",
+            "after": "변경 내용을 확인했어요.검토-Toast \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": {
+            "target": {
+              "label": "알림 닫기",
+              "type": "button"
+            },
+            "openDialogs": 0,
+            "closedDialogs": null
+          }
+        },
+        {
+          "width": 1440,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "변경 내용을 확인했어요.",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 1440,
+          "setting": {
+            "label": "예제 문구",
+            "before": "변경 내용을 확인했어요.",
+            "after": "변경 내용을 확인했어요.검토-Toast \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": {
+            "target": {
+              "label": "알림 닫기",
+              "type": "button"
+            },
+            "openDialogs": 0,
+            "closedDialogs": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "Accordion",
+      "route": "#/components/accordion",
+      "primary": {
+        "text": "사용 방법\n키보드 조작\n사용 제한",
+        "owner": "src/gallery/feedback-detail.tsx",
+        "purpose": "관련된 여러 내용을 제목별로 펼쳐 읽습니다. 도움말, 자주 묻는 질문, 여러 설정 묶음에 사용합니다."
+      },
+      "variantSettings": [
+        "예제 문구",
+        "예제 내용",
+        "multiple",
+        "사용 제한 항목 disabled"
+      ],
+      "codePurpose": "동일 owner의 실제 공개 컴포넌트와 현재 예제 설정",
+      "docsPurpose": "관련된 여러 내용을 제목별로 펼쳐 읽습니다. 도움말, 자주 묻는 질문, 여러 설정 묶음에 사용합니다.",
+      "correction": [
+        "공통 단일 owner·Variant/Code/Docs 분리·설정 영역·전체 reset",
+        "현재 owner/JSX Code 문자열 정합화"
+      ],
+      "observations": [
+        {
+          "width": 390,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "사용 방법",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 390,
+          "setting": {
+            "label": "예제 문구",
+            "before": "사용 방법",
+            "after": "사용 방법검토-Accordion \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": {
+            "target": {
+              "label": "사용 방법",
+              "type": "button"
+            },
+            "openDialogs": 0,
+            "closedDialogs": null
+          }
+        },
+        {
+          "width": 1440,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "사용 방법",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 1440,
+          "setting": {
+            "label": "예제 문구",
+            "before": "사용 방법",
+            "after": "사용 방법검토-Accordion \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": {
+            "target": {
+              "label": "사용 방법",
+              "type": "button"
+            },
+            "openDialogs": 0,
+            "closedDialogs": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "Collapse",
+      "route": "#/components/collapse",
+      "primary": {
+        "text": "상세 내용",
+        "owner": "src/gallery/feedback-detail.tsx",
+        "purpose": "하나의 보조 내용을 펼치거나 접습니다. 추가 설명이나 선택적인 세부 내용을 숨겨두고 읽게 할 때 사용합니다."
+      },
+      "variantSettings": [
+        "예제 문구",
+        "예제 내용"
+      ],
+      "codePurpose": "동일 owner의 실제 공개 컴포넌트와 현재 예제 설정",
+      "docsPurpose": "하나의 보조 내용을 펼치거나 접습니다. 추가 설명이나 선택적인 세부 내용을 숨겨두고 읽게 할 때 사용합니다.",
+      "correction": [
+        "공통 단일 owner·Variant/Code/Docs 분리·설정 영역·전체 reset",
+        "현재 owner/JSX Code 문자열 정합화"
+      ],
+      "observations": [
+        {
+          "width": 390,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "상세 내용",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 390,
+          "setting": {
+            "label": "예제 문구",
+            "before": "상세 내용",
+            "after": "상세 내용검토-Collapse \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": {
+            "target": {
+              "label": "상세 내용",
+              "type": "button"
+            },
+            "openDialogs": 0,
+            "closedDialogs": null
+          }
+        },
+        {
+          "width": 1440,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "상세 내용",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 1440,
+          "setting": {
+            "label": "예제 문구",
+            "before": "상세 내용",
+            "after": "상세 내용검토-Collapse \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": {
+            "target": {
+              "label": "상세 내용",
+              "type": "button"
+            },
+            "openDialogs": 0,
+            "closedDialogs": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "Separator",
+      "route": "#/components/separator",
+      "primary": {
+        "text": "첫 번째 그룹\n\n두 번째 그룹",
+        "owner": "src/gallery/playground.tsx",
+        "purpose": "서로 다른 내용의 경계를 구분하는 선입니다. 한 영역 안에서 정보 묶음을 나눌 때 사용합니다."
+      },
+      "variantSettings": [],
+      "codePurpose": "동일 owner의 실제 공개 컴포넌트와 현재 예제 설정",
+      "docsPurpose": "서로 다른 내용의 경계를 구분하는 선입니다. 한 영역 안에서 정보 묶음을 나눌 때 사용합니다.",
+      "correction": [
+        "공통 단일 owner·Variant/Code/Docs 분리·설정 영역·전체 reset"
+      ],
+      "observations": [
+        {
+          "width": 390,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 390,
+          "setting": {
+            "method": "no editable configuration; static example, actual tabs/reset observed"
+          },
+          "primaryPointerProbe": null
+        },
+        {
+          "width": 1440,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 1440,
+          "setting": {
+            "method": "no editable configuration; static example, actual tabs/reset observed"
+          },
+          "primaryPointerProbe": null
+        }
+      ]
+    },
+    {
+      "name": "Container",
+      "route": "#/components/container",
+      "primary": {
+        "text": "재사용 가능한 내용을 배치합니다. 1\n\n재사용 가능한 내용을 배치합니다. 2\n\n재사용 가능한 내용을 배치합니다. 3",
+        "owner": "src/gallery/layout-detail.tsx",
+        "purpose": "본문을 가운데 정렬하고 읽기 좋은 최대 너비로 제한합니다. 페이지 본문과 헤더의 좌우 정렬을 맞출 때 사용합니다."
+      },
+      "variantSettings": [
+        "layout label control",
+        "layout body control",
+        "layout count control",
+        "Stack className control",
+        "Stack id control"
+      ],
+      "codePurpose": "동일 owner의 실제 공개 컴포넌트와 현재 예제 설정",
+      "docsPurpose": "본문을 가운데 정렬하고 읽기 좋은 최대 너비로 제한합니다. 페이지 본문과 헤더의 좌우 정렬을 맞출 때 사용합니다.",
+      "correction": [
+        "공통 단일 owner·Variant/Code/Docs 분리·설정 영역·전체 reset"
+      ],
+      "observations": [
+        {
+          "width": 390,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "내용 컨테이너",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 390,
+          "setting": {
+            "label": "layout label control",
+            "before": "내용 컨테이너",
+            "after": "내용 컨테이너검토-Container \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": null
+        },
+        {
+          "width": 1440,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "내용 컨테이너",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 1440,
+          "setting": {
+            "label": "layout label control",
+            "before": "내용 컨테이너",
+            "after": "내용 컨테이너검토-Container \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": null
+        }
+      ]
+    },
+    {
+      "name": "Stack",
+      "route": "#/components/stack",
+      "primary": {
+        "text": "재사용 가능한 내용을 배치합니다. 1\n\n재사용 가능한 내용을 배치합니다. 2\n\n재사용 가능한 내용을 배치합니다. 3",
+        "owner": "src/gallery/layout-detail.tsx",
+        "purpose": "내용을 일정한 간격으로 세로 배치합니다. 설명, 입력, 버튼 등의 순서를 분명하게 정리할 때 사용합니다."
+      },
+      "variantSettings": [
+        "layout label control",
+        "layout body control",
+        "layout count control",
+        "Stack className control",
+        "Stack id control"
+      ],
+      "codePurpose": "동일 owner의 실제 공개 컴포넌트와 현재 예제 설정",
+      "docsPurpose": "내용을 일정한 간격으로 세로 배치합니다. 설명, 입력, 버튼 등의 순서를 분명하게 정리할 때 사용합니다.",
+      "correction": [
+        "공통 단일 owner·Variant/Code/Docs 분리·설정 영역·전체 reset"
+      ],
+      "observations": [
+        {
+          "width": 390,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "내용 묶음",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 390,
+          "setting": {
+            "label": "layout label control",
+            "before": "내용 묶음",
+            "after": "내용 묶음검토-Stack \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": null
+        },
+        {
+          "width": 1440,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "내용 묶음",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 1440,
+          "setting": {
+            "label": "layout label control",
+            "before": "내용 묶음",
+            "after": "내용 묶음검토-Stack \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": null
+        }
+      ]
+    },
+    {
+      "name": "Grid",
+      "route": "#/components/grid",
+      "primary": {
+        "text": "재사용 가능한 내용을 배치합니다. 1\n\n재사용 가능한 내용을 배치합니다. 2\n\n재사용 가능한 내용을 배치합니다. 3",
+        "owner": "src/gallery/layout-detail.tsx",
+        "purpose": "가용 공간에 맞춰 열 수가 바뀌는 격자 배치입니다. 요약 카드나 여러 정보 영역을 반응형으로 나란히 배치할 때 사용합니다."
+      },
+      "variantSettings": [
+        "layout label control",
+        "layout body control",
+        "layout count control",
+        "Stack className control",
+        "Stack id control"
+      ],
+      "codePurpose": "동일 owner의 실제 공개 컴포넌트와 현재 예제 설정",
+      "docsPurpose": "가용 공간에 맞춰 열 수가 바뀌는 격자 배치입니다. 요약 카드나 여러 정보 영역을 반응형으로 나란히 배치할 때 사용합니다.",
+      "correction": [
+        "공통 단일 owner·Variant/Code/Docs 분리·설정 영역·전체 reset"
+      ],
+      "observations": [
+        {
+          "width": 390,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "내용 격자",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 390,
+          "setting": {
+            "label": "layout label control",
+            "before": "내용 격자",
+            "after": "내용 격자검토-Grid \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": null
+        },
+        {
+          "width": 1440,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "내용 격자",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 1440,
+          "setting": {
+            "label": "layout label control",
+            "before": "내용 격자",
+            "after": "내용 격자검토-Grid \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": null
+        }
+      ]
+    },
+    {
+      "name": "Shell",
+      "route": "#/components/shell",
+      "primary": {
+        "text": "개요자료\n문서 작업\n\n재사용 가능한 내용을 배치합니다.\n\n선택: 개요",
+        "owner": "src/gallery/layout-detail.tsx",
+        "purpose": "헤더, 탐색 영역과 본문으로 페이지 골격을 구성합니다. 여러 화면에 같은 헤더와 사이드 탐색을 사용하는 레이아웃에 적합합니다."
+      },
+      "variantSettings": [
+        "layout label control",
+        "layout body control",
+        "Shell header control",
+        "navigation 자식 표시",
+        "header 자식 표시"
+      ],
+      "codePurpose": "동일 owner의 실제 공개 컴포넌트와 현재 예제 설정",
+      "docsPurpose": "헤더, 탐색 영역과 본문으로 페이지 골격을 구성합니다. 여러 화면에 같은 헤더와 사이드 탐색을 사용하는 레이아웃에 적합합니다.",
+      "correction": [
+        "공통 단일 owner·Variant/Code/Docs 분리·설정 영역·전체 reset"
+      ],
+      "observations": [
+        {
+          "width": 390,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "영역 탐색",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 390,
+          "setting": {
+            "label": "layout label control",
+            "before": "영역 탐색",
+            "after": "영역 탐색검토-Shell \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": null
+        },
+        {
+          "width": 1440,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "영역 탐색",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 1440,
+          "setting": {
+            "label": "layout label control",
+            "before": "영역 탐색",
+            "after": "영역 탐색검토-Shell \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": null
+        }
+      ]
+    },
+    {
+      "name": "ActionGroup",
+      "route": "#/components/action-group",
+      "primary": {
+        "text": "확인\n취소\n\n아직 확인 전",
+        "owner": "src/gallery/layout-detail.tsx",
+        "purpose": "관련된 작업 버튼을 하나의 그룹으로 묶습니다. 취소와 적용, 편집과 삭제처럼 같은 맥락의 동작을 배치할 때 사용합니다."
+      },
+      "variantSettings": [
+        "layout label control",
+        "primary action control",
+        "secondary action control",
+        "두 번째 자식 표시"
+      ],
+      "codePurpose": "동일 owner의 실제 공개 컴포넌트와 현재 예제 설정",
+      "docsPurpose": "관련된 작업 버튼을 하나의 그룹으로 묶습니다. 취소와 적용, 편집과 삭제처럼 같은 맥락의 동작을 배치할 때 사용합니다.",
+      "correction": [
+        "공통 단일 owner·Variant/Code/Docs 분리·설정 영역·전체 reset"
+      ],
+      "observations": [
+        {
+          "width": 390,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "예시 동작",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 390,
+          "setting": {
+            "label": "layout label control",
+            "before": "예시 동작",
+            "after": "예시 동작검토-ActionGroup \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": null
+        },
+        {
+          "width": 1440,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "예시 동작",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 1440,
+          "setting": {
+            "label": "layout label control",
+            "before": "예시 동작",
+            "after": "예시 동작검토-ActionGroup \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": null
+        }
+      ]
+    },
+    {
+      "name": "FormSection",
+      "route": "#/components/form-section",
+      "primary": {
+        "text": "정보 입력\n표시 이름\n확인\n\n아직 확인 전",
+        "owner": "src/gallery/layout-detail.tsx",
+        "purpose": "폼의 관련 입력을 제목과 함께 묶습니다. 연락처, 기본 정보처럼 긴 폼을 의미 있는 부분으로 나눌 때 사용합니다."
+      },
+      "variantSettings": [
+        "layout label control",
+        "FormSection value control",
+        "primary action control",
+        "actions 전달"
+      ],
+      "codePurpose": "동일 owner의 실제 공개 컴포넌트와 현재 예제 설정",
+      "docsPurpose": "폼의 관련 입력을 제목과 함께 묶습니다. 연락처, 기본 정보처럼 긴 폼을 의미 있는 부분으로 나눌 때 사용합니다.",
+      "correction": [
+        "공통 단일 owner·Variant/Code/Docs 분리·설정 영역·전체 reset"
+      ],
+      "observations": [
+        {
+          "width": 390,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "정보 입력",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 390,
+          "setting": {
+            "label": "layout label control",
+            "before": "정보 입력",
+            "after": "정보 입력검토-FormSection \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": null
+        },
+        {
+          "width": 1440,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "정보 입력",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 1440,
+          "setting": {
+            "label": "layout label control",
+            "before": "정보 입력",
+            "after": "정보 입력검토-FormSection \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": null
+        }
+      ]
+    },
+    {
+      "name": "ListPanel",
+      "route": "#/components/list-panel",
+      "primary": {
+        "text": "문서 목록\n항목 수 바꾸기\n문서 정리\n컴포넌트 점검\n예시 확인\n\n항목: 3개",
+        "owner": "src/gallery/layout-detail.tsx",
+        "purpose": "제목, 도구와 목록 내용을 하나의 영역으로 구성합니다. 검색·추가 버튼이 있는 목록 섹션에 사용합니다."
+      },
+      "variantSettings": [
+        "layout label control",
+        "layout count control",
+        "toolbar 전달"
+      ],
+      "codePurpose": "동일 owner의 실제 공개 컴포넌트와 현재 예제 설정",
+      "docsPurpose": "제목, 도구와 목록 내용을 하나의 영역으로 구성합니다. 검색·추가 버튼이 있는 목록 섹션에 사용합니다.",
+      "correction": [
+        "공통 단일 owner·Variant/Code/Docs 분리·설정 영역·전체 reset"
+      ],
+      "observations": [
+        {
+          "width": 390,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "문서 목록",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 390,
+          "setting": {
+            "label": "layout label control",
+            "before": "문서 목록",
+            "after": "문서 목록검토-ListPanel \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": null
+        },
+        {
+          "width": 1440,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "문서 목록",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 1440,
+          "setting": {
+            "label": "layout label control",
+            "before": "문서 목록",
+            "after": "문서 목록검토-ListPanel \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": null
+        }
+      ]
+    },
+    {
+      "name": "Icon",
+      "route": "#/components/icon",
+      "primary": {
+        "text": "아이콘: search",
+        "owner": "src/gallery/icon-detail.tsx",
+        "purpose": "의미를 보조하는 SVG 아이콘을 표시합니다. 텍스트 옆의 설명이나 버튼 안의 시각적 단서로 사용합니다."
+      },
+      "variantSettings": [
+        "icon name control",
+        "icon svg size control",
+        "icon stroke width control",
+        "icon color control"
+      ],
+      "codePurpose": "동일 owner의 실제 공개 컴포넌트와 현재 예제 설정",
+      "docsPurpose": "의미를 보조하는 SVG 아이콘을 표시합니다. 텍스트 옆의 설명이나 버튼 안의 시각적 단서로 사용합니다.",
+      "correction": [
+        "공통 단일 owner·Variant/Code/Docs 분리·설정 영역·전체 reset",
+        "현재 owner/JSX Code 문자열 정합화"
+      ],
+      "observations": [
+        {
+          "width": 390,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "search",
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 390,
+          "setting": {
+            "label": "icon name control",
+            "before": "search",
+            "after": "plus",
+            "method": "pointer focus + DOM value/change handler probe; native popup choice not observed"
+          },
+          "primaryPointerProbe": null
+        },
+        {
+          "width": 1440,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "search",
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 1440,
+          "setting": {
+            "label": "icon name control",
+            "before": "search",
+            "after": "plus",
+            "method": "pointer focus + DOM value/change handler probe; native popup choice not observed"
+          },
+          "primaryPointerProbe": null
+        }
+      ]
+    },
+    {
+      "name": "IconAction",
+      "route": "#/components/icon-action",
+      "primary": {
+        "text": "실행 0회 · 최근 버튼 id: 없음",
+        "owner": "src/gallery/icon-detail.tsx",
+        "purpose": "이름으로 선택한 아이콘을 실행 버튼으로 표시합니다. 복사, 수정, 삭제처럼 준비된 아이콘으로 동작을 만들 때 사용합니다."
+      },
+      "variantSettings": [
+        "icon name control",
+        "icon action label control",
+        "icon action id control",
+        "icon action variant control",
+        "icon action size control",
+        "loading",
+        "disabled"
+      ],
+      "codePurpose": "동일 owner의 실제 공개 컴포넌트와 현재 예제 설정",
+      "docsPurpose": "이름으로 선택한 아이콘을 실행 버튼으로 표시합니다. 복사, 수정, 삭제처럼 준비된 아이콘으로 동작을 만들 때 사용합니다.",
+      "correction": [
+        "공통 단일 owner·Variant/Code/Docs 분리·설정 영역·전체 reset",
+        "현재 owner/JSX Code 문자열 정합화"
+      ],
+      "observations": [
+        {
+          "width": 390,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "검색 확인",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 390,
+          "setting": {
+            "label": "icon action label control",
+            "before": "검색 확인",
+            "after": "검색 확인검토-IconAction \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": {
+            "target": {
+              "label": "검색 확인",
+              "type": "button"
+            },
+            "openDialogs": 0,
+            "closedDialogs": null
+          }
+        },
+        {
+          "width": 1440,
+          "routeAndName": true,
+          "codeBlocks": 1,
+          "docs": 1,
+          "variantCodeDocs": 0,
+          "liveAndSettingRetained": {
+            "live": true,
+            "field": true,
+            "setting": true
+          },
+          "reset": {
+            "value": "검색 확인",
+            "checked": false,
+            "remounted": true,
+            "dialogs": 0
+          },
+          "documentWidth": 1440,
+          "setting": {
+            "label": "icon action label control",
+            "before": "검색 확인",
+            "after": "검색 확인검토-IconAction \"예제\"",
+            "method": "actual pointer/keyboard"
+          },
+          "primaryPointerProbe": {
+            "target": {
+              "label": "검색 확인",
+              "type": "button"
+            },
+            "openDialogs": 0,
+            "closedDialogs": null
+          }
+        }
+      ]
+    }
+  ]
+}

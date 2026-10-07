@@ -1,0 +1,163 @@
+# canonical75 갤러리 교정 관측
+
+이 문서는 설치/build 통과와 사용자 화면 검토를 구분한다. 전체 DS·접근성·소비앱 최종 수락은 아니다.
+
+- 범위: 75개 route × 390/1440px = 150개 실제 페이지/탭/대표 설정/reset 관측. 누락/중복 0.
+- Variant에 Code/Docs 0, route별 Code block 1·UsageGuide 1, 탭 변경 시 live/설정 유지, 명시적 전체 초기화 관측.
+- 35개 인터랙티브 primary는 두 폭에서 추가 pointer 조작; Dialog/BottomSheet/Confirm/Drawer 열기·Escape 닫기 포함.
+- 설정용 Select 6페이지는 실제 pointer focus 후 DOM value/change handler probe로만 연결/Code/reset을 확인했다. **native popup 선택 수락은 아님**.
+- source closure/설치 WIP를 제외한 candidate 사용. native/core API·tokens·policy·33fixture·기존 회귀 예제 보존.
+- 상세 수치·설정 before/after·primary/owner: `gallery75-coverage.json`. 캡처/원시 CDP 로그는 private에 보존하며 첨부하지 않음.
+
+## 항목별 현재 화면
+
+- **Chart** · `#/components/chart` · `src/gallery/chart-detail.tsx`
+  - primary: 수치를 비교하거나 변화와 구성 비율을 보여주는 차트입니다. 항목 비교에는 막대, 흐름에는 선, 전체의 구성 비율에는 도넛을 사용합니다. | Variant: chart type control, chart title control, chart description control, chart fixture control, chart label 0, chart value 0, chart label 1, chart value 1, chart label 2, chart value 2, chart label 3, chart value 3, showLegend | Code: 현재 예제 공개 props | Docs: 해당 컴포넌트 사용 목적·계약 | 390/1440 탭·설정/전체 reset 관측.
+- **GridList** · `#/components/grid-list` · `src/gallery/playground.tsx`
+  - primary: 카드나 항목을 여러 열로 배치하는 목록입니다. 상품, 파일, 프로젝트처럼 같은 형태의 항목을 훑어보는 화면에 사용합니다. | Variant: columns, items, label | Code: 현재 예제 공개 props | Docs: 해당 컴포넌트 사용 목적·계약 | 390/1440 탭·설정/전체 reset 관측.
+- **Highlight** · `#/components/highlight` · `src/gallery/playground.tsx`
+  - primary: 텍스트에서 검색어와 일치하는 부분을 강조합니다. 검색 결과의 제목이나 설명에서 검색어를 빠르게 찾도록 도울 때 사용합니다. | Variant: text, query, caseSensitive | Code: 현재 예제 공개 props | Docs: 해당 컴포넌트 사용 목적·계약 | 390/1440 탭·설정/전체 reset 관측.
+- **Bubble** · `#/components/bubble` · `src/gallery/playground.tsx`
+  - primary: 짧은 메시지나 부가 설명을 말풍선 형태로 표시합니다. 대화 내용이나 화면 안의 간단한 안내에 사용합니다. | Variant: tone, align, children | Code: 현재 예제 공개 props | Docs: 해당 컴포넌트 사용 목적·계약 | 390/1440 탭·설정/전체 reset 관측.
+- **BottomCTA** · `#/components/bottom-cta` · `src/gallery/bottom-cta-detail.tsx`
+  - primary: 화면 아래에 주요 작업 버튼을 모아 보여줍니다. 긴 신청서의 다음 단계나 확인·적용처럼 계속 보이는 동작이 필요한 화면에 사용합니다. | Variant: 하단 동작 개수 설정, 하단 안내 설정, actions.loading, actions.disabled, safeArea | Code: 현재 예제 공개 props | Docs: 해당 컴포넌트 사용 목적·계약 | 390/1440 탭·설정/전체 reset 관측.
+- **Slider** · `#/components/slider` · `src/gallery/playground.tsx`
+  - primary: 정해진 범위 안에서 숫자를 연속적으로 조절합니다. 음량, 밝기, 비율처럼 값을 움직이며 조정하는 설정에 사용합니다. | Variant: value, label, disabled | Code: 현재 예제 공개 props | Docs: 해당 컴포넌트 사용 목적·계약 | 390/1440 탭·설정/전체 reset 관측.
+- **Rating** · `#/components/rating` · `src/gallery/playground.tsx`
+  - primary: 1~5점 중 하나를 별점으로 선택합니다. 만족도나 사용 경험의 평가를 받을 때 사용합니다. | Variant: value, label, clearable, required, disabled | Code: 현재 예제 공개 props | Docs: 해당 컴포넌트 사용 목적·계약 | 390/1440 탭·설정/전체 reset 관측.
+- **ProgressStepper** · `#/components/progress-stepper` · `src/gallery/stepper-component-detail.tsx`
+  - primary: 여러 단계로 진행되는 작업의 현재 위치를 표시합니다. 가입, 신청, 결제처럼 순서가 있는 흐름에서 전체 단계와 진행 위치를 안내할 때 사용합니다. | Variant: 진행 단계 이름 설정, 단계 목록 설정, 현재 단계 설정 | Code: 현재 예제 공개 props | Docs: 해당 컴포넌트 사용 목적·계약 | 390/1440 탭·설정/전체 reset 관측.
+- **Result** · `#/components/result` · `src/gallery/playground.tsx`
+  - primary: 작업의 성공, 오류, 빈 결과 또는 안내를 제목과 설명으로 보여줍니다. 제출 후 결과 화면이나 사용자가 다음 행동을 선택해야 하는 상태에 사용합니다. | Variant: variant, heading, children, guidance | Code: 현재 예제 공개 props | Docs: 해당 컴포넌트 사용 목적·계약 | 390/1440 탭·설정/전체 reset 관측.
+- **SegmentedControl** · `#/components/segmented-control` · `src/gallery/playground.tsx`
+  - primary: 서로 관련된 소수의 선택지 중 하나를 고릅니다. 목록 표시 방식이나 간단한 필터처럼 선택을 바로 비교할 수 있는 설정에 사용합니다. | Variant: value, label, disabled, required | Code: 현재 예제 공개 props | Docs: 해당 컴포넌트 사용 목적·계약 | 390/1440 탭·설정/전체 reset 관측.
+- **TextField** · `#/components/text-field` · `src/gallery/playground.tsx`
+  - primary: 입력란에 라벨, 도움말, 오류와 앞뒤 보조 내용을 함께 제공합니다. 단위, 아이콘, 지우기 동작이 필요한 텍스트 입력에 사용합니다. | Variant: type, label, placeholder, value, clearable, required, disabled, readOnly, loading, error | Code: 현재 예제 공개 props | Docs: 해당 컴포넌트 사용 목적·계약 | 390/1440 탭·설정/전체 reset 관측.
+- **ListRow** · `#/components/list-row` · `src/gallery/list-component-detail.tsx`
+  - primary: 제목, 설명, 보조 내용과 독립 동작을 한 목록 행에 배치합니다. 선택 체크박스나 오른쪽 메타데이터가 필요한 상세 목록에 사용합니다. | Variant: 목록 제목 설정, 목록 설명 설정, action 전달, selected, disabled, onSelectionChange 전달 | Code: 현재 예제 공개 props | Docs: 해당 컴포넌트 사용 목적·계약 | 390/1440 탭·설정/전체 reset 관측.
+- **ListHeader** · `#/components/list-header` · `src/gallery/list-component-detail.tsx`
+  - primary: 목록 위에 제목, 설명과 도구를 배치합니다. 목록 이름과 항목 추가 버튼, 검색 안내를 한곳에 보여줄 때 사용합니다. | Variant: 목록 제목 설정, 목록 설명 설정, actions 전달 | Code: 현재 예제 공개 props | Docs: 해당 컴포넌트 사용 목적·계약 | 390/1440 탭·설정/전체 reset 관측.
+- **ListFooter** · `#/components/list-footer` · `src/gallery/list-component-detail.tsx`
+  - primary: 목록 아래에 안내와 후속 동작을 배치합니다. 선택한 항목 수, 더 보기, 일괄 작업 등을 목록 뒤에 보여줄 때 사용합니다. | Variant: 선택 수 문구 설정, actions 전달 | Code: 현재 예제 공개 props | Docs: 해당 컴포넌트 사용 목적·계약 | 390/1440 탭·설정/전체 reset 관측.
+- **Button** · `#/components/button` · `src/gallery/playground.tsx`
+  - primary: 사용자가 작업을 실행하거나 다음 행동을 선택하는 버튼입니다. 저장, 적용, 취소, 삭제처럼 명확한 동작에 사용합니다. | Variant: variant, size, disabled, loading, children | Code: 현재 예제 공개 props | Docs: 해당 컴포넌트 사용 목적·계약 | 390/1440 탭·설정/전체 reset 관측.
+- **IconButton** · `#/components/icon-button` · `src/gallery/native-input-detail.tsx`
+  - primary: 텍스트 대신 아이콘을 표시하는 버튼입니다. 닫기, 펼치기처럼 의미가 분명하고 공간을 적게 쓰는 동작에 사용합니다. | Variant: native label control, disabled, loading, native variant control, native size control, native icon control | Code: 현재 예제 공개 props | Docs: 해당 컴포넌트 사용 목적·계약 | 390/1440 탭·설정/전체 reset 관측.
+- **Input** · `#/components/input` · `src/gallery/native-input-detail.tsx`
+  - primary: 한 줄의 텍스트나 값을 입력합니다. 간단한 입력을 화면의 라벨과 직접 조합할 때 사용합니다. 라벨과 오류까지 묶으려면 TextField를 선택하세요. | Variant: native label control, native value control, native placeholder control, disabled, required, readOnly, aria-invalid, loading | Code: 현재 예제 공개 props | Docs: 해당 컴포넌트 사용 목적·계약 | 390/1440 탭·설정/전체 reset 관측.
+- **Textarea** · `#/components/textarea` · `src/gallery/native-input-detail.tsx`
+  - primary: 여러 줄의 텍스트를 입력합니다. 설명, 의견, 긴 메시지를 받을 때 사용합니다. | Variant: native label control, native value control, native placeholder control, disabled, required, readOnly, aria-invalid, native rows control | Code: 현재 예제 공개 props | Docs: 해당 컴포넌트 사용 목적·계약 | 390/1440 탭·설정/전체 reset 관측.
+- **Select** · `#/components/select` · `src/gallery/native-input-detail.tsx`
+  - primary: 정해진 목록에서 한 항목을 선택합니다. 선택지의 이름을 알고 있고 검색이 필요하지 않은 입력에 사용합니다. | Variant: native label control, native value control, disabled, required, aria-invalid | Code: 현재 예제 공개 props | Docs: 해당 컴포넌트 사용 목적·계약 | 390/1440 탭·설정/전체 reset 관측.
+- **Checkbox** · `#/components/checkbox` · `src/gallery/native-input-detail.tsx`
+  - primary: 하나의 항목을 선택하거나 해제합니다. 동의, 복수 선택, 켜고 끌 수 있는 선택 항목에 사용합니다. | Variant: native label control, disabled, required, checked, mixed | Code: 현재 예제 공개 props | Docs: 해당 컴포넌트 사용 목적·계약 | 390/1440 탭·설정/전체 reset 관측.
+- **FormField** · `#/components/form-field` · `src/gallery/native-input-detail.tsx`
+  - primary: 입력 요소를 라벨, 필수 표시, 도움말과 오류로 감쌉니다. 기존 입력에 일관된 설명과 오류 연결을 추가할 때 사용합니다. | Variant: native label control, native value control, native placeholder control, disabled, required, readOnly, error, children 분기 · Input 슬롯 | Code: 현재 예제 공개 props | Docs: 해당 컴포넌트 사용 목적·계약 | 390/1440 탭·설정/전체 reset 관측.
+- **PasswordInput** · `#/components/password-input` · `src/gallery/form-input-detail.tsx`
+  - primary: 비밀번호 입력과 표시·숨김 버튼을 제공합니다. 로그인이나 비밀번호 설정 화면에 사용합니다. | Variant: 예제 value, disabled, required, error, readOnly, aria-busy | Code: 현재 예제 공개 props | Docs: 해당 컴포넌트 사용 목적·계약 | 390/1440 탭·설정/전체 reset 관측.
+- **NumberInput** · `#/components/number-input` · `src/gallery/form-input-detail.tsx`
+  - primary: 숫자를 입력하거나 증가·감소 버튼으로 조절합니다. 수량처럼 정확한 숫자와 변화 단위가 중요한 입력에 사용합니다. | Variant: 예제 value, disabled, required, error, min 0 / max 10, 숫자 입력 단위 | Code: 현재 예제 공개 props | Docs: 해당 컴포넌트 사용 목적·계약 | 390/1440 탭·설정/전체 reset 관측.
+- **CurrencyInput** · `#/components/currency-input` · `src/gallery/form-input-detail.tsx`
+  - primary: 금액을 입력하고 천 단위로 읽기 쉽게 표시합니다. 원 단위처럼 0 이상의 정수 금액을 받는 화면에 사용합니다. | Variant: 예제 value, disabled, required, error | Code: 현재 예제 공개 props | Docs: 해당 컴포넌트 사용 목적·계약 | 390/1440 탭·설정/전체 reset 관측.
+- **PhoneInput** · `#/components/phone-input` · `src/gallery/form-input-detail.tsx`
+  - primary: 전화번호를 입력하고 형식 오류를 안내합니다. 연락처를 받는 신청서나 계정 화면에 사용합니다. | Variant: 예제 value, disabled, required, error | Code: 현재 예제 공개 props | Docs: 해당 컴포넌트 사용 목적·계약 | 390/1440 탭·설정/전체 reset 관측.
+- **EmailInput** · `#/components/email-input` · `src/gallery/form-input-detail.tsx`
+  - primary: 이메일 주소를 입력하고 형식 오류를 안내합니다. 연락용 이메일이나 계정 주소를 받는 화면에 사용합니다. | Variant: 예제 value, disabled, required, error | Code: 현재 예제 공개 props | Docs: 해당 컴포넌트 사용 목적·계약 | 390/1440 탭·설정/전체 reset 관측.
+- **Combobox** · `#/components/combobox` · `src/gallery/selection-detail.tsx`
+  - primary: 검색으로 선택지를 좁힌 뒤 한 항목을 선택합니다. 긴 목록에서 이름을 찾아 선택해야 하는 입력에 사용합니다. | Variant: 예제 label, 예제 hint, 예제 name, 확정 value control, disabled, required, error, 리서치 옵션 disabled | Code: 현재 예제 공개 props | Docs: 해당 컴포넌트 사용 목적·계약 | 390/1440 탭·설정/전체 reset 관측.
+- **MultiSelect** · `#/components/multi-select` · `src/gallery/selection-detail.tsx`
+  - primary: 여러 항목을 선택하고 선택 결과를 태그로 보여줍니다. 관심 분야, 담당자 등 복수 선택을 요약해 보여줄 때 사용합니다. | Variant: 예제 label, 예제 hint, 예제 name, value: design, value: development, value: research, disabled, required, error, 리서치 옵션 disabled, showTags · 선택 태그 표시 | Code: 현재 예제 공개 props | Docs: 해당 컴포넌트 사용 목적·계약 | 390/1440 탭·설정/전체 reset 관측.
+- **RadioGroup** · `#/components/radio-group` · `src/gallery/selection-detail.tsx`
+  - primary: 관련된 선택지 중 하나만 선택합니다. 모든 선택지를 한눈에 보여주고 비교해야 하는 입력에 사용합니다. | Variant: 예제 label, 예제 hint, 예제 name, 확정 value control, disabled, required, error, 리서치 옵션 disabled | Code: 현재 예제 공개 props | Docs: 해당 컴포넌트 사용 목적·계약 | 390/1440 탭·설정/전체 reset 관측.
+- **CheckboxGroup** · `#/components/checkbox-group` · `src/gallery/selection-detail.tsx`
+  - primary: 관련된 여러 선택 항목을 한 그룹으로 보여줍니다. 선택 결과를 태그보다 목록에서 확인하는 복수 선택 입력에 사용합니다. | Variant: 예제 label, 예제 hint, 예제 name, value: design, value: development, value: research, disabled, required, error, 리서치 옵션 disabled | Code: 현재 예제 공개 props | Docs: 해당 컴포넌트 사용 목적·계약 | 390/1440 탭·설정/전체 reset 관측.
+- **Switch** · `#/components/switch` · `src/gallery/selection-detail.tsx`
+  - primary: 설정의 켜짐과 꺼짐을 전환합니다. 알림 수신처럼 두 상태가 분명한 설정에 사용합니다. | Variant: 예제 label, 예제 hint, 예제 name, checked, disabled, required, error | Code: 현재 예제 공개 props | Docs: 해당 컴포넌트 사용 목적·계약 | 390/1440 탭·설정/전체 reset 관측.
+- **FileInput** · `#/components/file-input` · `src/gallery/extended-input-detail.tsx`
+  - primary: 파일을 선택하거나 끌어 놓고 선택한 파일 이름을 확인합니다. 첨부할 파일을 고르는 화면에 사용합니다. | Variant: 허용 파일 형식, multiple, required, disabled, error | Code: 현재 예제 공개 props | Docs: 해당 컴포넌트 사용 목적·계약 | 390/1440 탭·설정/전체 reset 관측.
+- **AddressField** · `#/components/address-field` · `src/gallery/extended-input-detail.tsx`
+  - primary: 우편번호, 도로명·지번 주소와 상세 주소를 함께 입력합니다. 배송지나 연락 주소를 받는 폼에 사용합니다. | Variant: 확정 postal control, 확정 road control, 확정 jibun control, 확정 detail control, disabled, required, error | Code: 현재 예제 공개 props | Docs: 해당 컴포넌트 사용 목적·계약 | 390/1440 탭·설정/전체 reset 관측.
+- **DatePicker** · `#/components/date-picker` · `src/gallery/connected-detail.tsx`
+  - primary: 달력 또는 직접 입력으로 날짜를 선택합니다. 예약일, 시작일 등 하루를 지정하는 입력에 사용합니다. | Variant: 날짜 예제 상태, 날짜 샘플 값, required, 10월 범위 제한, 10월 8일 선택 불가 | Code: 현재 예제 공개 props | Docs: 해당 컴포넌트 사용 목적·계약 | 390/1440 탭·설정/전체 reset 관측.
+- **DateRangePicker** · `#/components/date-range-picker` · `src/gallery/connected-detail.tsx`
+  - primary: 시작일과 종료일을 함께 선택합니다. 여행 기간, 조회 기간처럼 연속된 날짜 범위가 필요한 입력에 사용합니다. | Variant: 날짜 예제 상태, 날짜 샘플 값, required, 10월 범위 제한, 10월 8일 선택 불가 | Code: 현재 예제 공개 props | Docs: 해당 컴포넌트 사용 목적·계약 | 390/1440 탭·설정/전체 reset 관측.
+- **MonthPicker** · `#/components/month-picker` · `src/gallery/extended-input-detail.tsx`
+  - primary: 연도와 월을 선택합니다. 월별 조회나 청구 기간처럼 날짜 없이 월 단위로 지정할 때 사용합니다. | Variant: 확정 value control, disabled, readOnly, busy, required, error, 범위 제한 | Code: 현재 예제 공개 props | Docs: 해당 컴포넌트 사용 목적·계약 | 390/1440 탭·설정/전체 reset 관측.
+- **TimeInput** · `#/components/time-input` · `src/gallery/extended-input-detail.tsx`
+  - primary: 시와 분을 선택해 시간을 입력합니다. 예약 시간이나 일정의 시작 시간을 지정할 때 사용합니다. | Variant: 확정 value control, disabled, readOnly, busy, required, error, 범위 제한 | Code: 현재 예제 공개 props | Docs: 해당 컴포넌트 사용 목적·계약 | 390/1440 탭·설정/전체 reset 관측.
+- **DateTimeInput** · `#/components/date-time-input` · `src/gallery/extended-input-detail.tsx`
+  - primary: 날짜와 시간을 하나의 입력으로 선택합니다. 예약 시작이나 일정 마감처럼 날짜와 분 단위 시간이 함께 필요한 입력에 사용합니다. | Variant: 확정 value control, disabled, readOnly, busy, required, error, 범위 제한, 2026-10-10 선택 제한 | Code: 현재 예제 공개 props | Docs: 해당 컴포넌트 사용 목적·계약 | 390/1440 탭·설정/전체 reset 관측.
+- **SearchField** · `#/components/search-field` · `src/gallery/form-input-detail.tsx`
+  - primary: 검색어를 입력하는 한 줄 검색 필드입니다. 목록이나 콘텐츠를 검색하는 화면에 사용합니다. | Variant: 예제 value, disabled, required, error | Code: 현재 예제 공개 props | Docs: 해당 컴포넌트 사용 목적·계약 | 390/1440 탭·설정/전체 reset 관측.
+- **GNB** · `#/components/gnb` · `src/gallery/navigation-detail.tsx`
+  - primary: 서비스의 주요 영역을 탐색하는 메뉴입니다. 여러 주요 화면을 오가는 최상위 탐색에 사용합니다. | Variant: 탐색 label control, selectedId control, 설정 항목 disabled | Code: 현재 예제 공개 props | Docs: 해당 컴포넌트 사용 목적·계약 | 390/1440 탭·설정/전체 reset 관측.
+- **LNB** · `#/components/lnb` · `src/gallery/navigation-detail.tsx`
+  - primary: 현재 영역 안에서 하위 메뉴를 그룹별로 탐색합니다. 설정이나 관리 화면의 사이드 탐색에 사용합니다. | Variant: 탐색 label control, selectedId control, 설정 항목 disabled | Code: 현재 예제 공개 props | Docs: 해당 컴포넌트 사용 목적·계약 | 390/1440 탭·설정/전체 reset 관측.
+- **Breadcrumb** · `#/components/breadcrumb` · `src/gallery/navigation-detail.tsx`
+  - primary: 현재 화면이 전체 경로에서 어디에 있는지 표시합니다. 계층이 있는 상세 화면에서 상위 화면으로 돌아갈 수 있게 할 때 사용합니다. | Variant: 탐색 label control, 현재 위치 label control, 긴 경로 예시, 앞 항목 href, 마지막 항목 href | Code: 현재 예제 공개 props | Docs: 해당 컴포넌트 사용 목적·계약 | 390/1440 탭·설정/전체 reset 관측.
+- **Tabs** · `#/components/tabs` · `src/gallery/native-navigation-detail.tsx`
+  - primary: 같은 화면 안의 관련 콘텐츠를 탭으로 전환합니다. 정보, 설정, 기록처럼 맥락을 유지하며 내용을 나누는 화면에 사용합니다. | Variant: 예제 label, 예제 내용 | Code: 현재 예제 공개 props | Docs: 해당 컴포넌트 사용 목적·계약 | 390/1440 탭·설정/전체 reset 관측.
+- **Menu** · `#/components/menu` · `src/gallery/native-navigation-detail.tsx`
+  - primary: 버튼을 눌러 관련 작업 목록을 펼칩니다. 복제, 보관처럼 한 항목에 연결된 보조 작업이 여러 개일 때 사용합니다. | Variant: 예제 label, 예제 내용 | Code: 현재 예제 공개 props | Docs: 해당 컴포넌트 사용 목적·계약 | 390/1440 탭·설정/전체 reset 관측.
+- **BottomSheet** · `#/components/bottom-sheet` · `src/gallery/modal-component-detail.tsx`
+  - primary: 작은 화면의 아래쪽에서 내용과 작업을 보여줍니다. 모바일의 옵션 선택이나 짧은 입력에 사용합니다. | Variant: 대화상자 제목 설정, 대화상자 본문 설정, footer 전달 | Code: 현재 예제 공개 props | Docs: 해당 컴포넌트 사용 목적·계약 | 390/1440 탭·설정/전체 reset 관측.
+- **Dialog** · `#/components/dialog` · `src/gallery/modal-component-detail.tsx`
+  - primary: 현재 작업에 집중하도록 배경 위에 대화상자를 표시합니다. 정보 확인, 선택, 짧은 폼처럼 완료하거나 취소한 뒤 원래 화면으로 돌아오는 작업에 사용합니다. | Variant: 대화상자 제목 설정, 대화상자 본문 설정, footer 전달 | Code: 현재 예제 공개 props | Docs: 해당 컴포넌트 사용 목적·계약 | 390/1440 탭·설정/전체 reset 관측.
+- **Confirm** · `#/components/confirm` · `src/gallery/modal-component-detail.tsx`
+  - primary: 중요한 작업을 실행하기 전에 사용자의 확인을 받습니다. 삭제나 되돌리기 어려운 변경을 확인하는 화면에 사용합니다. | Variant: 대화상자 제목 설정, 대화상자 본문 설정, loading | Code: 현재 예제 공개 props | Docs: 해당 컴포넌트 사용 목적·계약 | 390/1440 탭·설정/전체 reset 관측.
+- **Drawer** · `#/components/drawer` · `src/gallery/region-overlay-detail.tsx`
+  - primary: 화면 오른쪽에서 보조 내용을 펼쳐 보여줍니다. 원래 화면을 유지하며 상세 정보나 설정을 확인할 때 사용합니다. | Variant: overlay title control, overlay children control, open, footer, Drawer footer label control | Code: 현재 예제 공개 props | Docs: 해당 컴포넌트 사용 목적·계약 | 390/1440 탭·설정/전체 reset 관측.
+- **Popover** · `#/components/popover` · `src/gallery/region-overlay-detail.tsx`
+  - primary: 버튼 가까이에 짧은 내용과 보조 작업을 펼칩니다. 설명, 간단한 설정 등 화면을 떠나지 않고 확인할 내용에 사용합니다. | Variant: Popover label control, overlay title control, overlay children control | Code: 현재 예제 공개 props | Docs: 해당 컴포넌트 사용 목적·계약 | 390/1440 탭·설정/전체 reset 관측.
+- **Tooltip** · `#/components/tooltip` · `src/gallery/native-navigation-detail.tsx`
+  - primary: 버튼에 대한 짧은 보충 설명을 보여줍니다. 화면의 문구만으로 부족한 간단한 설명을 더할 때 사용합니다. | Variant: 예제 label, 예제 내용 | Code: 현재 예제 공개 props | Docs: 해당 컴포넌트 사용 목적·계약 | 390/1440 탭·설정/전체 reset 관측.
+- **Table** · `#/components/table` · `src/gallery/data-detail.tsx`
+  - primary: 행과 열로 정리된 데이터를 표로 보여줍니다. 데이터를 비교해 읽는 기본 표에 사용합니다. 검색과 선택이 필요하면 DataTable을 선택하세요. | Variant: data label control, data count control, cell render control, 담당 열 표시, 넓은 셀 render | Code: 현재 예제 공개 props | Docs: 해당 컴포넌트 사용 목적·계약 | 390/1440 탭·설정/전체 reset 관측.
+- **DataTable** · `#/components/data-table` · `src/gallery/connected-detail.tsx`
+  - primary: 검색, 정렬, 필터와 선택 작업을 함께 제공하는 표입니다. 많은 행을 찾아보고 여러 항목을 처리하는 관리 화면에 사용합니다. | Variant: 테이블 예제 상태 | Code: 현재 예제 공개 props | Docs: 해당 컴포넌트 사용 목적·계약 | 390/1440 탭·설정/전체 reset 관측.
+- **Pagination** · `#/components/pagination` · `src/gallery/data-detail.tsx`
+  - primary: 페이지를 나누어 이동하는 탐색 버튼입니다. 목록이나 검색 결과를 여러 페이지로 보여줄 때 사용합니다. | Variant: data label control, page control, pageCount control | Code: 현재 예제 공개 props | Docs: 해당 컴포넌트 사용 목적·계약 | 390/1440 탭·설정/전체 reset 관측.
+- **List** · `#/components/list` · `src/gallery/data-detail.tsx`
+  - primary: 관련된 항목을 세로 목록으로 묶습니다. 제목과 설명 중심으로 항목을 읽는 화면에 사용합니다. | Variant: data label control, data count control, List id control | Code: 현재 예제 공개 props | Docs: 해당 컴포넌트 사용 목적·계약 | 390/1440 탭·설정/전체 reset 관측.
+- **ListItem** · `#/components/list-item` · `src/gallery/data-detail.tsx`
+  - primary: 목록에 제목, 설명, 이미지와 동작을 표시합니다. 내용 구성이 단순한 목록 항목에 사용합니다. | Variant: data label control, ListItem title control, ListItem description control, ListItem action label control, description 전달, thumbnail 전달, selected, onSelectionChange 전달, action 전달 | Code: 현재 예제 공개 props | Docs: 해당 컴포넌트 사용 목적·계약 | 390/1440 탭·설정/전체 reset 관측.
+- **Badge** · `#/components/badge` · `src/gallery/playground.tsx`
+  - primary: 짧은 상태나 분류를 작은 표시로 보여줍니다. 진행 상태, 분류, 개수처럼 빠르게 읽을 정보를 강조할 때 사용합니다. | Variant: tone, children | Code: 현재 예제 공개 props | Docs: 해당 컴포넌트 사용 목적·계약 | 390/1440 탭·설정/전체 reset 관측.
+- **Alert** · `#/components/alert` · `src/gallery/playground.tsx`
+  - primary: 현재 화면에서 알아야 할 안내나 오류를 표시합니다. 입력 오류, 처리 상태, 주의사항처럼 내용을 읽고 행동해야 하는 안내에 사용합니다. | Variant: tone, title, children | Code: 현재 예제 공개 props | Docs: 해당 컴포넌트 사용 목적·계약 | 390/1440 탭·설정/전체 reset 관측.
+- **Progress** · `#/components/progress` · `src/gallery/playground.tsx`
+  - primary: 작업의 완료 비율이나 진행 중 상태를 표시합니다. 완료량을 알 수 있는 처리나 아직 비율을 알 수 없는 대기 상태에 사용합니다. | Variant: value, label, indeterminate | Code: 현재 예제 공개 props | Docs: 해당 컴포넌트 사용 목적·계약 | 390/1440 탭·설정/전체 reset 관측.
+- **Skeleton** · `#/components/skeleton` · `src/gallery/playground.tsx`
+  - primary: 콘텐츠를 기다리는 동안 자리 표시를 보여줍니다. 읽을 내용이 로딩될 때 빈 공간의 위치를 안내하는 데 사용합니다. | Variant: label | Code: 현재 예제 공개 props | Docs: 해당 컴포넌트 사용 목적·계약 | 390/1440 탭·설정/전체 reset 관측.
+- **LoadingSpinner** · `#/components/loading-spinner` · `src/gallery/feedback-detail.tsx`
+  - primary: 작업이 진행 중임을 짧은 문구와 회전 표시로 안내합니다. 완료 비율을 알기 어려운 짧은 대기에 사용합니다. | Variant: 예제 문구, 부모의 미리보기 표시 | Code: 현재 예제 공개 props | Docs: 해당 컴포넌트 사용 목적·계약 | 390/1440 탭·설정/전체 reset 관측.
+- **EmptyState** · `#/components/empty-state` · `src/gallery/playground.tsx`
+  - primary: 표시할 항목이 없을 때 이유와 다음 동작을 안내합니다. 첫 사용, 빈 목록, 검색 결과가 없을 때 사용합니다. | Variant: title, children, action, loading | Code: 현재 예제 공개 props | Docs: 해당 컴포넌트 사용 목적·계약 | 390/1440 탭·설정/전체 reset 관측.
+- **ErrorState** · `#/components/error-state` · `src/gallery/feedback-detail.tsx`
+  - primary: 내용을 불러오지 못했을 때 오류와 재시도를 보여줍니다. 목록이나 콘텐츠 로딩 실패에 복구 동작을 제공할 때 사용합니다. | Variant: 예제 문구 | Code: 현재 예제 공개 props | Docs: 해당 컴포넌트 사용 목적·계약 | 390/1440 탭·설정/전체 reset 관측.
+- **Toast** · `#/components/toast` · `src/gallery/feedback-detail.tsx`
+  - primary: 작업 결과를 짧게 알리는 메시지입니다. 저장 완료처럼 현재 작업을 방해하지 않는 결과 안내에 사용합니다. | Variant: 예제 문구, 부모의 미리보기 표시 | Code: 현재 예제 공개 props | Docs: 해당 컴포넌트 사용 목적·계약 | 390/1440 탭·설정/전체 reset 관측.
+- **Accordion** · `#/components/accordion` · `src/gallery/feedback-detail.tsx`
+  - primary: 관련된 여러 내용을 제목별로 펼쳐 읽습니다. 도움말, 자주 묻는 질문, 여러 설정 묶음에 사용합니다. | Variant: 예제 문구, 예제 내용, multiple, 사용 제한 항목 disabled | Code: 현재 예제 공개 props | Docs: 해당 컴포넌트 사용 목적·계약 | 390/1440 탭·설정/전체 reset 관측.
+- **Collapse** · `#/components/collapse` · `src/gallery/feedback-detail.tsx`
+  - primary: 하나의 보조 내용을 펼치거나 접습니다. 추가 설명이나 선택적인 세부 내용을 숨겨두고 읽게 할 때 사용합니다. | Variant: 예제 문구, 예제 내용 | Code: 현재 예제 공개 props | Docs: 해당 컴포넌트 사용 목적·계약 | 390/1440 탭·설정/전체 reset 관측.
+- **Separator** · `#/components/separator` · `src/gallery/playground.tsx`
+  - primary: 서로 다른 내용의 경계를 구분하는 선입니다. 한 영역 안에서 정보 묶음을 나눌 때 사용합니다. | Variant: 공개 설정 없음 · 정적 예제 | Code: 현재 예제 공개 props | Docs: 해당 컴포넌트 사용 목적·계약 | 390/1440 탭·설정/전체 reset 관측.
+- **Container** · `#/components/container` · `src/gallery/layout-detail.tsx`
+  - primary: 본문을 가운데 정렬하고 읽기 좋은 최대 너비로 제한합니다. 페이지 본문과 헤더의 좌우 정렬을 맞출 때 사용합니다. | Variant: layout label control, layout body control, layout count control, Stack className control, Stack id control | Code: 현재 예제 공개 props | Docs: 해당 컴포넌트 사용 목적·계약 | 390/1440 탭·설정/전체 reset 관측.
+- **Stack** · `#/components/stack` · `src/gallery/layout-detail.tsx`
+  - primary: 내용을 일정한 간격으로 세로 배치합니다. 설명, 입력, 버튼 등의 순서를 분명하게 정리할 때 사용합니다. | Variant: layout label control, layout body control, layout count control, Stack className control, Stack id control | Code: 현재 예제 공개 props | Docs: 해당 컴포넌트 사용 목적·계약 | 390/1440 탭·설정/전체 reset 관측.
+- **Grid** · `#/components/grid` · `src/gallery/layout-detail.tsx`
+  - primary: 가용 공간에 맞춰 열 수가 바뀌는 격자 배치입니다. 요약 카드나 여러 정보 영역을 반응형으로 나란히 배치할 때 사용합니다. | Variant: layout label control, layout body control, layout count control, Stack className control, Stack id control | Code: 현재 예제 공개 props | Docs: 해당 컴포넌트 사용 목적·계약 | 390/1440 탭·설정/전체 reset 관측.
+- **Shell** · `#/components/shell` · `src/gallery/layout-detail.tsx`
+  - primary: 헤더, 탐색 영역과 본문으로 페이지 골격을 구성합니다. 여러 화면에 같은 헤더와 사이드 탐색을 사용하는 레이아웃에 적합합니다. | Variant: layout label control, layout body control, Shell header control, navigation 자식 표시, header 자식 표시 | Code: 현재 예제 공개 props | Docs: 해당 컴포넌트 사용 목적·계약 | 390/1440 탭·설정/전체 reset 관측.
+- **ActionGroup** · `#/components/action-group` · `src/gallery/layout-detail.tsx`
+  - primary: 관련된 작업 버튼을 하나의 그룹으로 묶습니다. 취소와 적용, 편집과 삭제처럼 같은 맥락의 동작을 배치할 때 사용합니다. | Variant: layout label control, primary action control, secondary action control, 두 번째 자식 표시 | Code: 현재 예제 공개 props | Docs: 해당 컴포넌트 사용 목적·계약 | 390/1440 탭·설정/전체 reset 관측.
+- **FormSection** · `#/components/form-section` · `src/gallery/layout-detail.tsx`
+  - primary: 폼의 관련 입력을 제목과 함께 묶습니다. 연락처, 기본 정보처럼 긴 폼을 의미 있는 부분으로 나눌 때 사용합니다. | Variant: layout label control, FormSection value control, primary action control, actions 전달 | Code: 현재 예제 공개 props | Docs: 해당 컴포넌트 사용 목적·계약 | 390/1440 탭·설정/전체 reset 관측.
+- **ListPanel** · `#/components/list-panel` · `src/gallery/layout-detail.tsx`
+  - primary: 제목, 도구와 목록 내용을 하나의 영역으로 구성합니다. 검색·추가 버튼이 있는 목록 섹션에 사용합니다. | Variant: layout label control, layout count control, toolbar 전달 | Code: 현재 예제 공개 props | Docs: 해당 컴포넌트 사용 목적·계약 | 390/1440 탭·설정/전체 reset 관측.
+- **Icon** · `#/components/icon` · `src/gallery/icon-detail.tsx`
+  - primary: 의미를 보조하는 SVG 아이콘을 표시합니다. 텍스트 옆의 설명이나 버튼 안의 시각적 단서로 사용합니다. | Variant: icon name control, icon svg size control, icon stroke width control, icon color control | Code: 현재 예제 공개 props | Docs: 해당 컴포넌트 사용 목적·계약 | 390/1440 탭·설정/전체 reset 관측.
+- **IconAction** · `#/components/icon-action` · `src/gallery/icon-detail.tsx`
+  - primary: 이름으로 선택한 아이콘을 실행 버튼으로 표시합니다. 복사, 수정, 삭제처럼 준비된 아이콘으로 동작을 만들 때 사용합니다. | Variant: icon name control, icon action label control, icon action id control, icon action variant control, icon action size control, loading, disabled | Code: 현재 예제 공개 props | Docs: 해당 컴포넌트 사용 목적·계약 | 390/1440 탭·설정/전체 reset 관측.
