@@ -28,44 +28,6 @@
 .ds-core .fc-unit {
   color: var(--color-text-secondary);
 }
-.ds-core .fc-group {
-  min-width: 0;
-  margin: 0;
-  padding: var(--space-3) 0;
-  border: 0;
-  border-radius: var(--radius-md);
-  background: transparent;
-  color: var(--field-fg,var(--color-text-primary));
-  overflow-wrap: anywhere;
-}
-.ds-core .fc-group legend {
-  padding: 0 var(--space-1);
-  font-size: var(--font-size-label);
-  font-weight: var(--ds-weight-medium);
-}
-.ds-core .fc-choices {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px 16px;
-}
-.ds-core .fc-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-.ds-core .fc-tag {
-  display: inline-flex;
-  max-width: 100%;
-  align-items: center;
-  padding-left: var(--ds-space-2-5);
-  border-radius: var(--radius-md);
-  background: var(--color-selected-bg);
-  color: var(--color-selected-fg);
-}
-.ds-core .fc-tag .button {
-  min-height: 44px;
-  min-width: 44px;
-}
 .ds-core .fc-combobox {
   position: relative;
   min-width: 0;
@@ -105,60 +67,6 @@
   color: var(--color-disabled-fg);
   cursor: not-allowed;
 }
-.ds-core .fc-switch {
-  position: relative;
-  display: inline-flex;
-  gap: 8px;
-  min-height: 48px;
-  align-items: center;
-  cursor: pointer;
-}
-.ds-core .fc-switch input {
-  position: absolute;
-  width: 44px;
-  height: 28px;
-  margin: 0;
-  opacity: 0;
-}
-.ds-core .fc-switch-track {
-  width: 44px;
-  height: 28px;
-  flex-shrink: 0;
-  border-radius: var(--ds-radius-switch);
-  border: var(--ds-border-thin) solid var(--color-border-control);
-  background: var(--color-bg-subtle);
-  padding: var(--ds-space-0-75);
-}
-.ds-core .fc-switch-track::after {
-  content: "";
-  display: block;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: var(--color-text-secondary);
-}
-.ds-core .fc-switch input:checked + .fc-switch-track {
-  background: var(--button-bg-default,var(--color-action-primary-bg-default));
-  border-color: var(--button-bg-default,var(--color-action-primary-bg-default));
-}
-.ds-core .fc-switch input:checked + .fc-switch-track::after {
-  transform: translateX(16px);
-  background: var(--button-fg,var(--color-action-primary-text));
-}
-.ds-core .fc-switch input:focus-visible + .fc-switch-track {
-  outline: 2px solid var(--color-focus);
-  outline-offset: 2px;
-}
-.ds-core .fc-switch:has(input:disabled) {
-  color: var(--color-disabled-fg);
-  cursor: not-allowed;
-}
-.ds-core .fc-switch input:not(:disabled):hover + .fc-switch-track { border-color:var(--color-focus); }
-.ds-core .fc-switch input:checked:not(:disabled):hover + .fc-switch-track,
-.ds-core .fc-switch input:checked:not(:disabled):active + .fc-switch-track { background:var(--button-bg-hover,var(--color-action-primary-bg-hover)); }
-.ds-core .fc-switch input:disabled + .fc-switch-track { background:var(--color-disabled-bg); border-color:var(--color-border-subtle); }
-.ds-core .fc-switch input:disabled + .fc-switch-track::after { background:var(--color-disabled-fg); }
-.ds-core .fc-group[aria-invalid="true"] legend { color:var(--field-error-fg,var(--color-status-error-fg)); }
 .ds-core .fc-address {
   display: grid;
   gap: 12px;

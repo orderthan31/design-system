@@ -5,7 +5,7 @@
   min-width: 0;
   max-width: 100%;
   color: var(--field-fg,var(--color-text-primary));
-  font-family: Pretendard, "Apple SD Gothic Neo", system-ui, sans-serif;
+  font-family: var(--ds-control-font-family);
   overflow-wrap: anywhere;
 }
 .ds-core .rs-slider {
@@ -15,6 +15,7 @@
 .ds-core .rs-slider > label,
 .ds-core .rs-rating > legend {
   font-size: var(--font-size-label);
+  line-height: var(--font-line-label);
   font-weight: var(--ds-weight-medium);
 }
 .ds-core .rs-slider > input {

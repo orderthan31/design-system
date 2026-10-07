@@ -1,0 +1,37 @@
+@import "./control-base.css";
+@layer components {
+:where(.ds-core) .rs-slider {
+  min-width: 0;
+  max-width: 100%;
+  color: var(--field-fg,var(--color-text-primary));
+  font-family: var(--ds-control-font-family);
+  overflow-wrap: anywhere;
+}
+:where(.ds-core) .rs-slider {
+  display: grid;
+  gap: 8px;
+}
+:where(.ds-core) .rs-slider > label {
+  font-size: var(--font-size-label);
+  line-height: var(--font-line-label);
+  font-weight: var(--ds-weight-medium);
+}
+:where(.ds-core) .rs-slider > input {
+  width: 100%;
+  min-width: 0;
+  min-height: 44px;
+  margin: 0;
+  accent-color: var(--color-selected-fg);
+  cursor: pointer;
+}
+:where(.ds-core) .rs-slider:has(input:disabled) > label,
+:where(.ds-core) .rs-slider > input:disabled {
+  color: var(--color-disabled-fg);
+  accent-color: var(--color-disabled-fg);
+  cursor: not-allowed;
+}
+:where(.ds-core) .rs-slider > input:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 3px;
+}
+}

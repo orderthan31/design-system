@@ -2,6 +2,8 @@ import {GalleryDocs} from './workbench';
 import {CodeBlock} from './code-block';
 import './playground.css';
 import React from "react";
+import {Button} from "../components/button";
+import {Checkbox} from "../components/checkbox";
 import {
   Slider,
   Rating,
@@ -47,14 +49,7 @@ export function RangeSelectionDetail({ kind }: RangeSelectionDetailProps) {
             ? "0~100 사이의 음량을 5 단위로 조절합니다. 숫자 변경과 실제 폼 값을 확인해 보세요."
             : "1~5점 중 하나를 선택하세요. 별은 장식이며 각 점수는 라디오 선택입니다. 지우면 필수 선택이 다시 필요합니다."}
         </p>
-        <label>
-          <input
-            type="checkbox"
-            checked={disabled}
-            onChange={(event) => setDisabled(event.currentTarget.checked)}
-          />{" "}
-          데모 비활성화
-        </label>
+        <Checkbox label="데모 비활성화" checked={disabled} onChange={event=>setDisabled(event.currentTarget.checked)}/>
         <form
           className="rs-demo-form"
           onSubmit={(event) => {
@@ -69,9 +64,9 @@ export function RangeSelectionDetail({ kind }: RangeSelectionDetailProps) {
             <legend>폼 예제</legend>
             {isSlider ? <Slider {...slider} /> : <Rating {...rating} />}
             <p>현재 값: {isSlider ? volume : `${score}점`}</p>
-            <button type="submit" className="rs-action">
+            <Button type="submit" variant="secondary">
               폼 값 확인
-            </button>
+            </Button>
           </fieldset>
           {submitted !== null && <p role="status">제출 값: {submitted}</p>}
         </form>
@@ -92,12 +87,12 @@ export function RangeSelectionDetail({ kind }: RangeSelectionDetailProps) {
         <h2>초기화</h2>
         <form aria-label="비제어 초기화">
           {isSlider ? <Slider label="초기 음량" name="reset-volume" defaultValue={20} step={5}/> : <Rating label="초기 별점" name="reset-score" defaultValue={2} required clearable/>}
-          <button type="reset" className="rs-action">초기값 복원</button>
+          <Button type="reset" variant="secondary">초기값 복원</Button>
         </form>
       </section>
       <GalleryDocs>
         <summary>사용 코드</summary>
-        <CodeBlock source={isSlider ? sliderCode : ratingCode}/>
+        <CodeBlock source={(isSlider ? sliderCode.replace("useState(40)",`useState(${volume})`) : ratingCode.replace("useState(0)",`useState(${score})`)).replace('<fieldset disabled={false}>',`<fieldset disabled={${disabled}}>`) }/>
       </GalleryDocs>
       <GalleryDocs>
         <summary>속성</summary>
@@ -131,8 +126,8 @@ export function RangeSelectionDetail({ kind }: RangeSelectionDetailProps) {
         <summary>조합과 접근성</summary>
         <ul>
           <li>
-            코드는 프로젝트 루트 기준 경로입니다. core.css를 한 번 불러오고
-            .ds-core 안에서 사용하세요. 컴포넌트 파일이 자체 CSS를 가져옵니다.
+            선택 설치: <code>npx shadcn@4.21.3 add orderthan31/design-system/{kind}</code>.
+            설치한 owner를 .ds-core 안에서 사용하세요. 아래 폼 조합의 Button은 별도 button 선택 설치가 필요합니다. 컴포넌트가 자체 CSS를 가져오므로 core/gallery CSS는 필요하지 않습니다.
             Pretendard와 기존 테마 역할 변수를 그대로 사용합니다.
           </li>
           <li>
@@ -204,8 +199,8 @@ const ratingRows = [
   ["clearLabel", "string", "`${label} 지우기`"],
 ];
 const sliderCode = `import { useState } from 'react';
-import { Slider, type SliderProps } from './src/components/range-selection';
-import './src/core.css';
+import { Slider, type SliderProps } from './src/gyeol/components/slider';
+import { Button } from './src/gyeol/components/button';
 
 export function Example() {
   const [volume, setVolume] = useState(40);
@@ -219,18 +214,20 @@ export function Example() {
       event.preventDefault();
       setResult(String(new FormData(event.currentTarget).get('volume')));
     }}>
+      <fieldset disabled={false}>
+      <legend>폼 예제</legend>
       <Slider {...props} />
       <p>현재 값: {volume}</p>
-      <button type="submit">폼 값 확인</button>
-      <button type="button" onClick={() => setVolume(40)}>초기값 복원</button>
+      <Button type="submit" variant="secondary">폼 값 확인</Button>
+      </fieldset>
       <p role="status">제출 값: {result}</p>
     </form>
     <Slider label="비활성 음량" defaultValue={40} disabled />
   </div>;
 }`;
 const ratingCode = `import { useState } from 'react';
-import { Rating, type RatingProps } from './src/components/range-selection';
-import './src/core.css';
+import { Rating, type RatingProps } from './src/gyeol/components/rating';
+import { Button } from './src/gyeol/components/button';
 
 export function Example() {
   const [score, setScore] = useState(0);
@@ -244,9 +241,12 @@ export function Example() {
       event.preventDefault();
       setResult(String(new FormData(event.currentTarget).get('score')));
     }}>
+      <fieldset disabled={false}>
+      <legend>폼 예제</legend>
       <Rating {...props} />
       <p>현재 값: {score}점</p>
-      <button type="submit">폼 값 확인</button>
+      <Button type="submit" variant="secondary">폼 값 확인</Button>
+      </fieldset>
       <p role="status">제출 값: {result}</p>
     </form>
     <Rating label="비활성 만족도" defaultValue={4} disabled clearable />

@@ -20,6 +20,10 @@
 @import "./components/segmented-control.css";
 @import "./components/bottom-cta.css";
 @import "./components/range-selection.css";
+@import "./components/switch.css";
+@import "./components/selection-group.css";
+@import "./components/slider.css";
+@import "./components/rating.css";
 @import "./components/progress-result.css";
 @layer components {
 :where(.ds-core), :where(.ds-core) * {

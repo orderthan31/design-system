@@ -1,0 +1,56 @@
+@import "./field-frame.css";
+@layer components {
+:where(.ds-core) .fc-switch {
+  position: relative;
+  display: inline-flex;
+  gap: 8px;
+  min-height: var(--size-control);
+  align-items: center;
+  cursor: pointer;
+}
+:where(.ds-core) .fc-switch input {
+  position: absolute;
+  width: 44px;
+  height: 28px;
+  margin: 0;
+  opacity: 0;
+}
+:where(.ds-core) .fc-switch-track {
+  width: 44px;
+  height: 28px;
+  flex-shrink: 0;
+  border-radius: var(--ds-radius-switch);
+  border: var(--ds-border-thin) solid var(--color-border-control);
+  background: var(--color-bg-subtle);
+  padding: var(--ds-space-0-75);
+}
+:where(.ds-core) .fc-switch-track::after {
+  content: "";
+  display: block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--color-text-secondary);
+}
+:where(.ds-core) .fc-switch input:checked + .fc-switch-track {
+  background: var(--button-bg-default,var(--color-action-primary-bg-default));
+  border-color: var(--button-bg-default,var(--color-action-primary-bg-default));
+}
+:where(.ds-core) .fc-switch input:checked + .fc-switch-track::after {
+  transform: translateX(var(--space-4));
+  background: var(--button-fg,var(--color-action-primary-text));
+}
+:where(.ds-core) .fc-switch input:focus-visible + .fc-switch-track {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+:where(.ds-core) .fc-switch:has(input:disabled) {
+  color: var(--color-disabled-fg);
+  cursor: not-allowed;
+}
+:where(.ds-core) .fc-switch input:not(:disabled):hover + .fc-switch-track { border-color:var(--color-focus); }
+:where(.ds-core) .fc-switch input:checked:not(:disabled):hover + .fc-switch-track,
+:where(.ds-core) .fc-switch input:checked:not(:disabled):active + .fc-switch-track { background:var(--button-bg-hover,var(--color-action-primary-bg-hover)); }
+:where(.ds-core) .fc-switch input:disabled + .fc-switch-track { background:var(--color-disabled-bg); border-color:var(--color-border-subtle); }
+:where(.ds-core) .fc-switch input:disabled + .fc-switch-track::after { background:var(--color-disabled-fg); }
+}
