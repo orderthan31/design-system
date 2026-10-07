@@ -1,0 +1,11 @@
+@layer components {
+.ds-core .fc-address {
+  display: grid;
+  gap: 12px;
+}
+}
+@layer components {
+.ds-core .fc-address > .button {
+  justify-self: start;
+}
+}

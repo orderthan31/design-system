@@ -1,112 +1,4 @@
 @layer components {
-.ds-core .dc-picker {
-  position: relative;
-  display: grid;
-  gap: 8px;
-  min-width: 0;
-  align-content: start;
-}
-.ds-core .dc-picker > .button {
-  justify-self: start;
-}
-.ds-core .dc-calendar {
-  width: 100%;
-  max-width: 360px;
-  min-width: 0;
-  padding: var(--space-3);
-  border: var(--ds-border-thin) solid var(--color-border-subtle);
-  border-radius: var(--ds-radius-control);
-  background: var(--color-bg-surface);
-  color: var(--color-text-primary);
-}
-.ds-core .dc-calendar-heading {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
-  align-items: center;
-}
-.ds-core .dc-calendar-heading .control {
-  width: auto;
-  flex: 1 1 72px;
-  min-width: 0;
-  padding-inline: var(--space-1);
-}
-.ds-core .dc-month-title {
-  text-align: center;
-  margin-block: 12px;
-}
-.ds-core .dc-days {
-  display: grid;
-  grid-template-columns: repeat(7, minmax(0, 1fr));
-  gap: 2px;
-}
-.ds-core .dc-weekday {
-  text-align: center;
-  padding-block: var(--space-1);
-  color: var(--color-text-secondary);
-}
-.ds-core .dc-day.button {
-  min-width: 0;
-  width: 100%;
-  min-height: 44px;
-  padding: var(--space-1) 0;
-}
-.ds-core .dc-calendar .button.quiet[aria-pressed="true"] {
-  background: var(--color-action-primary-bg-default);
-  color: var(--color-text-inverse);
-}
-.ds-core
-  .dc-calendar
-  .button.quiet[aria-pressed="true"]:hover:not(:disabled):not(
-    [aria-busy="true"]
-  ) {
-  background: var(--color-action-primary-bg-hover);
-}
-.ds-core
-  .dc-calendar
-  .button.quiet[aria-pressed="true"]:active:not(:disabled):not(
-    [aria-busy="true"]
-  ) {
-  background: var(--color-action-primary-bg-pressed);
-}
-.ds-core .dc-calendar .button.quiet[aria-pressed="true"]:focus-visible {
-  outline: 3px solid var(--color-focus);
-  outline-offset: 3px;
-}
-.ds-core .dc-calendar .button:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
-}
-.ds-core .dc-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 12px;
-}
-.ds-core .dc-range {
-  min-width: 0;
-  margin: 0;
-  padding: 0;
-  border: 0;
-  border-radius: 0;
-}
-.ds-core .dc-range legend {
-  padding-inline: var(--space-1);
-}
-.ds-core .dc-pair {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-}
-.ds-core .dc-pair > .dc-picker {
-  flex: 1 1 220px;
-}
-.ds-core .dc-months {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 4px;
-  margin-block: 12px;
-}
 .ds-core .dc-gallery,
 .ds-core .dc-state-stack {
   display: grid;
@@ -114,40 +6,14 @@
   gap: 24px;
   min-width: 0;
 }
+}
+@layer components {
 .ds-core .dc-gallery section {
   min-width: 0;
 }
+}
+@layer components {
 .ds-core .dc-gallery h3 {
   margin-bottom: 12px;
 }
-
-.ds-core .dc-trigger-frame {position:relative;display:block;min-width:0;}
-.ds-core .dc-trigger-frame > .button.secondary {display:flex;align-items:center;gap:var(--space-2);width:100%;min-height:44px;padding:var(--ds-control-padding-block) var(--ds-control-padding-inline);border:var(--ds-border-thin) solid var(--ds-boundary-rest,var(--field-border,var(--color-border-control)));background:var(--field-bg,var(--color-bg-surface));color:var(--field-fg,var(--color-text-primary));font:inherit;text-align:left;}
-.ds-core .dc-trigger-frame > .button > span:not(.spinner) {flex:1;min-width:0;overflow-wrap:anywhere;}
-.ds-core .dc-trigger-frame > .button > svg {flex-shrink:0;color:var(--color-text-secondary);}
-.ds-core .dc-trigger-frame > .button[aria-invalid="true"] {border-color:var(--field-error-fg,var(--color-status-error-fg));}
-.ds-core .dc-trigger-frame > .button:disabled {background:var(--color-disabled-bg);color:var(--color-disabled-fg);}
-.ds-core .dc-value-input {position:absolute;width:1px;height:1px;padding:0;border:0;opacity:0;pointer-events:none;}
-.ds-core .dc-picker-panel {position:absolute;top:calc(100% + 8px);left:0;z-index:30;width:min(360px,calc(100vw - 32px));min-width:0;max-height:min(560px,70dvh);overflow-y:auto;box-shadow:var(--ds-shadow-menu);border-radius:var(--ds-radius-control);}
-.ds-core .dc-picker-panel > .dc-calendar {max-width:none;}
-.ds-core .dc-calendar [aria-current="date"] {text-decoration:underline;text-underline-offset:4px;}
-.ds-core .dc-time-panel {display:grid;gap:var(--space-2);justify-items:center;}
-.ds-core .dc-clock-mode {display:flex;gap:var(--space-2);}
-.ds-core .dc-clock {display:block;width:240px;height:240px;max-width:100%;}
-.ds-core .dc-clock-face {fill:var(--color-bg-subtle);stroke:var(--color-border-subtle);stroke-width:1;}
-.ds-core .dc-clock-hand {stroke:var(--color-selected-fg);stroke-width:4;stroke-linecap:round;}
-.ds-core .dc-clock-minute {stroke-width:2;}
-.ds-core .dc-clock-center {fill:var(--color-selected-fg);}
-.ds-core .dc-clock-choice {cursor:pointer;}
-.ds-core .dc-clock-choice circle {fill:transparent;}
-.ds-core .dc-clock-choice text {fill:var(--color-text-primary);font:inherit;}
-.ds-core .dc-clock-choice[data-selected="true"] circle {fill:var(--color-selected-fg);}
-.ds-core .dc-clock-choice[data-selected="true"] text {fill:var(--color-text-inverse);}
-.ds-core .dc-clock-choice[aria-disabled="true"] {cursor:not-allowed;opacity:.4;}
-.ds-core .dc-clock-choice:focus-visible {outline:3px solid var(--color-focus);outline-offset:2px;}
-.ds-core .dc-time-fields {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--space-3);width:100%;}
-.ds-core .dc-time-fields label {display:grid;gap:var(--space-1);}
-.ds-core .dc-time-value {font-size:var(--font-size-title);font-weight:var(--ds-weight-semibold);margin:0;}
-
-.ds-core .dc-time-panel .dc-clock-mode > .button,.ds-core .dc-time-panel .dc-actions > .button {min-height:44px;padding:var(--space-2) var(--space-3);}
 }

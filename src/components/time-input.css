@@ -1,0 +1,54 @@
+@layer components {
+.ds-core .dc-time-panel {display:grid;gap:var(--space-2);justify-items:center;}
+}
+@layer components {
+.ds-core .dc-clock-mode {display:flex;gap:var(--space-2);}
+}
+@layer components {
+.ds-core .dc-clock {display:block;width:240px;height:240px;max-width:100%;}
+}
+@layer components {
+.ds-core .dc-clock-face {fill:var(--color-bg-subtle);stroke:var(--color-border-subtle);stroke-width:1;}
+}
+@layer components {
+.ds-core .dc-clock-hand {stroke:var(--color-selected-fg);stroke-width:4;stroke-linecap:round;}
+}
+@layer components {
+.ds-core .dc-clock-minute {stroke-width:2;}
+}
+@layer components {
+.ds-core .dc-clock-center {fill:var(--color-selected-fg);}
+}
+@layer components {
+.ds-core .dc-clock-choice {cursor:pointer;}
+}
+@layer components {
+.ds-core .dc-clock-choice circle {fill:transparent;}
+}
+@layer components {
+.ds-core .dc-clock-choice text {fill:var(--color-text-primary);font:inherit;}
+}
+@layer components {
+.ds-core .dc-clock-choice[data-selected="true"] circle {fill:var(--color-selected-fg);}
+}
+@layer components {
+.ds-core .dc-clock-choice[data-selected="true"] text {fill:var(--color-text-inverse);}
+}
+@layer components {
+.ds-core .dc-clock-choice[aria-disabled="true"] {cursor:not-allowed;opacity:.4;}
+}
+@layer components {
+.ds-core .dc-clock-choice:focus-visible {outline:3px solid var(--color-focus);outline-offset:2px;}
+}
+@layer components {
+.ds-core .dc-time-fields {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--space-3);width:100%;}
+}
+@layer components {
+.ds-core .dc-time-fields label {display:grid;gap:var(--space-1);}
+}
+@layer components {
+.ds-core .dc-time-value {font-size:var(--font-size-title);font-weight:var(--ds-weight-semibold);margin:0;}
+}
+@layer components {
+.ds-core .dc-time-panel .dc-clock-mode > .button,.ds-core .dc-time-panel .dc-actions > .button {min-height:44px;padding:var(--space-2) var(--space-3);}
+}

@@ -1,0 +1,75 @@
+@layer components {
+.ds-core .dc-calendar {
+  width: 100%;
+  max-width: 360px;
+  min-width: 0;
+  padding: var(--space-3);
+  border: var(--ds-border-thin) solid var(--color-border-subtle);
+  border-radius: var(--ds-radius-control);
+  background: var(--color-bg-surface);
+  color: var(--color-text-primary);
+}
+}
+@layer components {
+.ds-core .dc-calendar-heading {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  align-items: center;
+}
+}
+@layer components {
+.ds-core .dc-calendar-heading .control {
+  width: auto;
+  flex: 1 1 72px;
+  min-width: 0;
+  padding-inline: var(--space-1);
+}
+}
+@layer components {
+.ds-core .dc-calendar .button.quiet[aria-pressed="true"] {
+  background: var(--color-action-primary-bg-default);
+  color: var(--color-text-inverse);
+}
+}
+@layer components {
+.ds-core
+  .dc-calendar
+  .button.quiet[aria-pressed="true"]:hover:not(:disabled):not(
+    [aria-busy="true"]
+  ) {
+  background: var(--color-action-primary-bg-hover);
+}
+}
+@layer components {
+.ds-core
+  .dc-calendar
+  .button.quiet[aria-pressed="true"]:active:not(:disabled):not(
+    [aria-busy="true"]
+  ) {
+  background: var(--color-action-primary-bg-pressed);
+}
+}
+@layer components {
+.ds-core .dc-calendar .button.quiet[aria-pressed="true"]:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 3px;
+}
+}
+@layer components {
+.ds-core .dc-calendar .button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+}
+@layer components {
+.ds-core .dc-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+}
+@layer components {
+.ds-core .dc-calendar [aria-current="date"] {text-decoration:underline;text-underline-offset:4px;}
+}

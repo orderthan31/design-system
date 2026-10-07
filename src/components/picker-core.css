@@ -1,0 +1,41 @@
+@layer components {
+.ds-core .dc-picker {
+  position: relative;
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+  align-content: start;
+}
+}
+@layer components {
+.ds-core .dc-picker > .button {
+  justify-self: start;
+}
+}
+@layer components {
+.ds-core .dc-trigger-frame {position:relative;display:block;min-width:0;}
+}
+@layer components {
+.ds-core .dc-trigger-frame > .button.secondary {display:flex;align-items:center;gap:var(--space-2);width:100%;min-height:44px;padding:var(--ds-control-padding-block) var(--ds-control-padding-inline);border:var(--ds-border-thin) solid var(--ds-boundary-rest,var(--field-border,var(--color-border-control)));background:var(--field-bg,var(--color-bg-surface));color:var(--field-fg,var(--color-text-primary));font:inherit;text-align:left;}
+}
+@layer components {
+.ds-core .dc-trigger-frame > .button > span:not(.spinner) {flex:1;min-width:0;overflow-wrap:anywhere;}
+}
+@layer components {
+.ds-core .dc-trigger-frame > .button > svg {flex-shrink:0;color:var(--color-text-secondary);}
+}
+@layer components {
+.ds-core .dc-trigger-frame > .button[aria-invalid="true"] {border-color:var(--field-error-fg,var(--color-status-error-fg));}
+}
+@layer components {
+.ds-core .dc-trigger-frame > .button:disabled {background:var(--color-disabled-bg);color:var(--color-disabled-fg);}
+}
+@layer components {
+.ds-core .dc-value-input {position:absolute;width:1px;height:1px;padding:0;border:0;opacity:0;pointer-events:none;}
+}
+@layer components {
+.ds-core .dc-picker-panel {position:absolute;top:calc(100% + 8px);left:0;z-index:30;width:min(360px,calc(100vw - 32px));min-width:0;max-height:min(560px,70dvh);overflow-y:auto;box-shadow:var(--ds-shadow-menu);border-radius:var(--ds-radius-control);}
+}
+@layer components {
+.ds-core .dc-picker-panel > .dc-calendar {max-width:none;}
+}
