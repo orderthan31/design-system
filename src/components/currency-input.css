@@ -1,0 +1,5 @@
+@layer components {
+.ds-core .fc-unit {
+  color: var(--color-text-secondary);
+}
+}

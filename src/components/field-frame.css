@@ -1,5 +1,10 @@
 @import "./control-base.css";
 @layer components {
+.ds-core .fc-field {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
 :where(.ds-core) .field {
   display: grid;
   gap: var(--space-2);

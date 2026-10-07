@@ -1,0 +1,12 @@
+@layer components {
+.ds-core .fc-inline {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-width: 0;
+}
+.ds-core .fc-inline > .control {
+  flex: 1;
+  width: 0;
+}
+}

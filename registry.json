@@ -3098,6 +3098,755 @@
           "target": "~/src/gyeol/INSTALL.md"
         }
       ]
+    },
+    {
+      "name": "form-field",
+      "type": "registry:item",
+      "title": "FormField",
+      "description": "FormField with isolated scoped source/style/dependencies.",
+      "dependencies": [
+        "react@19.2.0"
+      ],
+      "devDependencies": [
+        "@types/react@19.2.2"
+      ],
+      "meta": {
+        "fontAssets": [
+          {
+            "source": "public/source/fonts/Pretendard-Bold.woff2",
+            "target": "public/source/fonts/Pretendard-Bold.woff2",
+            "url": "/source/fonts/Pretendard-Bold.woff2",
+            "sha256": "4609c3356e536fafe38f4add0daeceb3d8595d3057bce13c428c33ddbd43d362"
+          },
+          {
+            "source": "public/source/fonts/Pretendard-Medium.woff2",
+            "target": "public/source/fonts/Pretendard-Medium.woff2",
+            "url": "/source/fonts/Pretendard-Medium.woff2",
+            "sha256": "d03481330eeba0659ab5b87f25ceb504a35de377dd90a0d0aba2982eb2d05e2c"
+          },
+          {
+            "source": "public/source/fonts/Pretendard-Regular.woff2",
+            "target": "public/source/fonts/Pretendard-Regular.woff2",
+            "url": "/source/fonts/Pretendard-Regular.woff2",
+            "sha256": "fad853f7f47c6c8b103171e7193fa095708cdcd70850a71d93aa5379e8a61d63"
+          },
+          {
+            "source": "public/source/fonts/Pretendard-SemiBold.woff2",
+            "target": "public/source/fonts/Pretendard-SemiBold.woff2",
+            "url": "/source/fonts/Pretendard-SemiBold.woff2",
+            "sha256": "c863f76a7de5c1ddc1ed8b2fa794964530774592c4f31407a84e2a2ae93f17f0"
+          }
+        ],
+        "fontAssetsAutomatic": false,
+        "fontLicense": "public/source/fonts/LICENSE"
+      },
+      "files": [
+        {
+          "path": "src/default-theme.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/default-theme.css"
+        },
+        {
+          "path": "src/design-tokens.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/design-tokens.css"
+        },
+        {
+          "path": "src/font-face.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/font-face.css"
+        },
+        {
+          "path": "src/generated/scoped-tokens.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/generated/scoped-tokens.css"
+        },
+        {
+          "path": "src/components/control-base.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/control-base.css"
+        },
+        {
+          "path": "src/components/field-frame.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/field-frame.css"
+        },
+        {
+          "path": "src/components/form-field.tsx",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/form-field.tsx"
+        },
+        {
+          "path": "src/components/input.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/input.css"
+        },
+        {
+          "path": "src/components/input.tsx",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/input.tsx"
+        },
+        {
+          "path": "docs/source-installation.md",
+          "type": "registry:file",
+          "target": "~/src/gyeol/INSTALL.md"
+        }
+      ]
+    },
+    {
+      "name": "text-field",
+      "type": "registry:item",
+      "title": "TextField",
+      "description": "TextField with isolated scoped source/style/dependencies.",
+      "dependencies": [
+        "react@19.2.0",
+        "lucide-react@1.52.0"
+      ],
+      "devDependencies": [
+        "@types/react@19.2.2"
+      ],
+      "meta": {
+        "fontAssets": [
+          {
+            "source": "public/source/fonts/Pretendard-Bold.woff2",
+            "target": "public/source/fonts/Pretendard-Bold.woff2",
+            "url": "/source/fonts/Pretendard-Bold.woff2",
+            "sha256": "4609c3356e536fafe38f4add0daeceb3d8595d3057bce13c428c33ddbd43d362"
+          },
+          {
+            "source": "public/source/fonts/Pretendard-Medium.woff2",
+            "target": "public/source/fonts/Pretendard-Medium.woff2",
+            "url": "/source/fonts/Pretendard-Medium.woff2",
+            "sha256": "d03481330eeba0659ab5b87f25ceb504a35de377dd90a0d0aba2982eb2d05e2c"
+          },
+          {
+            "source": "public/source/fonts/Pretendard-Regular.woff2",
+            "target": "public/source/fonts/Pretendard-Regular.woff2",
+            "url": "/source/fonts/Pretendard-Regular.woff2",
+            "sha256": "fad853f7f47c6c8b103171e7193fa095708cdcd70850a71d93aa5379e8a61d63"
+          },
+          {
+            "source": "public/source/fonts/Pretendard-SemiBold.woff2",
+            "target": "public/source/fonts/Pretendard-SemiBold.woff2",
+            "url": "/source/fonts/Pretendard-SemiBold.woff2",
+            "sha256": "c863f76a7de5c1ddc1ed8b2fa794964530774592c4f31407a84e2a2ae93f17f0"
+          }
+        ],
+        "fontAssetsAutomatic": false,
+        "fontLicense": "public/source/fonts/LICENSE"
+      },
+      "files": [
+        {
+          "path": "src/default-theme.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/default-theme.css"
+        },
+        {
+          "path": "src/design-tokens.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/design-tokens.css"
+        },
+        {
+          "path": "src/font-face.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/font-face.css"
+        },
+        {
+          "path": "src/generated/scoped-tokens.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/generated/scoped-tokens.css"
+        },
+        {
+          "path": "src/components/button.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/button.css"
+        },
+        {
+          "path": "src/components/button.tsx",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/button.tsx"
+        },
+        {
+          "path": "src/components/control-base.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/control-base.css"
+        },
+        {
+          "path": "src/components/field-frame.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/field-frame.css"
+        },
+        {
+          "path": "src/components/form-field.tsx",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/form-field.tsx"
+        },
+        {
+          "path": "src/components/icon.tsx",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/icon.tsx"
+        },
+        {
+          "path": "src/components/input.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/input.css"
+        },
+        {
+          "path": "src/components/input.tsx",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/input.tsx"
+        },
+        {
+          "path": "src/components/text-field.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/text-field.css"
+        },
+        {
+          "path": "src/components/text-field.tsx",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/text-field.tsx"
+        },
+        {
+          "path": "docs/source-installation.md",
+          "type": "registry:file",
+          "target": "~/src/gyeol/INSTALL.md"
+        }
+      ]
+    },
+    {
+      "name": "number-input",
+      "type": "registry:item",
+      "title": "NumberInput",
+      "description": "NumberInput with isolated scoped source/style/dependencies.",
+      "dependencies": [
+        "react@19.2.0"
+      ],
+      "devDependencies": [
+        "@types/react@19.2.2"
+      ],
+      "meta": {
+        "fontAssets": [
+          {
+            "source": "public/source/fonts/Pretendard-Bold.woff2",
+            "target": "public/source/fonts/Pretendard-Bold.woff2",
+            "url": "/source/fonts/Pretendard-Bold.woff2",
+            "sha256": "4609c3356e536fafe38f4add0daeceb3d8595d3057bce13c428c33ddbd43d362"
+          },
+          {
+            "source": "public/source/fonts/Pretendard-Medium.woff2",
+            "target": "public/source/fonts/Pretendard-Medium.woff2",
+            "url": "/source/fonts/Pretendard-Medium.woff2",
+            "sha256": "d03481330eeba0659ab5b87f25ceb504a35de377dd90a0d0aba2982eb2d05e2c"
+          },
+          {
+            "source": "public/source/fonts/Pretendard-Regular.woff2",
+            "target": "public/source/fonts/Pretendard-Regular.woff2",
+            "url": "/source/fonts/Pretendard-Regular.woff2",
+            "sha256": "fad853f7f47c6c8b103171e7193fa095708cdcd70850a71d93aa5379e8a61d63"
+          },
+          {
+            "source": "public/source/fonts/Pretendard-SemiBold.woff2",
+            "target": "public/source/fonts/Pretendard-SemiBold.woff2",
+            "url": "/source/fonts/Pretendard-SemiBold.woff2",
+            "sha256": "c863f76a7de5c1ddc1ed8b2fa794964530774592c4f31407a84e2a2ae93f17f0"
+          }
+        ],
+        "fontAssetsAutomatic": false,
+        "fontLicense": "public/source/fonts/LICENSE"
+      },
+      "files": [
+        {
+          "path": "src/default-theme.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/default-theme.css"
+        },
+        {
+          "path": "src/design-tokens.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/design-tokens.css"
+        },
+        {
+          "path": "src/font-face.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/font-face.css"
+        },
+        {
+          "path": "src/generated/scoped-tokens.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/generated/scoped-tokens.css"
+        },
+        {
+          "path": "src/components/button.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/button.css"
+        },
+        {
+          "path": "src/components/button.tsx",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/button.tsx"
+        },
+        {
+          "path": "src/components/control-base.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/control-base.css"
+        },
+        {
+          "path": "src/components/field-frame.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/field-frame.css"
+        },
+        {
+          "path": "src/components/field-frame.tsx",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/field-frame.tsx"
+        },
+        {
+          "path": "src/components/input.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/input.css"
+        },
+        {
+          "path": "src/components/input.tsx",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/input.tsx"
+        },
+        {
+          "path": "src/components/number-input.tsx",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/number-input.tsx"
+        },
+        {
+          "path": "src/components/numeric-input-layout.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/numeric-input-layout.css"
+        },
+        {
+          "path": "docs/source-installation.md",
+          "type": "registry:file",
+          "target": "~/src/gyeol/INSTALL.md"
+        }
+      ]
+    },
+    {
+      "name": "currency-input",
+      "type": "registry:item",
+      "title": "CurrencyInput",
+      "description": "CurrencyInput with isolated scoped source/style/dependencies.",
+      "dependencies": [
+        "react@19.2.0"
+      ],
+      "devDependencies": [
+        "@types/react@19.2.2"
+      ],
+      "meta": {
+        "fontAssets": [
+          {
+            "source": "public/source/fonts/Pretendard-Bold.woff2",
+            "target": "public/source/fonts/Pretendard-Bold.woff2",
+            "url": "/source/fonts/Pretendard-Bold.woff2",
+            "sha256": "4609c3356e536fafe38f4add0daeceb3d8595d3057bce13c428c33ddbd43d362"
+          },
+          {
+            "source": "public/source/fonts/Pretendard-Medium.woff2",
+            "target": "public/source/fonts/Pretendard-Medium.woff2",
+            "url": "/source/fonts/Pretendard-Medium.woff2",
+            "sha256": "d03481330eeba0659ab5b87f25ceb504a35de377dd90a0d0aba2982eb2d05e2c"
+          },
+          {
+            "source": "public/source/fonts/Pretendard-Regular.woff2",
+            "target": "public/source/fonts/Pretendard-Regular.woff2",
+            "url": "/source/fonts/Pretendard-Regular.woff2",
+            "sha256": "fad853f7f47c6c8b103171e7193fa095708cdcd70850a71d93aa5379e8a61d63"
+          },
+          {
+            "source": "public/source/fonts/Pretendard-SemiBold.woff2",
+            "target": "public/source/fonts/Pretendard-SemiBold.woff2",
+            "url": "/source/fonts/Pretendard-SemiBold.woff2",
+            "sha256": "c863f76a7de5c1ddc1ed8b2fa794964530774592c4f31407a84e2a2ae93f17f0"
+          }
+        ],
+        "fontAssetsAutomatic": false,
+        "fontLicense": "public/source/fonts/LICENSE"
+      },
+      "files": [
+        {
+          "path": "src/default-theme.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/default-theme.css"
+        },
+        {
+          "path": "src/design-tokens.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/design-tokens.css"
+        },
+        {
+          "path": "src/font-face.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/font-face.css"
+        },
+        {
+          "path": "src/generated/scoped-tokens.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/generated/scoped-tokens.css"
+        },
+        {
+          "path": "src/components/control-base.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/control-base.css"
+        },
+        {
+          "path": "src/components/currency-input.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/currency-input.css"
+        },
+        {
+          "path": "src/components/currency-input.tsx",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/currency-input.tsx"
+        },
+        {
+          "path": "src/components/field-frame.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/field-frame.css"
+        },
+        {
+          "path": "src/components/field-frame.tsx",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/field-frame.tsx"
+        },
+        {
+          "path": "src/components/formatted-input.tsx",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/formatted-input.tsx"
+        },
+        {
+          "path": "src/components/input.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/input.css"
+        },
+        {
+          "path": "src/components/input.tsx",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/input.tsx"
+        },
+        {
+          "path": "src/components/numeric-input-layout.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/numeric-input-layout.css"
+        },
+        {
+          "path": "docs/source-installation.md",
+          "type": "registry:file",
+          "target": "~/src/gyeol/INSTALL.md"
+        }
+      ]
+    },
+    {
+      "name": "phone-input",
+      "type": "registry:item",
+      "title": "PhoneInput",
+      "description": "PhoneInput with isolated scoped source/style/dependencies.",
+      "dependencies": [
+        "react@19.2.0"
+      ],
+      "devDependencies": [
+        "@types/react@19.2.2"
+      ],
+      "meta": {
+        "fontAssets": [
+          {
+            "source": "public/source/fonts/Pretendard-Bold.woff2",
+            "target": "public/source/fonts/Pretendard-Bold.woff2",
+            "url": "/source/fonts/Pretendard-Bold.woff2",
+            "sha256": "4609c3356e536fafe38f4add0daeceb3d8595d3057bce13c428c33ddbd43d362"
+          },
+          {
+            "source": "public/source/fonts/Pretendard-Medium.woff2",
+            "target": "public/source/fonts/Pretendard-Medium.woff2",
+            "url": "/source/fonts/Pretendard-Medium.woff2",
+            "sha256": "d03481330eeba0659ab5b87f25ceb504a35de377dd90a0d0aba2982eb2d05e2c"
+          },
+          {
+            "source": "public/source/fonts/Pretendard-Regular.woff2",
+            "target": "public/source/fonts/Pretendard-Regular.woff2",
+            "url": "/source/fonts/Pretendard-Regular.woff2",
+            "sha256": "fad853f7f47c6c8b103171e7193fa095708cdcd70850a71d93aa5379e8a61d63"
+          },
+          {
+            "source": "public/source/fonts/Pretendard-SemiBold.woff2",
+            "target": "public/source/fonts/Pretendard-SemiBold.woff2",
+            "url": "/source/fonts/Pretendard-SemiBold.woff2",
+            "sha256": "c863f76a7de5c1ddc1ed8b2fa794964530774592c4f31407a84e2a2ae93f17f0"
+          }
+        ],
+        "fontAssetsAutomatic": false,
+        "fontLicense": "public/source/fonts/LICENSE"
+      },
+      "files": [
+        {
+          "path": "src/default-theme.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/default-theme.css"
+        },
+        {
+          "path": "src/design-tokens.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/design-tokens.css"
+        },
+        {
+          "path": "src/font-face.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/font-face.css"
+        },
+        {
+          "path": "src/generated/scoped-tokens.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/generated/scoped-tokens.css"
+        },
+        {
+          "path": "src/components/control-base.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/control-base.css"
+        },
+        {
+          "path": "src/components/field-frame.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/field-frame.css"
+        },
+        {
+          "path": "src/components/field-frame.tsx",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/field-frame.tsx"
+        },
+        {
+          "path": "src/components/formatted-input.tsx",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/formatted-input.tsx"
+        },
+        {
+          "path": "src/components/input.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/input.css"
+        },
+        {
+          "path": "src/components/input.tsx",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/input.tsx"
+        },
+        {
+          "path": "src/components/numeric-input-layout.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/numeric-input-layout.css"
+        },
+        {
+          "path": "src/components/phone-input.tsx",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/phone-input.tsx"
+        },
+        {
+          "path": "docs/source-installation.md",
+          "type": "registry:file",
+          "target": "~/src/gyeol/INSTALL.md"
+        }
+      ]
+    },
+    {
+      "name": "email-input",
+      "type": "registry:item",
+      "title": "EmailInput",
+      "description": "EmailInput with isolated scoped source/style/dependencies.",
+      "dependencies": [
+        "react@19.2.0"
+      ],
+      "devDependencies": [
+        "@types/react@19.2.2"
+      ],
+      "meta": {
+        "fontAssets": [
+          {
+            "source": "public/source/fonts/Pretendard-Bold.woff2",
+            "target": "public/source/fonts/Pretendard-Bold.woff2",
+            "url": "/source/fonts/Pretendard-Bold.woff2",
+            "sha256": "4609c3356e536fafe38f4add0daeceb3d8595d3057bce13c428c33ddbd43d362"
+          },
+          {
+            "source": "public/source/fonts/Pretendard-Medium.woff2",
+            "target": "public/source/fonts/Pretendard-Medium.woff2",
+            "url": "/source/fonts/Pretendard-Medium.woff2",
+            "sha256": "d03481330eeba0659ab5b87f25ceb504a35de377dd90a0d0aba2982eb2d05e2c"
+          },
+          {
+            "source": "public/source/fonts/Pretendard-Regular.woff2",
+            "target": "public/source/fonts/Pretendard-Regular.woff2",
+            "url": "/source/fonts/Pretendard-Regular.woff2",
+            "sha256": "fad853f7f47c6c8b103171e7193fa095708cdcd70850a71d93aa5379e8a61d63"
+          },
+          {
+            "source": "public/source/fonts/Pretendard-SemiBold.woff2",
+            "target": "public/source/fonts/Pretendard-SemiBold.woff2",
+            "url": "/source/fonts/Pretendard-SemiBold.woff2",
+            "sha256": "c863f76a7de5c1ddc1ed8b2fa794964530774592c4f31407a84e2a2ae93f17f0"
+          }
+        ],
+        "fontAssetsAutomatic": false,
+        "fontLicense": "public/source/fonts/LICENSE"
+      },
+      "files": [
+        {
+          "path": "src/default-theme.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/default-theme.css"
+        },
+        {
+          "path": "src/design-tokens.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/design-tokens.css"
+        },
+        {
+          "path": "src/font-face.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/font-face.css"
+        },
+        {
+          "path": "src/generated/scoped-tokens.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/generated/scoped-tokens.css"
+        },
+        {
+          "path": "src/components/control-base.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/control-base.css"
+        },
+        {
+          "path": "src/components/email-input.tsx",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/email-input.tsx"
+        },
+        {
+          "path": "src/components/field-frame.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/field-frame.css"
+        },
+        {
+          "path": "src/components/field-frame.tsx",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/field-frame.tsx"
+        },
+        {
+          "path": "src/components/formatted-input.tsx",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/formatted-input.tsx"
+        },
+        {
+          "path": "src/components/input.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/input.css"
+        },
+        {
+          "path": "src/components/input.tsx",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/input.tsx"
+        },
+        {
+          "path": "src/components/numeric-input-layout.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/numeric-input-layout.css"
+        },
+        {
+          "path": "docs/source-installation.md",
+          "type": "registry:file",
+          "target": "~/src/gyeol/INSTALL.md"
+        }
+      ]
+    },
+    {
+      "name": "search-field",
+      "type": "registry:item",
+      "title": "SearchField",
+      "description": "SearchField with isolated scoped source/style/dependencies.",
+      "dependencies": [
+        "react@19.2.0"
+      ],
+      "devDependencies": [
+        "@types/react@19.2.2"
+      ],
+      "meta": {
+        "fontAssets": [
+          {
+            "source": "public/source/fonts/Pretendard-Bold.woff2",
+            "target": "public/source/fonts/Pretendard-Bold.woff2",
+            "url": "/source/fonts/Pretendard-Bold.woff2",
+            "sha256": "4609c3356e536fafe38f4add0daeceb3d8595d3057bce13c428c33ddbd43d362"
+          },
+          {
+            "source": "public/source/fonts/Pretendard-Medium.woff2",
+            "target": "public/source/fonts/Pretendard-Medium.woff2",
+            "url": "/source/fonts/Pretendard-Medium.woff2",
+            "sha256": "d03481330eeba0659ab5b87f25ceb504a35de377dd90a0d0aba2982eb2d05e2c"
+          },
+          {
+            "source": "public/source/fonts/Pretendard-Regular.woff2",
+            "target": "public/source/fonts/Pretendard-Regular.woff2",
+            "url": "/source/fonts/Pretendard-Regular.woff2",
+            "sha256": "fad853f7f47c6c8b103171e7193fa095708cdcd70850a71d93aa5379e8a61d63"
+          },
+          {
+            "source": "public/source/fonts/Pretendard-SemiBold.woff2",
+            "target": "public/source/fonts/Pretendard-SemiBold.woff2",
+            "url": "/source/fonts/Pretendard-SemiBold.woff2",
+            "sha256": "c863f76a7de5c1ddc1ed8b2fa794964530774592c4f31407a84e2a2ae93f17f0"
+          }
+        ],
+        "fontAssetsAutomatic": false,
+        "fontLicense": "public/source/fonts/LICENSE"
+      },
+      "files": [
+        {
+          "path": "src/default-theme.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/default-theme.css"
+        },
+        {
+          "path": "src/design-tokens.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/design-tokens.css"
+        },
+        {
+          "path": "src/font-face.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/font-face.css"
+        },
+        {
+          "path": "src/generated/scoped-tokens.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/generated/scoped-tokens.css"
+        },
+        {
+          "path": "src/components/control-base.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/control-base.css"
+        },
+        {
+          "path": "src/components/input.css",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/input.css"
+        },
+        {
+          "path": "src/components/input.tsx",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/input.tsx"
+        },
+        {
+          "path": "src/components/search-field.tsx",
+          "type": "registry:file",
+          "target": "~/src/gyeol/components/search-field.tsx"
+        },
+        {
+          "path": "docs/source-installation.md",
+          "type": "registry:file",
+          "target": "~/src/gyeol/INSTALL.md"
+        }
+      ]
     }
   ]
 }

@@ -1,5 +1,6 @@
 /* Gallery application only: intentionally includes document reset and navigation. */
 @import "./core.css";
+@import "./components/text-field-gallery.css";
 .gallery-overview {max-width:100%;gap:32px;}
 .gallery-overview .page-heading {margin-bottom:0;}
 .gallery-overview .page-heading p {margin:12px 0 0;color:var(--color-text-secondary);font-size:var(--ds-control-font-size);line-height:var(--ds-control-line-height);}

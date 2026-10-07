@@ -1,6 +1,6 @@
 import React from 'react';
 import './text-field.css';
-import type { InputProps } from './atoms';
+import type { InputProps } from './input';
 export type TextFieldProps = Omit<InputProps, 'prefix' | 'children'> & {
   label: string;
   description?: string;
@@ -11,9 +11,10 @@ export type TextFieldProps = Omit<InputProps, 'prefix' | 'children'> & {
   clearable?: boolean;
   clearLabel?: string;
 };
-import { Input, Button } from './atoms';
-import { Icon } from './icons';
-import { FormField } from './molecules';
+import { Input } from './input';
+import { Button } from './button';
+import { Icon } from './icon';
+import { FormField } from './form-field';
 
 type FieldInputProps = Omit<TextFieldProps, 'label' | 'description' | 'error'> & { externalDescription?: string; externalInvalid?: InputProps['aria-invalid'] };
 function FieldInput({ externalDescription, externalInvalid, prefix, suffix, trailingAction, clearable = false, clearLabel = '입력 지우기', ...props }: FieldInputProps) {

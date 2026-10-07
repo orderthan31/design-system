@@ -15,11 +15,7 @@ export function ActionGroup({
     </div>
   );
 }
-export function SearchField(
-  props: Omit<React.InputHTMLAttributes<HTMLInputElement>, "type">,
-) {
-  return <Input {...props} type="search" />;
-}
+export { SearchField } from "./search-field";
 export function FormSection({
   title,
   children,
