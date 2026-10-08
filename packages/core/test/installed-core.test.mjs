@@ -93,7 +93,11 @@ test('external host retains core as a pinned devDependency and runs only its ins
   assert.equal(lint.dependencies.length, 4);
   const tokens = JSON.parse(run('tokens-inspect', bin, ['tokens', 'inspect'], host));
   assert.ok(tokens.declarations.length > 0);
-  run('lint-deferred', bin, ['lint'], host, 2);
+  const consumerLint=JSON.parse(run('lint-consumer',bin,['lint'],host));
+  assert.equal(consumerLint.sourceRoot,'src/gyeol');
+  assert.equal(consumerLint.compiler.mode,'actual');
+  assert.deepEqual(consumerLint.diagnostics,[]);
+  assert.equal(consumerLint.readOnly,true);
   run('tokens-deferred', bin, ['tokens'], host, 2);
   const theme = path.join(installed, 'payload/source/foundation/theme.css');
   const original = fs.readFileSync(theme);

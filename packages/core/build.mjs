@@ -26,7 +26,9 @@ if (!fs.readFileSync(path.join(target, 'payload/assets/LICENSE'), 'utf8').includ
 
 const copies = [
   ['packages/core/src/router.mjs', 'dist/router.mjs'],
-  ...['common', 'lint', 'tokens'].map(name => [`packages/core/src/tools/${name}.mjs`, `dist/tools/${name}.mjs`]),
+  ...['common', 'lint', 'lint-policy', 'tokens'].map(name => [`packages/core/src/tools/${name}.mjs`, `dist/tools/${name}.mjs`]),
+  ['scripts/slice-eslint-policy.mjs', 'dist/policy/slice-eslint-policy.mjs'],
+  ['scripts/design-jsx-policy.mjs', 'dist/policy/design-jsx-policy.mjs'],
   ['packages/cli/src/installer.mjs', 'dist/tools/installer.mjs'],
   ['packages/cli/src/safety.mjs', 'dist/tools/safety.mjs'],
   ['packages/cli/src/host-config.mjs', 'dist/tools/host-config.mjs'],
@@ -42,14 +44,27 @@ const bin = 'bin/hangyeol.mjs';
 fs.chmodSync(path.join(target, bin), 0o755);
 const bytes = fs.readFileSync(path.join(target, bin));
 files[bin] = { hash: hash(bytes), bytes: bytes.length, source: 'packages/core/bin/hangyeol.mjs' };
-fs.writeFileSync(path.join(target, 'dist/tool-manifest.json'), JSON.stringify({ package: pkg.name, version: pkg.version, files }, null, 2) + '\n');
 
 const require = createRequire(path.join(root, 'package.json'));
 const notices = [];
+const policyDependencies=[];
 for (const [name, version] of Object.entries(pkg.dependencies)) {
-  const metadata = JSON.parse(fs.readFileSync(require.resolve(`${name}/package.json`)));
+  const metadataPath=require.resolve(`${name}/package.json`),metadata = JSON.parse(fs.readFileSync(metadataPath));
   if (metadata.version !== version || !metadata.license) throw Error(`Unverified tool dependency/license: ${name}`);
+  const license=fs.readFileSync(path.join(path.dirname(metadataPath),'LICENSE')),to=`dist/policy/licenses/${name.replaceAll('/','-').replaceAll('@','')}.txt`;
+  fs.mkdirSync(path.dirname(path.join(target,to)),{recursive:true});fs.writeFileSync(path.join(target,to),license);files[to]={hash:hash(license),bytes:license.length,source:`npm:${name}@${version}/LICENSE`};
+  policyDependencies.push({name,version,license:metadata.license,licenseFile:to,licenseHash:hash(license)});
   notices.push(`- ${name} ${metadata.version}: ${metadata.license}. Installed as a dependency; its package retains its own license/notice files.`);
 }
+// Bound third-party project/theme discovery to installed, hashed policy inputs.
+for(const [to,value] of Object.entries({'dist/policy/components.json':{aliases:{ui:'../../payload/source'},tailwind:{css:'../../payload/source/foundation/theme.css'}},'dist/policy/tsconfig.json':{compilerOptions:{}}})){
+ const bytes=Buffer.from(JSON.stringify(value,null,2)+'\n');fs.writeFileSync(path.join(target,to),bytes);files[to]={hash:hash(bytes),bytes:bytes.length,source:'bounded installed policy discovery config'};
+}
+const classifierRequire=createRequire(require.resolve('@shadcn/lint/package.json')),classifierRoot=path.dirname(path.dirname(classifierRequire.resolve('cn/config'))),classifierMetadata=JSON.parse(fs.readFileSync(path.join(classifierRoot,'package.json')));
+if(classifierMetadata.name!=='cn'||classifierMetadata.version!=='0.3.2'||!classifierMetadata.license)throw Error('Unverified pinned shadcn grammar dependency');
+const classifierLicense=fs.readFileSync(path.join(classifierRoot,'LICENSE')),classifierLicenseFile='dist/policy/licenses/cn.txt';fs.writeFileSync(path.join(target,classifierLicenseFile),classifierLicense);files[classifierLicenseFile]={hash:hash(classifierLicense),bytes:classifierLicense.length,source:'npm:cn@0.3.2/LICENSE'};
+const policy=Buffer.from(JSON.stringify({source:'scripts/slice-eslint-policy.mjs',sourceHash:files['dist/policy/slice-eslint-policy.mjs'].hash,supplement:{source:'scripts/design-jsx-policy.mjs',sourceHash:files['dist/policy/design-jsx-policy.mjs'].hash},firstPartyLicense:'UNLICENSED',dependencies:policyDependencies,classifier:{name:'cn',version:classifierMetadata.version,license:classifierMetadata.license,licenseFile:classifierLicenseFile,licenseHash:hash(classifierLicense)}},null,2)+'\n');
+fs.writeFileSync(path.join(target,'dist/policy/manifest.json'),policy);files['dist/policy/manifest.json']={hash:hash(policy),bytes:policy.length,source:'verified build-time policy/license metadata'};
+fs.writeFileSync(path.join(target, 'dist/tool-manifest.json'), JSON.stringify({ package: pkg.name, version: pkg.version, files }, null, 2) + '\n');
 fs.writeFileSync(path.join(target, 'THIRD_PARTY_NOTICES.md'), '# Third-party boundaries\n\nUnmodified Pretendard v1.3.9: SIL OFL 1.1. Actual license and upstream provenance are bundled at payload/assets/LICENSE and payload/assets/provenance.json. Historical browser-load statements in that copied provenance are not new CORE-01 verification.\n\n' + notices.join('\n') + '\n\nFirst-party code/UI sources are UNLICENSED. No ownership or new license grant is asserted by this package.\n');
 console.error(`Built ${pkg.name}@${pkg.version}: installed router/tools and canonical source/font payload`);

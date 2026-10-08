@@ -12,7 +12,7 @@ export async function main(args) {
       return 0;
     }
     if (command === '--help' && !rest.length) {
-      console.log('hangyeol-core: installed local tools\nUsage: hangyeol --version | inspect | init [--dry-run] | add <component> [--dry-run] | lint inspect | tokens inspect\nConsumer lint/token workflows beyond inspection are deferred. Use the installed node_modules/.bin/hangyeol; no registry execution fallback.');
+      console.log('hangyeol-core: installed local tools\nUsage: hangyeol --version | inspect | init [--dry-run] | add <component> [--dry-run] | lint [inspect] | tokens inspect\nLint checks gyeol.json sourceRoot read-only. Token workflows beyond inspection are deferred. Use the installed node_modules/.bin/hangyeol; no registry execution fallback.');
       return 0;
     }
     if (command === 'inspect' && !rest.length) {
@@ -25,7 +25,7 @@ export async function main(args) {
     }
     if (command === 'lint') {
       const { runLint } = await import('./tools/lint.mjs');
-      return runLint(rest, boundary);
+      return await runLint(rest, boundary);
     }
     if (command === 'tokens') {
       const { runTokens } = await import('./tools/tokens.mjs');
