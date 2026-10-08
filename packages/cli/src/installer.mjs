@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import {spawnSync} from 'node:child_process';
-import {planFiles,applyPlan,safeTarget,hash} from './safety.mjs';
+import {planFiles,createTransaction,safeTarget,hash} from './safety.mjs';
 import {validateViteConfig,validateHostScripts,validateTypeScriptAliases} from './host-config.mjs';
 export function runInstaller(inputArgs, { payloadRoot }) {
 const payload=payloadRoot;
@@ -101,7 +101,7 @@ try{
    // User-controlled roots cannot impersonate host config files/directories.
    // buildInit's explicit generated Vite/TS config targets remain permitted.
    if(parts.some(part=>viteConfigs.includes(part)||/^tsconfig(?:\.[\w-]+)*\.json$/.test(part)))throw Error(`Reserved host config target in ${key}: ${config[key]}`);
-   if(parts.some(part=>['node_modules','.git','.gyeol-backups','gyeol.json','package.json','package-lock.json'].includes(part)))throw Error(`Unsafe configurable path: ${key}`);
+   if(parts.some(part=>['node_modules','.git','.gyeol-backups','.gyeol-transactions','gyeol.json','package.json','package-lock.json'].includes(part)))throw Error(`Unsafe configurable path: ${key}`);
    const full=safeTarget(root,config[key]);if(key!=='stylePath'&&fs.existsSync(full)&&!fs.statSync(full).isDirectory())throw Error(`Configurable directory is a file: ${key}`);
  }
  const overlap=(a,b)=>{a=a.toLowerCase();b=b.toLowerCase();return a===b||a.startsWith(b+'/')||b.startsWith(a+'/');};
@@ -129,9 +129,24 @@ try{
  const summary=sourcePlan.map(({path,action,backup,hash})=>({path,action,backup,hash}));
  console.log(JSON.stringify({command,version:manifest.version,files:summary,dependencies:needed,metadata:metadataPlan.map(({path,action})=>({path,action})),dryRun},null,2));
  if(dryRun)return 0;
- applyPlan(root,sourcePlan);
- for(const [kind,values]of Object.entries(needed)){if(!values.length)continue;const install=spawnSync(process.platform==='win32'?'npm.cmd':'npm',['install','--save-exact',...(kind==='runtime'?[]:['--save-dev']),...values],{cwd:root,stdio:'inherit'});if(install.status!==0)throw Error(`Dependency install failed (${install.status ?? install.error?.message}); source files were written and package/lock may be partial. Success metadata was NOT recorded. Review files and retry; no rollback performed.`);}
- applyPlan(root,metadataPlan);
+ const transaction=createTransaction(root);let dependencyAttempted=false;
+ try{
+  transaction.validate([...sourcePlan,...metadataPlan]);
+  if(Object.values(needed).some(values=>values.length)){transaction.watch('package.json');transaction.watch('package-lock.json');}
+  transaction.apply(sourcePlan);
+  for(const [kind,values]of Object.entries(needed)){
+   if(!values.length)continue;dependencyAttempted=true;
+   const install=spawnSync(process.platform==='win32'?'npm.cmd':'npm',['install','--save-exact',...(kind==='runtime'?[]:['--save-dev']),...values],{cwd:root,stdio:'inherit'});
+   transaction.observeExternal();
+   if(install.status!==0)throw Error(`Dependency install failed (${install.status ?? install.error?.message})`);
+  }
+  transaction.apply(metadataPlan);
+  const committed=transaction.commit();if(committed.errors.length)throw Object.assign(Error('Files committed; transaction cleanup incomplete'),{recovery:committed});
+ }catch(error){
+  const recovery=error.recovery??transaction.rollback();
+  console.error(JSON.stringify({transactionRecovery:recovery,dependencyAttempted,nodeModules:dependencyAttempted?'not rolled back; external npm/node_modules effects remain unverified. Review dependencies and reinstall explicitly.':'npm not invoked',dependencyStatus:dependencyAttempted?'package/lock bytes or absence recovered only where safe; dependency installation not certified':'unchanged by npm'}));
+  throw Error(`${error.message}; managed transaction ${recovery.status}; ${recovery.errors.length} recovery/cleanup problems. ${dependencyAttempted?'node_modules was not rolled back; dependency effects remain unverified.':'npm was not invoked.'}`);
+ }
  console.log(`SUCCESS ${command}: ${sourcePlan.filter(f=>f.action!=='noop').length} writes; ${sourcePlan.filter(f=>f.action==='noop').length} identical no-ops. Import ${config.stylePath} from your host entry. ${config.alias?'Configured TypeScript and Vite alias contract.':''}`);
 return 0;
 }catch(error){console.error(`GYEOL ERROR: ${error.message}`);return 1;}
