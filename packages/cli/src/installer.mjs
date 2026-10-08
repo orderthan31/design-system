@@ -18,7 +18,22 @@ function sourceFiles(config,items){
  const names=new Set(manifest.common),runtime={...manifest.runtime},visited=new Set();
  function visit(name){if(visited.has(name))return;const item=manifest.items[name];if(!item)throw Error(`Unknown component: ${name}`);visited.add(name);for(const edge of item.requires)visit(edge);for(const file of item.files)names.add(file);Object.assign(runtime,item.runtime);}
  for(const name of items)visit(name);
- return {files:[...names].map(name=>({path:`${config.sourceRoot}/${name}`,bytes:fs.readFileSync(path.join(payload,'source',name)),hash:manifest.files[name].hash})),runtime,items:[...visited]};
+ return {files:[...names].map(name=>{
+  const target=`${config.sourceRoot}/${name}`,bytes=fs.readFileSync(path.join(payload,'source',name)),digest=manifest.files[name].hash;
+  if(hash(bytes)!==digest)throw Error(`payload hash mismatch: ${target}`);
+  if(command==='add'&&manifest.common.includes(name)){
+   // Common sources belong to the initialized consumer. Keep local edits, while
+   // retaining the original template record rather than adopting those edits.
+   const record=config.installed[target];
+   if(!record||record.version!==manifest.version||record.hash!==digest)throw Error(`conflict: missing/incompatible initialized common record ${target}; review init ownership explicitly`);
+   const full=safeTarget(process.cwd(),target);
+   if(!fs.existsSync(full)||!fs.statSync(full).isFile())throw Error(`conflict: missing/non-file initialized common source ${target}; restore/review explicitly`);
+   const local=fs.readFileSync(full);
+   // A planned noop still checks safe paths and rechecks current bytes in applyPlan.
+   return {path:target,bytes:local,hash:hash(local),preserve:true};
+  }
+  return {path:target,bytes,hash:digest};
+ }),runtime,items:[...visited]};
 }
 function discover(root){
  for(const name of ['package-lock.json','node_modules','gyeol.json'])safeTarget(root,name);
@@ -98,13 +113,14 @@ try{
  const result=command==='init'?buildInit(root,config):sourceFiles(config,requested);
  // All source+metadata+host integration paths/collisions/hashes are planned before ANY write or npm action.
  const sourcePlan=planFiles(root,result.files.map(f=>{if(f.integrate){const full=safeTarget(root,f.path);return {...f,previous:fs.existsSync(full)?hash(fs.readFileSync(full)):undefined};}return f;}),{overwrite});
+ for(const file of sourcePlan)if(file.preserve&&file.action!=='noop')throw Error(`conflict: common source changed while planning ${file.path}; retry after reviewing local edits`);
  // Integration is additive and deliberately shown by --dry-run; ordinary arbitrary files remain conflicts.
  const deps=command==='init'?{runtime:result.runtime,build:manifest.build,types:manifest.types}:{runtime:result.runtime};
  const all={...pkg.dependencies,...pkg.devDependencies},needed={};
  for(const [kind,values] of Object.entries(deps)){needed[kind]=[];for(const [name,version]of Object.entries(values)){if(all[name]&&all[name]!==version)throw Error(`Dependency conflict: ${name} host=${all[name]} requested=${version}; resolve explicitly`);if(!all[name])needed[kind].push(`${name}@${version}`);}}
  const next=structuredClone(config);next.version=manifest.version;if(manifest.package)next.tool={package:manifest.package,version:manifest.version};next.installed??={};
  if(command==='init'&&manifest.package)next.integration=result.integration;
- for(const file of sourcePlan)next.installed[file.path]={version:manifest.version,hash:file.hash};
+ for(const file of sourcePlan)if(!file.preserve)next.installed[file.path]={version:manifest.version,hash:file.hash};
  next.components=[...new Set([...(config.components||[]),...result.items])];
  if(sourcePlan.some(file=>file.path==='gyeol.json'||file.path==='package.json'||file.path==='package-lock.json'))throw Error('unsafe source/metadata/dependency target overlap');
  const configBytes=Buffer.from(JSON.stringify(next,null,2)+'\n');
