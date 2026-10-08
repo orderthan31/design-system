@@ -26,7 +26,7 @@ if (!fs.readFileSync(path.join(target, 'payload/assets/LICENSE'), 'utf8').includ
 
 const copies = [
   ['packages/core/src/router.mjs', 'dist/router.mjs'],
-  ...['common', 'lint', 'lint-policy', 'tokens'].map(name => [`packages/core/src/tools/${name}.mjs`, `dist/tools/${name}.mjs`]),
+  ...['common', 'lint', 'lint-policy', 'tokens', 'token-policy'].map(name => [`packages/core/src/tools/${name}.mjs`, `dist/tools/${name}.mjs`]),
   ['scripts/slice-eslint-policy.mjs', 'dist/policy/slice-eslint-policy.mjs'],
   ['scripts/design-jsx-policy.mjs', 'dist/policy/design-jsx-policy.mjs'],
   ['packages/cli/src/installer.mjs', 'dist/tools/installer.mjs'],

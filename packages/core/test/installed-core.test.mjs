@@ -98,7 +98,12 @@ test('external host retains core as a pinned devDependency and runs only its ins
   assert.equal(consumerLint.compiler.mode,'actual');
   assert.deepEqual(consumerLint.diagnostics,[]);
   assert.equal(consumerLint.readOnly,true);
-  run('tokens-deferred', bin, ['tokens'], host, 2);
+  const consumerTokens=JSON.parse(run('tokens-consumer', bin, ['tokens'], host));
+  assert.equal(consumerTokens.operation,'validate');
+  assert.equal(consumerTokens.readOnly,true);
+  assert.equal(consumerTokens.sourceRoot,'src/gyeol');
+  assert.ok(consumerTokens.schemes.light.roles['--g-surface']);
+  assert.ok(consumerTokens.schemes.dark.roles['--g-surface']);
   const theme = path.join(installed, 'payload/source/foundation/theme.css');
   const original = fs.readFileSync(theme);
   fs.appendFileSync(theme, '\n/* tamper */\n');

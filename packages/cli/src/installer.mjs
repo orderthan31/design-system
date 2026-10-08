@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+import {isDeepStrictEqual} from 'node:util';
 import path from 'node:path';
 import {spawnSync} from 'node:child_process';
 import {planFiles,createTransaction,safeTarget,hash} from './safety.mjs';
@@ -86,7 +87,8 @@ try{
  if(!['init','add'].includes(command))throw Error('Usage: gyeol init [--source-root src/gyeol --style-path src/gyeol.css --public-root public --font-path fonts/gyeol --base-path / --alias @gyeol] | gyeol add button ... [--overwrite] [--dry-run]');
  parseArgs();
  const root=process.cwd(),pkg=discover(root),configFile=safeTarget(root,'gyeol.json');
- const previous=fs.existsSync(configFile)?JSON.parse(fs.readFileSync(configFile)):null;
+ const previousBytes=fs.existsSync(configFile)?fs.readFileSync(configFile):null;
+ const previous=previousBytes?JSON.parse(previousBytes):null;
  if(command==='add'&&!previous)throw Error('Run gyeol init first');
  const defaults={schemaVersion:1,sourceRoot:'src/gyeol',stylePath:'src/gyeol.css',publicRoot:'public',fontPath:'fonts/gyeol',basePath:'/',alias:null,installed:{}};
  const config={...defaults,...previous,...(!previous?options:{})};
@@ -123,7 +125,10 @@ try{
  for(const file of sourcePlan)if(!file.preserve)next.installed[file.path]={version:manifest.version,hash:file.hash};
  next.components=[...new Set([...(config.components||[]),...result.items])];
  if(sourcePlan.some(file=>file.path==='gyeol.json'||file.path==='package.json'||file.path==='package-lock.json'))throw Error('unsafe source/metadata/dependency target overlap');
- const configBytes=Buffer.from(JSON.stringify(next,null,2)+'\n');
+ // Preserve consumer serialization when the resulting metadata is identical.
+ // Required source/dependency operations still run independently of this noop.
+ if(previousBytes&&hash(fs.readFileSync(configFile))!==hash(previousBytes))throw Error('conflict: gyeol.json changed while planning');
+ const configBytes=previous&&isDeepStrictEqual(next,previous)?previousBytes:Buffer.from(JSON.stringify(next,null,2)+'\n');
  // Config is owned metadata: preserve user settings, update only successful records.
  const metadataPlan=planFiles(root,[{path:'gyeol.json',bytes:configBytes}],{overwrite:true});
  const summary=sourcePlan.map(({path,action,backup,hash})=>({path,action,backup,hash}));

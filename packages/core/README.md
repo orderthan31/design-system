@@ -43,7 +43,7 @@ Every command first verifies package/payload/tool versions, ownership and hashes
 `inspect` checks the actual packed files. `lint inspect` retains its installed
 tool inspection API and reports policy hashes, exact versions/licenses and the
 grammar classifier. It does **not** run consumer lint. `tokens inspect` parses
-the packed semantic CSS without writes; plain `tokens` remains deferred.
+the packed semantic CSS without writes. Plain `tokens` validates actual consumer CSS, independently of that inspection.
 
 From the disposable host, use the physically installed bin:
 
@@ -76,7 +76,7 @@ fallback, host `@plugin`/`@config` execution or palette override is performed.
 Runtime class strings, indirect wrappers, arbitrary host CSS restyling and
 browser/computed/AT behavior are outside the static check. See
 `docs/core-lint-contract.md` in the authoring repository for the precise scope.
-Token generation/synchronization and all-96 execution remain deferred.
+Token validation/export is described below; automatic synchronization/update and all-96 execution remain deferred.
 
 Prepack collects canonical sources and fonts at build time and snapshots the
 single shared installer; it does not maintain a second hand-authored UI copy.
@@ -91,3 +91,76 @@ The installed test reads the packed artifact prerequisite from its explicit
 not empty-cache, VPS, live registry or Release-download proof. CORE-06's bounded
 file recovery does not roll back node_modules or guarantee crash/hostile-race
 atomicity; lint does not change those limitations.
+
+
+CORE-08 uses actual consumer `gyeol.json` sourceRoot/stylePath and optional
+`tokens.source`/`tokens.palette` data. It checks typed semantic role/alias graphs
+against real local CSS, preserving owner values. Use the installed local bin:
+
+```sh
+./node_modules/.bin/hangyeol tokens validate
+./node_modules/.bin/hangyeol tokens presets
+./node_modules/.bin/hangyeol tokens export --format json
+./node_modules/.bin/hangyeol tokens export --preset Indigo --format css --output exports/indigo.css
+```
+
+Only explicit safe `--output` requests create a file; edited outputs/inputs are
+never overwritten. Stdout exports are read-only and report content hashes.
+Indigo/Silver/Forest/Amber/Rose are offered token designs with light/dark schemes;
+New init defaults to Indigo; existing consumer values are not refreshed/reset by
+the token tool. Runtime Theme accepts arbitrary palette names and explicit semantic
+values, inheriting nested values and transporting scope variables to portals. Nonpreset/partial/replacement/added consumer palettes and explicit
+semantic/status overrides are supported via typed data with actual CSS parity.
+See `docs/core-tokens-contract.md` in the authoring repository for schema,
+diagnostics, static grammar limits, P1 config no-op correction and the precise
+historical failures, task-scoped generated limits, deferred update and browser Docs Reset acceptance. These are not browser/contrast/AT claims.
+CORE-08 tests use `CORE08_EVIDENCE_DIR`, with a fresh packed-artifact prerequisite
+in its `boundary` subdirectory; fixtures are outside the authoring repository.
+
+CORE-08 correction: preset exports apply canonical palette-authored deltas to the
+validated consumer schemes, first retaining linked authored semantic aliases/types/units
+even where CSS has an equal-value literal, preserving neutral/status/custom roles and re-resolving
+aliases. The preset catalog remains full standalone defaults. Nested semantic CSS
+is explicitly refused with file/line diagnostics. Portal refs apply current scope
+and native custom variables on actual first mount/reopen, as well as later updates;
+JSDOM regression is not real browser computed-style acceptance. See the consumer
+token contract for the deferred browser acceptance, bounded generated scope and ownership limits.
+
+Portal ownership is tracked per actual DOM node across callback changes and
+reattachment. Forwarded callback detach/attach or returned cleanup follows the
+caller ref lifecycle; native style custom variables retain priority. The pinned
+Radix regression observed missing ref notifications, while the static reviewed
+stale-variable symptom did not reproduce. Browser acceptance remains pending.
+
+Preset selection requires registered own catalog/delta entries. Unknown names
+(including constructor and __proto__) fail without export writes; arbitrary
+consumer-authored palettes remain editable through consumer data.
+
+Current continuation preserves distinct authored scheme aliases in exported CSS:
+shared inline expressions stay direct; differing expressions use typed scoped
+export variables and dark-only selects dark. Actual compiler tests verify inline
+utility references; browser acceptance is deferred, not implied. Semantic scope
+selectors retain descendant/combinator structure and refuse unsupported contexts
+with file/line diagnostics while allowing attribute-internal formatting.
+
+DEC-01 defers update plan/diff/apply; unsupported preservation is not success.
+DEC-02 defers browser/Playwright/computed-focus/host-isolation and six-control
+Docs Reset to later design/demo, outside current implementation gates. Historical
+EPERM/build failures remain evidence. Exact generated refresh is separately
+content-guarded; no dependency/config/backup or generic generated-write authority.
+
+Consumer token parsing collects typed utility namespaces in supported adjacent
+semantic scopes as well as `@theme`; dark/palette overrides retain alias meaning.
+Repeated theme/palette attributes fail with file/line diagnostics, including
+empty palette registrations. Relative CSS imports are processed in source order
+with each occurrence reported (`a,b,a` is preserved); active-stack cycles fail.
+These are bounded static checks, not browser cascade validation. See
+[the token contract](../../docs/core-tokens-contract.md).
+
+Token grammar preflight checks every import ancestor before reading its target:
+root and exclusively `@layer` ancestry remain supported; conditional, rule and
+`@theme` imports fail with the importing file/line. `@theme` permits only empty
+or literal `inline` parameters. Direct semantic declarations outside supported
+scope rules/known typed `@theme` tokens fail with declaration locations; custom
+`--g-*` roles stay editable in scoped rules. Host-only ordinary conditional,
+nested and font CSS is preserved. No browser cascade interpretation is implied.

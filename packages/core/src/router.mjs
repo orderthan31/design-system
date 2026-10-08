@@ -12,7 +12,7 @@ export async function main(args) {
       return 0;
     }
     if (command === '--help' && !rest.length) {
-      console.log('hangyeol-core: installed local tools\nUsage: hangyeol --version | inspect | init [--dry-run] | add <component> [--dry-run] | lint [inspect] | tokens inspect\nLint checks gyeol.json sourceRoot read-only. Token workflows beyond inspection are deferred. Use the installed node_modules/.bin/hangyeol; no registry execution fallback.');
+      console.log('hangyeol-core: installed local tools\nUsage: hangyeol --version | inspect | init [--dry-run] | add <component> [--dry-run] | lint [inspect] | tokens [inspect|presets|validate|export]\nLint checks gyeol.json sourceRoot read-only. Tokens validate configured consumer CSS/semantic data; export writes only with --output. Use the installed node_modules/.bin/hangyeol; no registry execution fallback or update engine.');
       return 0;
     }
     if (command === 'inspect' && !rest.length) {
