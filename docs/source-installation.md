@@ -162,3 +162,36 @@ Button·Input의 className과 ref는 실제 입력 요소에 연결됩니다. Pa
 ## 문서 실행
 
 저장소 루트에서 `npm ci` 후 `npm run dev`를 실행합니다. Variant에서 설정과 상태를 비교하고 Code에서 해당 설정의 예제를 확인할 수 있습니다.
+
+
+## S2 installed core: bounded local consumer checkpoint
+
+위의 legacy source/registry 안내와 이 항목은 서로 다른 설치 경로입니다.
+S2의 private UNLICENSED `hangyeol-core`는 실제 로컬 pack 파일을 consumer의
+exact devDependency로 설치하며, npm install 자체는 UI를 생성하지 않습니다.
+React/React DOM 19.2.0, Vite 7.3.6, TypeScript 5.9.3 및 packed manifest의
+정확한 Tailwind4/common/type dependency가 준비된 supported host를 사용합니다.
+Offline 검증은 준비된 cache에 한정하며 registry/Release/VPS 배포 증명이 아닙니다.
+
+```sh
+npm install --save-dev --save-exact ../artifacts/hangyeol-core-0.1.0-s2.1.tgz --offline --ignore-scripts --no-audit --no-fund
+./node_modules/.bin/hangyeol init --dry-run
+./node_modules/.bin/hangyeol init
+./node_modules/.bin/hangyeol add text-field
+./node_modules/.bin/hangyeol lint
+./node_modules/.bin/hangyeol tokens
+./node_modules/.bin/hangyeol doctor
+```
+
+위 tarball 경로는 실제 pack 결과로 바꿉니다. UI는 consumer의 editable local
+source와 cn/theme를 사용하고 core를 runtime import하지 않습니다. Read-only
+도구는 config/token/palette/helper/source를 재설치하거나 초기화하지 않습니다.
+수정된 요청 component의 기본 add는 conflict로 거절하며, 정당한 no-op과
+명시적 변경의 backup을 구분합니다. update/apply/source Reset은 미구현입니다.
+Core가 없으면 local bin 실행이 실패하며 npx/npm registry fallback을 하지 않습니다.
+
+외부 physical consumer, local tsc/Vite build, 전체 snapshot 및 absent-core 회귀의
+준비 조건·explicit evidence 변수·실행 명령은
+[consumer fixture 안내](../apps/consumer-fixture/README.md)를 참고하세요.
+브라우저/HTTP/FontFace/AT/Docs Reset과 authoring generated docs/default build는
+이 bounded checkpoint의 성공 주장에 포함되지 않습니다.
