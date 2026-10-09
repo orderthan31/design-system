@@ -303,7 +303,7 @@ import하는 모델이 아닙니다. 설치 명령 이후 `gyeol.json`/생성 UI
 
 `hangyeol`이 실제 bin이고 현재 후보 version은 `0.1.0-s2.1`입니다. 기본 sourceRoot는
 `src/gyeol`, entry CSS는 `src/gyeol.css`, font binary/라이선스/provenance는
-`public/source/fonts`입니다. `text-field`는 선택 closure인 Button/Input도 설치합니다.
+`public/fonts/gyeol`입니다. `text-field`는 선택 closure인 Button/Input도 설치합니다.
 별도 컴포넌트를 추가할 때는 지원 registry graph를 확인하며 과거 75개를 현재 core 지원
 목록으로 간주하지 않습니다. 필요 runtime/build/type dependency를 미리 exact 설치한
 위 host에서는 init/add가 npm을 추가 호출하지 않습니다. 기존 host에서 의존성이 없으면
