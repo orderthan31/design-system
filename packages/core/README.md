@@ -9,6 +9,22 @@ found or invented. The font assets retain the copied SIL OFL 1.1 license and
 original upstream provenance. See LICENSE and THIRD_PARTY_NOTICES.md. Publication
 is blocked. This is not a Release download or registry quickstart.
 
+## Current installed-core quickstart (CORE-11)
+
+Follow [the supported host and executable steps](../../docs/source-installation.md#core11-quickstart):
+real locally packed core → exact file devDependency/physical lock/bin → local-only init/add
+text-field → editable local TextField/cn/theme import and overrides → strict host tsc/Vite build.
+The guide includes exact pinned dependencies and config/entry/owner-edit examples. No Release URL,
+registry fallback, Packages PAT, or ephemeral CLI is an active prerequisite. Node22.22.2/npm10.9.7
+and prepared offline cache/scripts-off are the bounded verification environment, not registry or
+empty-cache portability proof. Installing core alone does not generate UI; UI must not import core
+at runtime. Consumers own partial/replacement/added palettes and editable source; update plan/diff/
+apply and source Reset remain unsupported/nonzero. Existing owner settings and input values are
+not reset by read-only tools. Canonical default build and browser acceptance remain deferred.
+
+<details>
+<summary>Historical packaging/command notes — not the current quickstart</summary>
+
 Build/pack in the authoring repository:
 
 ```sh
@@ -39,6 +55,9 @@ complete pre-write collision/hash/path/symlink plans, no-op/conflict/explicit
 backup behavior, and success records only after dependency installation. Core
 installed records include the core package and payload version. The legacy CLI
 remains separately packaged and uses its own payload/version.
+
+
+</details>
 
 Every command first verifies package/payload/tool versions, ownership and hashes.
 `inspect` checks the actual packed files. `lint inspect` retains its installed

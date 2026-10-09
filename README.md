@@ -1,5 +1,60 @@
 # 한결디자인
 
+React UI를 소비 프로젝트에 editable source로 설치하는 디자인 시스템입니다.
+**현재 S2 진입점은 private `hangyeol-core`를 실제 tgz devDependency로 먼저 설치한 뒤
+`./node_modules/.bin/hangyeol`을 실행하는 흐름입니다.** core는 개발 도구이며 UI runtime
+import 대상이 아닙니다. 공개 Release/registry 설치/PAT/standalone npx는 현재 경로가 아닙니다.
+
+## 현재 소비 quickstart
+
+[실제 재현 순서와 전체 코드](docs/source-installation.md#core11-quickstart)를 따라
+repository 밖 disposable React19/Vite/Tailwind4 host에서 진행하세요.
+
+1. 실제 packed tgz/SHA/SRI와 sourceRevision을 받고 supported exact dependency를 준비합니다.
+2. tgz를 `npm install --save-dev --save-exact`로 물리 설치하고 package/lock/local bin을 확인합니다.
+3. installed bin으로 init/add text-field를 실행합니다. 아래 명령은 dependency/host 준비 뒤의 요약입니다.
+4. 생성된 로컬 TextField/cn/theme를 import·편집하고 strict local tsc/Vite build로 확인합니다.
+
+```sh
+./node_modules/.bin/hangyeol init --dry-run
+./node_modules/.bin/hangyeol init
+./node_modules/.bin/hangyeol add text-field
+./node_modules/.bin/hangyeol lint
+./node_modules/.bin/hangyeol tokens
+./node_modules/.bin/hangyeol doctor
+```
+
+소비자가 색상 전체/부분 override/교체/추가 palette와 editable source를 소유합니다.
+기존 설정·theme·helper·입력값을 설치 도구가 무단 reset하지 않습니다. 편집 source 재설치는
+conflict/nonzero이며 update plan/diff/apply/source Reset은 미구현입니다.
+
+재현 환경 Node22.22.2/npm10.9.7, React19.2.0/Vite7.3.6/Tailwind4.3.3/TypeScript5.9.3.
+Prepared offline cache/scripts-off 결과는 빈cache/registry/Release/VPS portability나
+canonical docs/default build·browser/AT/Docs Reset·S2 전체 수락을 보증하지 않습니다.
+발행되지 않은 후보는 private/UNLICENSED이며 별도 라이선스/배포 판단이 필요합니다.
+
+## 구조와 지원 문서
+
+- `packages/core`: installed development CLI/tool/payload; [core 계약](packages/core/README.md).
+- `packages/ui/src`: canonical editable UI/foundation/helper.
+- `registry/items`, `registry/assets`: source graph와 원 font/라이선스.
+- `apps/docs`: 문서 앱; 현재 generated/default build의 실패·유예는 별도 이력에 남아 있습니다.
+- [소비 회귀 준비 조건](apps/consumer-fixture/README.md), [설치/사용](docs/source-installation.md#core11-quickstart).
+
+기존 UI·AGENTS·WIP·history는 보존합니다. 표시 브랜드는 한결/한결디자인이며 기존 repository,
+config/import 식별자를 임의 rename하지 않습니다. 최종 배포 채널/브랜드 자산 판단은 후속입니다.
+
+## Historical first-slice README — 현재 실행 경로 아님
+
+아래는 원문 보존용 snapshot입니다. legacy `gyeol` ephemeral CLI/Packages 우선/75 registry
+설치/로컬 dev 및 generated build 안내는 현행 quickstart의 활성 지침이 아닙니다.
+원 실패·미검증을 삭제하지 않으며 현재 소비는 반드시 위 installed-core 안내로 시작하세요.
+
+<details>
+<summary>기존 README 원문 (historical, 실행하지 않음)</summary>
+
+# 한결디자인
+
 제품에 종속되지 않는 React 디자인 시스템입니다. PC와 모바일에서 Pretendard를 사용하며, Tailwind utility로 외관을 구성하고 Select·Tabs·Dialog의 동작은 Radix primitives에 맡깁니다.
 
 컴포넌트는 소비 프로젝트에 **소스로 설치**합니다. 설치 후에는 로컬 경로로 import하고 직접 수정합니다. 설치 CLI와 UI 소스, React/Radix 등의 외부 의존성은 서로 다른 역할입니다.
@@ -69,3 +124,5 @@ UI 수정은 canonical `packages/ui/src`에서 하고 `npm run build:slice`로 p
 표시 브랜드는 **한결**, 디자인 시스템 표기는 **한결디자인**입니다. 영문 표기와 최종 로고는 미확정입니다. `orderthan31/design-system`, `@orderthan31/gyeol-cli`, `gyeol` bin/import/config 식별자는 표시 브랜드 변경과 별개로 유지합니다.
 
 개발 checkpoint와 검증 한계는 [첫 슬라이스 handoff](docs/rebuild-first-slice-handoff-v1.md), [owner 검증](docs/rebuild-first-slice-owner-v2.md)에 기록합니다.
+
+</details>
