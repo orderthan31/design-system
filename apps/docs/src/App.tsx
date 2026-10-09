@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useId, useRef, useState, type MouseEvent } from 'react';
 import { docsPages, parsePageHash, pageHref, type DocsPage } from './navigation';
 import { Theme } from './gyeol/foundation/theme';
 import { Button, type ButtonProps } from './gyeol/primitives/button';
@@ -58,9 +58,31 @@ function Overview(){
   <p className="text-g-small leading-6 text-g-soft">현재 설치 안내는 준비된 캐시(prepared-cache)와 설치 스크립트 비활성화(scripts-off)를 사용한 검증 범위를 설명합니다. 안내를 읽으려면 저장소 접근 권한이 필요합니다.</p>
  </div>;
 }
+const menuGroups=['Introduction / foundations','Components','Examples / verification'] as const;
+function menuGroup(page:DocsPage):typeof menuGroups[number]{
+ if(page==='Overview'||page==='Foundations')return 'Introduction / foundations';
+ if(page==='TaskExample'||page==='Customization'||page==='Behavior')return 'Examples / verification';
+ return 'Components';
+}
 export default function App(){
- const [page,setPage]=useState<DocsPage>(()=>parsePageHash(window.location.hash));
+ const [page,setPage]=useState<DocsPage>(()=>parsePageHash(typeof window==='undefined'?'':window.location.hash));
  const [search,setSearch]=useState(''),[mode,setMode]=useState<'light'|'dark'>('light');
+ // This is a client-rendered app. Without matchMedia, keep the full desktop menu readable.
+ // 64rem is the existing Tailwind lg layout boundary, also used by the CSS grid below.
+ const [desktop,setDesktop]=useState(()=>typeof window==='undefined'||typeof window.matchMedia!=='function'||window.matchMedia('(min-width: 64rem)').matches);
+ const [menuOpen,setMenuOpen]=useState(false),menuId=useId();
+ const triggerRef=useRef<HTMLButtonElement>(null),closeRef=useRef<HTMLButtonElement>(null),searchRef=useRef<HTMLInputElement>(null),menuRef=useRef<HTMLDivElement>(null),headingRef=useRef<HTMLHeadingElement>(null);
+ const pendingFocus=useRef<'search'|'trigger'|{page:DocsPage}|null>(null);
+ const visiblePages=docsPages.filter(p=>p.toLowerCase().includes(search.toLowerCase()));
+ const closeMenu=(target:'trigger'|{page:DocsPage})=>{pendingFocus.current=target;setMenuOpen(false);};
+ const onRouteClick=(event:MouseEvent<HTMLDivElement>)=>{
+  if(desktop||!menuOpen||event.defaultPrevented||event.button!==0||event.metaKey||event.ctrlKey||event.shiftKey||event.altKey)return;
+  const anchor=event.target instanceof Element?event.target.closest('a'):null;
+  if(!anchor||!event.currentTarget.contains(anchor)||anchor.hasAttribute('download')||(anchor.target&&anchor.target!=='_self'))return;
+  const destination=docsPages.find(name=>pageHref(name)===anchor.getAttribute('href'));
+  if(destination)closeMenu({page:destination});
+  // Native anchors own navigation. Never prevent the link's default action or setPage here.
+ };
  useEffect(()=>{
   const syncPage=()=>{
    const next=parsePageHash(window.location.hash);
@@ -77,20 +99,61 @@ export default function App(){
    window.removeEventListener('popstate',syncPage);
   };
  },[]);
- return <Theme mode={mode} className="min-h-screen"><div className="mx-auto grid max-w-7xl lg:grid-cols-5">
+ useEffect(()=>{
+  if(typeof window.matchMedia!=='function')return;
+  const media=window.matchMedia('(min-width: 64rem)');
+  let previous=desktop;
+  const syncViewport=()=>{
+   const next=media.matches;
+   if(next===previous)return;
+   previous=next;
+   const active=document.activeElement;
+   if(!next&&menuRef.current?.contains(active))pendingFocus.current='trigger';
+   else if(next&&(active===triggerRef.current||active===closeRef.current))pendingFocus.current='search';
+   setDesktop(next);setMenuOpen(false);
+  };
+  media.addEventListener('change',syncViewport);
+  syncViewport(); // Reconcile a breakpoint change between the initial read and subscription.
+  return()=>media.removeEventListener('change',syncViewport);
+ },[]);
+ useEffect(()=>{
+  const target=pendingFocus.current;
+  // Wait for native URL navigation and the destination render before consuming focus.
+  if(target&&typeof target==='object'&&(page!==target.page||window.location.hash!==pageHref(target.page)))return;
+  pendingFocus.current=null;
+  if(target&&typeof target==='object')headingRef.current?.focus();
+  else if(target==='trigger')(desktop?searchRef.current:triggerRef.current)?.focus();
+  else if(target==='search')(desktop||menuOpen?searchRef.current:triggerRef.current)?.focus();
+ },[desktop,menuOpen,page]);
+ return <Theme mode={mode} className="min-h-screen"><div className="mx-auto grid max-w-7xl lg:grid-cols-5" onClick={onRouteClick}>
   <aside className="border-0 border-b border-solid border-g-line min-w-0 p-5 lg:col-span-1 lg:min-h-screen lg:border-b-0 lg:border-r lg:p-7">
    <div className="flex items-center justify-between gap-2">
     <a href={pageHref('Overview')} className="no-underline text-xl font-semibold tracking-tight">한결디자인</a>
     <Button variant="quiet" size="small" aria-label="테마 변경" onClick={()=>setMode(m=>m==='light'?'dark':'light')}>{mode==='light'?'◐':'◑'}</Button>
    </div>
-   <div className="mt-6"><Input aria-label="문서 검색" placeholder="Search docs" value={search} onChange={event=>setSearch(event.target.value)}/></div>
-   <nav aria-label="API menu" className="mt-5 flex gap-1 overflow-x-auto lg:flex-col lg:overflow-visible">
-    {docsPages.filter(p=>p.toLowerCase().includes(search.toLowerCase())).map(name=><a key={name} href={pageHref(name)} aria-current={page===name?'page':undefined} className={page===name?'inline-flex min-h-11 shrink-0 items-center justify-start gap-2 rounded-g-control border border-solid border-g-line bg-g-surface px-3 py-2 text-g-small font-medium text-g-ink leading-6 no-underline transition-colors hover:bg-g-muted focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-g-focus':'inline-flex min-h-11 shrink-0 items-center justify-start gap-2 rounded-g-control border border-solid border-transparent bg-transparent px-3 py-2 text-g-small font-medium text-g-soft leading-6 no-underline transition-colors hover:bg-g-muted hover:text-g-ink focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-g-focus'}>{name}</a>)}
-   </nav>
+   <div className="mt-5 grid gap-3">
+    <p className="text-g-small text-g-soft">현재 위치: {page}</p>
+    {!desktop&&<button ref={triggerRef} type="button" aria-label="문서 메뉴" aria-controls={menuId} aria-expanded={menuOpen} onClick={()=>{if(menuOpen)closeMenu('trigger');else{pendingFocus.current='search';setMenuOpen(true);}}} className="inline-flex min-h-11 items-center justify-between gap-3 rounded-g-control border border-solid border-g-line bg-g-surface px-3 py-2 text-g-small font-medium text-g-ink focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-g-focus">문서 메뉴 <span>{menuOpen?'닫기':'열기'}</span></button>}
+   </div>
+   <div ref={menuRef} id={menuId} hidden={!desktop&&!menuOpen} className="mt-6" onKeyDown={event=>{if(event.key==='Escape'&&!desktop&&menuOpen){event.preventDefault();closeMenu('trigger');}}}>
+    {!desktop&&<div className="mb-3 flex justify-end"><button ref={closeRef} type="button" aria-label="문서 메뉴 닫기" onClick={()=>closeMenu('trigger')} className="inline-flex min-h-11 items-center justify-center rounded-g-control border border-solid border-transparent bg-transparent px-3 py-2 text-g-small font-medium text-g-soft hover:bg-g-muted hover:text-g-ink focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-g-focus">닫기</button></div>}
+    <Input ref={searchRef} aria-label="문서 검색" placeholder="Search docs" value={search} onChange={event=>setSearch(event.target.value)}/>
+    <nav aria-label="API menu" className="mt-5 grid gap-6">
+     {menuGroups.map((group,index)=>{
+      const entries=visiblePages.filter(name=>menuGroup(name)===group);
+      if(!entries.length)return null;
+      return <section key={group} aria-labelledby={`${menuId}-group-${index}`} className="grid gap-2">
+       <h2 id={`${menuId}-group-${index}`} className="text-g-small font-medium text-g-soft">{group}</h2>
+       <ul className="m-0 grid list-none gap-1 p-0">{entries.map(name=><li key={name} className="grid"><a href={pageHref(name)} aria-current={page===name?'page':undefined} className={page===name?'inline-flex min-h-11 items-center justify-start gap-2 rounded-g-control border border-solid border-g-line bg-g-surface px-3 py-2 text-g-small font-medium text-g-ink leading-6 no-underline transition-colors hover:bg-g-muted focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-g-focus':'inline-flex min-h-11 items-center justify-start gap-2 rounded-g-control border border-solid border-transparent bg-transparent px-3 py-2 text-g-small font-medium text-g-soft leading-6 no-underline transition-colors hover:bg-g-muted hover:text-g-ink focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-g-focus'}>{name}</a></li>)}</ul>
+      </section>;
+     })}
+     {!visiblePages.length&&<p role="status" className="text-g-small text-g-soft">일치하는 문서가 없습니다.</p>}
+    </nav>
+   </div>
    <p className="mt-8 text-g-small text-g-soft hidden lg:block">작업에 필요한 만큼.<br/>소스는 당신의 프로젝트에.</p>
   </aside>
   <main className="min-w-0 px-5 py-8 sm:px-10 lg:col-span-4 lg:px-14 lg:py-12">
-   <div className="mb-8 flex items-baseline justify-between gap-3"><h1 className="text-g-title font-semibold tracking-tight">{page==='Overview'?'한결디자인':page}</h1><span className="text-g-small text-g-soft">한결디자인 · 01</span></div>
+   <div className="mb-8 flex items-baseline justify-between gap-3"><h1 ref={headingRef} tabIndex={-1} className="text-g-title font-semibold tracking-tight focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-g-focus">{page==='Overview'?'한결디자인':page}</h1><span className="text-g-small text-g-soft">한결디자인 · 01</span></div>
    {page==='Overview'?<Overview/>:page==='TaskExample'?<TaskExample/>:page==='Foundations'?<Foundations/>:page==='Customization'?<div className="grid gap-6"><p className="text-g-soft">이 페이지는 설치된 소스의 className 병합 계약을 검증하는 명시적인 예외입니다. 일반 문서는 공개 variant/size를 사용합니다.</p><Customization/></div>:page==='Behavior'?<BehaviorProofs/>:<ExampleWorkbench key={page} page={page}/>}
   </main>
  </div></Theme>;
