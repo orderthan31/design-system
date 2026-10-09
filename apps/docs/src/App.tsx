@@ -1,4 +1,4 @@
-import { useEffect, useId, useRef, useState, type MouseEvent, type FormEvent } from 'react';
+import { useEffect, useId, useRef, useState, type MouseEvent, type FormEvent, type FocusEvent } from 'react';
 import { docsPages as existingDocsPages, parsePageHash as parseExistingPageHash, pageHref as existingPageHref, type DocsPage as ExistingDocsPage } from './navigation';
 import { Theme } from './gyeol/foundation/theme';
 import { Button, type ButtonProps } from './gyeol/primitives/button';
@@ -11,17 +11,20 @@ import { Dialog,DialogTrigger,DialogContent,DialogTitle,DialogDescription,Dialog
 import { FormSection,ListPanel } from './gyeol/components/composition';
 import { List,ListItem,Row,Stack } from './gyeol/primitives/layout';
 import { List as CanonicalList, ListItem as CanonicalListItem, Row as CanonicalRow } from '../../../packages/ui/src/primitives/layout';
+import { Stack as CanonicalStack } from '../../../packages/ui/src/primitives/layout';
+import { cn } from './gyeol/lib/cn';
 import { TaskExample } from './task-example';
 import { Customization } from './customization';
 import { BehaviorProofs } from './proofs';
 // Row is added locally so the shared navigation source stays unchanged.
-const docsPages=[...existingDocsPages,'Row'] as const;
-type DocsPage=ExistingDocsPage|'Row';
+const docsPages=[...existingDocsPages,'Row','Stack'] as const;
+type DocsPage=ExistingDocsPage|'Row'|'Stack';
 function parsePageHash(hash:string):DocsPage {
+ try { if(hash.startsWith('#')&&decodeURIComponent(hash.slice(1))==='Stack')return 'Stack'; } catch { /* Shared parser handles malformed hashes. */ }
  try { if(hash.startsWith('#')&&decodeURIComponent(hash.slice(1))==='Row')return 'Row'; } catch { /* Shared parser handles malformed hashes. */ }
  return parseExistingPageHash(hash);
 }
-const pageHref=(page:DocsPage)=>page==='Row'?'#Row':existingPageHref(page);
+const pageHref=(page:DocsPage)=>page==='Stack'?'#Stack':page==='Row'?'#Row':existingPageHref(page);
 const rowDefaults={title:'오늘의 작업을 이어 가세요',label:'확인한 내용과 다음 질문을 정리합니다.',firstAction:'메모 남기기',secondAction:'다음 작업 보기'};
 const longRowCopy={title:'함께 일하는 사람이 다음 작업을 자연스럽게 이어 갈 수 있도록 오늘 확인한 내용과 남은 질문을 차분하게 정리해 주세요',label:'긴 한국어 문장은 어절을 유지하며 읽습니다. 공백 없는 참고 식별자도 생략하지 않습니다: HangyeolRowReference0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'};
 const inputDefaults={controlled:'읽고, 정리하고, 이어 가기',uncontrolled:'처음 적은 메모'};
@@ -185,8 +188,79 @@ export function CurrentExample() {
  </div>;
 }
 
+const stackGapClasses={compact:'gap-2',normal:'gap-4',roomy:'gap-8'} as const;
+const stackAlignClasses={stretch:'items-stretch',start:'items-start',center:'items-center',end:'items-end'} as const;
+const stackOverrideClasses={none:'',compactCentered:'gap-2 items-center max-w-sm',roomyEnd:'gap-8 items-end w-full'} as const;
+const stackCopyDefaults={short:'오늘의 작업을 이어 가세요',long:'확인한 내용과 다음 질문을 차분하게 정리합니다.',unbroken:'HangyeolStackReference0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'};
+const stackLongCopy={...stackCopyDefaults,short:'함께 일하는 사람이 다음 작업을 자연스럽게 이어 갈 수 있도록 오늘 확인한 내용과 남은 질문을 정리해 주세요',long:'긴 한국어 문장은 어절을 유지하며 여러 줄로 읽습니다. 결정한 이유와 아직 확인하지 못한 내용을 구분하여 기록하고, 다음 사람이 필요한 맥락을 이해할 수 있도록 자세한 설명을 남겨 주세요.',unbroken:stackCopyDefaults.unbroken.repeat(3)};
+type StackSnapshot={copy:typeof stackCopyDefaults;gap:keyof typeof stackGapClasses;align:keyof typeof stackAlignClasses;override:keyof typeof stackOverrideClasses;actionCount:number;focusCount:number;refEvidence:string};
+const stackInitial:StackSnapshot={copy:stackCopyDefaults,gap:'normal',align:'stretch',override:'none',actionCount:0,focusCount:0,refEvidence:'아직 ref를 사용하지 않았습니다.'};
+function useStackExample(initial:StackSnapshot=stackInitial){
+ const id=useId(),stackRef=useRef<HTMLDivElement>(null);
+ const [copy,setCopy]=useState(initial.copy),[gap,setGap]=useState(initial.gap),[align,setAlign]=useState(initial.align),[override,setOverride]=useState(initial.override);
+ const [actionCount,setActionCount]=useState(initial.actionCount),[focusCount,setFocusCount]=useState(initial.focusCount),[refEvidence,setRefEvidence]=useState(initial.refEvidence);
+ const className=cn('w-full',stackGapClasses[gap],stackAlignClasses[align],stackOverrideClasses[override]);
+ const reset=()=>{setCopy(stackInitial.copy);setGap(stackInitial.gap);setAlign(stackInitial.align);setOverride(stackInitial.override);setActionCount(0);setFocusCount(0);setRefEvidence(stackInitial.refEvidence);};
+ const onFocus=(event:FocusEvent<HTMLDivElement>)=>{if(event.target===event.currentTarget)setFocusCount(current=>current+1);};
+ const focusStack=()=>{const node=stackRef.current;if(node){node.focus();setRefEvidence(node.tagName+' · id 일치: '+String(node.id===id)+' · 포커스 일치: '+String(node.ownerDocument.activeElement===node));}};
+ return {id,stackRef,copy,setCopy,gap,setGap,align,setAlign,override,setOverride,actionCount,setActionCount,focusCount,refEvidence,className,reset,onFocus,focusStack};
+}
+type StackModel=ReturnType<typeof useStackExample>;
+function StackLive({model:m}:{model:StackModel}){
+ return <div className="grid gap-4 min-w-0">
+  <CanonicalStack ref={m.stackRef} id={m.id} title="정보 다음에 액션을 읽는 세로 흐름" tabIndex={0} aria-label="세로 작업 흐름" data-stack-gap={m.gap} data-stack-align={m.align} data-stack-override={m.override} className={m.className} onFocus={m.onFocus}>
+   <h3 className="min-w-0 max-w-full break-keep wrap-anywhere font-medium">{m.copy.short}</h3>
+   <p className="min-w-0 max-w-full break-keep wrap-anywhere text-g-soft leading-7">{m.copy.long}</p>
+   <p className="min-w-0 max-w-full break-keep wrap-anywhere text-g-small">{m.copy.unbroken}</p>
+   <div className="flex flex-wrap gap-2 min-w-0 max-w-full"><Button type="button" variant="primary" size="medium" onClick={()=>m.setActionCount(current=>current+1)}>메모 확인</Button></div>
+  </CanonicalStack>
+  <Button type="button" variant="secondary" size="medium" onClick={m.focusStack}>ref로 Stack 포커스</Button>
+  <p role="status" className="text-g-small text-g-soft break-keep wrap-anywhere">메모 확인: {m.actionCount}번 · Stack native focus: {m.focusCount}번 · ref: {m.refEvidence}</p>
+ </div>;
+}
+function StackControls({model:m}:{model:StackModel}){
+ return <div className="grid gap-4 min-w-0">
+  <div className="flex flex-wrap gap-2"><Button type="button" variant="secondary" onClick={()=>m.setCopy(stackCopyDefaults)}>짧은 내용</Button><Button type="button" variant="secondary" onClick={()=>m.setCopy(stackLongCopy)}>긴 내용</Button></div>
+  <label className="grid gap-2 min-w-0 text-g-small">Stack 짧은 내용<Input value={m.copy.short} onChange={event=>m.setCopy(current=>({...current,short:event.target.value}))}/></label>
+  <label className="grid gap-2 min-w-0 text-g-small">Stack 긴 한국어<Input value={m.copy.long} onChange={event=>m.setCopy(current=>({...current,long:event.target.value}))}/></label>
+  <label className="grid gap-2 min-w-0 text-g-small">Stack 공백 없는 내용<Input value={m.copy.unbroken} onChange={event=>m.setCopy(current=>({...current,unbroken:event.target.value}))}/></label>
+  <div role="group" aria-label="Stack 간격" className="flex flex-wrap gap-4">
+   {(Object.keys(stackGapClasses) as Array<keyof typeof stackGapClasses>).map(value=><label key={value} className="inline-flex min-h-11 items-center gap-2"><input type="radio" name={m.id+'-gap'} checked={m.gap===value} onChange={()=>m.setGap(value)}/>간격 {stackGapClasses[value]}</label>)}
+  </div>
+  <div role="group" aria-label="Stack 정렬" className="flex flex-wrap gap-4">
+   {(Object.keys(stackAlignClasses) as Array<keyof typeof stackAlignClasses>).map(value=><label key={value} className="inline-flex min-h-11 items-center gap-2"><input type="radio" name={m.id+'-align'} checked={m.align===value} onChange={()=>m.setAlign(value)}/>정렬 {stackAlignClasses[value]}</label>)}
+  </div>
+  <div role="group" aria-label="Stack 소비자 override" className="grid gap-2">
+   {(Object.keys(stackOverrideClasses) as Array<keyof typeof stackOverrideClasses>).map(value=><label key={value} className="inline-flex min-h-11 items-center gap-2"><input type="radio" name={m.id+'-override'} checked={m.override===value} onChange={()=>m.setOverride(value)}/>override {stackOverrideClasses[value]||'없음'}</label>)}
+  </div>
+  <p className="text-g-small text-g-soft break-keep wrap-anywhere">전달하는 className: <code>{m.className}</code> · gap은 Stack 사이 간격이며 자식 padding과 별개입니다. 마지막 소비자 override가 같은 gap·정렬 class를 대체합니다. 모든 선택지는 정적인 배치 class입니다.</p>
+ </div>;
+}
+
+const stackExampleImports="import { useId, useRef, useState, type FocusEvent } from 'react';\nimport { Stack as CanonicalStack } from '../../../packages/ui/src/primitives/layout';\nimport { Button } from './gyeol/primitives/button';\nimport { Input } from './gyeol/primitives/input';\nimport { cn } from './gyeol/lib/cn';";
+function stackCurrentCode(snapshot:StackSnapshot){return stackExampleImports+"\n\n"+"const stackGapClasses={compact:'gap-2',normal:'gap-4',roomy:'gap-8'} as const;\nconst stackAlignClasses={stretch:'items-stretch',start:'items-start',center:'items-center',end:'items-end'} as const;\nconst stackOverrideClasses={none:'',compactCentered:'gap-2 items-center max-w-sm',roomyEnd:'gap-8 items-end w-full'} as const;\nconst stackCopyDefaults={short:'오늘의 작업을 이어 가세요',long:'확인한 내용과 다음 질문을 차분하게 정리합니다.',unbroken:'HangyeolStackReference0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'};\nconst stackLongCopy={...stackCopyDefaults,short:'함께 일하는 사람이 다음 작업을 자연스럽게 이어 갈 수 있도록 오늘 확인한 내용과 남은 질문을 정리해 주세요',long:'긴 한국어 문장은 어절을 유지하며 여러 줄로 읽습니다. 결정한 이유와 아직 확인하지 못한 내용을 구분하여 기록하고, 다음 사람이 필요한 맥락을 이해할 수 있도록 자세한 설명을 남겨 주세요.',unbroken:stackCopyDefaults.unbroken.repeat(3)};\ntype StackSnapshot={copy:typeof stackCopyDefaults;gap:keyof typeof stackGapClasses;align:keyof typeof stackAlignClasses;override:keyof typeof stackOverrideClasses;actionCount:number;focusCount:number;refEvidence:string};\nconst stackInitial:StackSnapshot={copy:stackCopyDefaults,gap:'normal',align:'stretch',override:'none',actionCount:0,focusCount:0,refEvidence:'아직 ref를 사용하지 않았습니다.'};\nfunction useStackExample(initial:StackSnapshot=stackInitial){\n const id=useId(),stackRef=useRef<HTMLDivElement>(null);\n const [copy,setCopy]=useState(initial.copy),[gap,setGap]=useState(initial.gap),[align,setAlign]=useState(initial.align),[override,setOverride]=useState(initial.override);\n const [actionCount,setActionCount]=useState(initial.actionCount),[focusCount,setFocusCount]=useState(initial.focusCount),[refEvidence,setRefEvidence]=useState(initial.refEvidence);\n const className=cn('w-full',stackGapClasses[gap],stackAlignClasses[align],stackOverrideClasses[override]);\n const reset=()=>{setCopy(stackInitial.copy);setGap(stackInitial.gap);setAlign(stackInitial.align);setOverride(stackInitial.override);setActionCount(0);setFocusCount(0);setRefEvidence(stackInitial.refEvidence);};\n const onFocus=(event:FocusEvent<HTMLDivElement>)=>{if(event.target===event.currentTarget)setFocusCount(current=>current+1);};\n const focusStack=()=>{const node=stackRef.current;if(node){node.focus();setRefEvidence(node.tagName+' · id 일치: '+String(node.id===id)+' · 포커스 일치: '+String(node.ownerDocument.activeElement===node));}};\n return {id,stackRef,copy,setCopy,gap,setGap,align,setAlign,override,setOverride,actionCount,setActionCount,focusCount,refEvidence,className,reset,onFocus,focusStack};\n}\ntype StackModel=ReturnType<typeof useStackExample>;\nfunction StackLive({model:m}:{model:StackModel}){\n return <div className=\"grid gap-4 min-w-0\">\n  <CanonicalStack ref={m.stackRef} id={m.id} title=\"정보 다음에 액션을 읽는 세로 흐름\" tabIndex={0} aria-label=\"세로 작업 흐름\" data-stack-gap={m.gap} data-stack-align={m.align} data-stack-override={m.override} className={m.className} onFocus={m.onFocus}>\n   <h3 className=\"min-w-0 max-w-full break-keep wrap-anywhere font-medium\">{m.copy.short}</h3>\n   <p className=\"min-w-0 max-w-full break-keep wrap-anywhere text-g-soft leading-7\">{m.copy.long}</p>\n   <p className=\"min-w-0 max-w-full break-keep wrap-anywhere text-g-small\">{m.copy.unbroken}</p>\n   <div className=\"flex flex-wrap gap-2 min-w-0 max-w-full\"><Button type=\"button\" variant=\"primary\" size=\"medium\" onClick={()=>m.setActionCount(current=>current+1)}>메모 확인</Button></div>\n  </CanonicalStack>\n  <Button type=\"button\" variant=\"secondary\" size=\"medium\" onClick={m.focusStack}>ref로 Stack 포커스</Button>\n  <p role=\"status\" className=\"text-g-small text-g-soft break-keep wrap-anywhere\">메모 확인: {m.actionCount}번 · Stack native focus: {m.focusCount}번 · ref: {m.refEvidence}</p>\n </div>;\n}\nfunction StackControls({model:m}:{model:StackModel}){\n return <div className=\"grid gap-4 min-w-0\">\n  <div className=\"flex flex-wrap gap-2\"><Button type=\"button\" variant=\"secondary\" onClick={()=>m.setCopy(stackCopyDefaults)}>짧은 내용</Button><Button type=\"button\" variant=\"secondary\" onClick={()=>m.setCopy(stackLongCopy)}>긴 내용</Button></div>\n  <label className=\"grid gap-2 min-w-0 text-g-small\">Stack 짧은 내용<Input value={m.copy.short} onChange={event=>m.setCopy(current=>({...current,short:event.target.value}))}/></label>\n  <label className=\"grid gap-2 min-w-0 text-g-small\">Stack 긴 한국어<Input value={m.copy.long} onChange={event=>m.setCopy(current=>({...current,long:event.target.value}))}/></label>\n  <label className=\"grid gap-2 min-w-0 text-g-small\">Stack 공백 없는 내용<Input value={m.copy.unbroken} onChange={event=>m.setCopy(current=>({...current,unbroken:event.target.value}))}/></label>\n  <div role=\"group\" aria-label=\"Stack 간격\" className=\"flex flex-wrap gap-4\">\n   {(Object.keys(stackGapClasses) as Array<keyof typeof stackGapClasses>).map(value=><label key={value} className=\"inline-flex min-h-11 items-center gap-2\"><input type=\"radio\" name={m.id+'-gap'} checked={m.gap===value} onChange={()=>m.setGap(value)}/>간격 {stackGapClasses[value]}</label>)}\n  </div>\n  <div role=\"group\" aria-label=\"Stack 정렬\" className=\"flex flex-wrap gap-4\">\n   {(Object.keys(stackAlignClasses) as Array<keyof typeof stackAlignClasses>).map(value=><label key={value} className=\"inline-flex min-h-11 items-center gap-2\"><input type=\"radio\" name={m.id+'-align'} checked={m.align===value} onChange={()=>m.setAlign(value)}/>정렬 {stackAlignClasses[value]}</label>)}\n  </div>\n  <div role=\"group\" aria-label=\"Stack 소비자 override\" className=\"grid gap-2\">\n   {(Object.keys(stackOverrideClasses) as Array<keyof typeof stackOverrideClasses>).map(value=><label key={value} className=\"inline-flex min-h-11 items-center gap-2\"><input type=\"radio\" name={m.id+'-override'} checked={m.override===value} onChange={()=>m.setOverride(value)}/>override {stackOverrideClasses[value]||'없음'}</label>)}\n  </div>\n  <p className=\"text-g-small text-g-soft break-keep wrap-anywhere\">전달하는 className: <code>{m.className}</code> · gap은 Stack 사이 간격이며 자식 padding과 별개입니다. 마지막 소비자 override가 같은 gap·정렬 class를 대체합니다. 모든 선택지는 정적인 배치 class입니다.</p>\n </div>;\n}\n"+"\nexport function CurrentExample(){\n const model=useStackExample("+JSON.stringify(snapshot)+");\n return <div className=\"grid gap-7 min-w-0\"><Button type=\"button\" variant=\"quiet\" size=\"small\" onClick={model.reset}>Reset</Button><StackLive model={model}/><StackControls model={model}/></div>;\n}\n";}
+function StackWorkbench(){
+ const m=useStackExample(),[panel,setPanel]=useState('variant');
+ const snapshot:StackSnapshot={copy:m.copy,gap:m.gap,align:m.align,override:m.override,actionCount:m.actionCount,focusCount:m.focusCount,refEvidence:m.refEvidence};
+ const code=stackCurrentCode(snapshot);
+ return <div className="grid gap-7 min-w-0">
+  <section aria-label="Live example" className="grid gap-4 min-w-0 border-0 border-y border-solid border-g-line py-8"><div className="flex items-center justify-between gap-3"><h2 className="text-g-small text-g-soft font-medium">LIVE EXAMPLE</h2><Button type="button" variant="quiet" size="small" onClick={m.reset}>Reset</Button></div><StackLive model={m}/></section>
+  <Tabs value={panel} onValueChange={setPanel}>
+   <TabsList aria-label="예제 설명"><TabsTrigger value="variant">Variant</TabsTrigger><TabsTrigger value="code">Code</TabsTrigger><TabsTrigger value="docs">Docs</TabsTrigger></TabsList>
+   <TabsContent value="variant" forceMount hidden={panel!=='variant'} className="mt-5"><StackControls model={m}/></TabsContent>
+   <TabsContent value="code" forceMount hidden={panel!=='code'} className="mt-5"><pre className="whitespace-pre-wrap break-words text-g-small bg-g-muted p-4 rounded-g-control"><code>{code}</code></pre></TabsContent>
+   <TabsContent value="docs" className="mt-5"><div className="grid gap-5 min-w-0">
+    <section className="grid gap-2"><h3 className="font-medium">API / native div / ref</h3><p className="leading-7 text-g-soft">Stack은 HTMLAttributes&lt;HTMLDivElement&gt;와 HTMLDivElement ref를 같은 div로 전달합니다. children, className, id, title, tabIndex, aria/data 속성 및 onFocus는 native API입니다. gap/align 전용 prop은 없으며 className으로 선택합니다. 업무 상태나 keyboard/selection/error API를 만들지 않습니다.</p><p className="leading-7 text-g-soft">기본 flex flex-col gap-4 min-w-0에 break-keep / wrap-anywhere와 직접 자식 min-w-0 / max-w-full을 보완했습니다. items-center/end에서도 긴 자식은 부모 폭 안에서 읽도록 제한합니다. 예제 children에도 명시적 폭 제한과 줄바꿈을 두며 생략·clipping 없이 원문을 유지합니다. cn은 마지막 소비자 className의 동일 utility override를 유지합니다.</p></section>
+    <section className="grid gap-2"><h3 className="font-medium">현재 예제 값</h3><p className="text-g-small break-keep wrap-anywhere">간격: {m.gap} ({stackGapClasses[m.gap]}) · 정렬: {m.align} ({stackAlignClasses[m.align]}) · override: {m.override} · 전달 className: {m.className}</p><p className="break-keep wrap-anywhere">짧은 내용: {m.copy.short}</p><p className="break-keep wrap-anywhere">긴 한국어: {m.copy.long}</p><p className="break-keep wrap-anywhere">공백 없는 내용: {m.copy.unbroken}</p><p className="text-g-small text-g-soft">메모 확인: {m.actionCount}번 · native focus: {m.focusCount}번 · ref: {m.refEvidence}</p></section>
+    <section className="grid gap-2"><h3 className="font-medium">Local imports / dependencies</h3><code className="whitespace-pre-wrap break-words text-g-small">{stackExampleImports}</code><p className="leading-7 text-g-soft">Live와 Code는 canonical Stack → packages/ui/src/lib/cn.ts를 사용합니다. 새 Stack 예제만 canonical alias를 사용하며 기존 Layout과 다른 예제는 기존 import를 유지합니다. 설치된 layout 및 CLI/core payload 미러는 이번 작업에서 동기화하지 않았습니다. Button/Input와 예제 cn은 설치된 소스이며 clsx 2.1.1 / tailwind-merge 3.7.0, React/React DOM이 필요합니다. Stack에는 추가 Radix 의존성이 없습니다. 문서 탭은 기존 Radix Tabs입니다.</p></section>
+    <p className="leading-7 text-g-soft">정보 다음에 액션, 그 다음에 편집 controls가 DOM 순서대로 이어집니다. Live / Variant / Code / Docs는 같은 owner 값을 사용하며 Code는 현재 내용·배치·횟수·피드백을 초기 snapshot으로 실행합니다. 복사 예제에서도 편집, native focus/ref, 메모 액션, Reset 콜백이 작동합니다. Reset은 최초 예제 기본값을 복원하고 현재 탭과 Stack·editor·control DOM을 유지합니다. 다른 페이지에서 돌아오면 기본값으로 시작합니다. 실제 CSS 생성, 화면 폭과 줄바꿈 geometry, AT/IME는 별도 검증이 필요합니다.</p>
+   </div></TabsContent>
+  </Tabs>
+ </div>;
+}
+
 function ExampleWorkbench({page}:{page:string}){
- return page==='Select'?<SelectWorkbench/>:<StandardExampleWorkbench page={page}/>;
+ return page==='Stack'?<StackWorkbench/>:page==='Select'?<SelectWorkbench/>:<StandardExampleWorkbench page={page}/>;
 }
 function StandardExampleWorkbench({page}:{page:string}){
  const [value,setValue]=useState('읽고, 정리하고, 이어 가기'),[variant,setVariant]=useState<NonNullable<ButtonProps['variant']>>('primary'),[size,setSize]=useState<NonNullable<ButtonProps['size']>>('medium'),[loading,setLoading]=useState(false),[disabled,setDisabled]=useState(false),[count,setCount]=useState(0),[selected,setSelected]=useState('first'),[tab,setTab]=useState('one'),[open,setOpen]=useState(false),[panel,setPanel]=useState('variant');
