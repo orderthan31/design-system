@@ -14,19 +14,21 @@ import { FormSection,ListPanel } from './gyeol/components/composition';
 import { List,ListItem,Row,Stack } from './gyeol/primitives/layout';
 import { List as CanonicalList, ListItem as CanonicalListItem, Row as CanonicalRow } from '../../../packages/ui/src/primitives/layout';
 import { Stack as CanonicalStack } from '../../../packages/ui/src/primitives/layout';
+import { Badge as CanonicalBadge, type BadgeProps as CanonicalBadgeProps } from '../../../packages/ui/src/primitives/badge';
 import { cn } from './gyeol/lib/cn';
 import { TaskExample } from './task-example';
 import { Customization } from './customization';
 import { BehaviorProofs } from './proofs';
 // Row is added locally so the shared navigation source stays unchanged.
-const docsPages=[...existingDocsPages,'Row','Stack'] as const;
-type DocsPage=ExistingDocsPage|'Row'|'Stack';
+const docsPages=[...existingDocsPages,'Row','Stack','Badge'] as const;
+type DocsPage=ExistingDocsPage|'Row'|'Stack'|'Badge';
 function parsePageHash(hash:string):DocsPage {
+ try { if(hash.startsWith('#')&&decodeURIComponent(hash.slice(1))==='Badge')return 'Badge'; } catch { /* Shared parser handles malformed hashes. */ }
  try { if(hash.startsWith('#')&&decodeURIComponent(hash.slice(1))==='Stack')return 'Stack'; } catch { /* Shared parser handles malformed hashes. */ }
  try { if(hash.startsWith('#')&&decodeURIComponent(hash.slice(1))==='Row')return 'Row'; } catch { /* Shared parser handles malformed hashes. */ }
  return parseExistingPageHash(hash);
 }
-const pageHref=(page:DocsPage)=>page==='Stack'?'#Stack':page==='Row'?'#Row':existingPageHref(page);
+const pageHref=(page:DocsPage)=>page==='Badge'?'#Badge':page==='Stack'?'#Stack':page==='Row'?'#Row':existingPageHref(page);
 const rowDefaults={title:'오늘의 작업을 이어 가세요',label:'확인한 내용과 다음 질문을 정리합니다.',firstAction:'메모 남기기',secondAction:'다음 작업 보기'};
 const longRowCopy={title:'함께 일하는 사람이 다음 작업을 자연스럽게 이어 갈 수 있도록 오늘 확인한 내용과 남은 질문을 차분하게 정리해 주세요',label:'긴 한국어 문장은 어절을 유지하며 읽습니다. 공백 없는 참고 식별자도 생략하지 않습니다: HangyeolRowReference0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'};
 const inputDefaults={controlled:'읽고, 정리하고, 이어 가기',uncontrolled:'처음 적은 메모'};
@@ -330,8 +332,58 @@ function TabsWorkbench(){
  </div>;
 }
 
+const badgeDefaults={label:'검토 중',tone:'neutral',inline:true,before:'오늘의 문서는',after:'상태입니다. 내용을 확인한 뒤 다음 작업을 이어 가세요.'} as const;
+const badgeLongKorean='확인할 자료가 아직 남아 있어 함께 일하는 사람이 내용을 검토하고 다음 작업을 이어 갈 수 있도록 자세한 안내를 남겼습니다';
+const badgeUnspaced='HangyeolBadgeReference0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+type BadgeSnapshot={label:string;tone:NonNullable<CanonicalBadgeProps['tone']>;inline:boolean;before:string;after:string};
+function useBadgeExample(initial:BadgeSnapshot=badgeDefaults){
+ const id=useId(),badgeRef=useRef<HTMLSpanElement>(null);
+ const [label,setLabel]=useState(initial.label),[tone,setTone]=useState(initial.tone),[inline,setInline]=useState(initial.inline),[before,setBefore]=useState(initial.before),[after,setAfter]=useState(initial.after);
+ const reset=()=>{setLabel(badgeDefaults.label);setTone(badgeDefaults.tone);setInline(badgeDefaults.inline);setBefore(badgeDefaults.before);setAfter(badgeDefaults.after);};
+ return {id,badgeRef,label,setLabel,tone,setTone,inline,setInline,before,setBefore,after,setAfter,reset};
+}
+type BadgeModel=ReturnType<typeof useBadgeExample>;
+function BadgeLive({model:m}:{model:BadgeModel}){
+ return <p className="leading-7">{m.inline?m.before+' ':null}<CanonicalBadge ref={m.badgeRef} id={m.id} title="문서 검토 안내" data-example-tone={m.tone} tone={m.tone}>{m.label}</CanonicalBadge>{m.inline?' '+m.after:null}</p>;
+}
+function BadgeControls({model:m}:{model:BadgeModel}){
+ return <div className="grid gap-4 min-w-0">
+  <Row><Button type="button" variant="secondary" onClick={()=>m.setLabel(badgeDefaults.label)}>짧은 라벨</Button><Button type="button" variant="secondary" onClick={()=>m.setLabel(badgeLongKorean)}>긴 한국어 라벨</Button><Button type="button" variant="secondary" onClick={()=>m.setLabel(badgeUnspaced)}>공백 없는 라벨</Button></Row>
+  <label className="grid gap-2 text-g-small">Badge 라벨<Input value={m.label} onChange={event=>m.setLabel(event.target.value)}/></label>
+  <div role="group" aria-label="Badge tone" className="flex flex-wrap gap-4">
+   {(['neutral','info','danger'] as const).map(tone=><label key={tone} className="inline-flex min-h-11 items-center gap-2"><input type="radio" name={m.id+'-tone'} checked={m.tone===tone} onChange={()=>m.setTone(tone)}/>{tone}</label>)}
+  </div>
+  <label className="inline-flex min-h-11 items-center gap-2"><input type="checkbox" checked={m.inline} onChange={event=>m.setInline(event.target.checked)}/>본문 안에 조합</label>
+  <label className="grid gap-2 text-g-small">Badge 앞 본문<Input value={m.before} onChange={event=>m.setBefore(event.target.value)}/></label>
+  <label className="grid gap-2 text-g-small">Badge 뒤 본문<Input value={m.after} onChange={event=>m.setAfter(event.target.value)}/></label>
+  <p className="text-g-small text-g-soft">의미는 보이는 라벨로 설명하세요. tone의 색은 보조 정보이며 라벨을 자동 변경하지 않습니다.</p>
+ </div>;
+}
+
+const badgeExampleImports="import { useId, useRef, useState } from 'react';\nimport { Badge as CanonicalBadge, type BadgeProps as CanonicalBadgeProps } from './gyeol/primitives/badge';\nimport { Button } from './gyeol/primitives/button';\nimport { Input } from './gyeol/primitives/input';\nimport { Row } from './gyeol/primitives/layout';";
+function badgeCurrentCode(snapshot:BadgeSnapshot){return badgeExampleImports+"\n\n"+"const badgeDefaults={label:'검토 중',tone:'neutral',inline:true,before:'오늘의 문서는',after:'상태입니다. 내용을 확인한 뒤 다음 작업을 이어 가세요.'} as const;\nconst badgeLongKorean='확인할 자료가 아직 남아 있어 함께 일하는 사람이 내용을 검토하고 다음 작업을 이어 갈 수 있도록 자세한 안내를 남겼습니다';\nconst badgeUnspaced='HangyeolBadgeReference0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';\ntype BadgeSnapshot={label:string;tone:NonNullable<CanonicalBadgeProps['tone']>;inline:boolean;before:string;after:string};\nfunction useBadgeExample(initial:BadgeSnapshot=badgeDefaults){\n const id=useId(),badgeRef=useRef<HTMLSpanElement>(null);\n const [label,setLabel]=useState(initial.label),[tone,setTone]=useState(initial.tone),[inline,setInline]=useState(initial.inline),[before,setBefore]=useState(initial.before),[after,setAfter]=useState(initial.after);\n const reset=()=>{setLabel(badgeDefaults.label);setTone(badgeDefaults.tone);setInline(badgeDefaults.inline);setBefore(badgeDefaults.before);setAfter(badgeDefaults.after);};\n return {id,badgeRef,label,setLabel,tone,setTone,inline,setInline,before,setBefore,after,setAfter,reset};\n}\ntype BadgeModel=ReturnType<typeof useBadgeExample>;\nfunction BadgeLive({model:m}:{model:BadgeModel}){\n return <p className=\"leading-7\">{m.inline?m.before+' ':null}<CanonicalBadge ref={m.badgeRef} id={m.id} title=\"문서 검토 안내\" data-example-tone={m.tone} tone={m.tone}>{m.label}</CanonicalBadge>{m.inline?' '+m.after:null}</p>;\n}\nfunction BadgeControls({model:m}:{model:BadgeModel}){\n return <div className=\"grid gap-4 min-w-0\">\n  <Row><Button type=\"button\" variant=\"secondary\" onClick={()=>m.setLabel(badgeDefaults.label)}>짧은 라벨</Button><Button type=\"button\" variant=\"secondary\" onClick={()=>m.setLabel(badgeLongKorean)}>긴 한국어 라벨</Button><Button type=\"button\" variant=\"secondary\" onClick={()=>m.setLabel(badgeUnspaced)}>공백 없는 라벨</Button></Row>\n  <label className=\"grid gap-2 text-g-small\">Badge 라벨<Input value={m.label} onChange={event=>m.setLabel(event.target.value)}/></label>\n  <div role=\"group\" aria-label=\"Badge tone\" className=\"flex flex-wrap gap-4\">\n   {(['neutral','info','danger'] as const).map(tone=><label key={tone} className=\"inline-flex min-h-11 items-center gap-2\"><input type=\"radio\" name={m.id+'-tone'} checked={m.tone===tone} onChange={()=>m.setTone(tone)}/>{tone}</label>)}\n  </div>\n  <label className=\"inline-flex min-h-11 items-center gap-2\"><input type=\"checkbox\" checked={m.inline} onChange={event=>m.setInline(event.target.checked)}/>본문 안에 조합</label>\n  <label className=\"grid gap-2 text-g-small\">Badge 앞 본문<Input value={m.before} onChange={event=>m.setBefore(event.target.value)}/></label>\n  <label className=\"grid gap-2 text-g-small\">Badge 뒤 본문<Input value={m.after} onChange={event=>m.setAfter(event.target.value)}/></label>\n  <p className=\"text-g-small text-g-soft\">의미는 보이는 라벨로 설명하세요. tone의 색은 보조 정보이며 라벨을 자동 변경하지 않습니다.</p>\n </div>;\n}\n"+"\nexport function CurrentExample(){\n const model=useBadgeExample("+JSON.stringify(snapshot)+");\n return <div className=\"grid gap-7 min-w-0\"><Button type=\"button\" variant=\"quiet\" size=\"small\" onClick={model.reset}>Reset</Button><BadgeLive model={model}/><BadgeControls model={model}/></div>;\n}\n";}
+function BadgeWorkbench(){
+ const m=useBadgeExample(),[panel,setPanel]=useState('variant');
+ const snapshot:BadgeSnapshot={label:m.label,tone:m.tone,inline:m.inline,before:m.before,after:m.after};
+ const code=badgeCurrentCode(snapshot);
+ return <div className="grid gap-7 min-w-0">
+  <section aria-label="Live example" className="grid gap-4 min-w-0 border-0 border-y border-solid border-g-line py-8"><div className="flex items-center justify-between gap-3"><h2 className="text-g-small text-g-soft font-medium">LIVE EXAMPLE</h2><Button type="button" variant="quiet" size="small" onClick={m.reset}>Reset</Button></div><BadgeLive model={m}/></section>
+  <Tabs value={panel} onValueChange={setPanel}>
+   <TabsList aria-label="예제 설명"><TabsTrigger value="variant">Variant</TabsTrigger><TabsTrigger value="code">Code</TabsTrigger><TabsTrigger value="docs">Docs</TabsTrigger></TabsList>
+   <TabsContent value="variant" forceMount hidden={panel!=='variant'} className="mt-5"><BadgeControls model={m}/></TabsContent>
+   <TabsContent value="code" forceMount hidden={panel!=='code'} className="mt-5"><pre className="whitespace-pre-wrap break-words text-g-small bg-g-muted p-4 rounded-g-control"><code>{code}</code></pre></TabsContent>
+   <TabsContent value="docs" className="mt-5"><div className="grid gap-5 min-w-0">
+    <section className="grid gap-2"><h3 className="font-medium">API / native span / ref</h3><p className="leading-7 text-g-soft">BadgeProps는 HTMLAttributes&lt;HTMLSpanElement&gt;에 tone?: neutral | info | danger만 추가하며 기본값은 neutral입니다. children, className, style, id, title, aria/data 속성과 native 이벤트 및 HTMLSpanElement ref를 같은 span에 전달합니다. 전용 disabled/form/loading/value/asChild/keyboard API, status role이나 tabIndex를 추가하지 않습니다. 의미는 보이는 텍스트이며 색은 보조 정보입니다.</p><p className="leading-7 text-g-soft">canonical Badge가 inline baseline, padding, line-height, border, max-width, normal whitespace, 한국어 어절과 공백 없는 문자열의 줄바꿈을 소유합니다. 고정 높이·말줄임·44px 조작 타깃을 만들지 않습니다. 기존 semantic theme 토큰만 사용하며 cn은 마지막 소비자 className의 병합을 유지합니다. native style과 소비자 custom color/palette 및 로컬 소스 수정 계약도 유지합니다. 이 workbench는 Badge appearance를 덮어쓰지 않습니다.</p></section>
+    <section className="grid gap-2"><h3 className="font-medium">현재 예제 값</h3><p className="break-keep wrap-anywhere">라벨: {m.label} · tone: {m.tone} · 본문 안에 조합: {String(m.inline)}</p><p className="break-keep wrap-anywhere">앞 본문: {m.before}</p><p className="break-keep wrap-anywhere">뒤 본문: {m.after}</p></section>
+    <section className="grid gap-2"><h3 className="font-medium">Local imports / dependencies</h3><code className="whitespace-pre-wrap break-words text-g-small">{badgeExampleImports}</code><p className="leading-7 text-g-soft">Live는 canonical 직접 import alias를 사용합니다. 현재 Code는 공개 ./gyeol/primitives/badge import로 같은 설정과 보이는 조합을 실행하며 물리 설치가 선행되어야 합니다. Badge → lib/cn.ts이며 공통 clsx 2.1.1 / tailwind-merge 3.7.0과 호스트 React/React DOM이 필요합니다. Badge 항목의 requires는 빈 목록이고 추가 Radix/runtime 의존성은 없습니다. 예제의 Button/Input/Row/Tabs는 기존 설치 소스이며 Badge 항목의 의존성으로 추가하지 않습니다.</p></section>
+    <p className="leading-7 text-g-soft">Live / Variant / Code / Docs는 같은 라벨·tone·본문 조합 state를 읽습니다. 현재 Code는 안전하게 직렬화한 snapshot을 초기값으로 사용하며 라벨 편집·tone 변경·긴 내용·본문 조합·Reset이 실행됩니다. 설명 패널 전환과 일반 편집 및 Reset은 Live span과 편집기 DOM을 유지합니다. Reset은 예제 값만 기본값으로 돌리고 현재 설명 패널과 theme 및 소비자 파일은 유지합니다. 페이지를 떠났다 돌아오면 기본값으로 시작합니다. JSDOM과 정적 class 확인은 실제 CSS 생성·baseline·320/390 viewport 줄바꿈·대비·AT/IME 검증을 대신하지 않습니다.</p>
+   </div></TabsContent>
+  </Tabs>
+ </div>;
+}
+
 function ExampleWorkbench({page}:{page:string}){
- return page==='Tabs'?<TabsWorkbench/>:page==='Stack'?<StackWorkbench/>:page==='Select'?<SelectWorkbench/>:<StandardExampleWorkbench page={page}/>;
+ return page==='Badge'?<BadgeWorkbench/>:page==='Tabs'?<TabsWorkbench/>:page==='Stack'?<StackWorkbench/>:page==='Select'?<SelectWorkbench/>:<StandardExampleWorkbench page={page}/>;
 }
 function StandardExampleWorkbench({page}:{page:string}){
  const [value,setValue]=useState('읽고, 정리하고, 이어 가기'),[variant,setVariant]=useState<NonNullable<ButtonProps['variant']>>('primary'),[size,setSize]=useState<NonNullable<ButtonProps['size']>>('medium'),[loading,setLoading]=useState(false),[disabled,setDisabled]=useState(false),[count,setCount]=useState(0),[selected,setSelected]=useState('first'),[tab,setTab]=useState('one'),[open,setOpen]=useState(false),[panel,setPanel]=useState('variant');

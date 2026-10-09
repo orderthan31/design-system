@@ -1,4 +1,5 @@
 {
+  "badge": {"files":["primitives/badge.tsx"],"requires":[]},
   "button": {"files":["primitives/button.tsx"],"requires":[]},
   "input": {"files":["primitives/input.tsx"],"requires":[]},
   "theme": {"files":["foundation/theme.tsx"],"requires":[]},

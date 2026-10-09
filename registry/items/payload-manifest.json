@@ -78,6 +78,12 @@
       "requires": [
         "layout"
       ]
+    },
+    "badge": {
+      "files": [
+        "primitives/badge.tsx"
+      ],
+      "requires": []
     }
   },
   "files": {
@@ -100,6 +106,10 @@
     "lib/cn.ts": {
       "hash": "8f8f4fbae84572af710b1c4aedad6ee43889436ec89d74942679c4335ff7c8ea",
       "bytes": 518
+    },
+    "primitives/badge.tsx": {
+      "hash": "98cd6917e227c4aee36d21804206e30ef5d6ad7eb037b21e6dd32644fd1015f1",
+      "bytes": 759
     },
     "primitives/button.tsx": {
       "hash": "d62d086a12327b8e2d7feea027081f38b4854565a5e23b9bcbd2a75b4c26d7c5",

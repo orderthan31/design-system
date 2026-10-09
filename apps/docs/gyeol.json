@@ -86,6 +86,10 @@
     "src/gyeol/components/composition.tsx": {
       "version": "0.1.0-slice.1",
       "hash": "2fece495c867584dcecfd801e0c1560fda473adafb5dd429dce71903515f9945"
+    },
+    "src/gyeol/primitives/badge.tsx": {
+      "version": "0.1.0-slice.1",
+      "hash": "98cd6917e227c4aee36d21804206e30ef5d6ad7eb037b21e6dd32644fd1015f1"
     }
   },
   "version": "0.1.0-slice.1",
@@ -98,6 +102,7 @@
     "select",
     "tabs",
     "dialog",
-    "composition"
+    "composition",
+    "badge"
   ]
 }
