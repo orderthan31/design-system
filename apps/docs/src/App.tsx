@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { docsPages, parsePageHash, pageHref, type DocsPage } from './navigation';
 import { Theme } from './gyeol/foundation/theme';
 import { Button, type ButtonProps } from './gyeol/primitives/button';
 import { Input } from './gyeol/primitives/input';
@@ -11,7 +12,6 @@ import { List,ListItem,Row,Stack } from './gyeol/primitives/layout';
 import { TaskExample } from './task-example';
 import { Customization } from './customization';
 import { BehaviorProofs } from './proofs';
-const pages=['Overview','TaskExample','Foundations','Button','Input','TextField','Select','Tabs','Dialog','Layout','List','FormSection','ListPanel','Customization','Behavior'];
 const references:Record<string,string>={
  Button:'HTMLButtonElement ref. native props, type="button" 기본값. variant: primary | secondary | quiet, size: small | medium. loading은 disabled와 aria-busy를 적용합니다. asChild는 지원하지 않습니다.',
  Input:'HTMLInputElement ref와 native props/className은 실제 input에 전달됩니다. invalid는 error boundary, loading은 aria-busy만 바꿉니다. DOM을 교체하거나 값을 지우지 않습니다.',
@@ -42,13 +42,13 @@ function ExampleWorkbench({page}:{page:string}){
  return <div className="grid gap-7"><section aria-label="Live example" className="grid gap-4 border-0 border-y border-solid border-g-line py-8"><div className="flex items-center justify-between gap-3"><h2 className="text-g-small text-g-soft font-medium">LIVE EXAMPLE</h2><Button variant="quiet" size="small" onClick={reset}>Reset</Button></div>{live}</section><Tabs value={panel} onValueChange={setPanel}><TabsList aria-label="예제 설명"><TabsTrigger value="variant">Variant</TabsTrigger><TabsTrigger value="code">Code</TabsTrigger><TabsTrigger value="docs">Docs</TabsTrigger></TabsList><TabsContent value="variant" className="mt-5"><div className="flex flex-wrap items-center gap-4">{page==='Button' && <Select label="Button variant" value={variant} onValueChange={v=>setVariant(v as NonNullable<ButtonProps['variant']>)} options={[{value:'primary',label:'Primary'},{value:'secondary',label:'Secondary'},{value:'quiet',label:'Quiet'}]}/>}{['Button','Input','TextField','Select','Tabs','Dialog'].includes(page) && <label className="flex gap-2 items-center"><input type="checkbox" checked={disabled} onChange={event=>setDisabled(event.target.checked)}/> Disabled</label>}<p className="text-g-small text-g-soft">위의 실제 예제에서 값을 바꾸면 Code에도 반영됩니다.</p></div></TabsContent><TabsContent value="code" className="mt-5"><pre className="whitespace-pre-wrap break-words text-g-small bg-g-muted p-4 rounded-g-control"><code>{code}</code></pre></TabsContent><TabsContent value="docs" className="mt-5"><p className="leading-7 text-g-soft">{references[page]}</p></TabsContent></Tabs></div>;
 }
 function Foundations(){return <div className="grid gap-8"><p className="text-g-soft leading-7">한결디자인은 정보와 행동의 관계를 읽기 쉽게 만드는 디자인 시스템입니다. 따뜻한 바탕, 분명한 잉크, 절제된 올리브 액션을 사용합니다. Pretendard와 여유 있는 행간으로 긴 한국어 문장을 편하게 읽습니다.</p><section className="grid grid-cols-2 gap-4 sm:grid-cols-4"><div className="bg-g-surface border border-solid border-g-line p-4"><p className="font-medium">Surface</p><p className="text-g-small text-g-soft">내용의 자리</p></div><div className="bg-g-muted p-4"><p className="font-medium">Muted</p><p className="text-g-small text-g-soft">보조 영역</p></div><div className="bg-g-action text-g-on-action p-4"><p className="font-medium">Action</p><p className="text-g-small">중요한 다음 행동</p></div><div className="border border-solid border-g-line p-4"><p className="text-g-danger font-medium">Error</p><p className="text-g-small text-g-soft">복구할 수 있는 안내</p></div></section><div className="grid gap-3"><h2 className="text-g-title font-semibold">여백으로 구분하고, 글로 설명합니다.</h2><p className="text-g-body">본문 16px · 작은 설명 14px · 제목 32px</p><p className="text-g-small text-g-soft">44px 이상의 조작 영역, 별도의 focus outline과 error border. Root/중첩 테마는 portal에도 이어집니다.</p></div><Button>다음 작업으로</Button></div>;}
-function Overview({onNavigate}:{onNavigate:(page:string)=>void}){
+function Overview(){
  return <div className="grid gap-8">
   <p className="text-g-body leading-7 text-g-soft">필수 개발 도구는 core로 설치하고, UI 소스는 내 프로젝트에서 직접 수정합니다.</p>
   <div className="flex flex-wrap items-center gap-4">
    <a href="https://github.com/orderthan31/design-system/blob/f5138d67c86f965747ba2d1b187a69c008caf68b/docs/source-installation.md#core11-quickstart" className="text-g-action underline underline-offset-4">설치 안내</a>
-   <Button variant="secondary" onClick={()=>onNavigate('Button')}>컴포넌트 문서</Button>
-   <Button variant="quiet" onClick={()=>onNavigate('TaskExample')}>대표 소비 예제</Button>
+   <a href={pageHref('Button')} className="inline-flex min-h-11 items-center justify-center gap-2 rounded-g-control border border-solid border-g-line bg-g-surface px-g-control py-2 text-g-body font-medium text-g-ink leading-6 no-underline transition-colors hover:bg-g-muted focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-g-focus">컴포넌트 문서</a>
+   <a href={pageHref('TaskExample')} className="inline-flex min-h-11 items-center justify-center gap-2 rounded-g-control border border-solid border-transparent bg-transparent px-g-control py-2 text-g-body font-medium text-g-soft leading-6 no-underline transition-colors hover:bg-g-muted hover:text-g-ink focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-g-focus">대표 소비 예제</a>
   </div>
   <section aria-label="소스 설치와 편집" className="grid gap-7">
    <div className="grid gap-2"><h2 className="text-lg font-semibold">개발 도구는 core로</h2><p className="leading-7 text-g-soft"><code>hangyeol-core</code>를 버전이 고정된 devDependency로 설치합니다. 프로젝트의 로컬 <code>node_modules/.bin/hangyeol</code> 명령으로 초기 설정을 만들고, 필요한 컴포넌트 소스만 선택해 추가합니다.</p></div>
@@ -58,4 +58,40 @@ function Overview({onNavigate}:{onNavigate:(page:string)=>void}){
   <p className="text-g-small leading-6 text-g-soft">현재 설치 안내는 준비된 캐시(prepared-cache)와 설치 스크립트 비활성화(scripts-off)를 사용한 검증 범위를 설명합니다. 안내를 읽으려면 저장소 접근 권한이 필요합니다.</p>
  </div>;
 }
-export default function App(){const [page,setPage]=useState('Overview'),[search,setSearch]=useState(''),[mode,setMode]=useState<'light'|'dark'>('light');const navigate=(name:string)=>{setPage(name);window.location.hash=name;};return <Theme mode={mode} className="min-h-screen"><div className="mx-auto grid max-w-7xl lg:grid-cols-5"><aside className="border-0 border-b border-solid border-g-line min-w-0 p-5 lg:col-span-1 lg:min-h-screen lg:border-b-0 lg:border-r lg:p-7"><div className="flex items-center justify-between gap-2"><a href="#Overview" onClick={()=>setPage('Overview')} className="no-underline text-xl font-semibold tracking-tight">한결디자인</a><Button variant="quiet" size="small" aria-label="테마 변경" onClick={()=>setMode(m=>m==='light'?'dark':'light')}>{mode==='light'?'◐':'◑'}</Button></div><div className="mt-6"><Input aria-label="문서 검색" placeholder="Search docs" value={search} onChange={event=>setSearch(event.target.value)}/></div><nav aria-label="API menu" className="mt-5 flex gap-1 overflow-x-auto lg:flex-col lg:overflow-visible">{pages.filter(p=>p.toLowerCase().includes(search.toLowerCase())).map(name=><Button key={name} variant={page===name?'secondary':'quiet'} size="small" className="shrink-0 justify-start" aria-current={page===name?'page':undefined} onClick={()=>navigate(name)}>{name}</Button>)}</nav><p className="mt-8 text-g-small text-g-soft hidden lg:block">작업에 필요한 만큼.<br/>소스는 당신의 프로젝트에.</p></aside><main className="min-w-0 px-5 py-8 sm:px-10 lg:col-span-4 lg:px-14 lg:py-12"><div className="mb-8 flex items-baseline justify-between gap-3"><h1 className="text-g-title font-semibold tracking-tight">{page==='Overview'?'한결디자인':page}</h1><span className="text-g-small text-g-soft">한결디자인 · 01</span></div>{page==='Overview'?<Overview onNavigate={navigate}/>:page==='TaskExample'?<TaskExample/>:page==='Foundations'?<Foundations/>:page==='Customization'?<div className="grid gap-6"><p className="text-g-soft">이 페이지는 설치된 소스의 className 병합 계약을 검증하는 명시적인 예외입니다. 일반 문서는 공개 variant/size를 사용합니다.</p><Customization/></div>:page==='Behavior'?<BehaviorProofs/>:<ExampleWorkbench key={page} page={page}/>}</main></div></Theme>;}
+export default function App(){
+ const [page,setPage]=useState<DocsPage>(()=>parsePageHash(window.location.hash));
+ const [search,setSearch]=useState(''),[mode,setMode]=useState<'light'|'dark'>('light');
+ useEffect(()=>{
+  const syncPage=()=>{
+   const next=parsePageHash(window.location.hash);
+   // Replace only the current fragment: preserve path, query, state and history length.
+   // This also canonicalizes encoded valid pages; invalid/empty hashes become #Overview.
+   if(window.location.hash!==pageHref(next))window.history.replaceState(window.history.state,'',pageHref(next));
+   setPage(next);
+  };
+  window.addEventListener('hashchange',syncPage);
+  window.addEventListener('popstate',syncPage);
+  syncPage();
+  return()=>{
+   window.removeEventListener('hashchange',syncPage);
+   window.removeEventListener('popstate',syncPage);
+  };
+ },[]);
+ return <Theme mode={mode} className="min-h-screen"><div className="mx-auto grid max-w-7xl lg:grid-cols-5">
+  <aside className="border-0 border-b border-solid border-g-line min-w-0 p-5 lg:col-span-1 lg:min-h-screen lg:border-b-0 lg:border-r lg:p-7">
+   <div className="flex items-center justify-between gap-2">
+    <a href={pageHref('Overview')} className="no-underline text-xl font-semibold tracking-tight">한결디자인</a>
+    <Button variant="quiet" size="small" aria-label="테마 변경" onClick={()=>setMode(m=>m==='light'?'dark':'light')}>{mode==='light'?'◐':'◑'}</Button>
+   </div>
+   <div className="mt-6"><Input aria-label="문서 검색" placeholder="Search docs" value={search} onChange={event=>setSearch(event.target.value)}/></div>
+   <nav aria-label="API menu" className="mt-5 flex gap-1 overflow-x-auto lg:flex-col lg:overflow-visible">
+    {docsPages.filter(p=>p.toLowerCase().includes(search.toLowerCase())).map(name=><a key={name} href={pageHref(name)} aria-current={page===name?'page':undefined} className={page===name?'inline-flex min-h-11 shrink-0 items-center justify-start gap-2 rounded-g-control border border-solid border-g-line bg-g-surface px-3 py-2 text-g-small font-medium text-g-ink leading-6 no-underline transition-colors hover:bg-g-muted focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-g-focus':'inline-flex min-h-11 shrink-0 items-center justify-start gap-2 rounded-g-control border border-solid border-transparent bg-transparent px-3 py-2 text-g-small font-medium text-g-soft leading-6 no-underline transition-colors hover:bg-g-muted hover:text-g-ink focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-g-focus'}>{name}</a>)}
+   </nav>
+   <p className="mt-8 text-g-small text-g-soft hidden lg:block">작업에 필요한 만큼.<br/>소스는 당신의 프로젝트에.</p>
+  </aside>
+  <main className="min-w-0 px-5 py-8 sm:px-10 lg:col-span-4 lg:px-14 lg:py-12">
+   <div className="mb-8 flex items-baseline justify-between gap-3"><h1 className="text-g-title font-semibold tracking-tight">{page==='Overview'?'한결디자인':page}</h1><span className="text-g-small text-g-soft">한결디자인 · 01</span></div>
+   {page==='Overview'?<Overview/>:page==='TaskExample'?<TaskExample/>:page==='Foundations'?<Foundations/>:page==='Customization'?<div className="grid gap-6"><p className="text-g-soft">이 페이지는 설치된 소스의 className 병합 계약을 검증하는 명시적인 예외입니다. 일반 문서는 공개 variant/size를 사용합니다.</p><Customization/></div>:page==='Behavior'?<BehaviorProofs/>:<ExampleWorkbench key={page} page={page}/>}
+  </main>
+ </div></Theme>;
+}
