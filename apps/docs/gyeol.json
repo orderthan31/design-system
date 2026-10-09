@@ -9,7 +9,7 @@
   "installed": {
     "src/gyeol/foundation/theme.css": {
       "version": "0.1.0-slice.1",
-      "hash": "c461a07798f036714e466aea5411bad1189f1a9d5cf97814b6dfe591cd56ee16"
+      "hash": "41f583a6be08fc38b4816229805b2c1b55f616ea917665d1e8eb42d21cb5e1bf"
     },
     "src/gyeol/lib/cn.ts": {
       "version": "0.1.0-slice.1",
@@ -57,7 +57,7 @@
     },
     "src/gyeol/foundation/theme.tsx": {
       "version": "0.1.0-slice.1",
-      "hash": "a6aaabfa76f2fd6d1c87275cdd99ea7b7391aece3611a1352f6ac78ef69c01e6"
+      "hash": "2e1c2087118256dd4aa2c4fd3e352196a941027b4ed73c3fbaf2419d674ad7db"
     },
     "src/gyeol/primitives/layout.tsx": {
       "version": "0.1.0-slice.1",
@@ -69,11 +69,11 @@
     },
     "src/gyeol/primitives/select.tsx": {
       "version": "0.1.0-slice.1",
-      "hash": "6296e50592e223032a034030e20707dd11ea890575671b3e8de1122676f344b3"
+      "hash": "1a1f40293269f699809405180edc5a4e0380d13666931a17997cf74928660fca"
     },
     "src/gyeol/primitives/portal.tsx": {
       "version": "0.1.0-slice.1",
-      "hash": "2390b20425dd8780bf8fc3de077f1417ec17842bafb15332e37d385e866a26cf"
+      "hash": "6cbac078eb8bc22f2d358e498d2063e2a58b53c79a438f11c0a8042a5a817fc7"
     },
     "src/gyeol/primitives/tabs.tsx": {
       "version": "0.1.0-slice.1",
@@ -81,7 +81,7 @@
     },
     "src/gyeol/primitives/dialog.tsx": {
       "version": "0.1.0-slice.1",
-      "hash": "11e0ab4bf4e8dbcec45cc969034759b9a73cdedb7c4aad9b6d4695df631820e4"
+      "hash": "7da0a18a6b23a04f9dbb06474bbc3d3e11436ecaf362635c20f16208c0a8dc55"
     },
     "src/gyeol/components/composition.tsx": {
       "version": "0.1.0-slice.1",

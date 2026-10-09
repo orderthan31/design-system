@@ -23,8 +23,8 @@
 }
 @layer base {
   [data-gyeol] {
-    --g-canvas: #f5f3ed;
-    --g-surface: #fffefb;
+    --g-canvas: #F8FAFC;
+    --g-surface: #FFFFFF;
     --g-muted: #ebe9e1;
     --g-line: #d7d5cb;
     --g-ink: #282e28;
@@ -41,8 +41,8 @@
     font-size: 1rem;
   }
   [data-gyeol][data-theme="dark"] {
-    --g-canvas: #20251f;
-    --g-surface: #292f28;
+    --g-canvas: #0F172A;
+    --g-surface: #1E293B;
     --g-muted: #363e34;
     --g-line: #596154;
     --g-ink: #f1f0e7;
