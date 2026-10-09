@@ -24,6 +24,7 @@ filename emitted by pack as an exact development dependency:
 npm install --save-dev --save-exact ../scratch/hangyeol-core-0.1.0-s2.1.tgz
 ./node_modules/.bin/hangyeol --version
 ./node_modules/.bin/hangyeol inspect
+./node_modules/.bin/hangyeol doctor
 ./node_modules/.bin/hangyeol init --dry-run
 ./node_modules/.bin/hangyeol init
 ./node_modules/.bin/hangyeol add button --dry-run
@@ -164,3 +165,39 @@ or literal `inline` parameters. Direct semantic declarations outside supported
 scope rules/known typed `@theme` tokens fail with declaration locations; custom
 `--g-*` roles stay editable in scoped rules. Host-only ordinary conditional,
 nested and font CSS is preserved. No browser cascade interpretation is implied.
+
+## Read-only installation doctor
+
+Run `./node_modules/.bin/hangyeol doctor` in the initialized consumer. Stdout is
+structured JSON with state/exit and checks containing code/status/path/cause/action;
+source import findings also carry actual file lines. Exit 0 denotes supported
+healthy connections (owner edits may be informational), 1 missing/invalid/unsafe
+installation data or supported connection conflicts, 2 unsupported doctor/host
+grammar or computed imports. Missing `gyeol.json` is uninitialized / exit 1.
+Packed boundary failures retain the router's existing error / exit 1.
+
+Doctor checks actual configured sourceRoot/style/public/font/base/alias paths,
+selected closure records, immutable font/LICENSE/provenance bytes, direct Tailwind
+imports and source scan, static Vite/JSON TypeScript connections, physical core
+dev pin/lock version identity and required runtime/build/type dependencies. Tool
+deps/licenses remain separate from requested runtime UI. It never evaluates host
+config/source modules, repairs, runs npm or writes consumer files/config/metadata.
+It does not run a compiler or certify HTTP/fonts/browser/CSS cascade.
+
+Static source checks distinguish runtime references from explicitly type-only
+imports/exports, all-type named specifiers, `TSImportType` (including `typeof
+import(...)`) and `import type X = require(...)`. Runtime import-equals,
+side-effect imports and mixed type/value declarations still reject core/CLI
+coupling with actual file/line. Reported references include `usage: "runtime"`
+or `"type-only"`; both retain local path/target checks. Computed references are
+unsupported, and syntax the pinned parser cannot accept is an error. This is
+AST classification, not proof of type availability, type-checking or emitted
+runtime code under arbitrary TypeScript/bundler settings.
+
+Editable local `lib/cn.ts` still composes clsx/tailwind-merge and the existing
+semantic utility conflict groups; generated UI has no core runtime import.
+Changed helper/theme/source bytes are informational, not automatic corruption
+or an excuse to reset values/adopt hashes. Owner config/token/palette fields and
+serialization are preserved. Unsafe paths/symlinks and malformed version/record
+data fail safely. See `docs/core-tools-contract.md` in the authoring repository
+for diagnostics, bounded grammar, and deferred update/browser/generated gates.

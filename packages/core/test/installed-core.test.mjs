@@ -104,6 +104,12 @@ test('external host retains core as a pinned devDependency and runs only its ins
   assert.equal(consumerTokens.sourceRoot,'src/gyeol');
   assert.ok(consumerTokens.schemes.light.roles['--g-surface']);
   assert.ok(consumerTokens.schemes.dark.roles['--g-surface']);
+  const doctor = JSON.parse(run('doctor-consumer', bin, ['doctor'], host));
+  assert.equal(doctor.status, 'ok');
+  assert.equal(doctor.readOnly, true);
+  assert.equal(doctor.config.sourceRoot, 'src/gyeol');
+  assert.equal(doctor.capabilities.update, false);
+  assert.ok(doctor.checks.some(check => check.code === 'source.runtime-separation' && check.status === 'ok'));
   const theme = path.join(installed, 'payload/source/foundation/theme.css');
   const original = fs.readFileSync(theme);
   fs.appendFileSync(theme, '\n/* tamper */\n');
