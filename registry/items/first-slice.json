@@ -214,5 +214,107 @@
       "components/empty-state.tsx"
     ],
     "requires": []
+  },
+  "search-field": {
+    "files": [
+      "components/search-field.tsx"
+    ],
+    "requires": [
+      "text-field",
+      "icon"
+    ]
+  },
+  "email-input": {
+    "files": [
+      "components/email-input.tsx"
+    ],
+    "requires": [
+      "text-field"
+    ]
+  },
+  "password-input": {
+    "files": [
+      "components/password-input.tsx"
+    ],
+    "requires": [
+      "input",
+      "form-field",
+      "icon-button"
+    ]
+  },
+  "number-input": {
+    "files": [
+      "components/number-input.tsx",
+      "lib/use-field-state.ts"
+    ],
+    "requires": [
+      "input",
+      "form-field",
+      "icon-button"
+    ]
+  },
+  "formatted-input": {
+    "files": [
+      "components/formatted-input.tsx",
+      "lib/use-field-state.ts"
+    ],
+    "requires": [
+      "input",
+      "form-field"
+    ]
+  },
+  "phone-input": {
+    "files": [
+      "components/phone-input.tsx"
+    ],
+    "requires": [
+      "formatted-input"
+    ]
+  },
+  "currency-input": {
+    "files": [
+      "components/currency-input.tsx"
+    ],
+    "requires": [
+      "formatted-input"
+    ]
+  },
+  "file-input": {
+    "files": [
+      "components/file-input.tsx"
+    ],
+    "requires": [
+      "input",
+      "form-field",
+      "button"
+    ]
+  },
+  "checkbox-group": {
+    "files": [
+      "components/checkbox-group.tsx",
+      "lib/use-field-state.ts"
+    ],
+    "requires": [
+      "checkbox"
+    ]
+  },
+  "rating": {
+    "files": [
+      "components/rating.tsx",
+      "lib/use-field-state.ts"
+    ],
+    "requires": [
+      "icon"
+    ]
+  },
+  "address-field": {
+    "files": [
+      "components/address-field.tsx",
+      "lib/use-field-state.ts"
+    ],
+    "requires": [
+      "text-field",
+      "button"
+    ]
   }
 }
