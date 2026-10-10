@@ -6,5 +6,6 @@ Unmodified Pretendard v1.3.9: SIL OFL 1.1. Actual license and upstream provenanc
 - @typescript-eslint/parser 8.71.1: MIT. Installed as a dependency; its package retains its own license/notice files.
 - eslint 9.39.5: MIT. Installed as a dependency; its package retains its own license/notice files.
 - postcss 8.5.28: MIT. Installed as a dependency; its package retains its own license/notice files.
+- postcss-selector-parser 7.1.6: MIT. Installed as a dependency; its package retains its own license/notice files.
 
 First-party code/UI sources are UNLICENSED. No ownership or new license grant is asserted by this package.

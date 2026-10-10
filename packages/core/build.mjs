@@ -3,7 +3,7 @@ import path from 'node:path';
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
 import { buildSlicePayload } from '../../scripts/build-slice-payload.mjs';
-import { hash } from '../cli/src/safety.mjs';
+import { hash } from './src/tools/safety.mjs';
 
 const root = fileURLToPath(new URL('../../', import.meta.url));
 const target = fileURLToPath(new URL('./', import.meta.url));
@@ -11,7 +11,7 @@ const pkg = JSON.parse(fs.readFileSync(path.join(target, 'package.json')));
 if (pkg.name !== 'hangyeol-core' || pkg.license !== 'UNLICENSED' || pkg.private !== true) {
   throw Error('CORE-01 package/license boundary requires a private UNLICENSED candidate');
 }
-const manifest = buildSlicePayload({ packageDir: 'packages/core', writeLegacyRegistry: false });
+const manifest = buildSlicePayload();
 const provenance = JSON.parse(fs.readFileSync(path.join(target, 'payload/assets/provenance.json')));
 if (provenance.license !== 'SIL OFL 1.1' || provenance.unmodified_originals !== true) {
   throw Error('Font license/provenance differs from the inspected unmodified upstream boundary');
@@ -27,12 +27,12 @@ if (!fs.readFileSync(path.join(target, 'payload/assets/LICENSE'), 'utf8').includ
 const copies = [
   ['packages/core/src/router.mjs', 'dist/router.mjs'],
   ['packages/core/src/doctor.mjs', 'dist/doctor.mjs'],
-  ...['common', 'lint', 'lint-policy', 'tokens', 'token-policy'].map(name => [`packages/core/src/tools/${name}.mjs`, `dist/tools/${name}.mjs`]),
+  ...['common', 'lint', 'lint-policy', 'lint-css', 'tokens', 'token-policy'].map(name => [`packages/core/src/tools/${name}.mjs`, `dist/tools/${name}.mjs`]),
   ['scripts/slice-eslint-policy.mjs', 'dist/policy/slice-eslint-policy.mjs'],
   ['scripts/design-jsx-policy.mjs', 'dist/policy/design-jsx-policy.mjs'],
-  ['packages/cli/src/installer.mjs', 'dist/tools/installer.mjs'],
-  ['packages/cli/src/safety.mjs', 'dist/tools/safety.mjs'],
-  ['packages/cli/src/host-config.mjs', 'dist/tools/host-config.mjs'],
+  ['packages/core/src/tools/installer.mjs', 'dist/tools/installer.mjs'],
+  ['packages/core/src/tools/safety.mjs', 'dist/tools/safety.mjs'],
+  ['packages/core/src/tools/host-config.mjs', 'dist/tools/host-config.mjs'],
 ];
 const files = {};
 for (const [from, to] of copies) {
@@ -52,8 +52,10 @@ const policyDependencies=[];
 for (const [name, version] of Object.entries(pkg.dependencies)) {
   const metadataPath=require.resolve(`${name}/package.json`),metadata = JSON.parse(fs.readFileSync(metadataPath));
   if (metadata.version !== version || !metadata.license) throw Error(`Unverified tool dependency/license: ${name}`);
-  const license=fs.readFileSync(path.join(path.dirname(metadataPath),'LICENSE')),to=`dist/policy/licenses/${name.replaceAll('/','-').replaceAll('@','')}.txt`;
-  fs.mkdirSync(path.dirname(path.join(target,to)),{recursive:true});fs.writeFileSync(path.join(target,to),license);files[to]={hash:hash(license),bytes:license.length,source:`npm:${name}@${version}/LICENSE`};
+  const licenseName=['LICENSE','LICENSE-MIT'].find(file=>fs.existsSync(path.join(path.dirname(metadataPath),file)));
+  if(!licenseName)throw Error(`Missing actual dependency license: ${name}`);
+  const license=fs.readFileSync(path.join(path.dirname(metadataPath),licenseName)),to=`dist/policy/licenses/${name.replaceAll('/','-').replaceAll('@','')}.txt`;
+  fs.mkdirSync(path.dirname(path.join(target,to)),{recursive:true});fs.writeFileSync(path.join(target,to),license);files[to]={hash:hash(license),bytes:license.length,source:`npm:${name}@${version}/${licenseName}`};
   policyDependencies.push({name,version,license:metadata.license,licenseFile:to,licenseHash:hash(license)});
   notices.push(`- ${name} ${metadata.version}: ${metadata.license}. Installed as a dependency; its package retains its own license/notice files.`);
 }

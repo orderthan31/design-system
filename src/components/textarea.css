@@ -1,4 +1,0 @@
-@import "./input.css";
-@layer components {
- :where(.ds-core) .textarea {resize:vertical;min-height:112px;}
-}

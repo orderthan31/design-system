@@ -1,0 +1,4 @@
+/* Unlayered owner styles preserve the source cascade over utility layers. */
+
+.hangyeol-disclosure summary { cursor: pointer; min-height: 44px; display: list-item; font-size: 14px; }
+.hangyeol-disclosure summary:focus-visible { outline: 3px solid var(--g-focus); outline-offset: 3px; }

@@ -29,7 +29,7 @@ function guard(code='process.exit(93);'){
 }
 function recovery(r){const line=r.stderr.split('\n').find(l=>l.startsWith('{"transactionRecovery"'));assert.ok(line,r.stderr);return JSON.parse(line);}
 function preload(code){const p=path.join(evidence,`transaction-preload-${process.hrtime.bigint()}.mjs`);fs.writeFileSync(p,code);return `--import=${p}`;}
-function backups(dir,target){const root=path.join(dir,'.gyeol-backups');return fs.existsSync(root)?fs.readdirSync(root).map(s=>path.join(root,s,target)).filter(p=>fs.existsSync(p)):[];}
+function backups(dir,target){const root=path.join(dir,'.hangyeol-backups');return fs.existsSync(root)?fs.readdirSync(root).map(s=>path.join(root,s,target)).filter(p=>fs.existsSync(p)):[];}
 
 test('physical installed local bin preflights, noops, recovers writes/npm/metadata and reports concurrent recovery refusal',()=>{
  const host=fs.mkdtempSync(path.join(evidence,'transaction-installed-')),manifest=json(path.join(artifact.unpacked,'package/payload/manifest.json'));
@@ -37,8 +37,8 @@ test('physical installed local bin preflights, noops, recovers writes/npm/metada
  fs.writeFileSync(path.join(host,'sentinel'),'owner sentinel');
  const prep=command('offline-preparation','npm',['install','--offline','--ignore-scripts','--save-dev','--save-exact',artifact.tarball],host);assert.equal(prep.status,0,prep.stderr);
  const installed=path.join(host,'node_modules/hangyeol-core'),bin=path.join(host,'node_modules/.bin/hangyeol');assert.equal(fs.lstatSync(installed).isSymbolicLink(),false);assert.equal(fs.realpathSync(bin),path.join(installed,'bin/hangyeol.mjs'));
- assert.equal(sha(fs.readFileSync(artifact.tarball)),artifact.sha256);for(const name of ['safety.mjs','installer.mjs'])assert.equal(sha(fs.readFileSync(path.join(installed,'dist/tools',name))),sha(fs.readFileSync(path.join(repo,'packages/cli/src',name))));
- assert.equal(command('version',bin,['--version'],host).stdout.trim(),artifact.version);assert.ok(!fs.existsSync(path.join(host,'gyeol.json')),'no postinstall generation');
+ assert.equal(sha(fs.readFileSync(artifact.tarball)),artifact.sha256);for(const name of ['safety.mjs','installer.mjs'])assert.equal(sha(fs.readFileSync(path.join(installed,'dist/tools',name))),sha(fs.readFileSync(path.join(repo,'packages/core/src/tools',name))));
+ assert.equal(command('version',bin,['--version'],host).stdout.trim(),artifact.version);assert.ok(!fs.existsSync(path.join(host,'hangyeol.json')),'no postinstall generation');
  const coreInitial=json(path.join(host,'package-lock.json')).packages['node_modules/hangyeol-core'],pin=json(path.join(host,'package.json')).devDependencies['hangyeol-core'];
  const npmGuard=guard();
  function checked(label,args,{exit=0,unchanged=false,diagnostic,env=npmGuard.env,npm0=true}={}){
@@ -60,16 +60,16 @@ test('physical installed local bin preflights, noops, recovers writes/npm/metada
  const edited=fs.readFileSync(path.join(host,button)),commons=[theme,helper].map(p=>fs.readFileSync(path.join(host,p)));
  checked('edited-conflict',['add','text-field'],{exit:1,unchanged:true,diagnostic:/conflict.*button/});
  const editedPkg=json(path.join(host,'package.json'));delete editedPkg.dependencies.clsx;fs.writeFileSync(path.join(host,'package.json'),JSON.stringify(editedPkg,null,2)+'\n');
- const pkgBefore=fs.readFileSync(path.join(host,'package.json')),lockBefore=fs.readFileSync(path.join(host,'package-lock.json')),configBefore=fs.readFileSync(path.join(host,'gyeol.json'));
+ const pkgBefore=fs.readFileSync(path.join(host,'package.json')),lockBefore=fs.readFileSync(path.join(host,'package-lock.json')),configBefore=fs.readFileSync(path.join(host,'hangyeol.json'));
  const failure=guard("fs.writeFileSync('package.json','{\"injected\":true}');fs.writeFileSync('package-lock.json','{\"injected\":true}');fs.writeFileSync('node_modules/transaction-residue','external npm effect');process.exit(42);");
  const npmFailure=checked('injected-npm-failure',['add','text-field','--overwrite'],{exit:1,diagnostic:/Dependency install failed \(42\)/,env:failure.env}),npmRecovery=recovery(npmFailure);
  assert.equal(npmRecovery.transactionRecovery.status,'recovered');assert.equal(npmRecovery.dependencyAttempted,true);assert.match(npmRecovery.nodeModules,/not rolled back/);assert.ok(fs.readFileSync(failure.trace,'utf8').includes('clsx@2.1.1'));
- for(const [name,bytes] of [['package.json',pkgBefore],['package-lock.json',lockBefore],['gyeol.json',configBefore],[button,edited]])assert.deepEqual(fs.readFileSync(path.join(host,name)),bytes);
- assert.deepEqual(npmFailure.after[button],npmFailure.before[button],'managed hardlink recovery restores original inode/mtime/mode/hash');assert.ok(!fs.existsSync(path.join(host,input))&&!fs.existsSync(path.join(host,'ui/system/components')));assert.equal(fs.readFileSync(path.join(host,'node_modules/transaction-residue'),'utf8'),'external npm effect');assert.ok(backups(host,button).some(p=>fs.readFileSync(p).equals(edited)));assert.ok(!fs.existsSync(path.join(host,'.gyeol-transactions')));
+ for(const [name,bytes] of [['package.json',pkgBefore],['package-lock.json',lockBefore],['hangyeol.json',configBefore],[button,edited]])assert.deepEqual(fs.readFileSync(path.join(host,name)),bytes);
+ assert.deepEqual(npmFailure.after[button],npmFailure.before[button],'managed hardlink recovery restores original inode/mtime/mode/hash');assert.ok(!fs.existsSync(path.join(host,input))&&!fs.existsSync(path.join(host,'ui/system/components')));assert.equal(fs.readFileSync(path.join(host,'node_modules/transaction-residue'),'utf8'),'external npm effect');assert.ok(backups(host,button).some(p=>fs.readFileSync(p).equals(edited)));assert.ok(!fs.existsSync(path.join(host,'.hangyeol-transactions')));
  // Fixture-owned preparation restores the declared dependency, not installer rollback.
  editedPkg.dependencies.clsx=manifest.runtime.clsx;fs.writeFileSync(path.join(host,'package.json'),JSON.stringify(editedPkg,null,2)+'\n');
- const metadataFault=preload(`import fs from 'node:fs';const rename=fs.renameSync;fs.renameSync=function(a,b){if(b===${JSON.stringify(path.join(host,'gyeol.json'))})throw Error('injected metadata rename');return rename.call(this,a,b);};`);
- const meta=checked('injected-metadata-failure',['add','input'],{exit:1,diagnostic:/injected metadata rename/,env:{...npmGuard.env,NODE_OPTIONS:metadataFault}});assert.equal(recovery(meta).transactionRecovery.status,'recovered');assert.ok(!fs.existsSync(path.join(host,input)));assert.deepEqual(fs.readFileSync(path.join(host,'gyeol.json')),configBefore);assert.ok(backups(host,'gyeol.json').some(p=>fs.readFileSync(p).equals(configBefore)));assert.deepEqual(meta.after[button],meta.before[button]);
+ const metadataFault=preload(`import fs from 'node:fs';const rename=fs.renameSync;fs.renameSync=function(a,b){if(b===${JSON.stringify(path.join(host,'hangyeol.json'))})throw Error('injected metadata rename');return rename.call(this,a,b);};`);
+ const meta=checked('injected-metadata-failure',['add','input'],{exit:1,diagnostic:/injected metadata rename/,env:{...npmGuard.env,NODE_OPTIONS:metadataFault}});assert.equal(recovery(meta).transactionRecovery.status,'recovered');assert.ok(!fs.existsSync(path.join(host,input)));assert.deepEqual(fs.readFileSync(path.join(host,'hangyeol.json')),configBefore);assert.ok(backups(host,'hangyeol.json').some(p=>fs.readFileSync(p).equals(configBefore)));assert.deepEqual(meta.after[button],meta.before[button]);
  const writeFault=preload(`import fs from 'node:fs';const rename=fs.renameSync;fs.renameSync=function(a,b){if(b===${JSON.stringify(path.join(host,textfield))})throw Error('injected later source rename');return rename.call(this,a,b);};`);
  const partial=checked('injected-source-failure',['add','text-field','--overwrite'],{exit:1,diagnostic:/injected later source rename/,env:{...npmGuard.env,NODE_OPTIONS:writeFault}});assert.equal(recovery(partial).transactionRecovery.status,'recovered');assert.deepEqual(partial.after[button],partial.before[button]);assert.ok(!fs.existsSync(path.join(host,input))&&!fs.existsSync(path.join(host,'ui/system/components')));
  const restoreFault=preload(`import fs from 'node:fs';const rename=fs.renameSync;let count=0;fs.renameSync=function(a,b){if(b===${JSON.stringify(path.join(host,button))}&&++count===2)throw Error('injected restore denied');if(b===${JSON.stringify(path.join(host,textfield))})throw Error('injected later source rename');return rename.call(this,a,b);};`);
@@ -111,11 +111,11 @@ test('physical installed safety API rejects batch collisions/overlap/root symlin
  const faultCases=[];
  for(const fault of ['close','mode','mtime']){
   const dir=fs.mkdtempSync(path.join(evidence,'installed-journal-fault-'));fs.writeFileSync(path.join(dir,'a'),'owner');const before=snapshot(dir),fd=fault==='close'?undefined:fs.openSync(path.join(dir,'a'),'r'),plan=safety.planFiles(dir,[{path:'a',bytes:Buffer.from('tool')},...(fault==='close'?[]:[{path:'b',bytes:Buffer.from('later')}])],{overwrite:true}),open=fs.openSync,close=fs.closeSync,rename=fs.renameSync;let staged,error;
-  fs.openSync=function(file,...args){const descriptor=open.call(this,file,...args);if(String(file).includes('/.gyeol-transactions/')&&args[0]==='wx')staged=descriptor;return descriptor;};
+  fs.openSync=function(file,...args){const descriptor=open.call(this,file,...args);if(String(file).includes('/.hangyeol-transactions/')&&args[0]==='wx')staged=descriptor;return descriptor;};
   fs.closeSync=function(descriptor){close.call(this,descriptor);if(fault==='close'&&descriptor===staged){staged=undefined;throw Error('injected physical stage close');}};
   fs.renameSync=function(from,to){if(fault!=='close'&&to===path.join(dir,'b')){if(fault==='mode')fs.fchmodSync(fd,0o600);else fs.futimesSync(fd,1,1);throw Error('injected physical original drift');}return rename.call(this,from,to);};
   try{safety.applyPlan(dir,plan);}catch(e){error=e;}finally{fs.openSync=open;fs.closeSync=close;fs.renameSync=rename;if(fd!==undefined)close.call(fs,fd);}
-  assert.ok(error);if(fault==='close'){assert.equal(error.recovery.status,'recovered');assert.equal(error.recovery.journal,null);assert.ok(!fs.existsSync(path.join(dir,'.gyeol-transactions')));assert.equal(fs.readFileSync(path.join(dir,'a'),'utf8'),'owner');}else{assert.equal(error.recovery.status,'incomplete');assert.ok(error.recovery.errors.some(e=>e.path==='a'&&/original recovery state changed/.test(e.error)));assert.ok(fs.existsSync(path.join(dir,error.recovery.journal)));assert.equal(fs.readFileSync(path.join(dir,'a'),'utf8'),'tool');assert.equal(fs.readFileSync(path.join(dir,plan[0].backup),'utf8'),'owner');}
+  assert.ok(error);if(fault==='close'){assert.equal(error.recovery.status,'recovered');assert.equal(error.recovery.journal,null);assert.ok(!fs.existsSync(path.join(dir,'.hangyeol-transactions')));assert.equal(fs.readFileSync(path.join(dir,'a'),'utf8'),'owner');}else{assert.equal(error.recovery.status,'incomplete');assert.ok(error.recovery.errors.some(e=>e.path==='a'&&/original recovery state changed/.test(e.error)));assert.ok(fs.existsSync(path.join(dir,error.recovery.journal)));assert.equal(fs.readFileSync(path.join(dir,'a'),'utf8'),'tool');assert.equal(fs.readFileSync(path.join(dir,plan[0].backup),'utf8'),'owner');}
   faultCases.push({fault,host:dir,before,after:snapshot(dir),error:error.message,recovery:error.recovery});
  }
  const reportCases=[];
@@ -130,12 +130,12 @@ test('physical installed safety API rejects batch collisions/overlap/root symlin
    }else{
     fs.writeFileSync(path.join(dir,'a'),'owner');const tx=safety.createTransaction(dir);tx.watch('a');
     fs.utimesSync=function(file,...args){if(file===dir){phase=true;throw Error('injected physical directory timestamp restore failure');}return utimes.call(this,file,...args);};
-    if(flow==='journal check uncertain')fs.lstatSync=function(file,...args){if(phase&&String(file).includes('/.gyeol-transactions/'))throw Object.assign(Error('injected physical journal inspection denied'),{code:'EACCES'});return lstat.call(this,file,...args);};
+    if(flow==='journal check uncertain')fs.lstatSync=function(file,...args){if(phase&&String(file).includes('/.hangyeol-transactions/'))throw Object.assign(Error('injected physical journal inspection denied'),{code:'EACCES'});return lstat.call(this,file,...args);};
     result=tx.commit();assert.equal(result.status,'cleanup-incomplete');assert.equal(fs.readFileSync(path.join(dir,'a'),'utf8'),'owner');
    }
   }finally{fs.renameSync=rename;fs.utimesSync=utimes;fs.lstatSync=lstat;}
-  assert.equal(result.journal,null);assert.equal(result.journalStatus,flow==='journal check uncertain'?'unknown':'absent');assert.ok(result.errors.length);assert.ok(!fs.existsSync(path.join(dir,'.gyeol-transactions')));
-  if(flow==='journal check uncertain'){assert.ok(result.journalCandidate.startsWith('.gyeol-transactions/'));assert.ok(result.errors.some(e=>/journal inspection denied/.test(e.error)));}else assert.equal(result.journalCandidate,undefined);
+  assert.equal(result.journal,null);assert.equal(result.journalStatus,flow==='journal check uncertain'?'unknown':'absent');assert.ok(result.errors.length);assert.ok(!fs.existsSync(path.join(dir,'.hangyeol-transactions')));
+  if(flow==='journal check uncertain'){assert.ok(result.journalCandidate.startsWith('.hangyeol-transactions/'));assert.ok(result.errors.some(e=>/journal inspection denied/.test(e.error)));}else assert.equal(result.journalCandidate,undefined);
   reportCases.push({flow,host:dir,after:snapshot(dir),recovery:result});
  }
  for(const row of faultCases.filter(row=>row.fault!=='close'))assert.equal(row.recovery.journalStatus,'present');

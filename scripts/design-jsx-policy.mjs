@@ -19,12 +19,6 @@ function resolve(node, sourceCode, seen = new Set()) {
   }
   return node;
 }
-const customPropertyOwners = [
-  {file:'src/components/bottom-cta.tsx',properties:['--ds-bottom-cta-height'],reason:'Measured reservation in its core owner.'},
-  {file:'src/components/content-primitives.tsx',properties:['--ds-grid-list-columns'],reason:'Validated GridList column count in its core owner.'},
-  {file:'src/components/chart.tsx',properties:['--ds-chart-color'],reason:'Indicator uses the Chart config semantic series token; values remain subject to shadcn/no-inline-styles.'},
-];
-export { customPropertyOwners };
 export default {
   rules: {
     'no-unowned-custom-properties': {

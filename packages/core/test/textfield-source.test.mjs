@@ -11,7 +11,7 @@ assert.ok(evidence,'Require designated CORE04 scratch');
 const root=fileURLToPath(new URL('../../../',import.meta.url));
 const payload=path.join(root,'packages/core/payload');
 const manifest=JSON.parse(fs.readFileSync(path.join(payload,'manifest.json')));
-const wrapper=`import {runInstaller} from ${JSON.stringify(pathToFileURL(path.join(root,'packages/cli/src/installer.mjs')).href)};process.exitCode=runInstaller(process.argv.slice(1),{payloadRoot:${JSON.stringify(payload)}});`;
+const wrapper=`import {runInstaller} from ${JSON.stringify(pathToFileURL(path.join(root,'packages/core/src/tools/installer.mjs')).href)};process.exitCode=runInstaller(process.argv.slice(1),{payloadRoot:${JSON.stringify(payload)}});`;
 const digest=b=>createHash('sha256').update(b).digest('hex');
 function snapshot(dir,base=dir){
  const s=fs.lstatSync(dir,{bigint:true}),result=dir===base?{'.':{mtimeNs:String(s.mtimeNs),mode:String(s.mode)}}:{};
@@ -25,7 +25,7 @@ function host(){
  const dir=fs.mkdtempSync(path.join(evidence,'textfield-source-'));
  fs.writeFileSync(path.join(dir,'package.json'),JSON.stringify({name:'core04-source-host',private:true,type:'module',dependencies:{react:'19.2.0','react-dom':'19.2.0',...manifest.runtime},devDependencies:{vite:'7.3.6',...manifest.build,...manifest.types}},null,2)+'\n');
  fs.writeFileSync(path.join(dir,'sentinel.txt'),'owner settings preserved\n');
- fs.writeFileSync(path.join(dir,'gyeol.json'),JSON.stringify({schemaVersion:1,sourceRoot:'ui/system',stylePath:'styles/theme.css',publicRoot:'static',fontPath:'assets/type',basePath:'/design/',alias:'@hangyeol',ownerSetting:'kept'},null,2)+'\n');
+ fs.writeFileSync(path.join(dir,'hangyeol.json'),JSON.stringify({schemaVersion:1,sourceRoot:'ui/system',stylePath:'styles/theme.css',publicRoot:'static',fontPath:'assets/type',basePath:'/design/',alias:'@hangyeol',ownerSetting:'kept'},null,2)+'\n');
  return dir;
 }
 function run(dir,args,runner=wrapper){
@@ -45,8 +45,8 @@ function init(){const dir=host();ok(dir,['init']);return dir;}
 function editCommon(dir){for(const name of manifest.common)fs.appendFileSync(path.join(dir,'ui/system',name),'\n/* CORE04 local common edit */\n');}
 function commonState(dir){return Object.fromEntries(manifest.common.map(name=>[name,snapshot(path.dirname(path.join(dir,'ui/system',name)))[path.basename(name)]]));}
 
-const componentFiles=['primitives/input.tsx','primitives/button.tsx','components/text-field.tsx'];
-const expectedUI=['components/text-field.tsx','foundation/theme.css','lib/cn.ts','primitives/button.tsx','primitives/input.tsx'];
+const componentFiles=['primitives/input.tsx','primitives/button.tsx','components/form-field.tsx','components/text-field.tsx'];
+const expectedUI=['components/form-field.tsx','components/text-field.tsx','foundation/theme.css','lib/cn.ts','primitives/button.tsx','primitives/input.tsx'];
 function parsePlan(r){return JSON.parse(r.stdout.slice(0,r.stdout.indexOf('\n}')+2));}
 function assertGraph(dir,r){
  const plan=parsePlan(r),targets=plan.files.map(f=>f.path);
@@ -55,7 +55,7 @@ function assertGraph(dir,r){
  const graph=snapshot(path.join(dir,'ui/system'));
  assert.deepEqual(Object.keys(graph).filter(k=>graph[k].sha256).sort(),[...expectedUI,'foundation/fonts.css'].sort());
  for(const name of componentFiles)assert.equal(digest(fs.readFileSync(path.join(dir,'ui/system',name))),manifest.files[name].hash);
- const config=JSON.parse(fs.readFileSync(path.join(dir,'gyeol.json')));assert.deepEqual([...config.components].sort(),['button','input','text-field']);assert.equal(config.ownerSetting,'kept');
+ const config=JSON.parse(fs.readFileSync(path.join(dir,'hangyeol.json')));assert.deepEqual([...config.components].sort(),['button','form-field','input','text-field']);assert.equal(config.ownerSetting,'kept');
 }
 for(const request of [['text-field'],['text-field','input','button']])test(`TextField source closure dedupes request ${request.join(',')}`,()=>{
  const dir=init(),dry=ok(dir,['add',...request,'--dry-run']);assert.deepEqual(dry.before,dry.after);
@@ -71,7 +71,7 @@ test('Button then TextField preserves shared Button bytes/mtime and overlapping 
 });
 
 for(const file of componentFiles)test(`edited ${file} conflicts before npm/writes and explicit closure overwrite preserves exact backup`,()=>{
- const dir=init(),originalRecords=JSON.parse(fs.readFileSync(path.join(dir,'gyeol.json'))).installed;
+ const dir=init(),originalRecords=JSON.parse(fs.readFileSync(path.join(dir,'hangyeol.json'))).installed;
  editCommon(dir);const commons=commonState(dir);ok(dir,['add','text-field']);
  const target=path.join(dir,'ui/system',file);fs.appendFileSync(target,'\n// CORE04 consumer component edit\n');const edited=fs.readFileSync(target);
  reject(dir,['add','text-field'],new RegExp('conflict.*'+file.replaceAll('.','\\.')));
@@ -79,6 +79,6 @@ for(const file of componentFiles)test(`edited ${file} conflicts before npm/write
  assert.deepEqual(fs.readFileSync(path.join(dir,changed[0].backup)),edited);
  assert.equal(digest(fs.readFileSync(target)),manifest.files[file].hash);
  assert.deepEqual(commonState(dir),commons);
- const config=JSON.parse(fs.readFileSync(path.join(dir,'gyeol.json')));for(const common of manifest.common)assert.deepEqual(config.installed['ui/system/'+common],originalRecords['ui/system/'+common],'edited commons retain original template records');
+ const config=JSON.parse(fs.readFileSync(path.join(dir,'hangyeol.json')));for(const common of manifest.common)assert.deepEqual(config.installed['ui/system/'+common],originalRecords['ui/system/'+common],'edited commons retain original template records');
  const repeat=ok(dir,['add','text-field','--overwrite']);assert.deepEqual(repeat.before,repeat.after);
 });

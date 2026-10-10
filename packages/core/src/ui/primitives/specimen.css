@@ -1,0 +1,20 @@
+/* Unlayered owner styles preserve the source cascade over utility layers. */
+
+.hangyeol-swatch { min-width: 0; display: grid; gap: 12px; }
+.hangyeol-swatch > span { display: block; height: 64px; border-radius: 6px; border: 1px solid var(--g-line); }
+.hangyeol-swatch > div { display: grid; gap: 4px; }
+.hangyeol-swatch code { font-size: 12px; color: var(--g-soft); }
+.hangyeol-spacing-sample { height: 16px; background: var(--g-action); border-radius: 2px; }
+.hangyeol-elevation-example h3 { font-size: 16px; font-weight: 600; }
+.hangyeol-elevation-example p { font-size: 14px; line-height: 1.7; color: var(--g-soft); }
+.hangyeol-elevation-example code { font-size: 12px; color: var(--g-soft); overflow-wrap: anywhere; }
+.hangyeol-radius-sample { width: 100%; height: 100px; border: 1px solid var(--g-line); background: var(--g-muted); }
+.hangyeol-container-track { background: var(--g-muted); padding: 12px; min-width: 0; }
+.hangyeol-container-sample { background: var(--g-surface); border: 1px solid var(--g-line); padding-top: 16px; padding-bottom: 16px; font-size: 14px; text-align: center; }
+.hangyeol-grid-cell { padding: 20px 16px; background: var(--g-muted); border-radius: var(--radius-g-control, 8px); text-align: center; font-size: 14px; }
+.hangyeol-elevation-example { display: grid; gap: 12px; padding: 24px; border-radius: var(--radius-g-panel, 12px); background: var(--g-surface); }
+.hangyeol-layer-example { position: relative; padding: 24px; min-height: 160px; background: var(--g-surface); border-radius: var(--radius-g-panel, 12px); }
+.hangyeol-overlay-example { position: absolute; inset: 0; display: grid; place-items: center; padding: 24px; background: var(--g-overlay); border-radius: inherit; }
+
+.hangyeol-spacing-sample { width: calc(var(--spacing, .25rem) * var(--hangyeol-space-multiple)); }
+.hangyeol-swatch > span { background: var(--hangyeol-swatch-color); }

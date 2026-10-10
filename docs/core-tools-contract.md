@@ -47,7 +47,7 @@ AST import count. Neither count is browser/bundler instrumentation.
 | State | Exit | Meaning / example |
 | --- | --- | --- |
 | `ok` | 0 | Required supported records/files/connections exist. Local edits can have `info` checks. |
-| `uninitialized` | 1 | `gyeol.json: [config.missing] Consumer is not initialized.` Review prerequisites and explicitly run local-bin init. |
+| `uninitialized` | 1 | `hangyeol.json: [config.missing] Consumer is not initialized.` Review prerequisites and explicitly run local-bin init. |
 | `error` | 1 | Missing/malformed/unsafe data, incompatible versions, missing files/assets/dependencies, or conflicting supported connections. |
 | `unsupported` | 2 | Unsupported doctor options, host script/Vite grammar, or computed source import cannot be certified. Errors take precedence when both occur. |
 
@@ -62,7 +62,7 @@ consumer file and line. Missing literal local imports produce
 
 ## Checked connections and supported input
 
-Doctor reads `gyeol.json` as JSON data: schema 1, configured source/style/public/
+Doctor reads `hangyeol.json` as JSON data: schema 1, configured source/style/public/
 font paths, root-relative same-origin base, literal alias, component names and
 installed version/hash records. Unknown owner/token/palette fields are retained,
 not evaluated. Integration checks compare only the known path/alias settings;

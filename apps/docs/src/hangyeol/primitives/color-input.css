@@ -1,0 +1,4 @@
+/* Unlayered owner styles preserve the source cascade over utility layers. */
+
+.hangyeol-color-input { width: 64px; height: 44px; border: 1px solid var(--g-line); border-radius: 6px; background: var(--g-surface); padding: 4px; cursor: pointer; }
+.hangyeol-color-input:focus-visible { outline: 3px solid var(--g-focus); outline-offset: 3px; }

@@ -80,7 +80,7 @@ function validateArtifact(metadata) {
   assert.equal(manifest.version, pkg.version);
   for (const [name, value] of Object.entries(manifest.files)) {
     assert.equal(digest(fs.readFileSync(path.join(packageRoot, 'payload/source', name))), value.hash);
-    assert.equal(digest(fs.readFileSync(path.join(repo, 'packages/ui/src', name))), value.hash, `Current canonical source: ${name}`);
+    assert.equal(digest(fs.readFileSync(path.join(repo, 'packages/core/src/ui', name))), value.hash, `Current canonical source: ${name}`);
   }
   const tools = json(path.join(packageRoot, 'dist/tool-manifest.json'));
   for (const [name, value] of Object.entries(tools.files)) {
@@ -169,7 +169,7 @@ test('independent physical consumer runs installed core and builds preserved edi
   const originalTSConfig = fs.readFileSync(path.join(host, 'tsconfig.json'));
   run('install', 'npm', ['install', '--save-dev', '--save-exact', artifact.tarball, '--offline', '--ignore-scripts', '--no-audit', '--no-fund'], host);
   const identity = assertCoreIdentity(host), { bin, physical } = identity;
-  for (const name of ['gyeol.json', 'ui', 'src', 'static', '.gyeol-backups']) assert.ok(!fs.existsSync(path.join(host, name)), `Package install alone must not generate ${name}`);
+  for (const name of ['hangyeol.json', 'ui', 'src', 'static', '.hangyeol-backups']) assert.ok(!fs.existsSync(path.join(host, name)), `Package install alone must not generate ${name}`);
   assert.equal(fs.readFileSync(path.join(host, 'styles/theme.css'), 'utf8'), hostCSS);
   const require = createRequire(path.join(host, 'package.json')), resolutions = {};
   for (const name of [...Object.keys(json(path.join(host, 'package.json')).dependencies), ...Object.keys(manifest.build), ...Object.keys(manifest.types), 'vite', 'typescript', ...Object.keys(corePackage.dependencies)]) {
@@ -197,23 +197,23 @@ test('independent physical consumer runs installed core and builds preserved edi
   assert.equal(initPlan.dryRun, true);
   cli('init', ['init', ...flags], 0, false);
   cli('init-noop', ['init']);
-  const originalInitConfig = fs.readFileSync(path.join(host, 'gyeol.json'));
+  const originalInitConfig = fs.readFileSync(path.join(host, 'hangyeol.json'));
   const addPlan = JSON.parse(cli('add-plan', ['add', 'text-field', '--dry-run']).stdout);
   assert.equal(addPlan.dryRun, true);
   cli('add', ['add', 'text-field'], 0, false);
   cli('add-noop', ['add', 'text-field']);
   assert.equal(fs.readFileSync(guard.trace, 'utf8'), '', 'All required dependencies were installed explicitly before init/add');
-  const sourceRoot = path.join(host, 'ui/system'), configFile = path.join(host, 'gyeol.json');
+  const sourceRoot = path.join(host, 'ui/system'), configFile = path.join(host, 'hangyeol.json');
   const config = json(configFile), originalRecords = structuredClone(config.installed);
   assert.deepEqual([...config.components].sort(), ['button', 'input', 'text-field']);
   const listFiles = (dir, prefix = '') => fs.readdirSync(dir, { withFileTypes: true }).flatMap(entry => entry.isDirectory()
     ? listFiles(path.join(dir, entry.name), prefix + entry.name + '/') : [prefix + entry.name]).sort();
-  const backupRoot = path.join(host, '.gyeol-backups'), backupFiles = listFiles(backupRoot);
-  for (const [name, bytes] of [['styles/theme.css', Buffer.from(hostCSS)], ['tsconfig.json', originalTSConfig], ['gyeol.json', originalInitConfig]]) {
+  const backupRoot = path.join(host, '.hangyeol-backups'), backupFiles = listFiles(backupRoot);
+  for (const [name, bytes] of [['styles/theme.css', Buffer.from(hostCSS)], ['tsconfig.json', originalTSConfig], ['hangyeol.json', originalInitConfig]]) {
     assert.ok(backupFiles.some(file => file.endsWith('/' + name) && fs.readFileSync(path.join(backupRoot, file)).equals(bytes)), `Actual integration/metadata change must retain exact prior ${name} bytes`);
   }
   assert.ok(initPlan.files.some(file => file.path === 'styles/theme.css' && file.action === 'replace' && file.backup));
-  assert.ok(addPlan.metadata.some(file => file.path === 'gyeol.json' && file.action === 'replace'));
+  assert.ok(addPlan.metadata.some(file => file.path === 'hangyeol.json' && file.action === 'replace'));
   assert.ok(fs.readFileSync(path.join(host, 'styles/theme.css'), 'utf8').endsWith(hostCSS));
   assert.ok(!fs.readFileSync(path.join(host, 'styles/theme.css'), 'utf8').includes('tailwindcss/preflight'));
   for (const [key, value] of Object.entries(JSON.parse(originalTSConfig).compilerOptions)) assert.deepEqual(json(path.join(host, 'tsconfig.json')).compilerOptions[key], value);
@@ -236,7 +236,7 @@ test('independent physical consumer runs installed core and builds preserved edi
   fs.writeFileSync(configFile, JSON.stringify(config));
   fs.appendFileSync(path.join(sourceRoot, 'lib/cn.ts'), '\nexport const ownerCnMarker="CORE10_OWNER_CN";\n');
   fs.appendFileSync(path.join(sourceRoot, 'components/text-field.tsx'), '\nexport const ownerFieldMarker="CORE10_OWNER_TEXT_FIELD";\n');
-  fs.appendFileSync(path.join(sourceRoot, 'foundation/theme.css'), '\n[data-gyeol] { --g-surface: #654321; --g-danger: rebeccapurple; }\n[data-gyeol][data-palette="Owner"] { --g-action: #a16207; }\n');
+  fs.appendFileSync(path.join(sourceRoot, 'foundation/theme.css'), '\n[data-hangyeol] { --g-surface: #654321; --g-danger: rebeccapurple; }\n[data-hangyeol][data-palette="Owner"] { --g-action: #a16207; }\n');
   const edited = checkTools('edited');
   for (const scheme of ['light', 'dark']) {
     assert.equal(edited.tokens.schemes[scheme].roles['--g-surface'].value, '#654321');
@@ -256,7 +256,7 @@ test('independent physical consumer runs installed core and builds preserved edi
 
   fs.mkdirSync(path.join(host, 'src'));
   fs.writeFileSync(path.join(host, 'index.html'), '<div id="root"></div><script type="module" src="/src/main.tsx"></script>');
-  fs.writeFileSync(path.join(host, 'src/main.tsx'), 'import {createRoot} from "react-dom/client";\nimport {TextField,ownerFieldMarker} from "@hangyeol/components/text-field";\nimport {cn,ownerCnMarker} from "@hangyeol/lib/cn";\nimport "../styles/theme.css";\ncreateRoot(document.getElementById("root")!).render(<main data-gyeol data-palette="Owner" className={cn("grid","gap-3")}><TextField id="owner" label={ownerCnMarker+ownerFieldMarker} name="owner" required clearable defaultValue="owner value" /></main>);\n');
+  fs.writeFileSync(path.join(host, 'src/main.tsx'), 'import {createRoot} from "react-dom/client";\nimport {TextField,ownerFieldMarker} from "@hangyeol/components/text-field";\nimport {cn,ownerCnMarker} from "@hangyeol/lib/cn";\nimport "../styles/theme.css";\ncreateRoot(document.getElementById("root")!).render(<main data-hangyeol data-palette="Owner" className={cn("grid","gap-3")}><TextField id="owner" label={ownerCnMarker+ownerFieldMarker} name="owner" required clearable defaultValue="owner value" /></main>);\n');
   const ts = require('typescript'), imports = [];
   for (const name of listFiles(sourceRoot).filter(name => /\.tsx?$/.test(name))) {
     const ast = ts.createSourceFile(name, fs.readFileSync(path.join(sourceRoot, name), 'utf8'), ts.ScriptTarget.Latest, true);
@@ -265,7 +265,7 @@ test('independent physical consumer runs installed core and builds preserved edi
       if (ts.isImportDeclaration(node) || ts.isExportDeclaration(node)) specifier = node.moduleSpecifier;
       else if (ts.isImportEqualsDeclaration(node) && ts.isExternalModuleReference(node.moduleReference)) specifier = node.moduleReference.expression;
       else if (ts.isCallExpression(node) && (node.expression.kind === ts.SyntaxKind.ImportKeyword || ts.isIdentifier(node.expression) && node.expression.text === 'require')) specifier = node.arguments[0];
-      if (specifier && ts.isStringLiteral(specifier)) { imports.push({ file: name, line: ast.getLineAndCharacterOfPosition(node.getStart(ast)).line + 1, specifier: specifier.text }); assert.ok(!/^(hangyeol-core|@orderthan31\/gyeol-cli)(\/|$)/.test(specifier.text)); }
+      if (specifier && ts.isStringLiteral(specifier)) { imports.push({ file: name, line: ast.getLineAndCharacterOfPosition(node.getStart(ast)).line + 1, specifier: specifier.text }); assert.ok(!/^(hangyeol-core|hangyeol-core\/tools)(\/|$)/.test(specifier.text)); }
       ts.forEachChild(node, visit);
     }
     visit(ast);
@@ -310,7 +310,7 @@ test('absent core fails explicit local-only execution without npm npx or host mu
   const result = run('absent-local-bin', '/bin/sh', ['-c', 'exec ./node_modules/.bin/hangyeol --version'], host, { expected: [126, 127], readOnly: true, env: guard.env });
   assert.match(result.stderr, /node_modules\/\.bin\/hangyeol/);
   assert.equal(fs.readFileSync(guard.trace, 'utf8'), '');
-  for (const name of ['package.json', 'package-lock.json', 'node_modules', 'gyeol.json']) assert.ok(!fs.existsSync(path.join(host, name)));
+  for (const name of ['package.json', 'package-lock.json', 'node_modules', 'hangyeol.json']) assert.ok(!fs.existsSync(path.join(host, name)));
   fs.writeFileSync(path.join(evidence, 'absent-core.json'), JSON.stringify({ host, argv: ['/bin/sh', '-c', 'exec ./node_modules/.bin/hangyeol --version'],
     exit: result.status, stderr: result.stderr, noNpmNpxCalls: true, noPackageLockModulesCreated: true,
     controlledPATH: guard.env.PATH, NODE_PATH: 'removed', snapshotEqual: true,

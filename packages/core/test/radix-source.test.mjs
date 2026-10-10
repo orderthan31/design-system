@@ -12,7 +12,7 @@ const root=fileURLToPath(new URL('../../../',import.meta.url));
 assert.ok(path.resolve(evidence)!==path.resolve(root)&&!path.resolve(evidence).startsWith(path.resolve(root)+path.sep),'Fixtures must be outside repository before mutation');
 const payload=path.join(root,'packages/core/payload');
 const manifest=JSON.parse(fs.readFileSync(path.join(payload,'manifest.json')));
-const wrapper=`import {runInstaller} from ${JSON.stringify(pathToFileURL(path.join(root,'packages/cli/src/installer.mjs')).href)};process.exitCode=runInstaller(process.argv.slice(1),{payloadRoot:${JSON.stringify(payload)}});`;
+const wrapper=`import {runInstaller} from ${JSON.stringify(pathToFileURL(path.join(root,'packages/core/src/tools/installer.mjs')).href)};process.exitCode=runInstaller(process.argv.slice(1),{payloadRoot:${JSON.stringify(payload)}});`;
 const digest=b=>createHash('sha256').update(b).digest('hex');
 function snapshot(dir,base=dir){
  const s=fs.lstatSync(dir,{bigint:true}),result=dir===base?{'.':{mtimeNs:String(s.mtimeNs),mode:String(s.mode)}}:{};
@@ -24,9 +24,9 @@ function snapshot(dir,base=dir){
 }
 function host(){
  const dir=fs.mkdtempSync(path.join(evidence,'radix-source-'));
- fs.writeFileSync(path.join(dir,'package.json'),JSON.stringify({name:'core05-source-host',private:true,type:'module',dependencies:{react:'19.2.0','react-dom':'19.2.0',...manifest.runtime},devDependencies:{vite:'7.3.6',...manifest.build,...manifest.types}},null,2)+'\n');
+ fs.writeFileSync(path.join(dir,'package.json'),JSON.stringify({name:'core05-source-host',private:true,type:'module',dependencies:{react:'19.2.0','react-dom':'19.2.0',...manifest.runtime,...manifest.items.icon.runtime},devDependencies:{vite:'7.3.6',...manifest.build,...manifest.types}},null,2)+'\n');
  fs.writeFileSync(path.join(dir,'sentinel.txt'),'owner settings preserved\n');
- fs.writeFileSync(path.join(dir,'gyeol.json'),JSON.stringify({schemaVersion:1,sourceRoot:'ui/system',stylePath:'styles/theme.css',publicRoot:'static',fontPath:'assets/type',basePath:'/design/',alias:'@hangyeol',ownerSetting:'kept'},null,2)+'\n');
+ fs.writeFileSync(path.join(dir,'hangyeol.json'),JSON.stringify({schemaVersion:1,sourceRoot:'ui/system',stylePath:'styles/theme.css',publicRoot:'static',fontPath:'assets/type',basePath:'/design/',alias:'@hangyeol',ownerSetting:'kept'},null,2)+'\n');
  return dir;
 }
 function run(dir,args,runner=wrapper){
@@ -46,7 +46,7 @@ function init(){const dir=host();ok(dir,['init']);return dir;}
 function editCommon(dir){for(const name of manifest.common)fs.appendFileSync(path.join(dir,'ui/system',name),'\n/* CORE05 local common edit */\n');}
 function commonState(dir){return Object.fromEntries(manifest.common.map(name=>[name,snapshot(path.dirname(path.join(dir,'ui/system',name)))[path.basename(name)]]));}
 
-const graphs={select:['foundation/theme.css','lib/cn.ts','foundation/theme.tsx','primitives/portal.tsx','primitives/select.tsx'],tabs:['foundation/theme.css','lib/cn.ts','primitives/tabs.tsx'],dialog:['foundation/theme.css','lib/cn.ts','foundation/theme.tsx','primitives/portal.tsx','primitives/dialog.tsx']};
+const graphs={select:['foundation/theme.css','lib/cn.ts','foundation/theme.tsx','primitives/icon.tsx','primitives/portal.tsx','primitives/select.tsx'],tabs:['foundation/theme.css','lib/cn.ts','primitives/tabs.tsx'],dialog:['foundation/theme.css','lib/cn.ts','foundation/theme.tsx','primitives/portal.tsx','primitives/dialog.tsx']};
 function parse(r){return JSON.parse(r.stdout.slice(0,r.stdout.indexOf('\n}')+2));}
 for(const item of ['select','tabs','dialog'])test(`${item} source closure is exact and repeat add is strict noop`,()=>{
  const dir=init(),pkgPath=path.join(dir,'package.json'),pkg=JSON.parse(fs.readFileSync(pkgPath));Object.assign(pkg.dependencies,manifest.items[item].runtime);fs.writeFileSync(pkgPath,JSON.stringify(pkg,null,2)+'\n');
@@ -63,7 +63,7 @@ test('Select/Dialog overlap dedupes shared portal/theme without unrelated Tabs o
 });
 for(const target of ['primitives/select.tsx','primitives/tabs.tsx','primitives/dialog.tsx','primitives/portal.tsx','foundation/theme.tsx'])test(`edited closure ${target} conflicts and explicit overwrite backs up exact bytes, commons stay edited`,()=>{
  const item=target.includes('tabs')?'tabs':target.includes('dialog')?'dialog':'select',dir=init(),file=path.join(dir,'package.json'),pkg=JSON.parse(fs.readFileSync(file));Object.assign(pkg.dependencies,manifest.items[item].runtime);fs.writeFileSync(file,JSON.stringify(pkg));
- const records=JSON.parse(fs.readFileSync(path.join(dir,'gyeol.json'))).installed;editCommon(dir);const commons=commonState(dir);ok(dir,['add',item]);const full=path.join(dir,'ui/system',target);fs.appendFileSync(full,'\n// CORE05 owner closure edit\n');const edited=fs.readFileSync(full);
+ const records=JSON.parse(fs.readFileSync(path.join(dir,'hangyeol.json'))).installed;editCommon(dir);const commons=commonState(dir);ok(dir,['add',item]);const full=path.join(dir,'ui/system',target);fs.appendFileSync(full,'\n// CORE05 owner closure edit\n');const edited=fs.readFileSync(full);
  reject(dir,['add',item],/conflict.*edited/);const plan=parse(ok(dir,['add',item,'--overwrite'])),changed=plan.files.filter(f=>f.action!=='noop');assert.deepEqual(changed.map(f=>f.path),['ui/system/'+target]);assert.deepEqual(fs.readFileSync(path.join(dir,changed[0].backup)),edited);assert.deepEqual(commonState(dir),commons);
- const config=JSON.parse(fs.readFileSync(path.join(dir,'gyeol.json')));for(const common of manifest.common)assert.deepEqual(config.installed['ui/system/'+common],records['ui/system/'+common]);
+ const config=JSON.parse(fs.readFileSync(path.join(dir,'hangyeol.json')));for(const common of manifest.common)assert.deepEqual(config.installed['ui/system/'+common],records['ui/system/'+common]);
 });

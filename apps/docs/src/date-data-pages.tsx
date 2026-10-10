@@ -1,16 +1,17 @@
+import { PreviewSurface } from './hangyeol/primitives/preview-surface';
 import { useState, type ReactNode } from 'react';
-import { DatePicker } from './gyeol/components/date-picker';
-import { MonthPicker } from './gyeol/components/month-picker';
-import { TimeInput } from './gyeol/components/time-input';
-import { DateTimeInput } from './gyeol/components/date-time-input';
-import { DateRangePicker } from './gyeol/components/date-range-picker';
-import { DataTable, type DataTableColumn } from './gyeol/components/data-table';
-import { Chart } from './gyeol/components/chart';
-import { Button } from './gyeol/primitives/button';
-import { Checkbox } from './gyeol/primitives/checkbox';
-import { SegmentedControl } from './gyeol/components/segmented-control';
-import { Tabs,TabsList,TabsTrigger,TabsContent } from './gyeol/primitives/tabs';
-import { CodeBlock } from './component-pages';
+import { DatePicker } from './hangyeol/components/date-picker';
+import { MonthPicker } from './hangyeol/components/month-picker';
+import { TimeInput } from './hangyeol/components/time-input';
+import { DateTimeInput } from './hangyeol/components/date-time-input';
+import { DateRangePicker } from './hangyeol/components/date-range-picker';
+import { DataTable, type DataTableColumn } from './hangyeol/components/data-table';
+import { Chart } from './hangyeol/components/chart';
+import { Button } from './hangyeol/primitives/button';
+import { Checkbox } from './hangyeol/primitives/checkbox';
+import { SegmentedControl } from './hangyeol/components/segmented-control';
+import { Tabs,TabsList,TabsTrigger,TabsContent } from './hangyeol/primitives/tabs';
+import { CodeBlock } from './hangyeol/components/code-block';
 import { ComponentContext,ExamplePurpose } from './component-content';
 export const dateDataNames=["DatePicker", "MonthPicker", "TimeInput", "DateTimeInput", "DateRangePicker", "DataTable", "Chart"] as const;
 export type DateDataName=typeof dateDataNames[number];
@@ -50,12 +51,12 @@ export function DateDataPage({name,initialPanel='usage'}:{name:DateDataName;init
   const [feedback, setFeedback] = useState('');`;
  const codeHelper=name==='DataTable'?"type Sample={id:string;name:string;group:string;amount:number};\nconst initialRows:Sample[]=[{\"id\": \"1\", \"name\": \"시작 화면\", \"group\": \"준비\", \"amount\": 2}, {\"id\": \"2\", \"name\": \"회원 안내\", \"group\": \"진행\", \"amount\": 4}, {\"id\": \"3\", \"name\": \"내 정보\", \"group\": \"준비\", \"amount\": 6}, {\"id\": \"4\", \"name\": \"설정 화면\", \"group\": \"진행\", \"amount\": 8}, {\"id\": \"5\", \"name\": \"검색 화면\", \"group\": \"준비\", \"amount\": 10}, {\"id\": \"6\", \"name\": \"목록 화면\", \"group\": \"진행\", \"amount\": 12}, {\"id\": \"7\", \"name\": \"프로젝트를 함께 진행하며 확인할 상세 운영 안내\", \"group\": \"준비\", \"amount\": 14}];\nconst chartData=[{\"month\": \"8월\", \"count\": 12}, {\"month\": \"9월\", \"count\": 18}, {\"month\": \"10월\", \"count\": 15}];\nconst columns:DataTableColumn<Sample>[]=[{id:'name',label:'이름',value:row=>row.name,sortable:true},{id:'group',label:'진행 상태',value:row=>row.group,sortable:true},{id:'amount',label:'항목 수',value:row=>row.amount,numeric:true,sortable:true}];\n":'type Sample={id:string;name:string;group:string;amount:number};\nconst chartData = '+JSON.stringify(chartData)+';';
  const code=`import { useState } from 'react';
-import { ${example.symbols} } from './gyeol/components/${example.file}';
-import { Button } from './gyeol/primitives/button';
+import { ${example.symbols} } from './hangyeol/components/${example.file}';
+import { Button } from './hangyeol/primitives/button';
 ${codeHelper}
 export function Example(){
   ${declarations}
   return <form onSubmit={event=>{event.preventDefault();setFeedback(JSON.stringify(Object.fromEntries(new FormData(event.currentTarget))));}}><div className="grid gap-4">${example.body}</div>${!['DataTable','Chart'].includes(name)?'<Button type="submit">입력 값 확인</Button>':''}<p role="status">{feedback}</p></form>;
 }`;
- return <div className="space-y-8"><p className="docs-intro">{dateDataDescriptions[name]}</p><ComponentContext name={name}/><ExamplePurpose name={name}/><form className="docs-demo" aria-label={`${name} 사용 예제`} onSubmit={event=>{event.preventDefault();setFeedback(JSON.stringify(Object.fromEntries(new FormData(event.currentTarget))));}}><div className="grid gap-4">{demo}</div>{!['DataTable','Chart'].includes(name)&&<div className="mt-4"><Button type="submit">입력 값 확인</Button></div>}{feedback&&<p role="status" className="mt-4 break-words text-g-small text-g-soft">{feedback}</p>}</form><Tabs value={panel} onValueChange={next=>setPanel(next as typeof panel)}><TabsList aria-label="예제 안내"><TabsTrigger value="usage">사용법</TabsTrigger><TabsTrigger value="settings">예제 설정</TabsTrigger><TabsTrigger value="code">코드</TabsTrigger></TabsList><TabsContent value="usage"><div className="grid gap-4 py-4">{example.usage.map(line=><p key={line} className="text-g-soft">{line}</p>)}</div></TabsContent><TabsContent value="settings"><div className="grid gap-4 py-4">{!['Chart','DataTable'].includes(name)&&<><label className="flex min-h-11 items-center gap-3"><Checkbox checked={disabled} onCheckedChange={next=>setDisabled(next===true)}/>사용할 수 없는 상태</label><label className="flex min-h-11 items-center gap-3"><Checkbox checked={readOnly} onCheckedChange={next=>setReadOnly(next===true)}/>읽기 전용</label><label className="flex min-h-11 items-center gap-3"><Checkbox checked={limited} onCheckedChange={next=>setLimited(next===true)}/>선택 범위 제한</label></>}{['Chart','DataTable'].includes(name)&&<><label className="flex min-h-11 items-center gap-3"><Checkbox checked={busy} onCheckedChange={next=>setBusy(next===true)}/>불러오는 상태</label><label className="flex min-h-11 items-center gap-3"><Checkbox checked={empty} onCheckedChange={next=>setEmpty(next===true)}/>빈 데이터</label></>}<label className="flex min-h-11 items-center gap-3"><Checkbox checked={showError} onCheckedChange={next=>setShowError(next===true)}/>오류 상태</label>{name==='Chart'&&<SegmentedControl label="차트 종류" value={kind} onValueChange={next=>setKind(next as typeof kind)} options={[{value:'line',label:'선'},{value:'bar',label:'막대'},{value:'donut',label:'도넛'}]}/>}<div><Button variant="secondary" onClick={reset}>예제 초기화</Button></div></div></TabsContent><TabsContent value="code"><div className="py-4"><p className="mb-4 text-g-small text-g-soft">현재 값과 설정을 반영합니다. 데이터·범위와 실제 행동은 프로젝트에 맞게 바꾸세요.</p><CodeBlock>{code}</CodeBlock></div></TabsContent></Tabs></div>;
+ return <div className="space-y-8"><p className="docs-intro">{dateDataDescriptions[name]}</p><ComponentContext name={name}/><ExamplePurpose name={name}/><PreviewSurface asChild><form  aria-label={`${name} 사용 예제`} onSubmit={event=>{event.preventDefault();setFeedback(JSON.stringify(Object.fromEntries(new FormData(event.currentTarget))));}}><div className="grid gap-4">{demo}</div>{!['DataTable','Chart'].includes(name)&&<div className="mt-4"><Button type="submit">입력 값 확인</Button></div>}{feedback&&<p role="status" className="mt-4 break-words text-g-small text-g-soft">{feedback}</p>}</form></PreviewSurface><Tabs value={panel} onValueChange={next=>setPanel(next as typeof panel)}><TabsList aria-label="예제 안내"><TabsTrigger value="usage">사용법</TabsTrigger><TabsTrigger value="settings">예제 설정</TabsTrigger><TabsTrigger value="code">코드</TabsTrigger></TabsList><TabsContent value="usage"><div className="grid gap-4 py-4">{example.usage.map(line=><p key={line} className="text-g-soft">{line}</p>)}</div></TabsContent><TabsContent value="settings"><div className="grid gap-4 py-4">{!['Chart','DataTable'].includes(name)&&<><label className="flex min-h-11 items-center gap-3"><Checkbox checked={disabled} onCheckedChange={next=>setDisabled(next===true)}/>사용할 수 없는 상태</label><label className="flex min-h-11 items-center gap-3"><Checkbox checked={readOnly} onCheckedChange={next=>setReadOnly(next===true)}/>읽기 전용</label><label className="flex min-h-11 items-center gap-3"><Checkbox checked={limited} onCheckedChange={next=>setLimited(next===true)}/>선택 범위 제한</label></>}{['Chart','DataTable'].includes(name)&&<><label className="flex min-h-11 items-center gap-3"><Checkbox checked={busy} onCheckedChange={next=>setBusy(next===true)}/>불러오는 상태</label><label className="flex min-h-11 items-center gap-3"><Checkbox checked={empty} onCheckedChange={next=>setEmpty(next===true)}/>빈 데이터</label></>}<label className="flex min-h-11 items-center gap-3"><Checkbox checked={showError} onCheckedChange={next=>setShowError(next===true)}/>오류 상태</label>{name==='Chart'&&<SegmentedControl label="차트 종류" value={kind} onValueChange={next=>setKind(next as typeof kind)} options={[{value:'line',label:'선'},{value:'bar',label:'막대'},{value:'donut',label:'도넛'}]}/>}<div><Button variant="secondary" onClick={reset}>예제 초기화</Button></div></div></TabsContent><TabsContent value="code"><div className="py-4"><p className="mb-4 text-g-small text-g-soft">현재 값과 설정을 반영합니다. 데이터·범위와 실제 행동은 프로젝트에 맞게 바꾸세요.</p><CodeBlock>{code}</CodeBlock></div></TabsContent></Tabs></div>;
 }

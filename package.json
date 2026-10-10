@@ -1,5 +1,5 @@
 {
-  "name": "shared-design-system",
+  "name": "hangyeol",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -7,31 +7,18 @@
     "node": ">=22.12.0"
   },
   "scripts": {
-    "dev": "vite --host 127.0.0.1",
-    "tokens": "node scripts/tokens.mjs",
-    "themes": "node --experimental-strip-types scripts/themes.mjs",
-    "test": "vitest run",
-    "build": "npm run tokens && npm run themes && tsc -b && vite build",
-    "check:browser": "playwright test",
-    "preview": "vite preview --host 127.0.0.1",
-    "lint:design": "node scripts/lint-design.mjs",
-    "lint:design:fixtures": "node --input-type=module -e \"import { verifyDesignLintFixtures } from './scripts/design-lint-fixtures.mjs'; console.log(JSON.stringify(await verifyDesignLintFixtures(), null, 2));\" && node scripts/lint-slice.mjs --fixtures",
-    "build:slice": "node scripts/build-slice-payload.mjs && npm run build -w @orderthan31/gyeol-cli && npm run generate -w @gyeol/docs && npm run build -w @gyeol/docs",
-    "typecheck:slice": "tsc -p packages/ui/tsconfig.json && tsc -p apps/docs/tsconfig.json",
+    "dev": "npm run dev -w @hangyeol/docs",
+    "build": "npm run build -w hangyeol-core && npm run generate -w @hangyeol/docs && npm run build -w @hangyeol/docs",
+    "build:slice": "npm run build",
+    "typecheck": "tsc -p packages/core/tsconfig.json && tsc -p apps/docs/tsconfig.json",
+    "typecheck:slice": "npm run typecheck",
+    "test": "npm run test:source -w hangyeol-core && npm run test:code -w @hangyeol/docs",
+    "test:slice": "npm run test",
     "lint:slice": "node scripts/lint-slice.mjs",
-    "test:slice": "node --experimental-strip-types --test packages/cli/test/*.test.mjs packages/ui/test/*.test.mjs && vitest run --config packages/ui/vitest.config.ts"
-  },
-  "dependencies": {
-    "@radix-ui/react-toggle": "1.1.19",
-    "lucide-react": "1.52.0",
-    "react": "19.2.0",
-    "react-dom": "19.2.0",
-    "react-is": "19.2.0",
-    "recharts": "3.10.1"
+    "lint:design": "npm run lint:slice",
+    "preview": "npm exec -w @hangyeol/docs -- vite preview --host 127.0.0.1"
   },
   "devDependencies": {
-    "@axe-core/playwright": "4.10.2",
-    "@playwright/test": "1.56.0",
     "@shadcn/lint": "0.2.0",
     "@testing-library/dom": "10.4.1",
     "@testing-library/jest-dom": "6.9.1",
@@ -56,10 +43,7 @@
     "@tailwindcss/node": "4.3.3"
   },
   "workspaces": [
-    "packages/ui",
-    "packages/cli",
     "packages/core",
-    "apps/docs",
-    "apps/consumer-fixture"
+    "apps/docs"
   ]
 }

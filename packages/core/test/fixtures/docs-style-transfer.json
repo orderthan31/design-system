@@ -1,0 +1,1822 @@
+[
+  {
+    "line": 14,
+    "oldSelector": ".docs-nav-heading",
+    "newSelector": ".hangyeol-navigation-label",
+    "file": "primitives/link.css",
+    "contexts": [],
+    "layer": "unlayered",
+    "declarations": [
+      [
+        "font-size",
+        "12px",
+        false
+      ],
+      [
+        "font-weight",
+        "500",
+        false
+      ],
+      [
+        "line-height",
+        "1.5",
+        false
+      ],
+      [
+        "color",
+        "var(--g-soft)",
+        false
+      ],
+      [
+        "padding",
+        "0 12px",
+        false
+      ],
+      [
+        "margin-bottom",
+        "8px",
+        true
+      ]
+    ]
+  },
+  {
+    "line": 15,
+    "oldSelector": ".docs-navigation a",
+    "newSelector": ".hangyeol-navigation-link",
+    "file": "primitives/link.css",
+    "contexts": [],
+    "layer": "unlayered",
+    "declarations": [
+      [
+        "display",
+        "flex",
+        false
+      ],
+      [
+        "align-items",
+        "center",
+        false
+      ],
+      [
+        "min-height",
+        "44px",
+        false
+      ],
+      [
+        "padding",
+        "8px 12px",
+        false
+      ],
+      [
+        "font-size",
+        "14px",
+        false
+      ],
+      [
+        "border-radius",
+        "var(--radius-g-control, 8px)",
+        false
+      ],
+      [
+        "color",
+        "var(--g-soft)",
+        false
+      ],
+      [
+        "text-decoration",
+        "none",
+        false
+      ]
+    ]
+  },
+  {
+    "line": 16,
+    "oldSelector": ".docs-navigation a:hover",
+    "newSelector": ".hangyeol-navigation-link:hover",
+    "file": "primitives/link.css",
+    "contexts": [],
+    "layer": "unlayered",
+    "declarations": [
+      [
+        "color",
+        "var(--g-ink)",
+        false
+      ],
+      [
+        "background",
+        "var(--g-muted)",
+        false
+      ]
+    ]
+  },
+  {
+    "line": 17,
+    "oldSelector": ".docs-navigation a[aria-current=page]",
+    "newSelector": ".hangyeol-navigation-link[aria-current=page]",
+    "file": "primitives/link.css",
+    "contexts": [],
+    "layer": "unlayered",
+    "declarations": [
+      [
+        "color",
+        "var(--g-focus)",
+        false
+      ],
+      [
+        "background",
+        "var(--g-muted)",
+        false
+      ],
+      [
+        "font-weight",
+        "600",
+        false
+      ]
+    ]
+  },
+  {
+    "line": 27,
+    "oldSelector": ".docs-text-link",
+    "newSelector": ".hangyeol-text-link",
+    "file": "primitives/link.css",
+    "contexts": [],
+    "layer": "unlayered",
+    "declarations": [
+      [
+        "display",
+        "inline-flex",
+        false
+      ],
+      [
+        "min-height",
+        "44px",
+        false
+      ],
+      [
+        "align-items",
+        "center",
+        false
+      ],
+      [
+        "color",
+        "var(--g-focus)",
+        true
+      ],
+      [
+        "font-size",
+        "14px",
+        false
+      ],
+      [
+        "text-underline-offset",
+        "4px",
+        false
+      ]
+    ]
+  },
+  {
+    "line": 34,
+    "oldSelector": ".docs-demo",
+    "newSelector": ".hangyeol-preview-surface",
+    "file": "primitives/preview-surface.css",
+    "contexts": [],
+    "layer": "unlayered",
+    "declarations": [
+      [
+        "padding",
+        "24px",
+        false
+      ],
+      [
+        "background",
+        "var(--g-surface)",
+        false
+      ],
+      [
+        "border",
+        "1px solid color-mix(in srgb, var(--g-line) 25%, transparent)",
+        false
+      ],
+      [
+        "border-radius",
+        "10px",
+        false
+      ],
+      [
+        "min-width",
+        "0",
+        false
+      ]
+    ]
+  },
+  {
+    "line": 48,
+    "oldSelector": ".docs-toggle",
+    "newSelector": ".hangyeol-control-label",
+    "file": "primitives/control-label.css",
+    "contexts": [],
+    "layer": "unlayered",
+    "declarations": [
+      [
+        "display",
+        "inline-flex",
+        false
+      ],
+      [
+        "align-items",
+        "center",
+        false
+      ],
+      [
+        "gap",
+        "8px",
+        false
+      ],
+      [
+        "font-size",
+        "14px",
+        false
+      ],
+      [
+        "min-height",
+        "44px",
+        false
+      ],
+      [
+        "cursor",
+        "pointer",
+        false
+      ]
+    ]
+  },
+  {
+    "line": 52,
+    "oldSelector": "[data-hangyeol]",
+    "newSelector": "[data-hangyeol]",
+    "file": "components/code-block.css",
+    "contexts": [],
+    "layer": "unlayered",
+    "declarations": [
+      [
+        "--hangyeol-code-keyword",
+        "#6D28D9",
+        false
+      ],
+      [
+        "--hangyeol-code-tag",
+        "#1D4ED8",
+        false
+      ],
+      [
+        "--hangyeol-code-string",
+        "#166534",
+        false
+      ],
+      [
+        "--hangyeol-code-property",
+        "#075985",
+        false
+      ],
+      [
+        "--hangyeol-code-literal",
+        "#9A3412",
+        false
+      ]
+    ]
+  },
+  {
+    "line": 59,
+    "oldSelector": "[data-hangyeol][data-theme=\"dark\"]",
+    "newSelector": "[data-hangyeol][data-theme=\"dark\"]",
+    "file": "components/code-block.css",
+    "contexts": [],
+    "layer": "unlayered",
+    "declarations": [
+      [
+        "--hangyeol-code-keyword",
+        "#C4B5FD",
+        false
+      ],
+      [
+        "--hangyeol-code-tag",
+        "#93C5FD",
+        false
+      ],
+      [
+        "--hangyeol-code-string",
+        "#86EFAC",
+        false
+      ],
+      [
+        "--hangyeol-code-property",
+        "#7DD3FC",
+        false
+      ],
+      [
+        "--hangyeol-code-literal",
+        "#FDBA74",
+        false
+      ]
+    ]
+  },
+  {
+    "line": 66,
+    "oldSelector": ".docs-code",
+    "newSelector": ".hangyeol-code",
+    "file": "components/code-block.css",
+    "contexts": [],
+    "layer": "unlayered",
+    "declarations": [
+      [
+        "background",
+        "var(--g-muted)",
+        false
+      ],
+      [
+        "color",
+        "var(--g-ink)",
+        false
+      ],
+      [
+        "border-radius",
+        "var(--radius-g-control)",
+        false
+      ],
+      [
+        "min-width",
+        "0",
+        false
+      ],
+      [
+        "max-width",
+        "100%",
+        false
+      ],
+      [
+        "overflow",
+        "hidden",
+        false
+      ]
+    ]
+  },
+  {
+    "line": 67,
+    "oldSelector": ".docs-code .token.comment, .docs-code .token.prolog, .docs-code .token.doctype, .docs-code .token.punctuation",
+    "newSelector": ".hangyeol-code .token.comment, .hangyeol-code .token.prolog, .hangyeol-code .token.doctype, .hangyeol-code .token.punctuation",
+    "file": "components/code-block.css",
+    "contexts": [],
+    "layer": "unlayered",
+    "declarations": [
+      [
+        "color",
+        "var(--g-soft)",
+        false
+      ]
+    ]
+  },
+  {
+    "line": 68,
+    "oldSelector": ".docs-code .token.keyword, .docs-code .token.operator, .docs-code .token.atrule",
+    "newSelector": ".hangyeol-code .token.keyword, .hangyeol-code .token.operator, .hangyeol-code .token.atrule",
+    "file": "components/code-block.css",
+    "contexts": [],
+    "layer": "unlayered",
+    "declarations": [
+      [
+        "color",
+        "var(--hangyeol-code-keyword)",
+        false
+      ]
+    ]
+  },
+  {
+    "line": 69,
+    "oldSelector": ".docs-code .token.tag, .docs-code .token.selector, .docs-code .token.class-name, .docs-code .token.function",
+    "newSelector": ".hangyeol-code .token.tag, .hangyeol-code .token.selector, .hangyeol-code .token.class-name, .hangyeol-code .token.function",
+    "file": "components/code-block.css",
+    "contexts": [],
+    "layer": "unlayered",
+    "declarations": [
+      [
+        "color",
+        "var(--hangyeol-code-tag)",
+        false
+      ]
+    ]
+  },
+  {
+    "line": 70,
+    "oldSelector": ".docs-code .token.string, .docs-code .token.attr-value, .docs-code .token.template-string, .docs-code .token.char",
+    "newSelector": ".hangyeol-code .token.string, .hangyeol-code .token.attr-value, .hangyeol-code .token.template-string, .hangyeol-code .token.char",
+    "file": "components/code-block.css",
+    "contexts": [],
+    "layer": "unlayered",
+    "declarations": [
+      [
+        "color",
+        "var(--hangyeol-code-string)",
+        false
+      ]
+    ]
+  },
+  {
+    "line": 71,
+    "oldSelector": ".docs-code .token.property, .docs-code .token.attr-name, .docs-code .token.builtin",
+    "newSelector": ".hangyeol-code .token.property, .hangyeol-code .token.attr-name, .hangyeol-code .token.builtin",
+    "file": "components/code-block.css",
+    "contexts": [],
+    "layer": "unlayered",
+    "declarations": [
+      [
+        "color",
+        "var(--hangyeol-code-property)",
+        false
+      ]
+    ]
+  },
+  {
+    "line": 72,
+    "oldSelector": ".docs-code .token.number, .docs-code .token.boolean, .docs-code .token.constant, .docs-code .token.regex",
+    "newSelector": ".hangyeol-code .token.number, .hangyeol-code .token.boolean, .hangyeol-code .token.constant, .hangyeol-code .token.regex",
+    "file": "components/code-block.css",
+    "contexts": [],
+    "layer": "unlayered",
+    "declarations": [
+      [
+        "color",
+        "var(--hangyeol-code-literal)",
+        false
+      ]
+    ]
+  },
+  {
+    "line": 73,
+    "oldSelector": ".docs-code pre:focus-visible",
+    "newSelector": ".hangyeol-code pre:focus-visible",
+    "file": "components/code-block.css",
+    "contexts": [],
+    "layer": "unlayered",
+    "declarations": [
+      [
+        "outline",
+        "2px solid var(--g-focus)",
+        false
+      ],
+      [
+        "outline-offset",
+        "-2px",
+        false
+      ]
+    ]
+  },
+  {
+    "line": 74,
+    "oldSelector": ".docs-code-toolbar",
+    "newSelector": ".hangyeol-code-toolbar",
+    "file": "components/code-block.css",
+    "contexts": [],
+    "layer": "unlayered",
+    "declarations": [
+      [
+        "display",
+        "flex",
+        false
+      ],
+      [
+        "align-items",
+        "center",
+        false
+      ],
+      [
+        "justify-content",
+        "space-between",
+        false
+      ],
+      [
+        "gap",
+        "16px",
+        false
+      ],
+      [
+        "padding",
+        "8px 16px",
+        false
+      ],
+      [
+        "font-size",
+        "12px",
+        false
+      ],
+      [
+        "color",
+        "var(--g-soft)",
+        false
+      ],
+      [
+        "border-bottom",
+        "1px solid color-mix(in srgb,var(--g-line) 20%,transparent)",
+        false
+      ]
+    ]
+  },
+  {
+    "line": 75,
+    "oldSelector": ".docs-code pre",
+    "newSelector": ".hangyeol-code pre",
+    "file": "components/code-block.css",
+    "contexts": [],
+    "layer": "unlayered",
+    "declarations": [
+      [
+        "margin",
+        "0",
+        false
+      ],
+      [
+        "padding",
+        "20px",
+        false
+      ],
+      [
+        "max-width",
+        "100%",
+        false
+      ],
+      [
+        "overflow-x",
+        "auto",
+        false
+      ],
+      [
+        "font-size",
+        "13px",
+        false
+      ],
+      [
+        "line-height",
+        "1.7",
+        false
+      ],
+      [
+        "white-space",
+        "pre",
+        false
+      ],
+      [
+        "word-break",
+        "normal",
+        false
+      ],
+      [
+        "overflow-wrap",
+        "normal",
+        false
+      ],
+      [
+        "tab-size",
+        "2",
+        false
+      ]
+    ]
+  },
+  {
+    "line": 76,
+    "oldSelector": ".docs-code code",
+    "newSelector": ".hangyeol-code code",
+    "file": "components/code-block.css",
+    "contexts": [],
+    "layer": "unlayered",
+    "declarations": [
+      [
+        "font-family",
+        "ui-monospace, SFMono-Regular, Consolas, monospace",
+        false
+      ]
+    ]
+  },
+  {
+    "line": 77,
+    "oldSelector": ".docs-code > p:not(.docs-visually-hidden)",
+    "newSelector": ".hangyeol-code > p:not(.hangyeol-visually-hidden)",
+    "file": "components/code-block.css",
+    "contexts": [],
+    "layer": "unlayered",
+    "declarations": [
+      [
+        "padding",
+        "0 16px 16px",
+        false
+      ]
+    ]
+  },
+  {
+    "line": 78,
+    "oldSelector": ".docs-details summary",
+    "newSelector": ".hangyeol-disclosure summary",
+    "file": "primitives/disclosure.css",
+    "contexts": [],
+    "layer": "unlayered",
+    "declarations": [
+      [
+        "cursor",
+        "pointer",
+        false
+      ],
+      [
+        "min-height",
+        "44px",
+        false
+      ],
+      [
+        "display",
+        "list-item",
+        false
+      ],
+      [
+        "font-size",
+        "14px",
+        false
+      ]
+    ]
+  },
+  {
+    "line": 80,
+    "oldSelector": ".docs-swatch",
+    "newSelector": ".hangyeol-swatch",
+    "file": "primitives/specimen.css",
+    "contexts": [],
+    "layer": "unlayered",
+    "declarations": [
+      [
+        "min-width",
+        "0",
+        false
+      ],
+      [
+        "display",
+        "grid",
+        false
+      ],
+      [
+        "gap",
+        "12px",
+        false
+      ]
+    ]
+  },
+  {
+    "line": 81,
+    "oldSelector": ".docs-swatch > span",
+    "newSelector": ".hangyeol-swatch > span",
+    "file": "primitives/specimen.css",
+    "contexts": [],
+    "layer": "unlayered",
+    "declarations": [
+      [
+        "display",
+        "block",
+        false
+      ],
+      [
+        "height",
+        "64px",
+        false
+      ],
+      [
+        "border-radius",
+        "6px",
+        false
+      ],
+      [
+        "border",
+        "1px solid var(--g-line)",
+        false
+      ]
+    ]
+  },
+  {
+    "line": 82,
+    "oldSelector": ".docs-swatch > div",
+    "newSelector": ".hangyeol-swatch > div",
+    "file": "primitives/specimen.css",
+    "contexts": [],
+    "layer": "unlayered",
+    "declarations": [
+      [
+        "display",
+        "grid",
+        false
+      ],
+      [
+        "gap",
+        "4px",
+        false
+      ]
+    ]
+  },
+  {
+    "line": 83,
+    "oldSelector": ".docs-swatch code, .docs-type-meta code",
+    "newSelector": ".hangyeol-swatch code",
+    "file": "primitives/specimen.css",
+    "contexts": [],
+    "layer": "unlayered",
+    "declarations": [
+      [
+        "font-size",
+        "12px",
+        false
+      ],
+      [
+        "color",
+        "var(--g-soft)",
+        false
+      ]
+    ]
+  },
+  {
+    "line": 90,
+    "oldSelector": ".docs-spacing-row > span[aria-hidden]",
+    "newSelector": ".hangyeol-spacing-sample",
+    "file": "primitives/specimen.css",
+    "contexts": [],
+    "layer": "unlayered",
+    "declarations": [
+      [
+        "height",
+        "16px",
+        false
+      ],
+      [
+        "background",
+        "var(--g-action)",
+        false
+      ],
+      [
+        "border-radius",
+        "2px",
+        false
+      ]
+    ]
+  },
+  {
+    "line": 93,
+    "oldSelector": ".docs-native-select",
+    "newSelector": ".hangyeol-native-select",
+    "file": "primitives/native-select.css",
+    "contexts": [],
+    "layer": "unlayered",
+    "declarations": [
+      [
+        "min-height",
+        "44px",
+        false
+      ],
+      [
+        "border",
+        "1px solid var(--g-line)",
+        false
+      ],
+      [
+        "border-radius",
+        "var(--radius-g-control,8px)",
+        false
+      ],
+      [
+        "background",
+        "var(--g-surface)",
+        false
+      ],
+      [
+        "color",
+        "var(--g-ink)",
+        false
+      ],
+      [
+        "padding",
+        "8px 12px",
+        false
+      ],
+      [
+        "font",
+        "inherit",
+        false
+      ]
+    ]
+  },
+  {
+    "line": 94,
+    "oldSelector": ".docs-controls input[type=color]",
+    "newSelector": ".hangyeol-color-input",
+    "file": "primitives/color-input.css",
+    "contexts": [],
+    "layer": "unlayered",
+    "declarations": [
+      [
+        "width",
+        "64px",
+        false
+      ],
+      [
+        "height",
+        "44px",
+        false
+      ],
+      [
+        "border",
+        "1px solid var(--g-line)",
+        false
+      ],
+      [
+        "border-radius",
+        "6px",
+        false
+      ],
+      [
+        "background",
+        "var(--g-surface)",
+        false
+      ],
+      [
+        "padding",
+        "4px",
+        false
+      ],
+      [
+        "cursor",
+        "pointer",
+        false
+      ]
+    ]
+  },
+  {
+    "line": 96,
+    "oldSelector": ".docs-skip",
+    "newSelector": ".hangyeol-skip-link",
+    "file": "primitives/link.css",
+    "contexts": [],
+    "layer": "unlayered",
+    "declarations": [
+      [
+        "position",
+        "fixed",
+        false
+      ],
+      [
+        "top",
+        "8px",
+        false
+      ],
+      [
+        "left",
+        "8px",
+        false
+      ],
+      [
+        "transform",
+        "translateY(-200%)",
+        false
+      ],
+      [
+        "z-index",
+        "100",
+        false
+      ],
+      [
+        "padding",
+        "12px 16px",
+        false
+      ],
+      [
+        "background",
+        "var(--g-surface)",
+        false
+      ],
+      [
+        "color",
+        "var(--g-ink)",
+        false
+      ]
+    ]
+  },
+  {
+    "line": 97,
+    "oldSelector": ".docs-skip:focus",
+    "newSelector": ".hangyeol-skip-link:focus",
+    "file": "primitives/link.css",
+    "contexts": [],
+    "layer": "unlayered",
+    "declarations": [
+      [
+        "transform",
+        "none",
+        false
+      ]
+    ]
+  },
+  {
+    "line": 98,
+    "oldSelector": ".docs-header a:focus-visible, .docs-navigation a:focus-visible, .docs-main a:focus-visible, .docs-main summary:focus-visible, .docs-native-select:focus-visible, .docs-controls input:focus-visible",
+    "newSelector": ".hangyeol-link:focus-visible",
+    "file": "primitives/link.css",
+    "contexts": [],
+    "layer": "unlayered",
+    "declarations": [
+      [
+        "outline",
+        "3px solid var(--g-focus)",
+        false
+      ],
+      [
+        "outline-offset",
+        "3px",
+        false
+      ]
+    ]
+  },
+  {
+    "line": 98,
+    "oldSelector": ".docs-header a:focus-visible, .docs-navigation a:focus-visible, .docs-main a:focus-visible, .docs-main summary:focus-visible, .docs-native-select:focus-visible, .docs-controls input:focus-visible",
+    "newSelector": ".hangyeol-disclosure summary:focus-visible",
+    "file": "primitives/disclosure.css",
+    "contexts": [],
+    "layer": "unlayered",
+    "declarations": [
+      [
+        "outline",
+        "3px solid var(--g-focus)",
+        false
+      ],
+      [
+        "outline-offset",
+        "3px",
+        false
+      ]
+    ]
+  },
+  {
+    "line": 98,
+    "oldSelector": ".docs-header a:focus-visible, .docs-navigation a:focus-visible, .docs-main a:focus-visible, .docs-main summary:focus-visible, .docs-native-select:focus-visible, .docs-controls input:focus-visible",
+    "newSelector": ".hangyeol-native-select:focus-visible",
+    "file": "primitives/native-select.css",
+    "contexts": [],
+    "layer": "unlayered",
+    "declarations": [
+      [
+        "outline",
+        "3px solid var(--g-focus)",
+        false
+      ],
+      [
+        "outline-offset",
+        "3px",
+        false
+      ]
+    ]
+  },
+  {
+    "line": 98,
+    "oldSelector": ".docs-header a:focus-visible, .docs-navigation a:focus-visible, .docs-main a:focus-visible, .docs-main summary:focus-visible, .docs-native-select:focus-visible, .docs-controls input:focus-visible",
+    "newSelector": ".hangyeol-color-input:focus-visible",
+    "file": "primitives/color-input.css",
+    "contexts": [],
+    "layer": "unlayered",
+    "declarations": [
+      [
+        "outline",
+        "3px solid var(--g-focus)",
+        false
+      ],
+      [
+        "outline-offset",
+        "3px",
+        false
+      ]
+    ]
+  },
+  {
+    "line": 98,
+    "oldSelector": ".docs-header a:focus-visible, .docs-navigation a:focus-visible, .docs-main a:focus-visible, .docs-main summary:focus-visible, .docs-native-select:focus-visible, .docs-controls input:focus-visible",
+    "newSelector": ".hangyeol-control-group input:focus-visible",
+    "file": "primitives/control-label.css",
+    "contexts": [],
+    "layer": "unlayered",
+    "declarations": [
+      [
+        "outline",
+        "3px solid var(--g-focus)",
+        false
+      ],
+      [
+        "outline-offset",
+        "3px",
+        false
+      ]
+    ]
+  },
+  {
+    "line": 114,
+    "oldSelector": ".docs-demo",
+    "newSelector": ".hangyeol-preview-surface",
+    "file": "primitives/preview-surface.css",
+    "contexts": [
+      "@media (max-width: 39.999rem)"
+    ],
+    "layer": "unlayered",
+    "declarations": [
+      [
+        "padding",
+        "16px",
+        false
+      ]
+    ]
+  },
+  {
+    "line": 123,
+    "oldSelector": ".docs-brand-link",
+    "newSelector": ".hangyeol-brand-link",
+    "file": "primitives/link.css",
+    "contexts": [],
+    "layer": "unlayered",
+    "declarations": [
+      [
+        "display",
+        "inline-flex",
+        false
+      ],
+      [
+        "align-items",
+        "center",
+        false
+      ],
+      [
+        "min-height",
+        "44px",
+        false
+      ],
+      [
+        "flex-shrink",
+        "0",
+        false
+      ]
+    ]
+  },
+  {
+    "line": 124,
+    "oldSelector": ".docs-brand-mark",
+    "newSelector": ".hangyeol-brand-mark",
+    "file": "components/brand-mark.css",
+    "contexts": [],
+    "layer": "unlayered",
+    "declarations": [
+      [
+        "position",
+        "relative",
+        false
+      ],
+      [
+        "display",
+        "block",
+        false
+      ],
+      [
+        "aspect-ratio",
+        "313 / 82",
+        false
+      ]
+    ]
+  },
+  {
+    "line": 126,
+    "oldSelector": ".docs-brand-symbol, .docs-brand-wordmark",
+    "newSelector": ".hangyeol-brand-symbol, .hangyeol-brand-wordmark",
+    "file": "components/brand-mark.css",
+    "contexts": [],
+    "layer": "unlayered",
+    "declarations": [
+      [
+        "position",
+        "absolute",
+        false
+      ],
+      [
+        "inset",
+        "0",
+        false
+      ],
+      [
+        "display",
+        "block",
+        false
+      ],
+      [
+        "mask-mode",
+        "alpha",
+        false
+      ]
+    ]
+  },
+  {
+    "line": 127,
+    "oldSelector": ".docs-brand-symbol",
+    "newSelector": ".hangyeol-brand-symbol",
+    "file": "components/brand-mark.css",
+    "contexts": [],
+    "layer": "unlayered",
+    "declarations": [
+      [
+        "background",
+        "var(--g-action)",
+        false
+      ]
+    ]
+  },
+  {
+    "line": 127,
+    "action": "consumer URL props replace asset-specific mask declarations; alpha mode retained in style and CSS"
+  },
+  {
+    "line": 128,
+    "oldSelector": ".docs-brand-wordmark",
+    "newSelector": ".hangyeol-brand-wordmark",
+    "file": "components/brand-mark.css",
+    "contexts": [],
+    "layer": "unlayered",
+    "declarations": [
+      [
+        "background",
+        "#0F172A",
+        false
+      ]
+    ]
+  },
+  {
+    "line": 128,
+    "action": "consumer URL props replace asset-specific mask declarations; alpha mode retained in style and CSS"
+  },
+  {
+    "line": 129,
+    "oldSelector": ".docs-brand-mark[data-ci-mode=\"dark\"] > .docs-brand-wordmark",
+    "newSelector": ".hangyeol-brand-mark[data-ci-mode=\"dark\"] > .hangyeol-brand-wordmark",
+    "file": "components/brand-mark.css",
+    "contexts": [],
+    "layer": "unlayered",
+    "declarations": [
+      [
+        "background",
+        "#E2E8F0",
+        false
+      ]
+    ]
+  },
+  {
+    "line": 130,
+    "oldSelector": ".docs-theme-picker",
+    "newSelector": ".hangyeol-palette-picker",
+    "file": "components/palette-picker.css",
+    "contexts": [],
+    "layer": "unlayered",
+    "declarations": [
+      [
+        "display",
+        "flex",
+        false
+      ],
+      [
+        "align-items",
+        "center",
+        false
+      ],
+      [
+        "gap",
+        "0",
+        false
+      ],
+      [
+        "border",
+        "0",
+        false
+      ],
+      [
+        "padding",
+        "0",
+        false
+      ],
+      [
+        "margin",
+        "0",
+        false
+      ],
+      [
+        "min-width",
+        "0",
+        false
+      ]
+    ]
+  },
+  {
+    "line": 131,
+    "oldSelector": ".docs-swatch-option",
+    "newSelector": ".hangyeol-swatch-option",
+    "file": "components/palette-picker.css",
+    "contexts": [],
+    "layer": "unlayered",
+    "declarations": [
+      [
+        "position",
+        "relative",
+        false
+      ],
+      [
+        "display",
+        "inline-flex",
+        false
+      ],
+      [
+        "width",
+        "44px",
+        false
+      ],
+      [
+        "height",
+        "44px",
+        false
+      ],
+      [
+        "align-items",
+        "center",
+        false
+      ],
+      [
+        "justify-content",
+        "center",
+        false
+      ],
+      [
+        "cursor",
+        "pointer",
+        false
+      ]
+    ]
+  },
+  {
+    "line": 132,
+    "oldSelector": ".docs-visually-hidden, .docs-swatch-option input",
+    "newSelector": ".hangyeol-visually-hidden",
+    "file": "primitives/visually-hidden.css",
+    "contexts": [],
+    "layer": "unlayered",
+    "declarations": [
+      [
+        "position",
+        "absolute",
+        false
+      ],
+      [
+        "width",
+        "1px",
+        false
+      ],
+      [
+        "height",
+        "1px",
+        false
+      ],
+      [
+        "padding",
+        "0",
+        false
+      ],
+      [
+        "margin",
+        "-1px",
+        false
+      ],
+      [
+        "overflow",
+        "hidden",
+        false
+      ],
+      [
+        "clip-path",
+        "inset(50%)",
+        false
+      ],
+      [
+        "white-space",
+        "nowrap",
+        false
+      ],
+      [
+        "border",
+        "0",
+        false
+      ]
+    ]
+  },
+  {
+    "line": 132,
+    "oldSelector": ".docs-visually-hidden, .docs-swatch-option input",
+    "newSelector": ".hangyeol-swatch-option input",
+    "file": "components/palette-picker.css",
+    "contexts": [],
+    "layer": "unlayered",
+    "declarations": [
+      [
+        "position",
+        "absolute",
+        false
+      ],
+      [
+        "width",
+        "1px",
+        false
+      ],
+      [
+        "height",
+        "1px",
+        false
+      ],
+      [
+        "padding",
+        "0",
+        false
+      ],
+      [
+        "margin",
+        "-1px",
+        false
+      ],
+      [
+        "overflow",
+        "hidden",
+        false
+      ],
+      [
+        "clip-path",
+        "inset(50%)",
+        false
+      ],
+      [
+        "white-space",
+        "nowrap",
+        false
+      ],
+      [
+        "border",
+        "0",
+        false
+      ]
+    ]
+  },
+  {
+    "line": 133,
+    "oldSelector": ".docs-palette-swatch",
+    "newSelector": ".hangyeol-palette-swatch",
+    "file": "components/palette-picker.css",
+    "contexts": [],
+    "layer": "unlayered",
+    "declarations": [
+      [
+        "display",
+        "inline-flex",
+        false
+      ],
+      [
+        "width",
+        "26px",
+        false
+      ],
+      [
+        "height",
+        "26px",
+        false
+      ],
+      [
+        "align-items",
+        "center",
+        false
+      ],
+      [
+        "justify-content",
+        "center",
+        false
+      ],
+      [
+        "border-radius",
+        "3px",
+        false
+      ],
+      [
+        "background",
+        "var(--g-action)",
+        false
+      ],
+      [
+        "color",
+        "var(--g-on-action)",
+        false
+      ]
+    ]
+  },
+  {
+    "line": 134,
+    "oldSelector": ".docs-swatch-option input:checked + .docs-palette-swatch",
+    "newSelector": ".hangyeol-swatch-option input:checked + .hangyeol-palette-swatch",
+    "file": "components/palette-picker.css",
+    "contexts": [],
+    "layer": "unlayered",
+    "declarations": [
+      [
+        "box-shadow",
+        "0 0 0 2px var(--g-canvas), 0 0 0 4px var(--g-focus)",
+        false
+      ]
+    ]
+  },
+  {
+    "line": 135,
+    "oldSelector": ".docs-swatch-option input:focus-visible + .docs-palette-swatch",
+    "newSelector": ".hangyeol-swatch-option input:focus-visible + .hangyeol-palette-swatch",
+    "file": "components/palette-picker.css",
+    "contexts": [],
+    "layer": "unlayered",
+    "declarations": [
+      [
+        "outline",
+        "3px solid var(--g-focus)",
+        false
+      ],
+      [
+        "outline-offset",
+        "4px",
+        false
+      ]
+    ]
+  },
+  {
+    "line": 145,
+    "oldSelector": ".docs-foundation-spec h3, .docs-elevation-example h3",
+    "newSelector": ".hangyeol-elevation-example h3",
+    "file": "primitives/specimen.css",
+    "contexts": [],
+    "layer": "unlayered",
+    "declarations": [
+      [
+        "font-size",
+        "16px",
+        false
+      ],
+      [
+        "font-weight",
+        "600",
+        false
+      ]
+    ]
+  },
+  {
+    "line": 146,
+    "oldSelector": ".docs-foundation-spec p, .docs-elevation-example p",
+    "newSelector": ".hangyeol-elevation-example p",
+    "file": "primitives/specimen.css",
+    "contexts": [],
+    "layer": "unlayered",
+    "declarations": [
+      [
+        "font-size",
+        "14px",
+        false
+      ],
+      [
+        "line-height",
+        "1.7",
+        false
+      ],
+      [
+        "color",
+        "var(--g-soft)",
+        false
+      ]
+    ]
+  },
+  {
+    "line": 147,
+    "oldSelector": ".docs-foundation-spec code, .docs-elevation-example code, .docs-icon-sample code",
+    "newSelector": ".hangyeol-elevation-example code",
+    "file": "primitives/specimen.css",
+    "contexts": [],
+    "layer": "unlayered",
+    "declarations": [
+      [
+        "font-size",
+        "12px",
+        false
+      ],
+      [
+        "color",
+        "var(--g-soft)",
+        false
+      ],
+      [
+        "overflow-wrap",
+        "anywhere",
+        false
+      ]
+    ]
+  },
+  {
+    "line": 148,
+    "oldSelector": ".docs-radius-sample",
+    "newSelector": ".hangyeol-radius-sample",
+    "file": "primitives/specimen.css",
+    "contexts": [],
+    "layer": "unlayered",
+    "declarations": [
+      [
+        "width",
+        "100%",
+        false
+      ],
+      [
+        "height",
+        "100px",
+        false
+      ],
+      [
+        "border",
+        "1px solid var(--g-line)",
+        false
+      ],
+      [
+        "background",
+        "var(--g-muted)",
+        false
+      ]
+    ]
+  },
+  {
+    "line": 150,
+    "oldSelector": ".docs-container-track",
+    "newSelector": ".hangyeol-container-track",
+    "file": "primitives/specimen.css",
+    "contexts": [],
+    "layer": "unlayered",
+    "declarations": [
+      [
+        "background",
+        "var(--g-muted)",
+        false
+      ],
+      [
+        "padding",
+        "12px",
+        false
+      ],
+      [
+        "min-width",
+        "0",
+        false
+      ]
+    ]
+  },
+  {
+    "line": 151,
+    "oldSelector": ".docs-container-sample",
+    "newSelector": ".hangyeol-container-sample",
+    "file": "primitives/specimen.css",
+    "contexts": [],
+    "layer": "unlayered",
+    "declarations": [
+      [
+        "background",
+        "var(--g-surface)",
+        false
+      ],
+      [
+        "border",
+        "1px solid var(--g-line)",
+        false
+      ],
+      [
+        "padding-top",
+        "16px",
+        false
+      ],
+      [
+        "padding-bottom",
+        "16px",
+        false
+      ],
+      [
+        "font-size",
+        "14px",
+        false
+      ],
+      [
+        "text-align",
+        "center",
+        false
+      ]
+    ]
+  },
+  {
+    "line": 152,
+    "oldSelector": ".docs-grid-cell",
+    "newSelector": ".hangyeol-grid-cell",
+    "file": "primitives/specimen.css",
+    "contexts": [],
+    "layer": "unlayered",
+    "declarations": [
+      [
+        "padding",
+        "20px 16px",
+        false
+      ],
+      [
+        "background",
+        "var(--g-muted)",
+        false
+      ],
+      [
+        "border-radius",
+        "var(--radius-g-control, 8px)",
+        false
+      ],
+      [
+        "text-align",
+        "center",
+        false
+      ],
+      [
+        "font-size",
+        "14px",
+        false
+      ]
+    ]
+  },
+  {
+    "line": 153,
+    "oldSelector": ".docs-elevation-example",
+    "newSelector": ".hangyeol-elevation-example",
+    "file": "primitives/specimen.css",
+    "contexts": [],
+    "layer": "unlayered",
+    "declarations": [
+      [
+        "display",
+        "grid",
+        false
+      ],
+      [
+        "gap",
+        "12px",
+        false
+      ],
+      [
+        "padding",
+        "24px",
+        false
+      ],
+      [
+        "border-radius",
+        "var(--radius-g-panel, 12px)",
+        false
+      ],
+      [
+        "background",
+        "var(--g-surface)",
+        false
+      ]
+    ]
+  },
+  {
+    "line": 154,
+    "oldSelector": ".docs-layer-example",
+    "newSelector": ".hangyeol-layer-example",
+    "file": "primitives/specimen.css",
+    "contexts": [],
+    "layer": "unlayered",
+    "declarations": [
+      [
+        "position",
+        "relative",
+        false
+      ],
+      [
+        "padding",
+        "24px",
+        false
+      ],
+      [
+        "min-height",
+        "160px",
+        false
+      ],
+      [
+        "background",
+        "var(--g-surface)",
+        false
+      ],
+      [
+        "border-radius",
+        "var(--radius-g-panel, 12px)",
+        false
+      ]
+    ]
+  },
+  {
+    "line": 155,
+    "oldSelector": ".docs-overlay-example",
+    "newSelector": ".hangyeol-overlay-example",
+    "file": "primitives/specimen.css",
+    "contexts": [],
+    "layer": "unlayered",
+    "declarations": [
+      [
+        "position",
+        "absolute",
+        false
+      ],
+      [
+        "inset",
+        "0",
+        false
+      ],
+      [
+        "display",
+        "grid",
+        false
+      ],
+      [
+        "place-items",
+        "center",
+        false
+      ],
+      [
+        "padding",
+        "24px",
+        false
+      ],
+      [
+        "background",
+        "var(--g-overlay)",
+        false
+      ],
+      [
+        "border-radius",
+        "inherit",
+        false
+      ]
+    ]
+  },
+  {
+    "line": 163,
+    "oldSelector": ".docs-spacing-row > span[aria-hidden]",
+    "newSelector": ".hangyeol-spacing-sample",
+    "file": "primitives/specimen.css",
+    "contexts": [],
+    "layer": "unlayered",
+    "declarations": [
+      [
+        "width",
+        "calc(var(--spacing, .25rem) * var(--hangyeol-space-multiple))",
+        false
+      ]
+    ]
+  },
+  {
+    "line": 164,
+    "oldSelector": ".docs-swatch > span",
+    "newSelector": ".hangyeol-swatch > span",
+    "file": "primitives/specimen.css",
+    "contexts": [],
+    "layer": "unlayered",
+    "declarations": [
+      [
+        "background",
+        "var(--hangyeol-swatch-color)",
+        false
+      ]
+    ]
+  },
+  {
+    "line": 98,
+    "oldSelector": ".docs-header a:focus-visible, .docs-navigation a:focus-visible, .docs-main a:focus-visible, .docs-main summary:focus-visible, .docs-native-select:focus-visible, .docs-controls input:focus-visible",
+    "newSelector": ".hangyeol-link-scope a:focus-visible",
+    "file": "primitives/link.css",
+    "contexts": [],
+    "layer": "unlayered",
+    "declarations": [
+      [
+        "outline",
+        "3px solid var(--g-focus)",
+        false
+      ],
+      [
+        "outline-offset",
+        "3px",
+        false
+      ]
+    ]
+  }
+]

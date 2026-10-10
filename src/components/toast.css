@@ -1,6 +1,0 @@
-@import "./control-base.css";
-@layer components {
-:where(.ds-core) .ds-toast { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-3); border: var(--ds-border-thin) solid var(--color-border-control); border-radius: var(--radius-md); background: var(--color-bg-surface); margin-block: var(--space-4); overflow-wrap: anywhere; }
-:where(.ds-core) .ds-toast > span { flex: 1; min-width: 0; }
-:where(.ds-core) .ds-toast svg { flex-shrink: 0; }
-}

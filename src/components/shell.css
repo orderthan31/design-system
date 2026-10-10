@@ -1,8 +1,0 @@
-@import "./control-base.css";
-@layer components {
-:where(.ds-core) .ds-shell{overflow-wrap:anywhere;}
-:where(.ds-core) .ds-shell{display:grid;grid-template-columns:minmax(160px,240px) minmax(0,1fr);}
-:where(.ds-core) .ds-shell>*{min-width:0;max-width:100%;}
-:where(.ds-core) .ds-shell .ds-shell-content{padding:var(--space-6);}
-@media(max-width:700px){:where(.ds-core) .ds-shell{grid-template-columns:1fr;}}
-}

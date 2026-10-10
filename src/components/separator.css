@@ -1,9 +1,0 @@
-@import "./control-base.css";
-@layer components {
-:where(.ds-core) .separator {
-  border: none;
-  border-top: var(--ds-border-thin) solid var(--color-border-subtle);
-  margin: 20px 0;
-}
-
-}

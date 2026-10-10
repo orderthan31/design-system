@@ -47,7 +47,7 @@ test('physical installed init honors custom roots, alias, base and publicDir wit
   assert.equal(fs.lstatSync(installed).isSymbolicLink(),false);
   assert.equal(fs.realpathSync(bin),path.join(installed,'bin/hangyeol.mjs'));
   assert.equal(run('version',bin,['--version'],host).trim(),artifact.version);
-  assert.ok(!fs.existsSync(path.join(host,'gyeol.json'))&&!fs.existsSync(path.join(host,'src')),'no postinstall UI generation');
+  assert.ok(!fs.existsSync(path.join(host,'hangyeol.json'))&&!fs.existsSync(path.join(host,'src')),'no postinstall UI generation');
   const initialLock=JSON.parse(fs.readFileSync(path.join(host,'package-lock.json')));
   const initialRecord=initialLock.packages['node_modules/hangyeol-core'];
   const expectedIntegrity='sha512-'+crypto.createHash('sha512').update(fs.readFileSync(artifact.tarball)).digest('base64');
@@ -74,7 +74,7 @@ test('physical installed init honors custom roots, alias, base and publicDir wit
   const linkTarget=fs.mkdtempSync(path.join(evidence,'font-symlink-target-'));fs.symlinkSync(linkTarget,path.join(host,'static'));
   unchanged('symlink-public',host,bin,['init',...flags],1);fs.unlinkSync(path.join(host,'static'));
   run('init',bin,['init',...flags],host);
-  const config=JSON.parse(fs.readFileSync(path.join(host,'gyeol.json')));
+  const config=JSON.parse(fs.readFileSync(path.join(host,'hangyeol.json')));
   assert.deepEqual(Object.fromEntries(['sourceRoot','stylePath','publicRoot','fontPath','basePath','alias'].map(key=>[key,config[key]])),{sourceRoot:'ui/system',stylePath:'styles/theme.css',publicRoot:'static',fontPath:'assets/type',basePath:'/design/',alias:'@hangyeol'});
   assert.deepEqual(config.components,[],'init foundation is distinct from add graph');
   assert.ok(!fs.existsSync(path.join(host,'ui/system/primitives')));
@@ -106,24 +106,24 @@ test('physical installed init honors custom roots, alias, base and publicDir wit
     const p=path.join(host,filename),original=fs.readFileSync(p);
     fs.appendFileSync(p,'\n/* owner edit */\n');unchanged('edited-'+path.basename(filename),host,bin,['init'],1);fs.writeFileSync(p,original);
   }
-  const configPath=path.join(host,'gyeol.json'),originalConfig=fs.readFileSync(configPath);
+  const configPath=path.join(host,'hangyeol.json'),originalConfig=fs.readFileSync(configPath);
   fs.writeFileSync(configPath,JSON.stringify({...config,sourceRoot:'changed/ui'},null,2));unchanged('config-conflict',host,bin,['init'],1);fs.writeFileSync(configPath,originalConfig);
   const helper=path.join(host,'ui/system/lib/cn.ts');fs.appendFileSync(helper,'\n// intentional owner edit\n');const edited=fs.readFileSync(helper);
   run('overwrite',bin,['init','--overwrite'],host);
   assert.equal(digest(fs.readFileSync(helper)),manifest.files['lib/cn.ts'].hash);
-  assert.ok(fs.readdirSync(path.join(host,'.gyeol-backups')).some(dir=>{const p=path.join(host,'.gyeol-backups',dir,'ui/system/lib/cn.ts');return fs.existsSync(p)&&fs.readFileSync(p).equals(edited);}));
+  assert.ok(fs.readdirSync(path.join(host,'.hangyeol-backups')).some(dir=>{const p=path.join(host,'.hangyeol-backups',dir,'ui/system/lib/cn.ts');return fs.existsSync(p)&&fs.readFileSync(p).equals(edited);}));
   const styleFile=path.join(host,'styles/theme.css');
   fs.appendFileSync(styleFile,'\n/* intentional stylesheet edit */\nbody { color: orchid; }\n');const editedStyle=fs.readFileSync(styleFile);
   run('overwrite-managed-stylesheet',bin,['init','--overwrite'],host);
   assert.equal(fs.readFileSync(styleFile,'utf8'),css,'overwrite restores original managed header and recorded host body');
-  const styleBackup=fs.readdirSync(path.join(host,'.gyeol-backups')).map(dir=>path.join(host,'.gyeol-backups',dir,'styles/theme.css')).find(p=>fs.existsSync(p)&&fs.readFileSync(p).equals(editedStyle));
+  const styleBackup=fs.readdirSync(path.join(host,'.hangyeol-backups')).map(dir=>path.join(host,'.hangyeol-backups',dir,'styles/theme.css')).find(p=>fs.existsSync(p)&&fs.readFileSync(p).equals(editedStyle));
   assert.ok(styleBackup,'backup must preserve exact edited stylesheet bytes');
   unchanged('repeat-after-stylesheet-overwrite',host,bin,['init','--overwrite'],0);
-  fs.writeFileSync(path.join(evidence,'stylesheet-overwrite-evidence.json'),JSON.stringify({host,styleFile,styleBackup,editedHash:digest(editedStyle),backupHash:digest(fs.readFileSync(styleBackup)),restoredHash:digest(fs.readFileSync(styleFile)),originalManagedHash:digest(Buffer.from(css)),recordedBody:JSON.parse(fs.readFileSync(path.join(host,'gyeol.json'))).integration.styleBody,expectedBody:body},null,2));
+  fs.writeFileSync(path.join(evidence,'stylesheet-overwrite-evidence.json'),JSON.stringify({host,styleFile,styleBackup,editedHash:digest(editedStyle),backupHash:digest(fs.readFileSync(styleBackup)),restoredHash:digest(fs.readFileSync(styleFile)),originalManagedHash:digest(Buffer.from(css)),recordedBody:JSON.parse(fs.readFileSync(path.join(host,'hangyeol.json'))).integration.styleBody,expectedBody:body},null,2));
   // Actual alias imports and configured source scanning are exercised by host tools.
   fs.mkdirSync(path.join(host,'src'));
   fs.writeFileSync(path.join(host,'index.html'),'<div id="root"></div><script type="module" src="/src/main.tsx"></script>\n');
-  fs.writeFileSync(path.join(host,'src/main.tsx'),"import {createRoot} from 'react-dom/client';import {Button} from '@hangyeol/primitives/button';import '../styles/theme.css';createRoot(document.getElementById('root')!).render(<main data-gyeol><Button>확인</Button><span className=\"native-sentinel\">Native</span></main>);\n");
+  fs.writeFileSync(path.join(host,'src/main.tsx'),"import {createRoot} from 'react-dom/client';import {Button} from '@hangyeol/primitives/button';import '../styles/theme.css';createRoot(document.getElementById('root')!).render(<main data-hangyeol><Button>확인</Button><span className=\"native-sentinel\">Native</span></main>);\n");
   run('typecheck',path.join(host,'node_modules/.bin/tsc'),['--pretty','false'],host);
   run('build',path.join(host,'node_modules/.bin/vite'),['build'],host);
   const builtCSS=fs.readdirSync(path.join(host,'dist/assets')).filter(p=>p.endsWith('.css')).map(p=>fs.readFileSync(path.join(host,'dist/assets',p),'utf8')).join('\n');
@@ -131,7 +131,7 @@ test('physical installed init honors custom roots, alias, base and publicDir wit
   assert.ok(builtCSS.includes('margin:17px'),'host body retained in actual compiled CSS');
   for(const name of Object.keys(fontEvidence).filter(name=>name.endsWith('.woff2')))assert.ok(builtCSS.includes('/design/assets/type/'+name),'actual compiled font URL must match the configured base/public output');
   const postcss=createRequire(path.join(installed,'package.json'))('postcss');
-  postcss.parse(builtCSS).walkRules(rule=>rule.walkDecls('box-sizing',decl=>{if(decl.value==='border-box')assert.ok(rule.selector.includes('[data-gyeol]'),'box sizing stays inside canonical scope; no global Preflight');}));
+  postcss.parse(builtCSS).walkRules(rule=>rule.walkDecls('box-sizing',decl=>{if(decl.value==='border-box')assert.ok(rule.selector.includes('[data-hangyeol]'),'box sizing stays inside canonical scope; no global Preflight');}));
   const finalPackage=JSON.parse(fs.readFileSync(path.join(host,'package.json'))),finalLock=JSON.parse(fs.readFileSync(path.join(host,'package-lock.json'))),record=finalLock.packages['node_modules/hangyeol-core'];
   assert.equal(record.version,artifact.version);assert.equal(record.integrity,expectedIntegrity);assert.equal(record.resolved,initialRecord.resolved);assert.equal(record.dev,true);
   assert.equal(finalPackage.devDependencies['hangyeol-core'],initialLock.packages[''].devDependencies['hangyeol-core']);
@@ -208,7 +208,7 @@ test('installed review fix2 explicit enabled build options preserve actual custo
   fs.writeFileSync(path.join(host,'vite.config.ts'),text);unchanged('fix2-enabled-dry',host,bin,['init',...reviewFlags,'--dry-run'],0);
   run('fix2-enabled-init',bin,['init',...reviewFlags],host);assert.equal(fs.readFileSync(path.join(host,'vite.config.ts'),'utf8'),text);
   unchanged('fix2-enabled-repeat',host,bin,['init'],0);
-  fs.writeFileSync(path.join(host,'index.html'),'<link rel="stylesheet" href="/styles/theme.css"><main data-gyeol>Font build</main>\n');
+  fs.writeFileSync(path.join(host,'index.html'),'<link rel="stylesheet" href="/styles/theme.css"><main data-hangyeol>Font build</main>\n');
   run('fix2-enabled-build',path.join(host,'node_modules/.bin/vite'),['build'],host);
   const manifest=JSON.parse(fs.readFileSync(path.join(host,'node_modules/hangyeol-core/payload/manifest.json'))),fonts={};
   const css=fs.readdirSync(path.join(host,'dist/assets')).filter(p=>p.endsWith('.css')).map(p=>fs.readFileSync(path.join(host,'dist/assets',p),'utf8')).join('\n');
@@ -224,7 +224,7 @@ test('installed review fix2 explicit enabled build options preserve actual custo
 for(const name of ['tailwindcss','tailwindcss/theme.css','tailwindcss/utilities.css'])test(`installed review fix3 refuses mandatory Tailwind alias ${name} before writes/npm`,()=>{
   const {host,bin}=reviewHost('fix3-alias'),text=reviewVite.replace('alias:{',`alias:{'${name}':'/absolute/alternate-tailwind',`);
   fs.writeFileSync(path.join(host,'vite.config.ts'),text);
-  for(const [file,body] of [['styles/theme.css','body { color: chocolate; }\n'],['ui/system/owner.txt','existing source\n'],['static/assets/type/owner.txt','existing asset\n'],['.gyeol-backups/owner/checkpoint.txt','existing backup\n']]){fs.mkdirSync(path.dirname(path.join(host,file)),{recursive:true});fs.writeFileSync(path.join(host,file),body);}
+  for(const [file,body] of [['styles/theme.css','body { color: chocolate; }\n'],['ui/system/owner.txt','existing source\n'],['static/assets/type/owner.txt','existing asset\n'],['.hangyeol-backups/owner/checkpoint.txt','existing backup\n']]){fs.mkdirSync(path.dirname(path.join(host,file)),{recursive:true});fs.writeFileSync(path.join(host,file),body);}
   const trap=path.join(host,'fixture-bin'),trace=path.join(evidence,`fix3-installed-npm-trace-${process.hrtime.bigint()}.txt`);
   fs.mkdirSync(trap);fs.writeFileSync(trace,'');fs.writeFileSync(path.join(trap,'npm'),'#!/bin/sh\nprintf "npm invoked\\n" >> "$CORE02_NPM_TRACE"\nexit 93\n');fs.chmodSync(path.join(trap,'npm'),0o755);
   try {unchanged('fix3-alias',host,bin,['init',...reviewFlags],1,{diagnostic:/alias .*intercepts mandatory Tailwind import.*remove or rename/i,env:{...process.env,PATH:trap+path.delimiter+process.env.PATH,CORE02_NPM_TRACE:trace}});}
@@ -247,9 +247,9 @@ test('installed review fix3 generated UI alias cannot select mandatory imports',
 
 function p2InstalledHost(base,mode) {
   const {host,bin}=reviewHost('p2-base'),installed=path.join(host,'node_modules/hangyeol-core'),config={schemaVersion:1,sourceRoot:'ui/system',stylePath:'styles/theme.css',publicRoot:'static',fontPath:'assets/type',alias:'@hangyeol',installed:{},components:[],basePath:base};
-  for(const [file,bytes] of [['styles/theme.css',Buffer.from('body { color: chocolate; }\n')],['ui/system/lib/cn.ts',fs.readFileSync(path.join(installed,'payload/source/lib/cn.ts'))],['static/assets/type/owner.txt',Buffer.from('owner asset\n')],['.gyeol-backups/sentinel/owner.txt',Buffer.from('owner backup\n')],['owner-metadata.json',Buffer.from('{"owner":"sentinel"}\n')]]){fs.mkdirSync(path.dirname(path.join(host,file)),{recursive:true});fs.writeFileSync(path.join(host,file),bytes);}
+  for(const [file,bytes] of [['styles/theme.css',Buffer.from('body { color: chocolate; }\n')],['ui/system/lib/cn.ts',fs.readFileSync(path.join(installed,'payload/source/lib/cn.ts'))],['static/assets/type/owner.txt',Buffer.from('owner asset\n')],['.hangyeol-backups/sentinel/owner.txt',Buffer.from('owner backup\n')],['owner-metadata.json',Buffer.from('{"owner":"sentinel"}\n')]]){fs.mkdirSync(path.dirname(path.join(host,file)),{recursive:true});fs.writeFileSync(path.join(host,file),bytes);}
   fs.symlinkSync('owner-metadata.json',path.join(host,'owner-link'));
-  if(mode==='config')fs.writeFileSync(path.join(host,'gyeol.json'),JSON.stringify(config,null,2)+'\n');
+  if(mode==='config')fs.writeFileSync(path.join(host,'hangyeol.json'),JSON.stringify(config,null,2)+'\n');
   const flags=mode==='config'?[]:['--source-root',config.sourceRoot,'--style-path',config.stylePath,'--public-root',config.publicRoot,'--font-path',config.fontPath,'--alias',config.alias,'--base-path',base];
   const trap=path.join(host,'fixture-bin'),trace=path.join(evidence,`p2-installed-npm-${process.hrtime.bigint()}.txt`);fs.mkdirSync(trap);fs.writeFileSync(trace,'');fs.writeFileSync(path.join(trap,'npm'),'#!/bin/sh\nprintf "npm invoked\\n" >> "$CORE02_NPM_TRACE"\nexit 93\n');fs.chmodSync(path.join(trap,'npm'),0o755);
   return {host,bin,installed,base,mode,config,flags,trace,env:{...process.env,PATH:trap+path.delimiter+process.env.PATH,CORE02_NPM_TRACE:trace}};

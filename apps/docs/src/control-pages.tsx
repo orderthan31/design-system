@@ -1,28 +1,30 @@
+import { ControlGroup } from './hangyeol/primitives/control-label';
+import { PreviewSurface } from './hangyeol/primitives/preview-surface';
 import { ComponentContext, ExamplePurpose } from './component-content';
 import { useId, useState, type ReactNode } from 'react';
-import { Button } from './gyeol/primitives/button';
+import { Button } from './hangyeol/primitives/button';
 
-import { Checkbox } from './gyeol/primitives/checkbox';
-import { Switch } from './gyeol/primitives/switch';
-import { Textarea } from './gyeol/primitives/textarea';
-import { Slider } from './gyeol/primitives/slider';
-import { Progress } from './gyeol/primitives/progress';
-import { Separator } from './gyeol/primitives/separator';
-import { Skeleton } from './gyeol/primitives/skeleton';
-import { LoadingSpinner } from './gyeol/primitives/loading-spinner';
-import { Container } from './gyeol/primitives/container';
-import { Grid } from './gyeol/primitives/grid';
-import { Highlight } from './gyeol/primitives/highlight';
-import { Icon, type IconName } from './gyeol/primitives/icon';
-import { IconButton } from './gyeol/primitives/icon-button';
-import { FormField } from './gyeol/components/form-field';
-import { ActionGroup } from './gyeol/components/action-group';
-import { ListHeader } from './gyeol/components/list-header';
-import { ListFooter } from './gyeol/components/list-footer';
-import { EmptyState } from './gyeol/components/empty-state';
-import { Select } from './gyeol/primitives/select';
-import { Tabs, TabsList, TabsTrigger, TabsContent } from './gyeol/primitives/tabs';
-import { CodeBlock } from './component-pages';
+import { Checkbox } from './hangyeol/primitives/checkbox';
+import { Switch } from './hangyeol/primitives/switch';
+import { Textarea } from './hangyeol/primitives/textarea';
+import { Slider } from './hangyeol/primitives/slider';
+import { Progress } from './hangyeol/primitives/progress';
+import { Separator } from './hangyeol/primitives/separator';
+import { Skeleton } from './hangyeol/primitives/skeleton';
+import { LoadingSpinner } from './hangyeol/primitives/loading-spinner';
+import { Container } from './hangyeol/primitives/container';
+import { Grid } from './hangyeol/primitives/grid';
+import { Highlight } from './hangyeol/primitives/highlight';
+import { Icon, type IconName } from './hangyeol/primitives/icon';
+import { IconButton } from './hangyeol/primitives/icon-button';
+import { FormField } from './hangyeol/components/form-field';
+import { ActionGroup } from './hangyeol/components/action-group';
+import { ListHeader } from './hangyeol/components/list-header';
+import { ListFooter } from './hangyeol/components/list-footer';
+import { EmptyState } from './hangyeol/components/empty-state';
+import { Select } from './hangyeol/primitives/select';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from './hangyeol/primitives/tabs';
+import { CodeBlock } from './hangyeol/components/code-block';
 
 export const controlNames = ['ActionGroup', 'Checkbox', 'Container', 'EmptyState', 'FormField', 'Grid', 'Highlight', 'Icon', 'IconButton', 'ListFooter', 'ListHeader', 'LoadingSpinner', 'Progress', 'Separator', 'Skeleton', 'Slider', 'Switch', 'Textarea'] as const;
 export type ControlName = typeof controlNames[number];
@@ -82,7 +84,7 @@ export function ControlPage({ name, initialPanel = 'usage' }: { name: ControlNam
   const [columns, setColumns] = useState<1 | 2 | 3 | 4>(3), [width, setWidth] = useState<'reading' | 'content' | 'wide' | 'full'>('reading');
   const [icon, setIcon] = useState<IconName>('star'), [orientation, setOrientation] = useState<'horizontal' | 'vertical'>('horizontal');
   let live: ReactNode, settings: ReactNode = null, body = '', declarations = '', imports: string[] = [];
-  const addImport = (symbols: string, path: string) => imports.push(`import { ${symbols} } from './gyeol/${path}';`);
+  const addImport = (symbols: string, path: string) => imports.push(`import { ${symbols} } from './hangyeol/${path}';`);
   const response = <p role="status" className="text-g-small text-g-soft">{feedback || '이 예제의 변경과 저장은 실제 서비스에 연결되지 않습니다.'}</p>;
   if (name === 'Checkbox' || name === 'Switch') {
     const label = name === 'Checkbox' ? '모든 알림 선택' : '새 소식을 이메일로 받기';
@@ -157,5 +159,5 @@ export function ControlPage({ name, initialPanel = 'usage' }: { name: ControlNam
   }
   const reset = () => { setDisabled(false); setReadOnly(false); setError(false); setChecked(false); setValue(name === 'FormField' ? 'hangyeol@example.com' : '주말에는 책을 읽거나 가까운 동네를 산책해요.'); setVolume(45); setRange([20, 80]); setLoading(name === 'Skeleton' || name === 'LoadingSpinner'); setFeedback(''); setQuery('한결'); setCaseSensitive(false); setColumns(3); setWidth('reading'); setIcon('star'); setOrientation('horizontal'); };
   const code = (declarations ? "import { useId, useState } from 'react';\n" : '') + imports.join('\n') + `\n\nexport function ${name}Example() {\n  ${declarations}\n  return ${body};\n}`;
-  return <div className="docs-page"><p className="docs-lead">{controlDescriptions[name]}</p><ComponentContext name={name}/><ExamplePurpose name={name}/><section className="docs-demo" aria-label={`${name} 예제`}>{live}</section><Tabs value={panel} onValueChange={next => setPanel(next as typeof panel)}><div className="flex flex-wrap items-center justify-between gap-3"><TabsList aria-label="예제 설명"><TabsTrigger value="usage">사용법</TabsTrigger><TabsTrigger value="settings">예제 설정</TabsTrigger><TabsTrigger value="code">코드</TabsTrigger></TabsList><Button variant="quiet" size="small" onClick={reset}>예제 되돌리기</Button></div><TabsContent value="settings" className="mt-6"><div className="docs-controls">{settings || <p className="text-g-small text-g-soft">위 예제를 살펴보세요.</p>}</div></TabsContent><TabsContent value="code" className="mt-6"><CodeBlock>{code}</CodeBlock></TabsContent><TabsContent value="usage" className="mt-6"><ul className="docs-usage">{usage[name].map(text => <li key={text}>{text}</li>)}</ul><p className="mt-6 text-g-small text-g-soft">코드는 설치된 로컬 소스 경로를 사용합니다. 예제의 데이터와 저장·조회 동작은 컴포넌트 자체 기능이 아닙니다.</p></TabsContent></Tabs></div>;
+  return <div className="docs-page"><p className="docs-lead">{controlDescriptions[name]}</p><ComponentContext name={name}/><ExamplePurpose name={name}/><PreviewSurface asChild><section  aria-label={`${name} 예제`}>{live}</section></PreviewSurface><Tabs value={panel} onValueChange={next => setPanel(next as typeof panel)}><div className="flex flex-wrap items-center justify-between gap-3"><TabsList aria-label="예제 설명"><TabsTrigger value="usage">사용법</TabsTrigger><TabsTrigger value="settings">예제 설정</TabsTrigger><TabsTrigger value="code">코드</TabsTrigger></TabsList><Button variant="quiet" size="small" onClick={reset}>예제 되돌리기</Button></div><TabsContent value="settings" className="mt-6"><ControlGroup asChild><div className="docs-controls">{settings || <p className="text-g-small text-g-soft">위 예제를 살펴보세요.</p>}</div></ControlGroup></TabsContent><TabsContent value="code" className="mt-6"><CodeBlock>{code}</CodeBlock></TabsContent><TabsContent value="usage" className="mt-6"><ul className="docs-usage">{usage[name].map(text => <li key={text}>{text}</li>)}</ul><p className="mt-6 text-g-small text-g-soft">코드는 설치된 로컬 소스 경로를 사용합니다. 예제의 데이터와 저장·조회 동작은 컴포넌트 자체 기능이 아닙니다.</p></TabsContent></Tabs></div>;
 }

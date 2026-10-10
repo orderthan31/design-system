@@ -1,5 +1,0 @@
-.gallery-example-settings { display: grid; gap: var(--space-3); min-width: 0; }
-.gallery-example-settings h3 { margin: 0; }
-.gallery-reset-row { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); flex-wrap: wrap; margin-bottom: var(--space-4); }
-.gallery-variant-panel, .gallery-code-panel, .gallery-docs-panel { min-width: 0; }
-.gallery-extra-examples { display: grid; gap: var(--space-4); min-width: 0; }

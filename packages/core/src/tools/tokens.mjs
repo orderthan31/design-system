@@ -43,9 +43,9 @@ export function runTokens(args, boundary) {
   if(operation==='validate'&&['preset','scheme','format','output'].some(key=>options[key]!==undefined))throw Error('Export-only option passed to validate');
   if(options.scheme&&!['light','dark'].includes(options.scheme)||options.format&&!['json','css'].includes(options.format))throw Error('Unsupported token scheme/format');
   if(options.palette&&!/^[A-Za-z][\w-]*$/.test(options.palette))throw Error('Invalid palette name');
-  const root=process.cwd(),config=JSON.parse(fs.readFileSync(consumerPath(root,'gyeol.json'),'utf8'));
-  if(config.schemaVersion!==1)throw Error('Unsupported gyeol.json schema');
-  if(config.tokens!==undefined&&(!config.tokens||typeof config.tokens!=='object'||Array.isArray(config.tokens)||Object.keys(config.tokens).some(k=>!['source','palette'].includes(k))))throw Error('Invalid gyeol.json tokens settings');
+  const root=process.cwd(),config=JSON.parse(fs.readFileSync(consumerPath(root,'hangyeol.json'),'utf8'));
+  if(config.schemaVersion!==1)throw Error('Unsupported hangyeol.json schema');
+  if(config.tokens!==undefined&&(!config.tokens||typeof config.tokens!=='object'||Array.isArray(config.tokens)||Object.keys(config.tokens).some(k=>!['source','palette'].includes(k))))throw Error('Invalid hangyeol.json tokens settings');
   const source=options.source??config.tokens?.source,palette=options.palette??config.tokens?.palette;
   if(palette!==undefined&&(typeof palette!=='string'||! /^[A-Za-z][\w-]*$/.test(palette)))throw Error('Invalid configured palette name');
   const report={operation,sourceRoot:config.sourceRoot,readOnly:!options.output,validation:'bounded static CSS/type/alias analysis; not computed cascade or browser color acceptance',...readConsumerTheme(root,config,palette)};
@@ -60,7 +60,7 @@ export function runTokens(args, boundary) {
   const bytes=Buffer.from(content),digest=hash(bytes);
   if(!options.output){console.log(content.trimEnd());console.error(JSON.stringify({exportHash:digest,bytes:bytes.length,written:false}));return 0;}
   const output=options.output;consumerPath(root,output);
-  const forbidden=['gyeol.json','package.json','package-lock.json',config.stylePath,...report.inputs.map(i=>i.path),...(source?[source]:[])];
+  const forbidden=['hangyeol.json','package.json','package-lock.json',config.stylePath,...report.inputs.map(i=>i.path),...(source?[source]:[])];
   const overlap=(a,b)=>a===b||a.startsWith(b+'/')||b.startsWith(a+'/');
   if(forbidden.some(name=>overlap(output,name))||[config.sourceRoot,config.publicRoot].filter(Boolean).some(name=>overlap(output,name)))throw Error('Unsafe token output: consumer source/config/style/public input must not be overwritten');
   const plan=planFiles(root,[{path:output,bytes}]),tx=createTransaction(root);

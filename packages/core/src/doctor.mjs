@@ -8,7 +8,7 @@ import { safeTarget, hash } from './tools/safety.mjs';
 import { validateViteConfig, validateHostScripts, validateTypeScriptAliases } from './tools/host-config.mjs';
 
 const viteNames = ['vite.config.js', 'vite.config.mjs', 'vite.config.ts', 'vite.config.cjs', 'vite.config.mts', 'vite.config.cts'];
-const reserved = new Set(['node_modules', '.git', '.gyeol-backups', '.gyeol-transactions', 'gyeol.json', 'package.json', 'package-lock.json']);
+const reserved = new Set(['node_modules', '.git', '.hangyeol-backups', '.hangyeol-transactions', 'hangyeol.json', 'package.json', 'package-lock.json']);
 
 // Data/files only. No host modules, repair, npm, or inferred update operation.
 export async function runDoctor(args, boundary) {
@@ -51,29 +51,29 @@ export async function runDoctor(args, boundary) {
   }
   try {
     if (args.length) { add('doctor.arguments', 'unsupported', 'doctor', 'Only hangyeol doctor is supported.', 'Run the installed local bin without doctor options.'); return finish(); }
-    const configFile = target('gyeol.json');
-    if (!fs.existsSync(configFile)) { error('config.missing', 'gyeol.json', 'Consumer is not initialized.', 'Review host prerequisites and run the installed local bin init explicitly.'); return finish(true); }
-    const config = json('gyeol.json', 'config');
+    const configFile = target('hangyeol.json');
+    if (!fs.existsSync(configFile)) { error('config.missing', 'hangyeol.json', 'Consumer is not initialized.', 'Review host prerequisites and run the installed local bin init explicitly.'); return finish(true); }
+    const config = json('hangyeol.json', 'config');
     if (!config) return finish();
     if (config.schemaVersion !== 1 || !config.installed || typeof config.installed !== 'object' || Array.isArray(config.installed) || !Array.isArray(config.components) || config.components.some(c => typeof c !== 'string')) {
-      error('config.schema', 'gyeol.json', 'Expected schemaVersion 1, installed record object and component name array.'); return finish();
+      error('config.schema', 'hangyeol.json', 'Expected schemaVersion 1, installed record object and component name array.'); return finish();
     }
     for (const key of ['sourceRoot', 'stylePath', 'publicRoot', 'fontPath']) {
       const value = config[key];
       if (typeof value !== 'string' || !/^[a-zA-Z0-9_./-]+$/.test(value) || value.split('/').some(p => reserved.has(p.toLowerCase()) || viteNames.includes(p.toLowerCase()) || /^tsconfig(?:\.[\w-]+)*\.json$/i.test(p))) {
-        error('config.path', `gyeol.json#${key}`, 'Expected a safe local generated path, not a reserved host target.'); return finish();
+        error('config.path', `hangyeol.json#${key}`, 'Expected a safe local generated path, not a reserved host target.'); return finish();
       }
-      target(value, `gyeol.json#${key}`);
+      target(value, `hangyeol.json#${key}`);
     }
     if (typeof config.basePath !== 'string' || !/^\/(?:[a-zA-Z0-9_/-]*\/)?$/.test(config.basePath) || config.basePath.includes('..') || config.basePath.startsWith('//')) {
-      error('config.base', 'gyeol.json#basePath', 'Expected a same-origin root-relative base ending in /; leading // is unsupported.'); return finish();
+      error('config.base', 'hangyeol.json#basePath', 'Expected a same-origin root-relative base ending in /; leading // is unsupported.'); return finish();
     }
-    if (config.alias !== null && (typeof config.alias !== 'string' || !/^@[a-zA-Z][\w/-]*$/.test(config.alias))) { error('config.alias', 'gyeol.json#alias', 'Expected null or a literal @name path.'); return finish(); }
+    if (config.alias !== null && (typeof config.alias !== 'string' || !/^@[a-zA-Z][\w/-]*$/.test(config.alias))) { error('config.alias', 'hangyeol.json#alias', 'Expected null or a literal @name path.'); return finish(); }
     const overlap = (a, b) => a === b || a.startsWith(b + '/') || b.startsWith(a + '/');
-    if (overlap(config.sourceRoot.toLowerCase(), config.publicRoot.toLowerCase()) || overlap(config.stylePath.toLowerCase(), config.publicRoot.toLowerCase()) || config.stylePath === config.sourceRoot) { error('config.overlap', 'gyeol.json', 'Source/style/public paths overlap unsafely.'); return finish(); }
+    if (overlap(config.sourceRoot.toLowerCase(), config.publicRoot.toLowerCase()) || overlap(config.stylePath.toLowerCase(), config.publicRoot.toLowerCase()) || config.stylePath === config.sourceRoot) { error('config.overlap', 'hangyeol.json', 'Source/style/public paths overlap unsafely.'); return finish(); }
     report.config = Object.fromEntries(['sourceRoot', 'stylePath', 'publicRoot', 'fontPath', 'basePath', 'alias'].map(k => [k, config[k]]));
-    if (config.version !== boundary.pkg.version || config.tool?.package !== boundary.pkg.name || config.tool?.version !== boundary.pkg.version) error('version.config', 'gyeol.json', 'Configured tool/version does not identify this installed candidate.', 'Review the identified installation/archive; no update engine is supported.');
-    if (config.integration && !isDeepStrictEqual(Object.fromEntries(Object.keys(report.config).map(k => [k, config.integration.settings?.[k]])), report.config)) error('config.integration', 'gyeol.json#integration.settings', 'Recorded integration path/alias settings differ from current settings.');
+    if (config.version !== boundary.pkg.version || config.tool?.package !== boundary.pkg.name || config.tool?.version !== boundary.pkg.version) error('version.config', 'hangyeol.json', 'Configured tool/version does not identify this installed candidate.', 'Review the identified installation/archive; no update engine is supported.');
+    if (config.integration && !isDeepStrictEqual(Object.fromEntries(Object.keys(report.config).map(k => [k, config.integration.settings?.[k]])), report.config)) error('config.integration', 'hangyeol.json#integration.settings', 'Recorded integration path/alias settings differ from current settings.');
 
     const pkg = json('package.json', 'package'), lock = json('package-lock.json', 'lock');
     const installedPkg = json('node_modules/hangyeol-core/package.json', 'core');
@@ -86,13 +86,14 @@ export async function runDoctor(args, boundary) {
     function visit(name) {
       if (visited.has(name)) return;
       const item = Object.hasOwn(manifest.items, name) ? manifest.items[name] : null;
-      if (!item) { error('component.unknown', 'gyeol.json#components', 'An installed component name is absent from this registry.', 'Review actual installed records; no inferred migration or update.'); return; }
+      if (!item) { error('component.unknown', 'hangyeol.json#components', 'An installed component name is absent from this registry.', 'Review actual installed records; no inferred migration or update.'); return; }
       visited.add(name); for (const edge of item.requires) visit(edge); for (const file of item.files) sourceNames.add(file);
     }
     for (const name of config.components) visit(name);
     const runtime = { react: null, 'react-dom': null, ...manifest.runtime };
-    for (const name of visited) Object.assign(runtime, manifest.items[name].runtime);
-    const groups = { runtime, build: { vite: null, ...manifest.build }, types: manifest.types };
+    const types = { ...manifest.types };
+    for (const name of visited) { Object.assign(runtime, manifest.items[name].runtime); Object.assign(types, manifest.items[name].types); }
+    const groups = { runtime, build: { vite: null, ...manifest.build }, types };
     report.dependencies = { runtime: [], build: [], types: [], coreTools: [] };
     const declared = { ...pkg?.dependencies, ...pkg?.devDependencies };
     for (const [kind, dependencies] of Object.entries(groups)) for (const [name, expected] of Object.entries(dependencies)) {
@@ -114,7 +115,7 @@ export async function runDoctor(args, boundary) {
     expected.set(config.stylePath, { kind: 'style' }); expected.set(`${config.sourceRoot}/foundation/fonts.css`, { kind: 'style' });
     const recordNames = new Set([...Object.keys(manifest.files).map(n => `${config.sourceRoot}/${n}`), ...expected.keys(), ...viteNames, 'tsconfig.json']);
     for (const [name, installed] of Object.entries(config.installed)) {
-      if (!recordNames.has(name)) { error('record.path', 'gyeol.json#installed', 'Install record names an unrecognized target; it was not read.'); continue; }
+      if (!recordNames.has(name)) { error('record.path', 'hangyeol.json#installed', 'Install record names an unrecognized target; it was not read.'); continue; }
       target(name);
       if (!installed || typeof installed !== 'object' || !/^[a-f0-9]{64}$/.test(installed.hash ?? '') || installed.version !== boundary.pkg.version) error('record.invalid', name, 'Install record needs a SHA256 hash and matching candidate version.');
     }
@@ -209,7 +210,7 @@ export async function runDoctor(args, boundary) {
         const line = node.loc?.start.line ?? 1;
         const issue = (code, cause, status = 'error') => add(code, status, file, cause, 'Review the local source import explicitly; no source module was executed.', { line });
         if (typeof specifier !== 'string') { issue('source.import.dynamic', 'Computed module import cannot be certified by static inspection.', 'unsupported'); return; }
-        if (!typeOnly && [boundary.pkg.name, '@orderthan31/gyeol-cli'].some(name => specifier === name || specifier.startsWith(name + '/'))) { issue('source.core-runtime', 'Installed core/CLI tools must not be imported by runtime UI.'); return; }
+        if (!typeOnly && (specifier === boundary.pkg.name || specifier.startsWith(boundary.pkg.name + '/'))) { issue('source.core-runtime', 'Installed core/CLI tools must not be imported by runtime UI.'); return; }
         let local = null;
         if (specifier.startsWith('.')) local = path.posix.normalize(path.posix.join(path.posix.dirname(file), specifier));
         else if (config.alias && (specifier === config.alias || specifier.startsWith(config.alias + '/'))) local = config.sourceRoot + specifier.slice(config.alias.length);
@@ -248,7 +249,7 @@ export async function runDoctor(args, boundary) {
     }
     return finish();
   } catch (cause) {
-    error(cause.code === 'path.unsafe' ? cause.code : 'doctor.read', cause.target ?? 'gyeol.json', cause.code === 'path.unsafe' ? cause.message : 'Cannot safely read consumer data; no outside path or file content is disclosed.');
+    error(cause.code === 'path.unsafe' ? cause.code : 'doctor.read', cause.target ?? 'hangyeol.json', cause.code === 'path.unsafe' ? cause.message : 'Cannot safely read consumer data; no outside path or file content is disclosed.');
     return finish();
   }
 }

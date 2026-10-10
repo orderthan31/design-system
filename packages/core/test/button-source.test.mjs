@@ -11,7 +11,7 @@ assert.ok(evidence,'Require designated CORE03 scratch');
 const root=fileURLToPath(new URL('../../../',import.meta.url));
 const payload=path.join(root,'packages/core/payload');
 const manifest=JSON.parse(fs.readFileSync(path.join(payload,'manifest.json')));
-const wrapper=`import {runInstaller} from ${JSON.stringify(pathToFileURL(path.join(root,'packages/cli/src/installer.mjs')).href)};process.exitCode=runInstaller(process.argv.slice(1),{payloadRoot:${JSON.stringify(payload)}});`;
+const wrapper=`import {runInstaller} from ${JSON.stringify(pathToFileURL(path.join(root,'packages/core/src/tools/installer.mjs')).href)};process.exitCode=runInstaller(process.argv.slice(1),{payloadRoot:${JSON.stringify(payload)}});`;
 const digest=b=>createHash('sha256').update(b).digest('hex');
 function snapshot(dir,base=dir){
  const s=fs.lstatSync(dir,{bigint:true}),result=dir===base?{'.':{mtimeNs:String(s.mtimeNs),mode:String(s.mode)}}:{};
@@ -41,33 +41,33 @@ function run(dir,args,runner=wrapper){
 function ok(dir,args){const r=run(dir,args);assert.equal(r.status,0,r.stdout+'\n'+r.stderr);return r;}
 function reject(dir,args,diagnostic){const r=run(dir,args);assert.equal(r.status,1,r.stdout+'\n'+r.stderr);assert.match(r.stderr,diagnostic);assert.deepEqual(r.after,r.before,'rejection must precede all byte/mtime/mode/link mutations');}
 function init(){const dir=host();ok(dir,['init']);return dir;}
-function editCommon(dir){for(const name of manifest.common)fs.appendFileSync(path.join(dir,'src/gyeol',name),'\n/* CORE03 local common edit */\n');}
-function commonState(dir){return Object.fromEntries(manifest.common.map(name=>[name,snapshot(path.dirname(path.join(dir,'src/gyeol',name)))[path.basename(name)]]));}
+function editCommon(dir){for(const name of manifest.common)fs.appendFileSync(path.join(dir,'src/hangyeol',name),'\n/* CORE03 local common edit */\n');}
+function commonState(dir){return Object.fromEntries(manifest.common.map(name=>[name,snapshot(path.dirname(path.join(dir,'src/hangyeol',name)))[path.basename(name)]]));}
 
 test('Button graph is only local Button plus essential common files',()=>{
  const dir=init();const r=ok(dir,['add','button']);const plan=JSON.parse(r.stdout.slice(0,r.stdout.indexOf('\nSUCCESS')));
- assert.deepEqual(plan.files.map(f=>f.path).sort(),['src/gyeol/foundation/theme.css','src/gyeol/lib/cn.ts','src/gyeol/primitives/button.tsx']);
+ assert.deepEqual(plan.files.map(f=>f.path).sort(),['src/hangyeol/foundation/theme.css','src/hangyeol/lib/cn.ts','src/hangyeol/primitives/button.tsx']);
  assert.deepEqual(plan.dependencies,{runtime:[]});
- assert.deepEqual(Object.keys(snapshot(path.join(dir,'src/gyeol'))).filter(k=>k.endsWith('.tsx')),['primitives/button.tsx']);
- assert.equal(digest(fs.readFileSync(path.join(dir,'src/gyeol/primitives/button.tsx'))),manifest.files['primitives/button.tsx'].hash);
+ assert.deepEqual(Object.keys(snapshot(path.join(dir,'src/hangyeol'))).filter(k=>k.endsWith('.tsx')),['primitives/button.tsx']);
+ assert.equal(digest(fs.readFileSync(path.join(dir,'src/hangyeol/primitives/button.tsx'))),manifest.files['primitives/button.tsx'].hash);
  const before=snapshot(dir);ok(dir,['add','button']);assert.deepEqual(snapshot(dir),before);
 });
 for(const overwrite of [false,true])test(`add preserves edited initialized commons and their original records (overwrite=${overwrite})`,()=>{
- const dir=init(),records=JSON.parse(fs.readFileSync(path.join(dir,'gyeol.json'))).installed;
+ const dir=init(),records=JSON.parse(fs.readFileSync(path.join(dir,'hangyeol.json'))).installed;
  editCommon(dir);const commons=commonState(dir);
  const dry=ok(dir,['add','button','--dry-run',...(overwrite?['--overwrite']:[])]);assert.deepEqual(dry.after,dry.before);
  ok(dir,['add','button',...(overwrite?['--overwrite']:[])]);
  assert.deepEqual(commonState(dir),commons,'add must preserve local theme/helper bytes and mtimes');
- const config=JSON.parse(fs.readFileSync(path.join(dir,'gyeol.json')));
- for(const name of manifest.common)assert.deepEqual(config.installed['src/gyeol/'+name],records['src/gyeol/'+name],'local edits must not become canonical installed hashes');
- const backups=snapshot(path.join(dir,'.gyeol-backups'));
- assert.ok(!Object.keys(backups).some(name=>manifest.common.some(common=>name.endsWith('/src/gyeol/'+common))),'common preservation must not create common-source backups; metadata backup is separate');
+ const config=JSON.parse(fs.readFileSync(path.join(dir,'hangyeol.json')));
+ for(const name of manifest.common)assert.deepEqual(config.installed['src/hangyeol/'+name],records['src/hangyeol/'+name],'local edits must not become canonical installed hashes');
+ const backups=snapshot(path.join(dir,'.hangyeol-backups'));
+ assert.ok(!Object.keys(backups).some(name=>manifest.common.some(common=>name.endsWith('/src/hangyeol/'+common))),'common preservation must not create common-source backups; metadata backup is separate');
  const before=snapshot(dir);ok(dir,['add','button']);assert.deepEqual(snapshot(dir),before);
 });
 
 test('add fails closed on unowned, missing, incompatible or unsafe initialized commons',()=>{
  for(const change of ['empty-records','missing-record','hash','version','missing-file','directory','symlink']){
-  const dir=init(),configFile=path.join(dir,'gyeol.json'),config=JSON.parse(fs.readFileSync(configFile)),target='src/gyeol/lib/cn.ts',full=path.join(dir,target);
+  const dir=init(),configFile=path.join(dir,'hangyeol.json'),config=JSON.parse(fs.readFileSync(configFile)),target='src/hangyeol/lib/cn.ts',full=path.join(dir,target);
   if(change==='empty-records')config.installed={};
   if(change==='missing-record')delete config.installed[target];
   if(change==='hash')config.installed[target].hash='0'.repeat(64);
@@ -82,11 +82,11 @@ test('add fails closed on unowned, missing, incompatible or unsafe initialized c
 
 test('component conflict remains atomic and overwrite backs up only the edited component',()=>{
  const dir=init();editCommon(dir);ok(dir,['add','button']);
- const file=path.join(dir,'src/gyeol/primitives/button.tsx');fs.appendFileSync(file,'\n// CORE03 local Button edit\n');
+ const file=path.join(dir,'src/hangyeol/primitives/button.tsx');fs.appendFileSync(file,'\n// CORE03 local Button edit\n');
  const edited=fs.readFileSync(file),commons=commonState(dir);
  reject(dir,['add','button'],/conflict.*button/i);
  const r=ok(dir,['add','button','--overwrite']),plan=JSON.parse(r.stdout.slice(0,r.stdout.indexOf('\nSUCCESS')));
- assert.deepEqual(plan.files.filter(f=>f.action!=='noop').map(f=>f.path),['src/gyeol/primitives/button.tsx']);
+ assert.deepEqual(plan.files.filter(f=>f.action!=='noop').map(f=>f.path),['src/hangyeol/primitives/button.tsx']);
  const backup=plan.files.find(f=>f.path.endsWith('button.tsx')).backup;
  assert.deepEqual(fs.readFileSync(path.join(dir,backup)),edited);
  assert.equal(digest(fs.readFileSync(file)),manifest.files['primitives/button.tsx'].hash);
@@ -96,11 +96,11 @@ test('component conflict remains atomic and overwrite backs up only the edited c
 });
 
 test('add overwrite refuses a common source changed while collecting its noop plan',()=>{
- const dir=init(),target=path.join(dir,'src/gyeol/lib/cn.ts'),original=fs.readFileSync(target),metadata=fs.readFileSync(path.join(dir,'gyeol.json'));
+ const dir=init(),target=path.join(dir,'src/hangyeol/lib/cn.ts'),original=fs.readFileSync(target),metadata=fs.readFileSync(path.join(dir,'hangyeol.json'));
  const injected=`import fs from 'node:fs';const read=fs.readFileSync;let reads=0;fs.readFileSync=function(file,...args){if(file===${JSON.stringify(target)}&&++reads===2)fs.appendFileSync(file,'\\n// changed while planning\\n');return read.call(this,file,...args);};`+wrapper;
  const r=run(dir,['add','button','--overwrite'],injected);
  assert.equal(r.status,1,'common drift must fail rather than overwrite the newer local bytes');assert.match(r.stderr,/changed.*planning|planning.*changed/i);
  assert.equal(fs.readFileSync(target,'utf8'),original.toString()+'\n// changed while planning\n');
- assert.deepEqual(fs.readFileSync(path.join(dir,'gyeol.json')),metadata);
- assert.ok(!fs.existsSync(path.join(dir,'src/gyeol/primitives'))&&!fs.existsSync(path.join(dir,'.gyeol-backups')),'controlled fixture edit must be the only mutation');
+ assert.deepEqual(fs.readFileSync(path.join(dir,'hangyeol.json')),metadata);
+ assert.ok(!fs.existsSync(path.join(dir,'src/hangyeol/primitives'))&&!fs.existsSync(path.join(dir,'.hangyeol-backups')),'controlled fixture edit must be the only mutation');
 });

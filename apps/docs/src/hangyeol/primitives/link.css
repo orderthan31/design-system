@@ -1,0 +1,13 @@
+/* Unlayered owner styles preserve the source cascade over utility layers. */
+
+.hangyeol-navigation-label { font-size: 12px; font-weight: 500; line-height: 1.5; color: var(--g-soft); padding: 0 12px; margin-bottom: 8px !important; }
+.hangyeol-navigation-link { display: flex; align-items: center; min-height: 44px; padding: 8px 12px; font-size: 14px; border-radius: var(--radius-g-control, 8px); color: var(--g-soft); text-decoration: none; }
+.hangyeol-navigation-link:hover { color: var(--g-ink); background: var(--g-muted); }
+.hangyeol-navigation-link[aria-current=page] { color: var(--g-focus); background: var(--g-muted); font-weight: 600; }
+.hangyeol-text-link { display: inline-flex; min-height: 44px; align-items: center; color: var(--g-focus) !important; font-size: 14px; text-underline-offset: 4px; }
+.hangyeol-skip-link { position: fixed; top: 8px; left: 8px; transform: translateY(-200%); z-index: 100; padding: 12px 16px; background: var(--g-surface); color: var(--g-ink); }
+.hangyeol-skip-link:focus { transform: none; }
+.hangyeol-link:focus-visible { outline: 3px solid var(--g-focus); outline-offset: 3px; }
+.hangyeol-link-scope a:focus-visible { outline: 3px solid var(--g-focus); outline-offset: 3px; }
+
+.hangyeol-brand-link { display: inline-flex; align-items: center; min-height: 44px; flex-shrink: 0; }

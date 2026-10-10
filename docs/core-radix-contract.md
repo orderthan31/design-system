@@ -35,7 +35,7 @@ common theme.css/cn.ts의 사용자 편집은 일반 추가와 overwrite에서�
 3. 외부 scratch의 prepare-browser.mjs를 실행하고 생성된 browser host에서 local tsc/Vite bin으로 타입 검사와 production build를 실행합니다.
 4. 같은 scratch의 browser-smoke.mjs를 실행합니다. 이 harness만 ephemeral loopback server와 headless Chrome을 시작하며 finally에서 자신이 시작한 리소스를 종료합니다. 기존 preview/app-server에는 접속하거나 재시작하지 않습니다.
 
-브라우저 예정 검사는 Select Arrow/Enter 선택·focus return, Tabs ArrowRight panel/focus, Dialog Enter/Escape focus trap/return, in-modal nested Select portal과 실제 computed 배경/잉크입니다. 실제 소비자 theme.css의 `html[data-owner-palette="custom"] [data-gyeol][data-theme="dark"]` semantic 변수 규칙을 사용합니다. fixture의 F8/F9는 React consumer palette/mode state를 바꾸는 실제 입력 shortcut이며 browser driver는 style을 수동 패치하지 않습니다. 이 전역 scoped 규칙은 body portal에도 적용됩니다. 현재 Theme context는 mode만 전달하므로 wrapper의 임의 inline CSS 변수 전파를 입증하거나 구현하지 않습니다.
+브라우저 예정 검사는 Select Arrow/Enter 선택·focus return, Tabs ArrowRight panel/focus, Dialog Enter/Escape focus trap/return, in-modal nested Select portal과 실제 computed 배경/잉크입니다. 실제 소비자 theme.css의 `html[data-owner-palette="custom"] [data-hangyeol][data-theme="dark"]` semantic 변수 규칙을 사용합니다. fixture의 F8/F9는 React consumer palette/mode state를 바꾸는 실제 입력 shortcut이며 browser driver는 style을 수동 패치하지 않습니다. 이 전역 scoped 규칙은 body portal에도 적용됩니다. 현재 Theme context는 mode만 전달하므로 wrapper의 임의 inline CSS 변수 전파를 입증하거나 구현하지 않습니다.
 
 초기 owner 재실행 전 판정에서 실제 keyboard/focus/computed theme 결과는 미검증이었습니다. 전체 Playwright/axe/AT/native form/IME/FontFace 및 최종 디자인·접근성 수용, VPS/빈 캐시/실제 Release 다운로드, PM 승인/commit 이후 frozen 검증은 별도입니다. private UNLICENSED core 후보이며 새로운 공개 라이선스나 출판 권한을 주장하지 않습니다.
 

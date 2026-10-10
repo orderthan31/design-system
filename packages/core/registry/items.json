@@ -1,0 +1,780 @@
+{
+  "badge": {
+    "files": [
+      "primitives/badge.tsx"
+    ],
+    "requires": []
+  },
+  "button": {
+    "files": [
+      "primitives/button.tsx"
+    ],
+    "requires": []
+  },
+  "input": {
+    "files": [
+      "primitives/input.tsx"
+    ],
+    "requires": []
+  },
+  "theme": {
+    "files": [
+      "foundation/theme.tsx"
+    ],
+    "requires": []
+  },
+  "layout": {
+    "files": [
+      "primitives/layout.tsx"
+    ],
+    "requires": []
+  },
+  "text-field": {
+    "files": [
+      "components/text-field.tsx"
+    ],
+    "requires": [
+      "input",
+      "button",
+      "form-field"
+    ]
+  },
+  "select": {
+    "files": [
+      "primitives/select.tsx",
+      "primitives/portal.tsx"
+    ],
+    "requires": [
+      "theme",
+      "icon"
+    ],
+    "runtime": {
+      "@radix-ui/react-select": "2.3.8"
+    }
+  },
+  "tabs": {
+    "files": [
+      "primitives/tabs.tsx"
+    ],
+    "requires": [],
+    "runtime": {
+      "@radix-ui/react-tabs": "1.1.22"
+    }
+  },
+  "dialog": {
+    "files": [
+      "primitives/dialog.tsx",
+      "primitives/portal.tsx"
+    ],
+    "requires": [
+      "theme"
+    ],
+    "runtime": {
+      "@radix-ui/react-dialog": "1.2.0"
+    }
+  },
+  "composition": {
+    "files": [
+      "components/composition.tsx"
+    ],
+    "requires": [
+      "layout",
+      "action-group",
+      "list-header",
+      "list-footer"
+    ]
+  },
+  "checkbox": {
+    "files": [
+      "primitives/checkbox.tsx"
+    ],
+    "requires": [],
+    "runtime": {
+      "@radix-ui/react-checkbox": "1.3.12"
+    }
+  },
+  "switch": {
+    "files": [
+      "primitives/switch.tsx"
+    ],
+    "requires": [],
+    "runtime": {
+      "@radix-ui/react-switch": "1.3.8"
+    }
+  },
+  "textarea": {
+    "files": [
+      "primitives/textarea.tsx"
+    ],
+    "requires": []
+  },
+  "slider": {
+    "files": [
+      "primitives/slider.tsx"
+    ],
+    "requires": [],
+    "runtime": {
+      "@radix-ui/react-slider": "1.5.0"
+    }
+  },
+  "progress": {
+    "files": [
+      "primitives/progress.tsx"
+    ],
+    "requires": [],
+    "runtime": {
+      "@radix-ui/react-progress": "1.1.17"
+    }
+  },
+  "separator": {
+    "files": [
+      "primitives/separator.tsx"
+    ],
+    "requires": []
+  },
+  "skeleton": {
+    "files": [
+      "primitives/skeleton.tsx"
+    ],
+    "requires": []
+  },
+  "loading-spinner": {
+    "files": [
+      "primitives/loading-spinner.tsx"
+    ],
+    "requires": []
+  },
+  "container": {
+    "files": [
+      "primitives/container.tsx"
+    ],
+    "requires": []
+  },
+  "grid": {
+    "files": [
+      "primitives/grid.tsx"
+    ],
+    "requires": []
+  },
+  "highlight": {
+    "files": [
+      "primitives/highlight.tsx"
+    ],
+    "requires": []
+  },
+  "icon": {
+    "files": [
+      "primitives/icon.tsx"
+    ],
+    "requires": [],
+    "runtime": {
+      "lucide-react": "1.52.0"
+    }
+  },
+  "icon-button": {
+    "files": [
+      "primitives/icon-button.tsx"
+    ],
+    "requires": [
+      "button",
+      "icon"
+    ]
+  },
+  "form-field": {
+    "files": [
+      "components/form-field.tsx"
+    ],
+    "requires": [
+      "input"
+    ]
+  },
+  "action-group": {
+    "files": [
+      "components/action-group.tsx"
+    ],
+    "requires": []
+  },
+  "list-header": {
+    "files": [
+      "components/list-header.tsx"
+    ],
+    "requires": [
+      "action-group"
+    ]
+  },
+  "list-footer": {
+    "files": [
+      "components/list-footer.tsx"
+    ],
+    "requires": [
+      "action-group"
+    ]
+  },
+  "empty-state": {
+    "files": [
+      "components/empty-state.tsx"
+    ],
+    "requires": []
+  },
+  "search-field": {
+    "files": [
+      "components/search-field.tsx"
+    ],
+    "requires": [
+      "text-field",
+      "icon"
+    ]
+  },
+  "email-input": {
+    "files": [
+      "components/email-input.tsx"
+    ],
+    "requires": [
+      "text-field"
+    ]
+  },
+  "password-input": {
+    "files": [
+      "components/password-input.tsx"
+    ],
+    "requires": [
+      "input",
+      "form-field",
+      "icon-button"
+    ]
+  },
+  "number-input": {
+    "files": [
+      "components/number-input.tsx",
+      "lib/use-field-state.ts"
+    ],
+    "requires": [
+      "input",
+      "form-field",
+      "icon-button"
+    ]
+  },
+  "formatted-input": {
+    "files": [
+      "components/formatted-input.tsx",
+      "lib/use-field-state.ts"
+    ],
+    "requires": [
+      "input",
+      "form-field"
+    ]
+  },
+  "phone-input": {
+    "files": [
+      "components/phone-input.tsx"
+    ],
+    "requires": [
+      "formatted-input"
+    ]
+  },
+  "currency-input": {
+    "files": [
+      "components/currency-input.tsx"
+    ],
+    "requires": [
+      "formatted-input"
+    ]
+  },
+  "file-input": {
+    "files": [
+      "components/file-input.tsx"
+    ],
+    "requires": [
+      "input",
+      "form-field",
+      "button"
+    ]
+  },
+  "checkbox-group": {
+    "files": [
+      "components/checkbox-group.tsx",
+      "lib/use-field-state.ts"
+    ],
+    "requires": [
+      "checkbox"
+    ]
+  },
+  "rating": {
+    "files": [
+      "components/rating.tsx",
+      "lib/use-field-state.ts"
+    ],
+    "requires": [
+      "icon"
+    ]
+  },
+  "address-field": {
+    "files": [
+      "components/address-field.tsx",
+      "lib/use-field-state.ts"
+    ],
+    "requires": [
+      "text-field",
+      "button"
+    ]
+  },
+  "radio-group": {
+    "files": [
+      "primitives/radio-group.tsx",
+      "lib/use-field-state.ts"
+    ],
+    "requires": [],
+    "runtime": {
+      "@radix-ui/react-radio-group": "1.4.8"
+    }
+  },
+  "segmented-control": {
+    "files": [
+      "components/segmented-control.tsx",
+      "lib/use-field-state.ts"
+    ],
+    "requires": [],
+    "runtime": {
+      "@radix-ui/react-toggle-group": "1.1.20"
+    }
+  },
+  "popover": {
+    "files": [
+      "primitives/popover.tsx",
+      "primitives/portal.tsx"
+    ],
+    "requires": [
+      "theme"
+    ],
+    "runtime": {
+      "@radix-ui/react-popover": "1.2.0"
+    }
+  },
+  "tooltip": {
+    "files": [
+      "primitives/tooltip.tsx",
+      "primitives/portal.tsx"
+    ],
+    "requires": [
+      "theme"
+    ],
+    "runtime": {
+      "@radix-ui/react-tooltip": "1.3.0"
+    }
+  },
+  "combobox": {
+    "files": [
+      "components/combobox.tsx",
+      "lib/use-field-state.ts"
+    ],
+    "requires": [
+      "input",
+      "form-field",
+      "icon-button",
+      "popover"
+    ]
+  },
+  "multi-select": {
+    "files": [
+      "components/multi-select.tsx",
+      "lib/use-field-state.ts"
+    ],
+    "requires": [
+      "popover",
+      "checkbox",
+      "button",
+      "icon"
+    ]
+  },
+  "icon-action": {
+    "files": [
+      "components/icon-action.tsx"
+    ],
+    "requires": [
+      "icon-button",
+      "tooltip"
+    ]
+  },
+  "table": {
+    "files": [
+      "components/table.tsx"
+    ],
+    "requires": []
+  },
+  "pagination": {
+    "files": [
+      "components/pagination.tsx"
+    ],
+    "requires": [
+      "button",
+      "icon"
+    ]
+  },
+  "alert": {
+    "files": [
+      "components/alert.tsx"
+    ],
+    "requires": [
+      "icon",
+      "icon-button"
+    ]
+  },
+  "error-state": {
+    "files": [
+      "components/error-state.tsx"
+    ],
+    "requires": [
+      "alert",
+      "button"
+    ]
+  },
+  "result": {
+    "files": [
+      "components/result.tsx"
+    ],
+    "requires": [
+      "empty-state",
+      "error-state",
+      "icon",
+      "button"
+    ]
+  },
+  "progress-stepper": {
+    "files": [
+      "components/progress-stepper.tsx"
+    ],
+    "requires": [
+      "icon"
+    ]
+  },
+  "breadcrumb": {
+    "files": [
+      "components/breadcrumb.tsx"
+    ],
+    "requires": [
+      "icon"
+    ]
+  },
+  "bubble": {
+    "files": [
+      "components/bubble.tsx"
+    ],
+    "requires": []
+  },
+  "menu": {
+    "files": [
+      "primitives/menu.tsx",
+      "primitives/portal.tsx"
+    ],
+    "requires": [
+      "theme"
+    ],
+    "runtime": {
+      "@radix-ui/react-dropdown-menu": "2.1.25"
+    }
+  },
+  "accordion": {
+    "files": [
+      "primitives/accordion.tsx"
+    ],
+    "requires": [
+      "icon"
+    ],
+    "runtime": {
+      "@radix-ui/react-accordion": "1.2.21"
+    }
+  },
+  "collapse": {
+    "files": [
+      "primitives/collapse.tsx"
+    ],
+    "requires": [],
+    "runtime": {
+      "@radix-ui/react-collapsible": "1.1.21"
+    }
+  },
+  "confirm": {
+    "files": [
+      "primitives/confirm.tsx",
+      "primitives/portal.tsx"
+    ],
+    "requires": [
+      "button",
+      "theme"
+    ],
+    "runtime": {
+      "@radix-ui/react-alert-dialog": "1.1.24"
+    }
+  },
+  "drawer": {
+    "files": [
+      "components/drawer.tsx"
+    ],
+    "requires": [
+      "dialog",
+      "icon-button"
+    ]
+  },
+  "bottom-sheet": {
+    "files": [
+      "components/bottom-sheet.tsx"
+    ],
+    "requires": [
+      "dialog",
+      "icon-button"
+    ]
+  },
+  "list-row": {
+    "files": [
+      "components/list-row.tsx"
+    ],
+    "requires": []
+  },
+  "grid-list": {
+    "files": [
+      "components/grid-list.tsx"
+    ],
+    "requires": []
+  },
+  "gnb": {
+    "files": [
+      "components/gnb.tsx"
+    ],
+    "requires": []
+  },
+  "lnb": {
+    "files": [
+      "components/lnb.tsx"
+    ],
+    "requires": [
+      "drawer",
+      "button"
+    ]
+  },
+  "shell": {
+    "files": [
+      "components/shell.tsx"
+    ],
+    "requires": [
+      "container",
+      "drawer",
+      "button"
+    ]
+  },
+  "toast": {
+    "files": [
+      "components/toast.tsx",
+      "primitives/portal.tsx"
+    ],
+    "requires": [
+      "button",
+      "icon-button",
+      "theme"
+    ],
+    "runtime": {
+      "@radix-ui/react-toast": "1.2.24"
+    }
+  },
+  "date-picker": {
+    "files": [
+      "components/date-picker.tsx",
+      "components/calendar-grid.tsx",
+      "components/calendar-controls.tsx",
+      "lib/date-utils.ts",
+      "lib/use-field-state.ts"
+    ],
+    "requires": [
+      "text-field",
+      "button",
+      "popover",
+      "input",
+      "select"
+    ]
+  },
+  "month-picker": {
+    "files": [
+      "components/month-picker.tsx",
+      "lib/date-utils.ts",
+      "lib/use-field-state.ts"
+    ],
+    "requires": [
+      "text-field",
+      "button",
+      "popover",
+      "input"
+    ]
+  },
+  "time-input": {
+    "files": [
+      "components/time-input.tsx",
+      "lib/date-utils.ts",
+      "lib/use-field-state.ts"
+    ],
+    "requires": [
+      "text-field",
+      "select"
+    ]
+  },
+  "date-time-input": {
+    "files": [
+      "components/date-time-input.tsx",
+      "lib/date-utils.ts",
+      "lib/use-field-state.ts"
+    ],
+    "requires": [
+      "date-picker",
+      "time-input",
+      "button"
+    ]
+  },
+  "date-range-picker": {
+    "files": [
+      "components/date-range-picker.tsx",
+      "components/calendar-grid.tsx",
+      "components/calendar-controls.tsx",
+      "lib/date-utils.ts",
+      "lib/use-field-state.ts"
+    ],
+    "requires": [
+      "date-picker",
+      "button",
+      "popover"
+    ]
+  },
+  "data-table": {
+    "files": [
+      "components/data-table.tsx"
+    ],
+    "requires": [
+      "table",
+      "search-field",
+      "checkbox",
+      "select",
+      "button",
+      "pagination",
+      "empty-state",
+      "error-state"
+    ]
+  },
+  "chart": {
+    "files": [
+      "components/chart.tsx"
+    ],
+    "requires": [
+      "table",
+      "empty-state",
+      "error-state"
+    ],
+    "runtime": {
+      "recharts": "3.10.1",
+      "react-is": "19.2.0"
+    }
+  },
+  "bottom-cta": {
+    "files": [
+      "components/bottom-cta.tsx"
+    ],
+    "requires": [
+      "action-group"
+    ]
+  },
+  "code-block": {
+    "files": [
+      "components/code-block.tsx",
+      "components/code-block.css",
+      "lib/code-format.ts",
+      "primitives/visually-hidden.css"
+    ],
+    "requires": [
+      "button"
+    ],
+    "runtime": {
+      "prettier": "3.6.2",
+      "prismjs": "1.30.0"
+    },
+    "types": {
+      "@types/prismjs": "1.26.6"
+    }
+  },
+  "palette-picker": {
+    "files": [
+      "components/palette-picker.tsx",
+      "components/palette-picker.css",
+      "primitives/visually-hidden.css"
+    ],
+    "requires": [
+      "theme",
+      "icon"
+    ]
+  },
+  "brand-mark": {
+    "files": [
+      "components/brand-mark.tsx",
+      "components/brand-mark.css"
+    ],
+    "requires": [
+      "theme"
+    ]
+  },
+  "native-select": {
+    "files": [
+      "primitives/native-select.tsx",
+      "primitives/native-select.css"
+    ],
+    "requires": []
+  },
+  "color-input": {
+    "files": [
+      "primitives/color-input.tsx",
+      "primitives/color-input.css"
+    ],
+    "requires": []
+  },
+  "link": {
+    "files": [
+      "primitives/link.tsx",
+      "primitives/link.css"
+    ],
+    "requires": [],
+    "runtime": {
+      "@radix-ui/react-slot": "1.4.0"
+    }
+  },
+  "disclosure": {
+    "files": [
+      "primitives/disclosure.tsx",
+      "primitives/disclosure.css"
+    ],
+    "requires": []
+  },
+  "control-label": {
+    "files": [
+      "primitives/control-label.tsx",
+      "primitives/control-label.css"
+    ],
+    "requires": [],
+    "runtime": {
+      "@radix-ui/react-slot": "1.4.0"
+    }
+  },
+  "preview-surface": {
+    "files": [
+      "primitives/preview-surface.tsx",
+      "primitives/preview-surface.css"
+    ],
+    "requires": [],
+    "runtime": {
+      "@radix-ui/react-slot": "1.4.0"
+    }
+  },
+  "specimen": {
+    "files": [
+      "primitives/specimen.tsx",
+      "primitives/specimen.css"
+    ],
+    "requires": [],
+    "runtime": {
+      "@radix-ui/react-slot": "1.4.0"
+    }
+  }
+}

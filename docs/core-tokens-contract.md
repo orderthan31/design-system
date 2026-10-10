@@ -1,7 +1,7 @@
 # Installed consumer tokens (CORE-08)
 
 Use the physically installed local `node_modules/.bin/hangyeol`. These commands
-require `gyeol.json`; they never execute host JavaScript configuration or install
+require `hangyeol.json`; they never execute host JavaScript configuration or install
 anything. `tokens inspect` retains read-only inspection of the packed canonical
 CSS. It is not consumer validation. Plain `tokens` and `tokens validate` inspect
 actual consumer files using `sourceRoot` and `stylePath` from that configuration.
@@ -18,7 +18,7 @@ Stdout holds validation JSON or exported JSON/CSS. Stdout exports are read-only;
 their SHA256/byte count appears on stderr. `--output` explicitly requests one new
 file. Existing edited files conflict; identical bytes are a strict no-op. There
 is no overwrite/reset switch. Inputs, configured source/public roots, host
-package metadata/gyeol.json, existing conflicting host files, traversal, absolute paths, backslashes and symlink paths
+package metadata/hangyeol.json, existing conflicting host files, traversal, absolute paths, backslashes and symlink paths
 are refused before output writes. Output uses the shared bounded transaction
 implementation. CORE-06's crash/power-loss, hostile race and external dependency
 side-effect limitations remain. No npm child is invoked by tokens.
@@ -55,7 +55,7 @@ It does not load those package defaults as consumer-owned semantic values.
 `@plugin`/`@config` are not executed. Font registration/ordinary host rules are
 preserved and are not semantic validation targets.
 
-The supported semantic selectors are a single adjacent compound `[data-gyeol]` with optional literal
+The supported semantic selectors are a single adjacent compound `[data-hangyeol]` with optional literal
 `data-theme="light"|"dark"` and `data-palette="Name"` attributes, in source order. Whitespace inside an attribute (for example `[ data-theme = "dark" ]`)
 is formatting; whitespace between attributes, including tabs/newlines, is a
 descendant combinator and is rejected with actual file/line/structure diagnostics.
@@ -91,7 +91,7 @@ with file/line, not a silently ignored override. Required roles
 and namespaces establish types; a complete `var(--name)` is a typed alias.
 Missing targets, cycles, incompatible types and missing required roles fail.
 
-An optional actual semantic source is selected by `gyeol.json`:
+An optional actual semantic source is selected by `hangyeol.json`:
 
 ```json
 {"schemaVersion":1,"sourceRoot":"ui/system","stylePath":"styles/theme.css","tokens":{"source":"ui/system/foundation/tokens.json","palette":"Owner"}}
@@ -167,7 +167,7 @@ This retains authored target/edit meaning rather than flattening resolved color.
 Source/physical regressions use actual Tailwind 4.3.3 compile/build to confirm the
 utility references the scoped bridge; this is not computed browser acceptance. To consume an
 explicit preset export, import that file in the consumer stylesheet/application
-and mount `data-gyeol`, `data-palette="Indigo"` and `data-theme="light"|"dark"`.
+and mount `data-hangyeol`, `data-palette="Indigo"` and `data-theme="light"|"dark"`.
 No runtime UI import from core is required. Physical fixtures build local
 Button/TextField and exported preset CSS using actual pinned TypeScript/Vite.
 This compilation is not a computed-style or focus/portal browser test.

@@ -1,0 +1,7 @@
+/* Unlayered owner styles preserve the source cascade over utility layers. */
+
+.hangyeol-brand-mark { position: relative; display: block; width: var(--hangyeol-brand-width); aspect-ratio: 313 / 82; }
+.hangyeol-brand-symbol, .hangyeol-brand-wordmark { position: absolute; inset: 0; display: block; -webkit-mask: var(--hangyeol-brand-mask) center / contain no-repeat; mask: var(--hangyeol-brand-mask) center / contain no-repeat; mask-mode: alpha; }
+.hangyeol-brand-symbol { background: var(--g-action); }
+.hangyeol-brand-wordmark { background: #0F172A; }
+.hangyeol-brand-mark[data-ci-mode="dark"] > .hangyeol-brand-wordmark { background: #E2E8F0; }

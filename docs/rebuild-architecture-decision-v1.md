@@ -21,16 +21,16 @@ Discord에서 요구 정본과 owner 보고를 다시 읽었다. 첨부 제안�
 
 npm workspaces를 채택한다. root의 기존 name 및 repository identity는 유지한다.
 
-- `packages/ui/src/foundation/`: semantic theme, 타입/간격/모션 및 font/utility bridge.
-- `packages/ui/src/lib/`: 작은 공통 helper.
-- `packages/ui/src/primitives/`: styled controls, native List/layout.
-- `packages/ui/src/components/`: 실제 primitive 조합.
+- `packages/core/src/ui/foundation/`: semantic theme, 타입/간격/모션 및 font/utility bridge.
+- `packages/core/src/ui/lib/`: 작은 공통 helper.
+- `packages/core/src/ui/primitives/`: styled controls, native List/layout.
+- `packages/core/src/ui/components/`: 실제 primitive 조합.
 - `packages/cli/`: project discovery, 변경 계획, 검증, source 생성, 의존성 설치.
 - `registry/items/`, `registry/assets/`: source/dependency closure, target/hash/asset manifest.
 - `apps/docs/`: 실제 설치 source와 예제/Variant/Code/Docs.
 - `apps/consumer-fixture/`: 재현 가능한 fixture 정의. 이것만으로 clean install을 증명하지 않음.
 
-foundation/lib → primitives → components의 import 방향을 유지하고 UI가 docs/registry/CLI를 import하지 않는다. 소비 기본 target `src/gyeol/`, 설정 파일 `gyeol.json`을 채택하되 source/style/public root와 aliases는 설정 가능하게 한다. 내부 상대 import는 target 이동 후에도 보존한다. 전체 barrel을 소비 payload로 가져오지 않는다.
+foundation/lib → primitives → components의 import 방향을 유지하고 UI가 docs/registry/CLI를 import하지 않는다. 소비 기본 target `src/hangyeol/`, 설정 파일 `hangyeol.json`을 채택하되 source/style/public root와 aliases는 설정 가능하게 한다. 내부 상대 import는 target 이동 후에도 보존한다. 전체 barrel을 소비 payload로 가져오지 않는다.
 
 ## 3. 스타일 및 실제 primitive 책임
 
@@ -48,13 +48,13 @@ consumer className은 마지막 merge하되 문자열 순서만으로 override�
 
 Portal은 단순히 subtree container를 전달했다는 이유로 완료가 아니다. theme/font inheritance와 overflow/clipping, transformed ancestor, modal layering 및 Select-in-Dialog focus를 함께 확인한다. modal inert/aria-hidden 영역 밖으로 Select를 잘못 보내지 않는다. 필요한 최소 theme/portal context는 local UI source로 설치되며 docs-only context가 아니다. root/nested theme 변경과 열려 있는 portal의 업데이트까지 같은 경로에서 확인한다.
 
-Preflight를 host 전체에 묵시 추가하지 않는다. 이미 있는 host reset은 읽고 변경 preview에 포함한다. reset 없는 consumer도 첫 지원 경로로 확인하고 필요한 최소 base는 Gyeol scope 및 portal에만 적용한다. 이것이 plain-CSS appearance 재도입의 명분이 되어서는 안 된다. Tailwind source scan 밖 target은 명시 source 등록으로 처리한다.
+Preflight를 host 전체에 묵시 추가하지 않는다. 이미 있는 host reset은 읽고 변경 preview에 포함한다. reset 없는 consumer도 첫 지원 경로로 확인하고 필요한 최소 base는 Hangyeol scope 및 portal에만 적용한다. 이것이 plain-CSS appearance 재도입의 명분이 되어서는 안 된다. Tailwind source scan 밖 target은 명시 source 등록으로 처리한다.
 
 ## 4. CLI 및 release 경계
 
 CLI executable + 동일 version의 canonical UI source/registry/font/license payload를 하나의 tarball로 묶는 모델을 채택한다. registry는 수작업 source 복제본이 아니라 canonical source에서 수집한다. private UI workspace는 authoring boundary이며 npm publish 대상이 아니다.
 
-개발 식별자는 신규 `@orderthan31/gyeol-cli`, 단일 bin `gyeol`로 채택한다. 기존 package/repository rename은 아니다. 이 결정은 registry availability/발행/anonymous 실행 성공의 확인이 아니다. namespace 가능성, package visibility 및 실제 권한 확인은 release gate에 남긴다. README에 미발행 식별자를 작동하는 registry quick start처럼 제시하지 않는다.
+개발 식별자는 신규 `@orderthan31/hangyeol-cli`, 단일 bin `hangyeol`로 채택한다. 기존 package/repository rename은 아니다. 이 결정은 registry availability/발행/anonymous 실행 성공의 확인이 아니다. namespace 가능성, package visibility 및 실제 권한 확인은 release gate에 남긴다. README에 미발행 식별자를 작동하는 registry quick start처럼 제시하지 않는다.
 
 init은 host discovery/계획/theme/font/helper, add는 선택 closure를 담당한다. external runtime/build/type deps와 CLI 자체 deps는 분리한다. React 기존 버전/lock/config를 묵시 downgrade하거나 auth/global registry를 몰래 바꾸지 않는다. init 공통 font/license와 component add 파일을 구분한다.
 

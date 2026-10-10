@@ -1,0 +1,4 @@
+/* Unlayered owner styles preserve the source cascade over utility layers. */
+
+.hangyeol-native-select { min-height: 44px; border: 1px solid var(--g-line); border-radius: var(--radius-g-control,8px); background: var(--g-surface); color: var(--g-ink); padding: 8px 12px; font: inherit; }
+.hangyeol-native-select:focus-visible { outline: 3px solid var(--g-focus); outline-offset: 3px; }

@@ -34,7 +34,7 @@ test('init rejects existing host base/publicDir conflicts before any file write'
   const before = snapshot(host);
   const args = ['init', '--source-root', 'ui/system', '--style-path', 'styles/theme.css',
     '--public-root', 'static', '--font-path', 'assets/fonts', '--base-path', '/design/'];
-  const moduleURL = pathToFileURL(path.join(root, 'packages/cli/src/installer.mjs')).href;
+  const moduleURL = pathToFileURL(path.join(root, 'packages/core/src/tools/installer.mjs')).href;
   const wrapper = `import {runInstaller} from ${JSON.stringify(moduleURL)}; process.exit(runInstaller(process.argv.slice(1), {payloadRoot:${JSON.stringify(payload)}}));`;
   const started = new Date().toISOString(), start = performance.now();
   const result = spawnSync(process.execPath, ['--input-type=module', '-e', wrapper, ...args],

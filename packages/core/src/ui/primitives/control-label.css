@@ -1,0 +1,4 @@
+/* Unlayered owner styles preserve the source cascade over utility layers. */
+
+.hangyeol-control-label { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; min-height: 44px; cursor: pointer; }
+.hangyeol-control-group input:focus-visible { outline: 3px solid var(--g-focus); outline-offset: 3px; }

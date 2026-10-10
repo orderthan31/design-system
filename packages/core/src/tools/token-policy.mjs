@@ -4,21 +4,22 @@ import postcss from 'postcss';
 import {hash,safeTarget} from './safety.mjs';
 
 export const requiredRoles=['canvas','surface','muted','line','ink','soft','action','action-hover','on-action','focus','danger','overlay'].map(name=>'--g-'+name);
-const reserved=new Set(['node_modules','.git','.gyeol-backups','.gyeol-transactions']);
+const reserved=new Set(['node_modules','.git','.hangyeol-backups','.hangyeol-transactions']);
 export function consumerPath(root,name){
   if(typeof name!=='string'||name.split('/').some(part=>reserved.has(part)))throw Error('Unsafe consumer token path');
   return safeTarget(root,name);
 }
-const knownType=name=>name.startsWith('--g-export-')?knownType('--'+name.slice('--g-export-'.length)):requiredRoles.includes(name)||name.startsWith('--color-')?'color':name.startsWith('--font-')?'fontFamily':/^(--text-|--radius-|--spacing-)/.test(name)?'dimension':null;
+const colorRoles=[...requiredRoles,'--g-control-thumb','--g-control-track','--g-line-hover'];
+const knownType=name=>name.startsWith('--g-export-')?knownType('--'+name.slice('--g-export-'.length)):colorRoles.includes(name)||name.startsWith('--color-')?'color':name.startsWith('--font-')?'fontFamily':/^(--text-|--radius-|--spacing-)/.test(name)?'dimension':null;
 const alias=value=>typeof value==='string'?(value.match(/^var\((--[\w-]+)\)$/)?.[1]??value.match(/^\{(--[\w-]+)\}$/)?.[1]):null;
 // One canonical CSS source supplies defaults/presets to both runtime and tools.
 export function presetCatalog(){
   const file=new URL('../../payload/source/foundation/theme.css',import.meta.url);
   const css=postcss.parse(fs.readFileSync(file,'utf8')),base={light:{},dark:{}},patches={};
   css.walkRules(rule=>{
-    if(rule.selector==='[data-gyeol]')for(const mode of ['light','dark'])for(const d of rule.nodes??[])if(d.type==='decl'&&requiredRoles.includes(d.prop))base[mode][d.prop]={type:'color',value:d.value};
-    if(rule.selector==='[data-gyeol][data-theme="dark"]')for(const d of rule.nodes??[])if(d.type==='decl'&&requiredRoles.includes(d.prop))base.dark[d.prop]={type:'color',value:d.value};
-    const match=rule.selector.match(/^\[data-gyeol\]\[data-palette="([\w-]+)"\]\[data-theme="(light|dark)"\]$/);
+    if(rule.selector==='[data-hangyeol]')for(const mode of ['light','dark'])for(const d of rule.nodes??[])if(d.type==='decl'&&requiredRoles.includes(d.prop))base[mode][d.prop]={type:'color',value:d.value};
+    if(rule.selector==='[data-hangyeol][data-theme="dark"]')for(const d of rule.nodes??[])if(d.type==='decl'&&requiredRoles.includes(d.prop))base.dark[d.prop]={type:'color',value:d.value};
+    const match=rule.selector.match(/^\[data-hangyeol\]\[data-palette="([\w-]+)"\]\[data-theme="(light|dark)"\]$/);
     if(match){const [,palette,mode]=match;patches[palette]??={light:{},dark:{}};for(const d of rule.nodes??[])if(d.type==='decl'&&requiredRoles.includes(d.prop))patches[palette][mode][d.prop]={type:'color',value:d.value};}
   });
   if(!Object.hasOwn(patches,'Indigo'))throw Error('Packed canonical Indigo palette/default is missing');
@@ -75,7 +76,7 @@ export function exportCSS(schemes,palette,scheme){
     occupied.add(bridge);bridges.set(name,bridge);return `  ${name}: var(${bridge});`;
   });
   if(theme.length)css+='@theme inline {\n'+theme.join('\n')+'\n}\n';
-  for(const mode of chosen){const selector=`[data-gyeol]${palette?`[data-palette="${palette}"]`:''}${mode==='dark'||scheme?`[data-theme="${mode}"]`:''}`;
+  for(const mode of chosen){const selector=`[data-hangyeol]${palette?`[data-palette="${palette}"]`:''}${mode==='dark'||scheme?`[data-theme="${mode}"]`:''}`;
     const declarations=Object.entries(schemes[mode].roles).filter(([name])=>!names.includes(name)).map(([name,t])=>`  ${name}: ${expression(t)};`);
     for(const [name,bridge]of bridges)declarations.push(`  ${bridge}: ${expression(schemes[mode].roles[name])};`);
     css+=selector+' {\n'+declarations.join('\n')+'\n}\n';
@@ -139,11 +140,11 @@ export function readConsumerTheme(root,config,palette){
       else if(node.type==='rule'){
         rejectSemanticNesting(node);
         const decls=(node.nodes??[]).filter(d=>d.type==='decl'&&(d.prop.startsWith('--g-')||knownType(d.prop)));
-        if(decls.length||/\[\s*data-gyeol\s*\]/.test(node.selector)&&/\[\s*data-(?:palette|theme)\s*=/.test(node.selector))rules.push({name,line:node.source.start.line,selector:node.selector,decls});
+        if(decls.length||/\[\s*data-hangyeol\s*\]/.test(node.selector)&&/\[\s*data-(?:palette|theme)\s*=/.test(node.selector))rules.push({name,line:node.source.start.line,selector:node.selector,decls});
       }else if(node.type==='atrule'){
         if(node.name==='theme'){
           rejectSemanticNesting(node);
-          for(const d of node.nodes??[])if(d.type==='decl'&&knownType(d.prop))rules.push({name,line:node.source.start.line,selector:'[data-gyeol]',decls:[d],theme:true});
+          for(const d of node.nodes??[])if(d.type==='decl'&&knownType(d.prop))rules.push({name,line:node.source.start.line,selector:'[data-hangyeol]',decls:[d],theme:true});
         }else {
           if(node.name!=='layer'){
             let semantic=false;node.walkDecls?.(d=>{if(d.prop.startsWith('--g-')||knownType(d.prop))semantic=true;});
@@ -158,7 +159,7 @@ export function readConsumerTheme(root,config,palette){
   // Validate every scope once, including declaration-free palette registrations.
   for(const rule of rules){
     const s=rule.selector.trim();
-    if(!/^\[\s*data-gyeol\s*\](?:\[\s*data-(?:theme|palette)\s*=\s*(?:"[\w-]+"|'[\w-]+'|[\w-]+)\s*\])*$/.test(s))throw Error(`${rule.name}:${rule.line}: unsupported semantic selector structure ${rule.selector}; only one adjacent compound scope is supported, not descendants/combinators`);
+    if(!/^\[\s*data-hangyeol\s*\](?:\[\s*data-(?:theme|palette)\s*=\s*(?:"[\w-]+"|'[\w-]+'|[\w-]+)\s*\])*$/.test(s))throw Error(`${rule.name}:${rule.line}: unsupported semantic selector structure ${rule.selector}; only one adjacent compound scope is supported, not descendants/combinators`);
     const attributes=[...s.matchAll(/\[\s*data-(theme|palette)\s*=\s*["']?([\w-]+)/g)],scope={};
     for(const [,name,value]of attributes){
       if(Object.hasOwn(scope,name))throw Error(`${rule.name}:${rule.line}: duplicate semantic ${name} attribute in ${rule.selector}; use one ${name} attribute per compound scope`);

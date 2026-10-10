@@ -38,7 +38,7 @@
 
 ### 소스 설치/CLI/자산
 
-현재 `registry.json`은 shadcn schema의 Gyeol source 항목이다. working tree item 75개를 프로그램으로 세었다. Button 항목은 실제 button.tsx/CSS/theme 파일을 복사하고 react를 의존성으로 선언한다. **소스 설치 자체가 전혀 없다는 판정은 틀리다.** 그러나 이 개수는 새 구현 수락/검증 수가 아니다.
+현재 `registry.json`은 shadcn schema의 Hangyeol source 항목이다. working tree item 75개를 프로그램으로 세었다. Button 항목은 실제 button.tsx/CSS/theme 파일을 복사하고 react를 의존성으로 선언한다. **소스 설치 자체가 전혀 없다는 판정은 틀리다.** 그러나 이 개수는 새 구현 수락/검증 수가 아니다.
 
 `docs/source-installation.md:7–85`는 기존 shadcn GitHub registry 명령, `:136–147`은 font binary 수동 복사, `:149–161`은 CSS-first/theme 조정 안내다. registry `meta.fontAssetsAutomatic`은 false다. 전용 CLI package/bin/publish 구성은 현재 package.json에 없다. registry source graph 아이디어는 재사용할 수 있으나 CSS payload와 소비 안내는 재작성한다. 기존 shadcn UI를 설치하고 CSS로 바꾸는 절차를 만들지 않는다.
 
@@ -68,7 +68,7 @@ apps/
   consumer-fixture/       # gallery import 없이 설치된 소스만 쓰는 증명용 앱
 ```
 
-상대 UI import는 설치 후에도 유지되는 내부 구조를 기준으로 쓴다. consumer target은 기본 `src/gyeol/` 제안이며 config로 바꿀 수 있게 한다. `gyeol.json`(이름 제안)은 source root, stylesheet/public asset root, aliases, installed version/hash를 기록한다. docs 예제와 installed source는 같은 authoring source에서 나온다. docs-only decorator로 appearance를 고치지 않는다. 오래된 역사 docs/test는 payload에서 제외한다.
+상대 UI import는 설치 후에도 유지되는 내부 구조를 기준으로 쓴다. consumer target은 기본 `src/hangyeol/` 제안이며 config로 바꿀 수 있게 한다. `hangyeol.json`(이름 제안)은 source root, stylesheet/public asset root, aliases, installed version/hash를 기록한다. docs 예제와 installed source는 같은 authoring source에서 나온다. docs-only decorator로 appearance를 고치지 않는다. 오래된 역사 docs/test는 payload에서 제외한다.
 
 registry는 source를 다시 수작업 복제하지 않는다. build가 canonical UI source를 수집하여 manifest/hash/자산과 함께 CLI tarball에 payload로 넣는 구성을 우선 제안한다. CLI/source payload를 같은 version으로 묶으면 실행기의 registry URL 인증·main drift 문제가 줄어든다. 향후 별도 remote registry가 필요하면 다른 ADR로 다루며 지금 두 배포 체계를 동시에 만들지 않는다.
 
@@ -76,7 +76,7 @@ registry는 source를 다시 수작업 복제하지 않는다. build가 canonica
 
 - Tailwind v4 계열 + Vite integration 제안. 실제 설치 버전은 호환 확인 후 pin/lock하며 `latest`를 계약으로 쓰지 않는다. 소비 framework별 integration은 별도 adapter로 처리한다. 첫 지원 경로는 React/Vite/Tailwind v4이고 기존 v3/모호한 build는 자동 변환하지 않고 명확히 진단한다.
 - `cn`은 clsx + tailwind-merge 사용 제안, variant는 명시적 typed variant table로 시작. 기본/variant/state class를 정적인 완전한 문자열로 쓰고 consumer className을 마지막 merge한다. 이후 복잡도가 필요할 때 CVA 추가를 판단한다. consumer도 해당 helper dependency를 실제로 설치한다.
-- semantic CSS 변수는 scoped Gyeol theme container에 두고 top-level `@theme inline` bridge에서 namespaced utilities로 연결한다. 중첩 테마에서 변수 참조가 선언 위치에 굳지 않도록 실제 root/subtree 변경을 검증한다. spacing/type/radius도 새 체계로 제안하며 구 토큰 107개/구 블루/구 14px를 보존 기준으로 삼지 않는다.
+- semantic CSS 변수는 scoped Hangyeol theme container에 두고 top-level `@theme inline` bridge에서 namespaced utilities로 연결한다. 중첩 테마에서 변수 참조가 선언 위치에 굳지 않도록 실제 root/subtree 변경을 검증한다. spacing/type/radius도 새 체계로 제안하며 구 토큰 107개/구 블루/구 14px를 보존 기준으로 삼지 않는다.
 - utility appearance/state: hover/focus-visible/disabled/aria-invalid/data-state 및 responsive modifier. object style/color 꾸러미나 old CSS의 @apply 포장으로 구현하지 않는다. className override는 실제 해당 slot owner에서 검증한다. Radix portal은 theme root/container 전달로 변수·폰트가 유실되지 않도록 계약화한다.
 - Tailwind preflight는 소비 host 전체 영향이 있으므로 설치기가 묵시적으로 전체 reset을 추가하지 않는다. 기존 Tailwind entry/layers를 읽고 초기 파일 생성 또는 변경 preview를 낸다. source 탐색 경로가 기본 scan 밖이면 명시적 source 등록을 생성한다.
 
@@ -87,7 +87,7 @@ registry는 source를 다시 수작업 복제하지 않는다. build가 canonica
 - **TextField**: Label+Input+Description/Error+optional action composition. className/ref/input props 대상은 actual input, wrapperClassName/slot props는 별도. id/aria-describedby/error 관계를 한 owner로 관리한다. 기존 querySelector로 입력을 찾는 clear 경로는 ref 연결로 재설계한다.
 - **Select**: Radix Select Root/Trigger/Value/Portal/Content/Viewport/Item. value/defaultValue/onValueChange, disabled, name/required 지원 범위를 명시. keyboard/typeahead/Escape/focus return과 FormData/reset을 실제 조작으로 검증. native Select의 children/event/HTMLSelectElement ref API와 호환된다고 거짓 약속하지 않는다.
 - **Tabs**: Radix Root/List/Trigger/Content. value/defaultValue/onValueChange, orientation/activationMode, roving focus/disabled/state. docs owner state는 탭 panel 밖에 두어 Code/Docs 이동으로 입력이 초기화되지 않게 한다.
-- **Dialog**: Radix Root/Trigger/Portal/Overlay/Content/Title/Description/Close. controlled/uncontrolled open, Escape/outside/초점 trap/복귀; Gyeol은 styling과 조합 API를 소유. dialog global modalOwners/showModal 병행 제거 대상으로 잡는다. 외부 trigger, 처음 열린 상태, nested/portal theme 책임을 문서화한다.
+- **Dialog**: Radix Root/Trigger/Portal/Overlay/Content/Title/Description/Close. controlled/uncontrolled open, Escape/outside/초점 trap/복귀; Hangyeol은 styling과 조합 API를 소유. dialog global modalOwners/showModal 병행 제거 대상으로 잡는다. 외부 trigger, 처음 열린 상태, nested/portal theme 책임을 문서화한다.
 - **List/layout**: native ul/li/section/flex/grid. 없는 Radix layout으로 감싸지 않는다. ListPanel은 List+heading+toolbar+empty/actions 조합이며 제품 enum·backend를 받지 않는다.
 
 후속 mapping 대상: Checkbox/Switch/RadioGroup/Slider/Accordion/Popover/Tooltip/DropdownMenu/Toast는 해당 Radix primitive, Confirm은 AlertDialog 방향으로 별도 검토한다. Calendar/Combobox/DataTable/Chart는 단일 Radix primitive로 해결된다고 하지 않고 전용 동작 엔진/native 및 source-dependency 경계를 따로 설계한다. 첫 슬라이스에 이 후속 범위를 몰아넣지 않는다.
@@ -96,7 +96,7 @@ registry는 source를 다시 수작업 복제하지 않는다. build가 canonica
 
 ### package 및 인증 제안 (실행 가능한 발행 명령 아님)
 
-배포 후보는 repository owner scope의 `@orderthan31/gyeol-cli` 하나다. **미확정 신규 식별자**이며 기존 `shared-design-system`을 rename하는 결정이 아니다. CLI bin 이름도 review 후 정한다. UI source authoring workspace는 private이고 소비자가 UI package를 런타임 import하지 않는다. source payload는 CLI가 실행될 때만 읽는다.
+배포 후보는 repository owner scope의 `@orderthan31/hangyeol-cli` 하나다. **미확정 신규 식별자**이며 기존 `shared-design-system`을 rename하는 결정이 아니다. CLI bin 이름도 review 후 정한다. UI source authoring workspace는 private이고 소비자가 UI package를 런타임 import하지 않는다. source payload는 CLI가 실행될 때만 읽는다.
 
 GitHub Packages의 npm registry에 release tarball을 배포하고 npx가 이 scoped executable을 실행하는 경로를 제안한다. `@orderthan31`만 GitHub Packages registry로 라우팅하고 React/Radix 등 외부 dependency resolution은 기존 npm registry 설정을 존중한다. npmjs.com **발행** 금지는 외부 dependency **설치** 금지로 확대 해석하지 않는다. 명령/인증 setup은 미발행 후보를 실제 사용자 quick start처럼 기재하지 않는다.
 

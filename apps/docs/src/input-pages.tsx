@@ -1,19 +1,20 @@
+import { PreviewSurface } from './hangyeol/primitives/preview-surface';
 import { ComponentContext, ExamplePurpose } from './component-content';
 import { useRef, useState } from 'react';
-import { Button } from './gyeol/primitives/button';
-import { Checkbox } from './gyeol/primitives/checkbox';
-import { Tabs, TabsList, TabsTrigger, TabsContent } from './gyeol/primitives/tabs';
-import { SearchField } from './gyeol/components/search-field';
-import { PasswordInput } from './gyeol/components/password-input';
-import { EmailInput } from './gyeol/components/email-input';
-import { PhoneInput } from './gyeol/components/phone-input';
-import { CurrencyInput } from './gyeol/components/currency-input';
-import { NumberInput } from './gyeol/components/number-input';
-import { CheckboxGroup } from './gyeol/components/checkbox-group';
-import { FileInput } from './gyeol/components/file-input';
-import { Rating } from './gyeol/components/rating';
-import { AddressField, type AddressValue } from './gyeol/components/address-field';
-import { CodeBlock } from './component-pages';
+import { Button } from './hangyeol/primitives/button';
+import { Checkbox } from './hangyeol/primitives/checkbox';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from './hangyeol/primitives/tabs';
+import { SearchField } from './hangyeol/components/search-field';
+import { PasswordInput } from './hangyeol/components/password-input';
+import { EmailInput } from './hangyeol/components/email-input';
+import { PhoneInput } from './hangyeol/components/phone-input';
+import { CurrencyInput } from './hangyeol/components/currency-input';
+import { NumberInput } from './hangyeol/components/number-input';
+import { CheckboxGroup } from './hangyeol/components/checkbox-group';
+import { FileInput } from './hangyeol/components/file-input';
+import { Rating } from './hangyeol/components/rating';
+import { AddressField, type AddressValue } from './hangyeol/components/address-field';
+import { CodeBlock } from './hangyeol/components/code-block';
 
 export const inputNames = ['AddressField', 'CheckboxGroup', 'CurrencyInput', 'EmailInput', 'FileInput', 'NumberInput', 'PasswordInput', 'PhoneInput', 'Rating', 'SearchField'] as const;
 export type InputName = typeof inputNames[number];
@@ -78,18 +79,18 @@ export function InputPage({ name, initialPanel = 'usage' }: { name: InputName; i
   if (name === 'Rating') { state = `const [value, setValue] = useState(${rating});`; attrs = `label=${JSON.stringify(label)} name="rating" value={value} onValueChange={setValue} disabled={${disabled}} readOnly={${readOnly}}`; }
   if (name === 'AddressField') { state = `const [value, setValue] = useState(${JSON.stringify(address)});`; attrs = `label=${JSON.stringify(label)} name="address" value={value} onValueChange={setValue} disabled={${disabled}} readOnly={${readOnly}}${problem ? ` error=${JSON.stringify(problem)}` : ''} onSearch={select => select(${JSON.stringify(addressExample)})}`; }
   const resetValue = name === 'AddressField' ? JSON.stringify(addressDefault) : name === 'CheckboxGroup' ? '["email"]' : name === 'Rating' ? '3' : JSON.stringify(defaults[name] ?? '');
-  const code = `import { useState } from 'react';\nimport { ${name} } from './gyeol/components/${filenames[name]}';\nimport { Button } from './gyeol/primitives/button';\n\nexport function Example() {\n  ${state}\n  const [result, setResult] = useState("");\n  return <form onReset={() => { ${name !== 'FileInput' ? `setValue(${resetValue}); ` : ''}setResult(""); }} onSubmit={event => {\n    event.preventDefault();\n    const data = new FormData(event.currentTarget);\n    setResult(JSON.stringify(Array.from(data.entries()).map(([key, value]) => [key, typeof value === "string" ? value : { name: value.name, size: value.size }])));\n  }}>\n    <${name} ${attrs}/>\n    <Button type="submit">제출 값 보기</Button>\n    <Button type="reset" variant="secondary">입력 초기화</Button>\n    <p role="status">{result}</p>\n  </form>;\n}`;
+  const code = `import { useState } from 'react';\nimport { ${name} } from './hangyeol/components/${filenames[name]}';\nimport { Button } from './hangyeol/primitives/button';\n\nexport function Example() {\n  ${state}\n  const [result, setResult] = useState("");\n  return <form onReset={() => { ${name !== 'FileInput' ? `setValue(${resetValue}); ` : ''}setResult(""); }} onSubmit={event => {\n    event.preventDefault();\n    const data = new FormData(event.currentTarget);\n    setResult(JSON.stringify(Array.from(data.entries()).map(([key, value]) => [key, typeof value === "string" ? value : { name: value.name, size: value.size }])));\n  }}>\n    <${name} ${attrs}/>\n    <Button type="submit">제출 값 보기</Button>\n    <Button type="reset" variant="secondary">입력 초기화</Button>\n    <p role="status">{result}</p>\n  </form>;\n}`;
   const resetExample = () => { setDisabled(false); setReadOnly(false); setError(false); setText(defaults[name] ?? ''); setSelected(['email']); setRating(3); setAddress(addressDefault); setFeedback(''); form.current?.reset(); };
   return <div className="space-y-8">
     <p className="docs-intro">{inputDescriptions[name]}</p>
     <ComponentContext name={name}/><ExamplePurpose name={name}/>
-    <section className="docs-demo" aria-label={`${name} 사용 예제`}>
+    <PreviewSurface asChild><section  aria-label={`${name} 사용 예제`}>
       <form ref={form} className="grid gap-4" onReset={() => { setText(defaults[name] ?? ''); setSelected(['email']); setRating(3); setAddress(addressDefault); setFeedback(''); }} onSubmit={event => {
         event.preventDefault(); const data = new FormData(event.currentTarget);
         setFeedback(JSON.stringify(Array.from(data.entries()).map(([key, value]) => [key, typeof value === 'string' ? value : { name: value.name, size: value.size }])));
       }}>{demo}<div className="flex flex-wrap gap-2"><Button type="submit">제출 값 보기</Button><Button type="reset" variant="secondary">입력 초기화</Button></div><p role="status" className="break-all text-g-small text-g-soft">{feedback || '입력해 보고 제출 값을 확인하세요. 서버에 저장하지 않습니다.'}</p></form>
       {name === 'AddressField' && <p className="mt-4 text-g-small text-g-soft">주소 검색은 예시 주소를 채웁니다. 실제 주소 서비스는 연결하지 않았습니다.</p>}
-    </section>
+    </section></PreviewSurface>
     <Tabs value={panel} onValueChange={next => setPanel(next as typeof panel)}>
       <TabsList aria-label="예제 안내"><TabsTrigger value="usage">사용법</TabsTrigger><TabsTrigger value="settings">예제 설정</TabsTrigger><TabsTrigger value="code">코드</TabsTrigger></TabsList>
       <TabsContent value="settings"><div className="grid gap-3 py-4">

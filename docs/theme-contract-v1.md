@@ -2,7 +2,7 @@
 
 ## 기본값과 역사 원본을 분리
 
-현재 소비 진입점은 `src/core.css`와 `.ds-core` 조상이다. import graph는 scoped 토큰 → **Gyeol blue/neutral default** → theme/공통 컴포넌트 CSS다. `src/default-theme.css`가 실제 Button·폼·탐색·표·선택·피드백 상태의 기본색을 설정한다. `gallery.css`와 호환 `styles.css`는 문서 앱 전용 opt-in이며 소비 core가 import하지 않는다. Pretendard·기본44px control과 명시적 large API를 보존한다. 선택 source 소비 계약은 source-installation.md를 따른다.
+현재 소비 진입점은 `src/core.css`와 `.ds-core` 조상이다. import graph는 scoped 토큰 → **Hangyeol blue/neutral default** → theme/공통 컴포넌트 CSS다. `src/default-theme.css`가 실제 Button·폼·탐색·표·선택·피드백 상태의 기본색을 설정한다. `gallery.css`와 호환 `styles.css`는 문서 앱 전용 opt-in이며 소비 core가 import하지 않는다. Pretendard·기본44px control과 명시적 large API를 보존한다. 선택 source 소비 계약은 source-installation.md를 따른다.
 
 역사 원본 `public/source/tokens/core.json`은 107개(primitive 39 / semantic 29 / component 39), SHA-256 `b459f1c541d3c2e37190c745e727a4b3c2a755ac395cbd8040e4eb2a972d2d20` 그대로 보존한다. 원본 팔레트 보존은 현재 UI에 옛 색을 유지한다는 뜻이 아니다. 이전 `theme-contract.md`는 역사 snapshot이며 현재 기본값/미검증 판단의 정본이 아니다.
 

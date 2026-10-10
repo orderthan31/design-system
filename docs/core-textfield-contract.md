@@ -28,8 +28,8 @@ npm install --offline --save-dev --save-exact <actual-tarball-path>
 `init`의 `foundation/fonts.css`, Pretendard 400/500/600/700 woff2, 실제 OFL LICENSE/provenance, 호스트 stylesheet/config integration은 별도입니다. TextField는 로컬 Input/Button/cn을 상대 경로로 가져옵니다. 소비자 런타임이 core의 UI를 가져오지 않습니다. 전체 barrel/index, docs, Chart/Recharts, 다른 컴포넌트 또는 Radix 런타임을 설치하지 않습니다. core 도구/전체 선택적 payload 자체의 포함 범위와 소비자에 복사되는 UI closure는 구분합니다.
 
 ```tsx
-import { TextField } from './gyeol/components/text-field';
-import './gyeol.css';
+import { TextField } from './hangyeol/components/text-field';
+import './hangyeol.css';
 
 <TextField label="이름" name="name" defaultValue="문서" clearable />
 ```

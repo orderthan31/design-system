@@ -4,16 +4,18 @@ import {pathToFileURL} from 'node:url';
 import {createRequire} from 'node:module';
 import {safeTarget} from './safety.mjs';
 import postcss from 'postcss';
+import {inlinePropertyOwnership} from './lint-css.mjs';
 
 export function walk(node,visit){if(!node||typeof node!=='object')return;visit(node);for(const [key,value] of Object.entries(node))if(!['parent','loc','range','tokens','comments'].includes(key)){if(Array.isArray(value))for(const child of value)walk(child,visit);else if(value&&typeof value==='object')walk(value,visit);}}
 export function staticClasses(ast){
  const result=[];
  function literal(node){if(!node)return;if(node.type==='Literal'&&typeof node.value==='string')for(const value of node.value.split(/\s+/))if(value)result.push({value,line:node.loc.start.line,column:node.loc.start.column+1});else{}else if(node.type==='ConditionalExpression'){literal(node.consequent);literal(node.alternate);}else if(node.type==='LogicalExpression'){literal(node.left);literal(node.right);}else if(node.type==='CallExpression'&&node.callee.name==='cn')node.arguments.forEach(literal);}
- walk(ast,node=>{if(node.type==='JSXAttribute'&&node.name.name==='className')literal(node.value?.type==='JSXExpressionContainer'?node.value.expression:node.value);if(node.type==='CallExpression'&&node.callee.name==='cn')literal(node);if(node.type==='VariableDeclarator'&&['variants','sizes'].includes(node.id.name))walk(node.init,n=>{if(n.type==='Literal'&&typeof n.value==='string')literal(n);});});
+ function values(node){if(!node)return;if(['TSAsExpression','TSSatisfiesExpression','TSNonNullExpression'].includes(node.type))return values(node.expression);if(node.type==='ObjectExpression'){for(const property of node.properties)if(property.type==='Property'&&!property.method)values(property.value);}else if(node.type==='ArrayExpression')node.elements.forEach(values);else literal(node);}
+ walk(ast,node=>{if(node.type==='JSXAttribute'&&node.name.name==='className')literal(node.value?.type==='JSXExpressionContainer'?node.value.expression:node.value);if(node.type==='CallExpression'&&node.callee.name==='cn')literal(node);if(node.type==='VariableDeclarator'&&['variants','sizes'].includes(node.id.name))values(node.init);});
  return [...new Map(result.map(r=>[`${r.line}:${r.column}:${r.value}`,r])).values()];
 }
 const escapeRegExp=s=>s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
-export async function consumerPolicy(boundary,config,relative,ast,semantic={colors:[],text:[]}){
+export async function consumerPolicy(boundary,config,relative,ast,semantic={colors:[],text:[]},css){
  const {sliceConfig}=await import(pathToFileURL(path.join(boundary.root,'dist/policy/slice-eslint-policy.mjs')));
  const {default:ds}=await import(pathToFileURL(path.join(boundary.root,'dist/policy/design-jsx-policy.mjs')));
  const base=sliceConfig[0],rules={...base.rules},imports=[];
@@ -23,7 +25,7 @@ export async function consumerPolicy(boundary,config,relative,ast,semantic={colo
   else if(config.alias&&value.startsWith(config.alias+'/')){target=value.slice(config.alias.length+1);if(target.includes('\\')||target.split('/').some(p=>!p||p==='.'||p==='..'))throw Error(`Unsafe configured alias import: ${value}`);safeTarget(process.cwd(),config.sourceRoot+'/'+target);}
   if(target&&Object.keys(boundary.manifest.files).some(name=>name.replace(/\.(tsx?|css)$/,'')===target.replace(/\.(tsx?|css)$/,''))&&/^(?:primitives|components|foundation)\//.test(target))imports.push('^'+escapeRegExp(value)+'$');
  }
- const owners=sliceConfig[1].files.filter(p=>p.startsWith('packages/ui/src/')).map(p=>p.slice('packages/ui/src/'.length));
+ const owners=sliceConfig[1].files.filter(p=>p.startsWith('packages/core/src/ui/')).map(p=>p.slice('packages/core/src/ui/'.length));
  const record=config.installed?.[config.sourceRoot+'/'+relative],canonical=boundary.manifest.files[relative];
  const owner=owners.includes(relative)&&canonical&&record?.version===boundary.manifest.version&&record?.hash===canonical.hash;
  if(owner)rules['shadcn/no-restyle']='off';
@@ -35,8 +37,9 @@ export async function consumerPolicy(boundary,config,relative,ast,semantic={colo
  });
  if(allowed.length)rules['shadcn/no-raw-colors']=['error',{allow:[...new Set(allowed)]}];
  // The authoring docs customization exception is intentionally not transferred.
- rules['ds/no-unowned-custom-properties']=['error',{owners:[]}];
- return {config:{...base,files:['**/*.{ts,tsx}'],plugins:{...base.plugins,ds},settings:{shadcn:{componentImports:imports,mergeFunctions:['cn']}},rules},owner:!!owner,imports};
+ const inlineProperties=inlinePropertyOwnership(boundary,config,relative,css);
+ rules['ds/no-unowned-custom-properties']=['error',{owners:inlineProperties.length?[{file:'dist/policy/lint-input.tsx',properties:inlineProperties}]:[]}];
+ return {config:{...base,files:['**/*.{ts,tsx}'],plugins:{...base.plugins,ds},settings:{shadcn:{componentImports:imports,mergeFunctions:['cn']}},rules},owner:!!owner,imports,inlineProperties};
 }
 export async function consumerCompiler(root,config,expected){
  const require=createRequire(path.join(root,'package.json'));let metadataPath,modulePath;

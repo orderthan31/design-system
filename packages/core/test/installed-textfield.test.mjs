@@ -38,12 +38,12 @@ test('physical TextField closure dedupes shared Button, retains edits and builds
  const installed=path.join(host,'node_modules/hangyeol-core'),bin=path.join(host,'node_modules/.bin/hangyeol');
  assert.equal(fs.lstatSync(installed).isSymbolicLink(),false);assert.equal(fs.realpathSync(bin),path.join(installed,'bin/hangyeol.mjs'));
  assert.equal(sha(fs.readFileSync(artifact.tarball)),artifact.sha256);assert.equal(run('version',bin,['--version'],host).stdout.trim(),artifact.version);
- assert.ok(!fs.existsSync(path.join(host,'gyeol.json'))&&!fs.existsSync(path.join(host,'ui')),'no postinstall generation');
+ assert.ok(!fs.existsSync(path.join(host,'hangyeol.json'))&&!fs.existsSync(path.join(host,'ui')),'no postinstall generation');
  const lockBefore=readJSON(path.join(host,'package-lock.json')),coreBefore=lockBefore.packages['node_modules/hangyeol-core'];
  const integrity='sha512-'+crypto.createHash('sha512').update(fs.readFileSync(artifact.tarball)).digest('base64');assert.equal(coreBefore.integrity,integrity);assert.notEqual(coreBefore.link,true);
- assert.equal(sha(fs.readFileSync(path.join(installed,'dist/tools/installer.mjs'))),sha(fs.readFileSync(new URL('../../cli/src/installer.mjs',import.meta.url))));
+ assert.equal(sha(fs.readFileSync(path.join(installed,'dist/tools/installer.mjs'))),sha(fs.readFileSync(new URL('../src/tools/installer.mjs',import.meta.url))));
  assert.deepEqual(readJSON(path.join(installed,'payload/manifest.json')),manifest);
- fs.mkdirSync(path.join(host,'styles'));fs.writeFileSync(path.join(host,settings.stylePath),body);fs.writeFileSync(path.join(host,'gyeol.json'),JSON.stringify(initialConfig,null,2)+'\n');
+ fs.mkdirSync(path.join(host,'styles'));fs.writeFileSync(path.join(host,settings.stylePath),body);fs.writeFileSync(path.join(host,'hangyeol.json'),JSON.stringify(initialConfig,null,2)+'\n');
  fs.writeFileSync(path.join(host,'tsconfig.json'),JSON.stringify({compilerOptions:{target:'ES2022',lib:['ES2022','DOM'],module:'ESNext',moduleResolution:'Bundler',jsx:'react-jsx',strict:true,skipLibCheck:true,noEmit:true},include:['src','ui']},null,2)+'\n');
  function checked(label,args,{expected=0,unchanged=false,diagnostic,guard=true}={}){
   const before=snapshot(host),guardDir=fs.mkdtempSync(path.join(evidence,'textfield-npm-guard-')),trace=path.join(guardDir,'trace');fs.writeFileSync(trace,'');
@@ -57,7 +57,7 @@ test('physical TextField closure dedupes shared Button, retains edits and builds
   if(diagnostic)assert.match(r.stderr,diagnostic);return r;
  }
  const initDry=plan(checked('init-dry',['init','--dry-run'],{unchanged:true}));assert.deepEqual(initDry.dependencies.runtime.sort(),['clsx@2.1.1','tailwind-merge@3.7.0']);
- const initPlan=plan(checked('init',['init'],{guard:false}));const initialized=readJSON(path.join(host,'gyeol.json')),pkgInit=readJSON(path.join(host,'package.json'));
+ const initPlan=plan(checked('init',['init'],{guard:false}));const initialized=readJSON(path.join(host,'hangyeol.json')),pkgInit=readJSON(path.join(host,'package.json'));
  assert.deepEqual(initialized.components,[]);assert.deepEqual(initialized.integration.settings,Object.fromEntries(Object.keys(settings).filter(k=>k!=='schemaVersion').map(k=>[k,settings[k]])));assert.equal(initialized.integration.styleBody,body);
  const hostCSS=fs.readFileSync(path.join(host,settings.stylePath),'utf8');assert.ok(hostCSS.endsWith(body));assert.match(hostCSS,/@source "\.\.\/ui\/system"/);assert.match(hostCSS,/@import "tailwindcss\/theme.css"/);assert.match(hostCSS,/@import "tailwindcss\/utilities.css"/);assert.ok(!/preflight|@import "tailwindcss"/.test(hostCSS));
  assert.deepEqual(readJSON(path.join(host,'tsconfig.json')).compilerOptions.paths,{'@hangyeol/*':['./ui/system/*']});assert.match(fs.readFileSync(path.join(host,'vite.config.ts'),'utf8'),/ui\/system/);
@@ -77,13 +77,13 @@ test('physical TextField closure dedupes shared Button, retains edits and builds
  const componentFiles=['primitives/input.tsx','primitives/button.tsx','components/text-field.tsx'];
  for(const name of componentFiles)assert.equal(sha(fs.readFileSync(path.join(host,settings.sourceRoot,name))),manifest.files[name].hash);
  const tf=path.join(host,settings.sourceRoot,'components/text-field.tsx'),tfText=fs.readFileSync(tf,'utf8');assert.match(tfText,/from '\.\.\/primitives\/input'/);assert.match(tfText,/from '\.\.\/primitives\/button'/);assert.match(tfText,/from '\.\.\/lib\/cn'/);
- for(const file of expectedSources)assert.ok(!/from\s*['"](?:hangyeol-core|@orderthan31\/gyeol-cli)/.test(fs.readFileSync(path.join(host,settings.sourceRoot,file),'utf8')));
+ for(const file of expectedSources)assert.ok(!/from\s*['"](?:hangyeol-core|hangyeol-core\/tools)/.test(fs.readFileSync(path.join(host,settings.sourceRoot,file),'utf8')));
  const fonts={};for(const [name,record] of Object.entries(manifest.assets)){
   const bytes=fs.readFileSync(path.join(host,'static/assets/type',name));assert.equal(sha(bytes),record.hash);assert.deepEqual(bytes,fs.readFileSync(path.join(installed,'payload/assets',name)));if(name.endsWith('.woff2'))assert.equal(bytes.subarray(0,4).toString(),'wOF2');fonts[name]={sha256:sha(bytes),bytes:bytes.length};
  }
  const urls=[...fs.readFileSync(path.join(host,'ui/system/foundation/fonts.css'),'utf8').matchAll(/url\("([^" ]+)"\)/g)].map(m=>new URL(m[1],'https://fixture.invalid/design/'));assert.equal(urls.length,4);for(const u of urls){assert.equal(u.origin,'https://fixture.invalid');assert.ok(u.pathname.startsWith('/design/assets/type/'));}
  fs.mkdirSync(path.join(host,'src'));fs.writeFileSync(path.join(host,'index.html'),'<div id="root"></div><script type="module" src="/src/main.tsx"></script>\n');
- fs.writeFileSync(path.join(host,'src/main.tsx'),"import {createRoot} from 'react-dom/client';import {TextField} from '../ui/system/components/text-field';import '../styles/theme.css';createRoot(document.getElementById('root')!).render(<main data-gyeol><TextField label=\"이름\" defaultValue=\"문서\" name=\"owner\" clearable /><span className=\"native-sentinel\">Native</span></main>);\n");
+ fs.writeFileSync(path.join(host,'src/main.tsx'),"import {createRoot} from 'react-dom/client';import {TextField} from '../ui/system/components/text-field';import '../styles/theme.css';createRoot(document.getElementById('root')!).render(<main data-hangyeol><TextField label=\"이름\" defaultValue=\"문서\" name=\"owner\" clearable /><span className=\"native-sentinel\">Native</span></main>);\n");
  run('typecheck',path.join(host,'node_modules/.bin/tsc'),['--pretty','false'],host);run('build',path.join(host,'node_modules/.bin/vite'),['build'],host);
  const built=()=>fs.readdirSync(path.join(host,'dist/assets')).filter(f=>/\.(?:css|js)$/.test(f)).map(f=>fs.readFileSync(path.join(host,'dist/assets',f),'utf8')).join('\n');
  assert.ok(built().includes('.inline-flex'));assert.ok(built().includes('#654321'),'real compiler uses owner theme');assert.ok(built().includes('margin:17px'));const marker='CORE04_LOCAL_TEXTFIELD_VISIBLE';assert.ok(!built().includes(marker));
@@ -101,7 +101,7 @@ test('physical TextField closure dedupes shared Button, retains edits and builds
  const closureOverwrite=plan(checked('overwrite-closure',['add','text-field','--overwrite']));assert.deepEqual(closureOverwrite.files.filter(f=>f.action!=='noop').map(f=>f.path).sort(),componentFiles.map(f=>'ui/system/'+f).sort());
  for(const name of componentFiles){const f=closureOverwrite.files.find(f=>f.path==='ui/system/'+name);assert.deepEqual(fs.readFileSync(path.join(host,f.backup)),allEdited[name]);}
  checked('overwrite-repeat',['add','text-field','--overwrite'],{unchanged:true});assert.deepEqual(commonState(),commonBefore);
- const finalConfig=readJSON(path.join(host,'gyeol.json'));for(const [name,record] of Object.entries(commonRecords))assert.deepEqual(finalConfig.installed[name],record);assert.deepEqual(finalConfig.integration,initialized.integration);assert.deepEqual(finalConfig.ownerSetting,initialConfig.ownerSetting);assert.deepEqual([...finalConfig.components].sort(),['button','input','text-field']);
+ const finalConfig=readJSON(path.join(host,'hangyeol.json'));for(const [name,record] of Object.entries(commonRecords))assert.deepEqual(finalConfig.installed[name],record);assert.deepEqual(finalConfig.integration,initialized.integration);assert.deepEqual(finalConfig.ownerSetting,initialConfig.ownerSetting);assert.deepEqual([...finalConfig.components].sort(),['button','input','text-field']);
  assert.equal(fs.readFileSync(path.join(host,'sentinel.txt'),'utf8'),'unrelated owner file\n');assert.equal(fs.readFileSync(path.join(host,settings.stylePath),'utf8'),hostCSS);
  const finalPkg=readJSON(path.join(host,'package.json')),finalLock=readJSON(path.join(host,'package-lock.json')),core=finalLock.packages['node_modules/hangyeol-core'];
  assert.equal(core.version,artifact.version);assert.equal(core.integrity,integrity);assert.equal(core.resolved,coreBefore.resolved);assert.equal(core.dev,true);assert.notEqual(core.link,true);
@@ -119,8 +119,8 @@ test('fresh physical host init then text-field alone installs exactly its dedupe
  const installed=path.join(host,'node_modules/hangyeol-core'),bin=path.join(host,'node_modules/.bin/hangyeol');assert.equal(fs.lstatSync(installed).isSymbolicLink(),false);assert.equal(fs.realpathSync(bin),path.join(installed,'bin/hangyeol.mjs'));
  assert.equal(run('direct-version',bin,['--version'],host).stdout.trim(),artifact.version);assert.ok(!fs.existsSync(path.join(host,'src')),'physical tool installation has no UI postinstall');
  const guard=fs.mkdtempSync(path.join(evidence,'direct-npm-guard-')),trace=path.join(guard,'trace');fs.writeFileSync(trace,'');fs.writeFileSync(path.join(guard,'npm'),'#!/bin/sh\nprintf "npm invoked\\n" >> "$CORE04_NPM_TRACE"\nexit 93\n');fs.chmodSync(path.join(guard,'npm'),0o755);const env={...process.env,PATH:guard+path.delimiter+process.env.PATH,CORE04_NPM_TRACE:trace};
- const initPlan=plan(run('direct-init',bin,['init'],host,0,env));assert.deepEqual(readJSON(path.join(host,'gyeol.json')).components,[]);assert.ok(!fs.existsSync(path.join(host,'src/gyeol/primitives')));
- const addPlan=plan(run('direct-textfield',bin,['add','text-field'],host,0,env)),graph=snapshot(path.join(host,'src/gyeol'));
+ const initPlan=plan(run('direct-init',bin,['init'],host,0,env));assert.deepEqual(readJSON(path.join(host,'hangyeol.json')).components,[]);assert.ok(!fs.existsSync(path.join(host,'src/hangyeol/primitives')));
+ const addPlan=plan(run('direct-textfield',bin,['add','text-field'],host,0,env)),graph=snapshot(path.join(host,'src/hangyeol'));
  const expected=['components/text-field.tsx','foundation/fonts.css','foundation/theme.css','lib/cn.ts','primitives/button.tsx','primitives/input.tsx'];assert.deepEqual(Object.keys(graph).filter(k=>graph[k].sha256).sort(),expected);assert.equal(addPlan.files.length,5);assert.equal(new Set(addPlan.files.map(f=>f.path)).size,5);assert.deepEqual(addPlan.dependencies,{runtime:[]});
  for(const file of expected.filter(name=>name!=='foundation/fonts.css'))assert.equal(graph[file].sha256,manifest.files[file].hash);
  const before=snapshot(host);run('direct-overlap-repeat',bin,['add','text-field','input','button'],host,0,env);const after=snapshot(host);fs.writeFileSync(path.join(evidence,'installed-textfield-direct-snapshot.json'),JSON.stringify({host,args:['add','text-field','input','button'],before,after,npmTrace:trace,npmCalls:fs.readFileSync(trace,'utf8'),guarded:true},null,2));assert.deepEqual(after,before);assert.equal(fs.readFileSync(trace,'utf8'),'');

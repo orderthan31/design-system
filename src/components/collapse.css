@@ -1,5 +1,0 @@
-@import "./control-base.css";
-@layer components {
- :where(.ds-core) .ds-collapse > div:not([hidden]) { padding: var(--space-4); }
-:where(.ds-core) .ds-collapse { margin-block: var(--space-4); }
-}

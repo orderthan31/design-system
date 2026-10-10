@@ -20,44 +20,20 @@ and prepared offline cache/scripts-off are the bounded verification environment,
 empty-cache portability proof. Installing core alone does not generate UI; UI must not import core
 at runtime. Consumers own partial/replacement/added palettes and editable source; update plan/diff/
 apply and source Reset remain unsupported/nonzero. Existing owner settings and input values are
-not reset by read-only tools. Canonical default build and browser acceptance remain deferred.
+not reset by read-only tools. Browser acceptance remains separate from the core/Docs build.
 
-<details>
-<summary>Historical packaging/command notes — not the current quickstart</summary>
+## Canonical ownership
 
-Build/pack in the authoring repository:
-
-```sh
-npm run build --workspace=hangyeol-core
-npm pack --dry-run --json --workspace=hangyeol-core
-npm pack --workspace=hangyeol-core --pack-destination=../scratch
-```
-
-In an independent disposable React 19/Vite host, install the actual tarball
-filename emitted by pack as an exact development dependency:
+`src/ui` owns reusable UI, `src/tools` owns installer/safety/host configuration and the other tools, `registry/items.json` owns the selected dependency graph, and `assets/fonts` owns unmodified fonts/licenses. There is no separate CLI/UI workspace or legacy registry output. Build/prepack copies only the declared tool/payload boundary.
 
 ```sh
-npm install --save-dev --save-exact ../scratch/hangyeol-core-0.1.0-s2.1.tgz
-./node_modules/.bin/hangyeol --version
-./node_modules/.bin/hangyeol inspect
-./node_modules/.bin/hangyeol doctor
-./node_modules/.bin/hangyeol init --dry-run
-./node_modules/.bin/hangyeol init
-./node_modules/.bin/hangyeol add button --dry-run
+npm run build -w hangyeol-core
+npm pack --workspace=hangyeol-core --pack-destination=/your/external/artifacts
 ```
 
-The direct local bin is authoritative; no npx registry fallback is used. The
-core package stays in package.json/package-lock.json and node_modules. Installing
-the package performs no postinstall generation. Init/add reuse the existing CLI
-installer: React 19/Vite/Tailwind 4 adapter, preflight-free stylesheet, configurable
-source/style/public/font/base/alias paths, exact runtime/build/type dependencies,
-complete pre-write collision/hash/path/symlink plans, no-op/conflict/explicit
-backup behavior, and success records only after dependency installation. Core
-installed records include the core package and payload version. The legacy CLI
-remains separately packaged and uses its own payload/version.
+Install the actual emitted tarball as an exact devDependency in a supported React/Vite host. Installing core does not generate UI. Run that host's `node_modules/.bin/hangyeol init` and `add` explicitly. Defaults are `hangyeol.json`, `src/hangyeol`, `src/hangyeol.css`, and `public/fonts/hangyeol`. Editable source is never silently overwritten.
 
 
-</details>
 
 Every command first verifies package/payload/tool versions, ownership and hashes.
 `inspect` checks the actual packed files. `lint inspect` retains its installed
@@ -73,8 +49,8 @@ From the disposable host, use the physically installed bin:
 ./node_modules/.bin/hangyeol lint inspect
 ```
 
-Lint reads `gyeol.json` and recursively checks `.ts`/`.tsx` under its `sourceRoot`
-(default `src/gyeol`, configurable such as `ui/system`). Consumer examples to be
+Lint reads `hangyeol.json` and recursively checks `.ts`/`.tsx` under its `sourceRoot`
+(default `src/hangyeol`, configurable such as `ui/system`). Consumer examples to be
 checked belong inside that root. It does not scan unrelated app `src` files,
 load host ESLint/Vite/TypeScript executable configs, generate files or fix code.
 Stdout is a JSON report; stderr findings use actual host-relative file, line,
@@ -87,7 +63,7 @@ The package collects the unchanged repository slice ESLint policy and existing
 custom-property supplement, plus their hashes and installed dependency LICENSE
 bytes in `dist/policy`. Exact template owners alone can compose native control
 styles; public variants/layout are the consumer contract. Other rules remain
-enabled. The authoring docs customization exception is not copied to consumers.
+enabled. Only the explicitly enumerated library owners receive composition exceptions.
 
 Unknown utility checking calls the actual adapter-pinned host Tailwind 4.3.3
 `compile/build` API with bounded CSS imports. Grammar classification by pinned
@@ -113,7 +89,7 @@ file recovery does not roll back node_modules or guarantee crash/hostile-race
 atomicity; lint does not change those limitations.
 
 
-CORE-08 uses actual consumer `gyeol.json` sourceRoot/stylePath and optional
+CORE-08 uses actual consumer `hangyeol.json` sourceRoot/stylePath and optional
 `tokens.source`/`tokens.palette` data. It checks typed semantic role/alias graphs
 against real local CSS, preserving owner values. Use the installed local bin:
 
@@ -192,7 +168,7 @@ structured JSON with state/exit and checks containing code/status/path/cause/act
 source import findings also carry actual file lines. Exit 0 denotes supported
 healthy connections (owner edits may be informational), 1 missing/invalid/unsafe
 installation data or supported connection conflicts, 2 unsupported doctor/host
-grammar or computed imports. Missing `gyeol.json` is uninitialized / exit 1.
+grammar or computed imports. Missing `hangyeol.json` is uninitialized / exit 1.
 Packed boundary failures retain the router's existing error / exit 1.
 
 Doctor checks actual configured sourceRoot/style/public/font/base/alias paths,

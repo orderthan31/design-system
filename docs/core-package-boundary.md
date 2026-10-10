@@ -1,3 +1,7 @@
+# Historical CORE-01 package checkpoint
+
+This historical checkpoint describes the original introduction of core, not the current workspace topology or tool feature set. Current ownership, commands, and supported tools are documented in [the core README](../packages/core/README.md). The current collector has one core owner and no legacy CLI/registry output.
+
 # S2 CORE-01: installed core package boundary
 
 CORE-01 adds private `hangyeol-core@0.1.0-s2.1` to the existing workspace. It does
@@ -13,8 +17,8 @@ version/location and retains its existing registry/docs-generation behavior.
 Only explicit core collection selects the core package/version; it does not
 rewrite the legacy registry manifest.
 
-`packages/cli/src/installer.mjs` is the single shared installer implementation.
-The legacy `gyeol` entry and new core router call it with their own payload roots.
+`packages/core/src/tools/installer.mjs` is the single shared installer implementation.
+The legacy `hangyeol` entry and new core router call it with their own payload roots.
 Core snapshots that implementation and unchanged safety code during build. This
 is not a folder rename or an installed module that reaches back into authoring
 source. Successful core init/add metadata identifies `hangyeol-core` and its

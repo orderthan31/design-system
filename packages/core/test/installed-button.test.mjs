@@ -40,14 +40,14 @@ test('physical core installs only editable Button graph and preserves initialize
  assert.equal(fs.realpathSync(bin),path.join(installed,'bin/hangyeol.mjs'));
  assert.equal(sha(fs.readFileSync(artifact.tarball)),artifact.sha256);
  assert.equal(run('version',bin,['--version'],host).stdout.trim(),artifact.version);
- assert.ok(!fs.existsSync(path.join(host,'gyeol.json'))&&!fs.existsSync(path.join(host,'ui')),'no postinstall generation');
+ assert.ok(!fs.existsSync(path.join(host,'hangyeol.json'))&&!fs.existsSync(path.join(host,'ui')),'no postinstall generation');
  const lockBefore=readJSON(path.join(host,'package-lock.json')),coreBefore=lockBefore.packages['node_modules/hangyeol-core'];
  const integrity='sha512-'+crypto.createHash('sha512').update(fs.readFileSync(artifact.tarball)).digest('base64');
  assert.equal(coreBefore.integrity,integrity);
- assert.equal(sha(fs.readFileSync(path.join(installed,'dist/tools/installer.mjs'))),sha(fs.readFileSync(new URL('../../cli/src/installer.mjs',import.meta.url))));
+ assert.equal(sha(fs.readFileSync(path.join(installed,'dist/tools/installer.mjs'))),sha(fs.readFileSync(new URL('../src/tools/installer.mjs',import.meta.url))));
  const installedManifest=readJSON(path.join(installed,'payload/manifest.json'));assert.deepEqual(installedManifest,manifest);
  fs.mkdirSync(path.join(host,'styles'));fs.writeFileSync(path.join(host,settings.stylePath),body);
- fs.writeFileSync(path.join(host,'gyeol.json'),JSON.stringify(settings,null,2)+'\n');
+ fs.writeFileSync(path.join(host,'hangyeol.json'),JSON.stringify(settings,null,2)+'\n');
  fs.writeFileSync(path.join(host,'tsconfig.json'),JSON.stringify({compilerOptions:{target:'ES2022',lib:['ES2022','DOM'],module:'ESNext',moduleResolution:'Bundler',jsx:'react-jsx',strict:true,skipLibCheck:true,noEmit:true},include:['src','ui']},null,2)+'\n');
  function checked(label,args,{expected=0,unchanged=false,diagnostic,guard=true}={}){
   const before=snapshot(host),guardDir=fs.mkdtempSync(path.join(evidence,'installed-npm-guard-')),trace=path.join(guardDir,'trace');fs.writeFileSync(trace,'');
@@ -63,7 +63,7 @@ test('physical core installs only editable Button graph and preserves initialize
  const dryInit=plan(checked('init-dry',['init','--dry-run'],{unchanged:true}));
  assert.deepEqual(dryInit.dependencies.runtime.sort(),['clsx@2.1.1','tailwind-merge@3.7.0']);
  const initPlan=plan(checked('init',['init'],{guard:false}));
- const initialized=readJSON(path.join(host,'gyeol.json')),pkgInit=readJSON(path.join(host,'package.json'));
+ const initialized=readJSON(path.join(host,'hangyeol.json')),pkgInit=readJSON(path.join(host,'package.json'));
  assert.deepEqual(initialized.components,[]);assert.ok(!fs.existsSync(path.join(host,'ui/system/primitives')));
  assert.deepEqual(initialized.integration.settings,Object.fromEntries(Object.keys(settings).filter(k=>k!=='schemaVersion').map(k=>[k,settings[k]])));
  assert.equal(initialized.integration.styleBody,body);
@@ -85,7 +85,7 @@ test('physical core installs only editable Button graph and preserves initialize
  assert.deepEqual(Object.keys(graph).filter(k=>graph[k].sha256).sort(),expectedSources);
  const button=path.join(host,'ui/system/primitives/button.tsx');
  assert.equal(sha(fs.readFileSync(button)),manifest.files['primitives/button.tsx'].hash);
- for(const file of expectedSources)assert.ok(!/from\s*['"](?:hangyeol-core|@orderthan31\/gyeol-cli)/.test(fs.readFileSync(path.join(host,settings.sourceRoot,file),'utf8')));
+ for(const file of expectedSources)assert.ok(!/from\s*['"](?:hangyeol-core|hangyeol-core\/tools)/.test(fs.readFileSync(path.join(host,settings.sourceRoot,file),'utf8')));
  const fonts={};for(const [name,record] of Object.entries(manifest.assets)){
   const bytes=fs.readFileSync(path.join(host,'static/assets/type',name));assert.equal(sha(bytes),record.hash);assert.deepEqual(bytes,fs.readFileSync(path.join(installed,'payload/assets',name)));
   if(name.endsWith('.woff2'))assert.equal(bytes.subarray(0,4).toString(),'wOF2');fonts[name]={sha256:sha(bytes),bytes:bytes.length};
@@ -93,7 +93,7 @@ test('physical core installs only editable Button graph and preserves initialize
  const urls=[...fs.readFileSync(path.join(host,'ui/system/foundation/fonts.css'),'utf8').matchAll(/url\("([^" ]+)"\)/g)].map(m=>new URL(m[1],'https://fixture.invalid/design/'));
  assert.equal(urls.length,4);for(const u of urls){assert.equal(u.origin,'https://fixture.invalid');assert.ok(u.pathname.startsWith('/design/assets/type/'));}
  fs.mkdirSync(path.join(host,'src'));fs.writeFileSync(path.join(host,'index.html'),'<div id="root"></div><script type="module" src="/src/main.tsx"></script>\n');
- fs.writeFileSync(path.join(host,'src/main.tsx'),"import {createRoot} from 'react-dom/client';import {Button} from '../ui/system/primitives/button';import '../styles/theme.css';createRoot(document.getElementById('root')!).render(<main data-gyeol><Button aria-label=\"local Button\">확인</Button><span className=\"native-sentinel\">Native</span></main>);\n");
+ fs.writeFileSync(path.join(host,'src/main.tsx'),"import {createRoot} from 'react-dom/client';import {Button} from '../ui/system/primitives/button';import '../styles/theme.css';createRoot(document.getElementById('root')!).render(<main data-hangyeol><Button aria-label=\"local Button\">확인</Button><span className=\"native-sentinel\">Native</span></main>);\n");
  run('typecheck',path.join(host,'node_modules/.bin/tsc'),['--pretty','false'],host);
  run('build',path.join(host,'node_modules/.bin/vite'),['build'],host);
  const built=()=>fs.readdirSync(path.join(host,'dist/assets')).filter(f=>/\.(?:css|js)$/.test(f)).map(f=>fs.readFileSync(path.join(host,'dist/assets',f),'utf8')).join('\n');
@@ -109,7 +109,7 @@ test('physical core installs only editable Button graph and preserves initialize
  assert.deepEqual(fs.readFileSync(path.join(host,replacements[0].backup)),editedButton);
  checked('overwrite-repeat',['add','button','--overwrite'],{unchanged:true});
  assert.deepEqual({theme:snapshot(path.dirname(theme))['theme.css'],helper:snapshot(path.dirname(helper))['cn.ts']},commonBefore);
- const finalConfig=readJSON(path.join(host,'gyeol.json'));for(const [name,record] of Object.entries(commonRecords))assert.deepEqual(finalConfig.installed[name],record,'owner edits must not refresh installed template hashes');
+ const finalConfig=readJSON(path.join(host,'hangyeol.json'));for(const [name,record] of Object.entries(commonRecords))assert.deepEqual(finalConfig.installed[name],record,'owner edits must not refresh installed template hashes');
  assert.deepEqual(finalConfig.integration,initialized.integration);assert.deepEqual(finalConfig.components,['button']);
  assert.equal(fs.readFileSync(path.join(host,'sentinel.txt'),'utf8'),'unrelated owner file\n');
  assert.equal(fs.readFileSync(path.join(host,settings.stylePath),'utf8'),hostCSS);

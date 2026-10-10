@@ -1,0 +1,28 @@
+/* Unlayered owner styles preserve the source cascade over utility layers. */
+
+[data-hangyeol] {
+  --hangyeol-code-keyword: #6D28D9;
+  --hangyeol-code-tag: #1D4ED8;
+  --hangyeol-code-string: #166534;
+  --hangyeol-code-property: #075985;
+  --hangyeol-code-literal: #9A3412;
+}
+[data-hangyeol][data-theme="dark"] {
+  --hangyeol-code-keyword: #C4B5FD;
+  --hangyeol-code-tag: #93C5FD;
+  --hangyeol-code-string: #86EFAC;
+  --hangyeol-code-property: #7DD3FC;
+  --hangyeol-code-literal: #FDBA74;
+}
+.hangyeol-code { background: var(--g-muted); color: var(--g-ink); border-radius: var(--radius-g-control); min-width: 0; max-width: 100%; overflow: hidden; }
+.hangyeol-code .token.comment, .hangyeol-code .token.prolog, .hangyeol-code .token.doctype, .hangyeol-code .token.punctuation { color: var(--g-soft); }
+.hangyeol-code .token.keyword, .hangyeol-code .token.operator, .hangyeol-code .token.atrule { color: var(--hangyeol-code-keyword); }
+.hangyeol-code .token.tag, .hangyeol-code .token.selector, .hangyeol-code .token.class-name, .hangyeol-code .token.function { color: var(--hangyeol-code-tag); }
+.hangyeol-code .token.string, .hangyeol-code .token.attr-value, .hangyeol-code .token.template-string, .hangyeol-code .token.char { color: var(--hangyeol-code-string); }
+.hangyeol-code .token.property, .hangyeol-code .token.attr-name, .hangyeol-code .token.builtin { color: var(--hangyeol-code-property); }
+.hangyeol-code .token.number, .hangyeol-code .token.boolean, .hangyeol-code .token.constant, .hangyeol-code .token.regex { color: var(--hangyeol-code-literal); }
+.hangyeol-code pre:focus-visible { outline: 2px solid var(--g-focus); outline-offset: -2px; }
+.hangyeol-code-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 8px 16px; font-size: 12px; color: var(--g-soft); border-bottom: 1px solid color-mix(in srgb,var(--g-line) 20%,transparent); }
+.hangyeol-code pre { margin: 0; padding: 20px; max-width: 100%; overflow-x: auto; font-size: 13px; line-height: 1.7; white-space: pre; word-break: normal; overflow-wrap: normal; tab-size: 2; }
+.hangyeol-code code { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; }
+.hangyeol-code > p:not(.hangyeol-visually-hidden) { padding: 0 16px 16px; }

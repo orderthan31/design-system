@@ -1,7 +1,0 @@
-@import "./control-base.css";
-@layer components {
-.ds-core .ds-highlight {overflow-wrap:anywhere;}
-}
-@layer components {
-.ds-core .ds-highlight mark {background:var(--color-warning-surface);color:var(--color-warning-text);border-radius:var(--ds-radius-highlight);padding:0 var(--ds-space-0-5);box-decoration-break:clone;}
-}

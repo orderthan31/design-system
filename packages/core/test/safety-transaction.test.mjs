@@ -1,4 +1,4 @@
-import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';import path from 'node:path';import {spawnSync} from 'node:child_process';import {fileURLToPath,pathToFileURL} from 'node:url';import {planFiles,applyPlan,createTransaction,hash} from '../../cli/src/safety.mjs';
+import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';import path from 'node:path';import {spawnSync} from 'node:child_process';import {fileURLToPath,pathToFileURL} from 'node:url';import {planFiles,applyPlan,createTransaction,hash} from '../src/tools/safety.mjs';
 for(const drift of ['bytes','inode','deleted','noop'])test(`later planned target ${drift} drift after earlier write is refused and owner state retained`,()=>{
  const dir=host();for(const name of ['a','b'])fs.writeFileSync(path.join(dir,name),'owner');
  const plan=planFiles(dir,[{path:'a',bytes:Buffer.from('tool')},{path:'b',bytes:Buffer.from(drift==='noop'?'owner':'tool')}],{overwrite:true}),before=snapshot(dir),rename=fs.renameSync;let error,changed=false;
@@ -6,7 +6,7 @@ for(const drift of ['bytes','inode','deleted','noop'])test(`later planned target
  try{applyPlan(dir,plan);}catch(e){error=e;}finally{fs.renameSync=rename;record('later-target-'+drift,dir,before,error);}
  assert.match(error?.message??'',/changed since planning b/);assert.equal(error.recovery.status,'recovered');assert.equal(fs.readFileSync(path.join(dir,'a'),'utf8'),'owner');
  if(drift==='deleted')assert.ok(!fs.existsSync(path.join(dir,'b')));else assert.equal(fs.readFileSync(path.join(dir,'b'),'utf8'),drift==='inode'?'owner':'concurrent owner edit');
- assert.ok(!fs.existsSync(path.join(dir,'.gyeol-transactions')));
+ assert.ok(!fs.existsSync(path.join(dir,'.hangyeol-transactions')));
 });
 for(const operation of ['managed replacement','external recovery'])test(`${operation} preserves original permissions despite restrictive umask`,()=>{
  const dir=host(),file=path.join(dir,'existing');fs.writeFileSync(file,'owner');fs.chmodSync(file,0o666);const before=snapshot(dir),oldMask=process.umask(0o022);let recovery;
@@ -14,10 +14,10 @@ for(const operation of ['managed replacement','external recovery'])test(`${opera
 });
 test('stage close failure is tracked and leaves no unreported transaction journal',()=>{
  const dir=host();fs.writeFileSync(path.join(dir,'a'),'owner');const before=snapshot(dir),plan=planFiles(dir,[{path:'a',bytes:Buffer.from('tool')}],{overwrite:true}),open=fs.openSync,close=fs.closeSync;let staged,error;
- fs.openSync=function(file,...args){const fd=open.call(this,file,...args);if(String(file).includes('/.gyeol-transactions/')&&args[0]==='wx')staged=fd;return fd;};
+ fs.openSync=function(file,...args){const fd=open.call(this,file,...args);if(String(file).includes('/.hangyeol-transactions/')&&args[0]==='wx')staged=fd;return fd;};
  fs.closeSync=function(fd){close.call(this,fd);if(fd===staged){staged=undefined;throw Error('injected stage close failure');}};
  try{applyPlan(dir,plan);}catch(e){error=e;}finally{fs.openSync=open;fs.closeSync=close;record('close-once',dir,before,error);}
- assert.match(error?.message??'',/stage close failure/);assert.equal(fs.readFileSync(path.join(dir,'a'),'utf8'),'owner');assert.equal(error.recovery.status,'recovered');assert.equal(error.recovery.journal,null);assert.ok(!fs.existsSync(path.join(dir,'.gyeol-transactions')),'recovered must not hide owned leftover stage');
+ assert.match(error?.message??'',/stage close failure/);assert.equal(fs.readFileSync(path.join(dir,'a'),'utf8'),'owner');assert.equal(error.recovery.status,'recovered');assert.equal(error.recovery.journal,null);assert.ok(!fs.existsSync(path.join(dir,'.hangyeol-transactions')),'recovered must not hide owned leftover stage');
 });
 for(const change of ['mode','mtime'])test(`opened original fd ${change} drift refuses recovery and retains journal`,()=>{
  const dir=host();fs.writeFileSync(path.join(dir,'a'),'owner');const fd=fs.openSync(path.join(dir,'a'),'r'),before=snapshot(dir),plan=planFiles(dir,[{path:'a',bytes:Buffer.from('tool')},{path:'b',bytes:Buffer.from('later')}],{overwrite:true}),rename=fs.renameSync;let error;
@@ -27,7 +27,7 @@ for(const change of ['mode','mtime'])test(`opened original fd ${change} drift re
 });
 test('failed stage state capture reports actual retained journal and preserves originals',()=>{
  const dir=host();fs.writeFileSync(path.join(dir,'a'),'owner');const before=snapshot(dir),plan=planFiles(dir,[{path:'a',bytes:Buffer.from('tool')}],{overwrite:true}),lstat=fs.lstatSync;let error,injected=false;
- fs.lstatSync=function(file,options){if(!injected&&String(file).includes('/.gyeol-transactions/')&&options?.bigint){injected=true;throw Error('injected stage state capture');}return lstat.call(this,file,options);};
+ fs.lstatSync=function(file,options){if(!injected&&String(file).includes('/.hangyeol-transactions/')&&options?.bigint){injected=true;throw Error('injected stage state capture');}return lstat.call(this,file,options);};
  try{applyPlan(dir,plan);}catch(e){error=e;}finally{fs.lstatSync=lstat;record('stage-state-capture',dir,before,error);}
  assert.match(error?.message??'',/injected stage state capture/);assert.equal(error.recovery.status,'incomplete');assert.ok(error.recovery.errors.length);assert.ok(fs.existsSync(path.join(dir,error.recovery.journal)));assert.equal(fs.readFileSync(path.join(dir,'a'),'utf8'),'owner');assert.ok(Object.entries(snapshot(dir)).some(([p,s])=>p.startsWith(error.recovery.journal+'/')&&s.ino===before.a.ino),'uncertain cleanup retains managed original');
 });
@@ -47,12 +47,12 @@ for(const flow of ['new-file drift','timestamp cleanup failure','journal check u
   }else{
    fs.writeFileSync(path.join(dir,'a'),'owner');const tx=createTransaction(dir);tx.watch('a');
    fs.utimesSync=function(file,...args){if(file===dir){phase=true;throw Error('injected directory timestamp restore failure');}return utimes.call(this,file,...args);};
-   if(flow==='journal check uncertain')fs.lstatSync=function(file,...args){if(phase&&String(file).includes('/.gyeol-transactions/'))throw Object.assign(Error('injected journal inspection denied'),{code:'EACCES'});return lstat.call(this,file,...args);};
+   if(flow==='journal check uncertain')fs.lstatSync=function(file,...args){if(phase&&String(file).includes('/.hangyeol-transactions/'))throw Object.assign(Error('injected journal inspection denied'),{code:'EACCES'});return lstat.call(this,file,...args);};
    result=tx.commit();assert.equal(result.status,'cleanup-incomplete');assert.equal(fs.readFileSync(path.join(dir,'a'),'utf8'),'owner');
   }
  }finally{fs.renameSync=rename;fs.utimesSync=utimes;fs.lstatSync=lstat;record('material-'+flow.replaceAll(' ','-'),dir,{}, {recovery:result});}
- assert.equal(result.journal,null,'never advertise missing/unverified material as existing');assert.equal(result.journalStatus,flow==='journal check uncertain'?'unknown':'absent');assert.ok(result.errors.length);assert.ok(!fs.existsSync(path.join(dir,'.gyeol-transactions')));
- if(flow==='journal check uncertain'){assert.ok(result.journalCandidate.startsWith('.gyeol-transactions/'));assert.ok(result.errors.some(e=>/journal inspection denied/.test(e.error)));}else assert.equal(result.journalCandidate,undefined);
+ assert.equal(result.journal,null,'never advertise missing/unverified material as existing');assert.equal(result.journalStatus,flow==='journal check uncertain'?'unknown':'absent');assert.ok(result.errors.length);assert.ok(!fs.existsSync(path.join(dir,'.hangyeol-transactions')));
+ if(flow==='journal check uncertain'){assert.ok(result.journalCandidate.startsWith('.hangyeol-transactions/'));assert.ok(result.errors.some(e=>/journal inspection denied/.test(e.error)));}else assert.equal(result.journalCandidate,undefined);
 });
 const root=fileURLToPath(new URL('../../../',import.meta.url)),evidence=process.env.CORE06_EVIDENCE_DIR;assert.ok(evidence&&path.resolve(evidence)!==path.resolve(root)&&!path.resolve(evidence).startsWith(path.resolve(root)+path.sep));
 function host(){return fs.mkdtempSync(path.join(evidence,'transaction-source-'));}
@@ -69,15 +69,15 @@ test('partial managed write failure restores replaced bytes and removes created 
 
 const payload=path.join(root,'packages/core/payload'),manifest=JSON.parse(fs.readFileSync(path.join(payload,'manifest.json')));
 function installerHost(allDeps=false){const dir=host();fs.writeFileSync(path.join(dir,'package.json'),JSON.stringify({name:'transaction-source',private:true,type:'module',dependencies:{react:'19.2.0','react-dom':'19.2.0',...(allDeps?manifest.runtime:{})},devDependencies:{vite:'7.3.6',...manifest.build,...manifest.types}},null,2)+'\n');return dir;}
-function invoke(dir,args,inject='',env=process.env){const wrapper=`${inject}import {runInstaller} from ${JSON.stringify(pathToFileURL(path.join(root,'packages/cli/src/installer.mjs')).href)};process.exitCode=runInstaller(process.argv.slice(1),{payloadRoot:${JSON.stringify(payload)}});`,before=snapshot(dir),started=new Date().toISOString(),t=performance.now(),command=[process.execPath,'--input-type=module','-e',wrapper,...args],r=spawnSync(command[0],command.slice(1),{cwd:dir,encoding:'utf8',env});fs.writeFileSync(path.join(evidence,`transaction-command-${process.hrtime.bigint()}.json`),JSON.stringify({command,cwd:dir,started,runtime:process.version,durationMs:performance.now()-t,exit:r.status,stdout:r.stdout,stderr:r.stderr,before,after:snapshot(dir)},null,2));return r;}
+function invoke(dir,args,inject='',env=process.env){const wrapper=`${inject}import {runInstaller} from ${JSON.stringify(pathToFileURL(path.join(root,'packages/core/src/tools/installer.mjs')).href)};process.exitCode=runInstaller(process.argv.slice(1),{payloadRoot:${JSON.stringify(payload)}});`,before=snapshot(dir),started=new Date().toISOString(),t=performance.now(),command=[process.execPath,'--input-type=module','-e',wrapper,...args],r=spawnSync(command[0],command.slice(1),{cwd:dir,encoding:'utf8',env});fs.writeFileSync(path.join(evidence,`transaction-command-${process.hrtime.bigint()}.json`),JSON.stringify({command,cwd:dir,started,runtime:process.version,durationMs:performance.now()-t,exit:r.status,stdout:r.stdout,stderr:r.stderr,before,after:snapshot(dir)},null,2));return r;}
 test('npm failure injection restores source/config/package/lock bytes or absence and reports node_modules residue',()=>{
  const dir=installerHost(),pkg=fs.readFileSync(path.join(dir,'package.json')),g=host();fs.writeFileSync(path.join(g,'npm'),`#!${process.execPath}\nconst fs=require('node:fs');fs.writeFileSync('package.json',JSON.stringify({injected:true}));fs.writeFileSync('package-lock.json','{"injected":true}');fs.mkdirSync('node_modules',{recursive:true});fs.writeFileSync('node_modules/injected-residue','external child effect');process.exit(42);\n`);fs.chmodSync(path.join(g,'npm'),0o755);
- const r=invoke(dir,['init'],'',{...process.env,PATH:g+path.delimiter+process.env.PATH});assert.equal(r.status,1);assert.match(r.stderr,/42/);assert.deepEqual(fs.readFileSync(path.join(dir,'package.json')),pkg);assert.ok(!fs.existsSync(path.join(dir,'package-lock.json')));assert.ok(!fs.existsSync(path.join(dir,'src'))&&!fs.existsSync(path.join(dir,'public'))&&!fs.existsSync(path.join(dir,'gyeol.json')));assert.equal(fs.readFileSync(path.join(dir,'node_modules/injected-residue'),'utf8'),'external child effect');assert.match(r.stderr,/node_modules.*(?:not|unverified|remain)/i);
+ const r=invoke(dir,['init'],'',{...process.env,PATH:g+path.delimiter+process.env.PATH});assert.equal(r.status,1);assert.match(r.stderr,/42/);assert.deepEqual(fs.readFileSync(path.join(dir,'package.json')),pkg);assert.ok(!fs.existsSync(path.join(dir,'package-lock.json')));assert.ok(!fs.existsSync(path.join(dir,'src'))&&!fs.existsSync(path.join(dir,'public'))&&!fs.existsSync(path.join(dir,'hangyeol.json')));assert.equal(fs.readFileSync(path.join(dir,'node_modules/injected-residue'),'utf8'),'external child effect');assert.match(r.stderr,/node_modules.*(?:not|unverified|remain)/i);
 });
 test('metadata write failure rolls back earlier source and preserves preexisting host stylesheet with exact backup',()=>{
- const dir=installerHost(true);fs.mkdirSync(path.join(dir,'src'));fs.writeFileSync(path.join(dir,'src/gyeol.css'),'body { color: chocolate; }\n');const original=fs.readFileSync(path.join(dir,'src/gyeol.css'));
- const injection=`import fs from 'node:fs';const rename=fs.renameSync;fs.renameSync=function(a,b){if(b===${JSON.stringify(path.join(dir,'gyeol.json'))})throw Error('injected metadata failure');return rename.call(this,a,b);};`;
- const r=invoke(dir,['init'],injection);assert.equal(r.status,1);assert.match(r.stderr,/injected metadata/);assert.deepEqual(fs.readFileSync(path.join(dir,'src/gyeol.css')),original);assert.ok(!fs.existsSync(path.join(dir,'src/gyeol'))&&!fs.existsSync(path.join(dir,'public'))&&!fs.existsSync(path.join(dir,'gyeol.json')));
+ const dir=installerHost(true);fs.mkdirSync(path.join(dir,'src'));fs.writeFileSync(path.join(dir,'src/hangyeol.css'),'body { color: chocolate; }\n');const original=fs.readFileSync(path.join(dir,'src/hangyeol.css'));
+ const injection=`import fs from 'node:fs';const rename=fs.renameSync;fs.renameSync=function(a,b){if(b===${JSON.stringify(path.join(dir,'hangyeol.json'))})throw Error('injected metadata failure');return rename.call(this,a,b);};`;
+ const r=invoke(dir,['init'],injection);assert.equal(r.status,1);assert.match(r.stderr,/injected metadata/);assert.deepEqual(fs.readFileSync(path.join(dir,'src/hangyeol.css')),original);assert.ok(!fs.existsSync(path.join(dir,'src/hangyeol'))&&!fs.existsSync(path.join(dir,'public'))&&!fs.existsSync(path.join(dir,'hangyeol.json')));
 });
 
 test('rollback refuses concurrent changed target and retains originals/backups with explicit incomplete result',()=>{
@@ -93,7 +93,7 @@ test('rollback filesystem failure is reported, preserves backup and recovery jou
 test('partial staging write never truncates consumer file and removes owned partial stage',()=>{
  const dir=host();fs.writeFileSync(path.join(dir,'existing'),'owner');const plan=planFiles(dir,[{path:'existing',bytes:Buffer.from('tool')}],{overwrite:true}),write=fs.writeFileSync,before=snapshot(dir);let error;
  fs.writeFileSync=function(file,bytes,...args){if(typeof file==='number'){write.call(this,file,Buffer.from('partial'));throw Error('injected partial stage write');}return write.call(this,file,bytes,...args);};try{applyPlan(dir,plan);}catch(e){error=e;}finally{fs.writeFileSync=write;record('partial-stage',dir,before,error);}
- assert.match(error.message,/partial stage/);assert.equal(fs.readFileSync(path.join(dir,'existing'),'utf8'),'owner');assert.equal(error.recovery.status,'recovered');assert.ok(!fs.existsSync(path.join(dir,'.gyeol-transactions')));
+ assert.match(error.message,/partial stage/);assert.equal(fs.readFileSync(path.join(dir,'existing'),'utf8'),'owner');assert.equal(error.recovery.status,'recovered');assert.ok(!fs.existsSync(path.join(dir,'.hangyeol-transactions')));
 });
 test('existing directory contents and inode are never deleted during failed new-file recovery',()=>{
  const dir=host();fs.mkdirSync(path.join(dir,'keep'));fs.writeFileSync(path.join(dir,'keep/sentinel'),'owner');const before=snapshot(dir),rename=fs.renameSync,plan=planFiles(dir,[{path:'keep/new',bytes:Buffer.from('x')},{path:'other/deep/file',bytes:Buffer.from('x')}]);let error;
@@ -111,6 +111,6 @@ test('identical-byte inode replacement after planning is still a changed-since-p
 test('metadata failure after injected successful npm recovers original package/lock and reports dependency uncertainty',()=>{
  const dir=installerHost(),pkg=fs.readFileSync(path.join(dir,'package.json'));fs.writeFileSync(path.join(dir,'package-lock.json'),'{"ownerLock":true}\n');const lock=fs.readFileSync(path.join(dir,'package-lock.json')),g=host();
  fs.writeFileSync(path.join(g,'npm'),`#!${process.execPath}\nconst fs=require('node:fs');fs.writeFileSync('package.json','{"injectedSuccess":true}');fs.writeFileSync('package-lock.json','{"injectedSuccess":true}');fs.mkdirSync('node_modules',{recursive:true});fs.writeFileSync('node_modules/injected-success-residue','external effect after successful child');process.exit(0);\n`);fs.chmodSync(path.join(g,'npm'),0o755);
- const injection=`import fs from 'node:fs';const rename=fs.renameSync;fs.renameSync=function(a,b){if(b===${JSON.stringify(path.join(dir,'gyeol.json'))})throw Error('injected post-npm metadata failure');return rename.call(this,a,b);};`;
- const r=invoke(dir,['init'],injection,{...process.env,PATH:g+path.delimiter+process.env.PATH});assert.equal(r.status,1);assert.match(r.stderr,/post-npm metadata failure/);assert.deepEqual(fs.readFileSync(path.join(dir,'package.json')),pkg);assert.deepEqual(fs.readFileSync(path.join(dir,'package-lock.json')),lock);assert.ok(!fs.existsSync(path.join(dir,'src'))&&!fs.existsSync(path.join(dir,'public'))&&!fs.existsSync(path.join(dir,'gyeol.json')));assert.ok(fs.existsSync(path.join(dir,'node_modules/injected-success-residue')));assert.match(r.stderr,/"dependencyAttempted":true/);assert.match(r.stderr,/not rolled back/);
+ const injection=`import fs from 'node:fs';const rename=fs.renameSync;fs.renameSync=function(a,b){if(b===${JSON.stringify(path.join(dir,'hangyeol.json'))})throw Error('injected post-npm metadata failure');return rename.call(this,a,b);};`;
+ const r=invoke(dir,['init'],injection,{...process.env,PATH:g+path.delimiter+process.env.PATH});assert.equal(r.status,1);assert.match(r.stderr,/post-npm metadata failure/);assert.deepEqual(fs.readFileSync(path.join(dir,'package.json')),pkg);assert.deepEqual(fs.readFileSync(path.join(dir,'package-lock.json')),lock);assert.ok(!fs.existsSync(path.join(dir,'src'))&&!fs.existsSync(path.join(dir,'public'))&&!fs.existsSync(path.join(dir,'hangyeol.json')));assert.ok(fs.existsSync(path.join(dir,'node_modules/injected-success-residue')));assert.match(r.stderr,/"dependencyAttempted":true/);assert.match(r.stderr,/not rolled back/);
 });

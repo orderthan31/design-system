@@ -1,7 +1,0 @@
-@import "./control-base.css";
-@layer components {
-:where(.ds-core) .ds-container>*{min-width:0;max-width:100%;}
-:where(.ds-core) .ds-container{overflow-wrap:anywhere;}
-:where(.ds-core) .ds-container{width:100%;max-width:1200px;margin-inline:auto;min-width:0;}
-:where(.ds-core) .ds-container>section{margin-top:var(--space-6);}
-}

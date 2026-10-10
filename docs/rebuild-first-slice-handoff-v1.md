@@ -6,18 +6,18 @@ This implementation follows `rebuild-architecture-decision-v1.md`. The historica
 
 ## Ownership and source graph
 
-- `packages/ui/src/`: private canonical authoring source. Foundation/lib → native and Radix primitives → compositions. No old core.css or historical barrel imports.
-- `registry/items/first-slice.json`: component graph and component-only runtime dependencies. `payload-manifest.json` is generated from canonical sources and actual font bytes.
+- `packages/core/src/ui/`: private canonical authoring source. Foundation/lib → native and Radix primitives → compositions. No old core.css or historical barrel imports.
+- `packages/core/registry/items.json`: component graph and component-only runtime dependencies. `payload-manifest.json` is generated from canonical sources and actual font bytes.
 - `packages/cli/`: dependency-free executable, safety planner and publication lifecycle guard. Build/prepack regenerates the exact-version payload. The tarball includes executable, source manifest, source bytes, four font binaries, OFL license and upstream provenance.
-- `apps/docs/src/gyeol/`: CLI-generated installed source; edit canonical source and regenerate, never hand patch this directory. The docs package records installed hashes in `gyeol.json`.
+- `apps/docs/src/hangyeol/`: CLI-generated installed source; edit canonical source and regenerate, never hand patch this directory. The docs package records installed hashes in `hangyeol.json`.
 - `apps/docs/src/task-example.tsx`: local example policy, task enums and state; none of these enums belong to reusable UI.
 - `apps/consumer-fixture/`: reproduction notes. Independent consumers outside the repository, with physical separate node_modules and package locks, provide installation proof.
 
-Run `npm run build:slice`, `npm run typecheck:slice`, `npm run test:slice`, `npm run lint:design`, `npm run lint:design:fixtures`, and the existing root build/typecheck. The targeted test command runs only four Node safety/merge tests and nine first-slice behavior tests, not historical full suites. CLI packaging uses `npm pack --workspace @orderthan31/gyeol-cli --pack-destination ../disposable` and the exact filename npm emits; see the CLI README for local npm-exec invocation. This candidate is not published.
+Run `npm run build:slice`, `npm run typecheck:slice`, `npm run test:slice`, `npm run lint:design`, `npm run lint:design:fixtures`, and the existing root build/typecheck. The targeted test command runs only four Node safety/merge tests and nine first-slice behavior tests, not historical full suites. CLI packaging uses `npm pack --workspace @orderthan31/hangyeol-cli --pack-destination ../disposable` and the exact filename npm emits; see the CLI README for local npm-exec invocation. This candidate is not published.
 
 ## Styling contract
 
-Tailwind 4.3.3 performs actual static utility compilation. The semantic bridge uses top-level `@theme inline` namespaced colors, typography, radius and spacing. Minimal base applies only to `data-gyeol` scopes and themed portals; init imports Tailwind theme/utilities separately and never preflight. Pretendard binaries are copied, not remotely referenced at runtime. The light work surface uses warm neutral layers, ink hierarchy and a restrained olive action. A dark semantic theme is included.
+Tailwind 4.3.3 performs actual static utility compilation. The semantic bridge uses top-level `@theme inline` namespaced colors, typography, radius and spacing. Minimal base applies only to `data-hangyeol` scopes and themed portals; init imports Tailwind theme/utilities separately and never preflight. Pretendard binaries are copied, not remotely referenced at runtime. The light work surface uses warm neutral layers, ink hierarchy and a restrained olive action. A dark semantic theme is included.
 
 The `cn` helper merges className last and explicitly places semantic type/radius/padding utilities in the corresponding standard conflict groups. The only docs appearance exception is `customization.tsx`: standard and semantic overrides are compiler checked and have a prepared browser computed-style proof. Ordinary docs use variants/sizes and layout classes. Browser computed-style proof remains pending because no browser could run in this environment.
 
@@ -37,7 +37,7 @@ The installed Theme context supplies current theme attributes to portals. Dialog
 
 React 19 / Vite / Tailwind 4 is the first adapter. V3 and unsupported React/frameworks are diagnosed. Missing dependencies install exact-pinned; conflicting declared versions require explicit host resolution. CLI dependencies are separate from requested runtime/type/build dependencies. Button-only has no Radix, Chart/Recharts, react-is, docs or full barrel.
 
-`gyeol.json` defaults to source `src/gyeol`, style `src/gyeol.css`, public `public`, fonts `fonts/gyeol`, base `/`. Roots, font URL path and base can be changed. Alias configuration adds TypeScript paths and a generated Vite resolver; an existing Vite config must explicitly match the chosen alias/root and use the Tailwind plugin. Arbitrary Vite config rewriting and JSONC tsconfig migration are outside this adapter. Import the reported stylesheet from the host entry.
+`hangyeol.json` defaults to source `src/hangyeol`, style `src/hangyeol.css`, public `public`, fonts `fonts/hangyeol`, base `/`. Roots, font URL path and base can be changed. Alias configuration adds TypeScript paths and a generated Vite resolver; an existing Vite config must explicitly match the chosen alias/root and use the Tailwind plugin. Arbitrary Vite config rewriting and JSONC tsconfig migration are outside this adapter. Import the reported stylesheet from the host entry.
 
 Init/add validate every source/asset/metadata path, hash, duplicate and collision before writes. Symlink paths and escapes are rejected. Identical bytes are no-ops; edited payload files fail; explicit overwrite and additive stylesheet/alias integration preserve prior bytes in backups. Successful version/hash records are written only after dependencies install. A real offline dependency-install failure left source files in place, reported package/lock uncertainty, and recorded no success metadata. No destructive rollback is used. This slice has no update/merge engine.
 

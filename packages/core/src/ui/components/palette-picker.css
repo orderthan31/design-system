@@ -1,0 +1,11 @@
+/* Unlayered owner styles preserve the source cascade over utility layers. */
+
+.hangyeol-palette-picker { display: flex; align-items: center; gap: 0; border: 0; padding: 0; margin: 0; min-width: 0; }
+.hangyeol-swatch-option { position: relative; display: inline-flex; width: 44px; height: 44px; align-items: center; justify-content: center; cursor: pointer; }
+.hangyeol-swatch-option input { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+.hangyeol-palette-swatch { display: inline-flex; width: 26px; height: 26px; align-items: center; justify-content: center; border-radius: 3px; background: var(--g-action); color: var(--g-on-action); }
+.hangyeol-swatch-option input:checked + .hangyeol-palette-swatch { box-shadow: 0 0 0 2px var(--g-canvas), 0 0 0 4px var(--g-focus); }
+.hangyeol-swatch-option input:focus-visible + .hangyeol-palette-swatch { outline: 3px solid var(--g-focus); outline-offset: 4px; }
+
+.hangyeol-palette-check { display: none; }
+.hangyeol-swatch-option input:checked + .hangyeol-palette-swatch > .hangyeol-palette-check { display: contents; }

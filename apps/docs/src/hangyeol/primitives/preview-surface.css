@@ -1,0 +1,6 @@
+/* Unlayered owner styles preserve the source cascade over utility layers. */
+
+.hangyeol-preview-surface { padding: 24px; background: var(--g-surface); border: 1px solid color-mix(in srgb, var(--g-line) 25%, transparent); border-radius: 10px; min-width: 0; }
+@media (max-width: 39.999rem) {
+ .hangyeol-preview-surface { padding: 16px; }
+}

@@ -1,16 +1,17 @@
+import { PreviewSurface } from './hangyeol/primitives/preview-surface';
 import { ComponentContext, ExamplePurpose } from './component-content';
 import { useState } from 'react';
-import { RadioGroup } from './gyeol/primitives/radio-group';
-import { SegmentedControl } from './gyeol/components/segmented-control';
-import { Combobox } from './gyeol/components/combobox';
-import { MultiSelect } from './gyeol/components/multi-select';
-import { IconAction } from './gyeol/components/icon-action';
-import { Popover, PopoverTrigger, PopoverContent, PopoverClose, PopoverTitle } from './gyeol/primitives/popover';
-import { Tooltip } from './gyeol/primitives/tooltip';
-import { Button } from './gyeol/primitives/button';
-import { Checkbox } from './gyeol/primitives/checkbox';
-import { Tabs, TabsList, TabsTrigger, TabsContent } from './gyeol/primitives/tabs';
-import { CodeBlock } from './component-pages';
+import { RadioGroup } from './hangyeol/primitives/radio-group';
+import { SegmentedControl } from './hangyeol/components/segmented-control';
+import { Combobox } from './hangyeol/components/combobox';
+import { MultiSelect } from './hangyeol/components/multi-select';
+import { IconAction } from './hangyeol/components/icon-action';
+import { Popover, PopoverTrigger, PopoverContent, PopoverClose, PopoverTitle } from './hangyeol/primitives/popover';
+import { Tooltip } from './hangyeol/primitives/tooltip';
+import { Button } from './hangyeol/primitives/button';
+import { Checkbox } from './hangyeol/primitives/checkbox';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from './hangyeol/primitives/tabs';
+import { CodeBlock } from './hangyeol/components/code-block';
 
 export const selectionNames = ['Combobox', 'IconAction', 'MultiSelect', 'Popover', 'RadioGroup', 'SegmentedControl', 'Tooltip'] as const;
 export type SelectionName = typeof selectionNames[number];
@@ -64,15 +65,15 @@ export function SelectionPage({ name, initialPanel = 'usage' }: { name: Selectio
   else if (name === 'IconAction') { declarations = `const [clicks, setClicks] = useState(${clicks});`; body = `<IconAction icon="star" label="즐겨찾기에 추가" tooltip="목록에서 다시 찾기 쉽게 표시합니다." variant="secondary" ${disabledAttr} loading={${loading}} showLabel={${showLabel}} onClick={() => setClicks(count => count + 1)}/><p role="status">{clicks}번 누름 · 저장하지 않는 예제</p>`; onReset += ' setClicks(0);'; }
   else if (name === 'Popover') { extraImports = ', PopoverTrigger, PopoverContent, PopoverClose, PopoverTitle'; declarations = `const [open, setOpen] = useState(${open});\n  const [help, setHelp] = useState(${help});`; body = '<Popover open={open} onOpenChange={setOpen}><PopoverTrigger asChild><Button variant="secondary" ' + disabledAttr + '>표시 옵션</Button></PopoverTrigger><PopoverContent aria-label="표시 옵션"><PopoverTitle>표시 옵션</PopoverTitle><label><Checkbox checked={help} onCheckedChange={next => setHelp(next === true)}/>보조 설명 표시</label>{help && <p>이 예제의 설정에만 적용합니다.</p>}<PopoverClose asChild><Button variant="secondary">닫기</Button></PopoverClose></PopoverContent></Popover>'; onReset += ' setOpen(false); setHelp(true);'; }
   else { declarations = `const [open, setOpen] = useState(${open});`; body = `<Tooltip content=${JSON.stringify(tooltipText)} delayDuration={${delay}} open={open} onOpenChange={setOpen}><Button variant="secondary" ${disabledAttr}>항목 고정</Button></Tooltip>`; onReset += ' setOpen(false);'; }
-  const code = `import { useState } from 'react';\nimport { ${name}${extraImports} } from './gyeol/${files[name]}';\nimport { Button } from './gyeol/primitives/button';\n${name === 'Popover' ? "import { Checkbox } from './gyeol/primitives/checkbox';\n" : ''}\nexport function Example() {\n  ${declarations}\n  const [result, setResult] = useState("");\n  return <form onReset={() => { ${onReset} }} onSubmit={event => {\n    event.preventDefault();\n    setResult(JSON.stringify(Array.from(new FormData(event.currentTarget).entries())));\n  }}>\n    ${body}\n    <Button type="submit">제출 값 보기</Button>\n    <Button type="reset" variant="secondary">예제 값 초기화</Button>\n    <p role="status">{result}</p>\n  </form>;\n}`;
+  const code = `import { useState } from 'react';\nimport { ${name}${extraImports} } from './hangyeol/${files[name]}';\nimport { Button } from './hangyeol/primitives/button';\n${name === 'Popover' ? "import { Checkbox } from './hangyeol/primitives/checkbox';\n" : ''}\nexport function Example() {\n  ${declarations}\n  const [result, setResult] = useState("");\n  return <form onReset={() => { ${onReset} }} onSubmit={event => {\n    event.preventDefault();\n    setResult(JSON.stringify(Array.from(new FormData(event.currentTarget).entries())));\n  }}>\n    ${body}\n    <Button type="submit">제출 값 보기</Button>\n    <Button type="reset" variant="secondary">예제 값 초기화</Button>\n    <p role="status">{result}</p>\n  </form>;\n}`;
   return <div className="space-y-8"><p className="docs-intro">{selectionDescriptions[name]}</p>
     <ComponentContext name={name}/><ExamplePurpose name={name}/>
-    <section className="docs-demo" aria-label={`${name} 사용 예제`}><form className="grid gap-4" onReset={resetValues} onSubmit={event => { event.preventDefault(); setFeedback(JSON.stringify(Array.from(new FormData(event.currentTarget).entries()))); }}>{demo}
+    <PreviewSurface asChild><section  aria-label={`${name} 사용 예제`}><form className="grid gap-4" onReset={resetValues} onSubmit={event => { event.preventDefault(); setFeedback(JSON.stringify(Array.from(new FormData(event.currentTarget).entries()))); }}>{demo}
       {name === 'IconAction' && <p role="status" className="text-g-small text-g-soft">{clicks}번 누름 · 저장하지 않는 예제</p>}
       {inputLike && <div className="flex flex-wrap gap-2"><Button type="submit">제출 값 보기</Button><Button type="reset" variant="secondary">입력 초기화</Button></div>}
       {inputLike && <p role="status" className="break-all text-g-small text-g-soft">{feedback || '선택한 값만 확인합니다. 서버에 저장하지 않습니다.'}</p>}
       {name === 'Tooltip' && <p className="text-g-small text-g-soft">중요한 안내는 화면에도 보이게 제공합니다. 터치 화면에서는 툴팁만으로 안내하지 않습니다.</p>}
-    </form></section>
+    </form></section></PreviewSurface>
     <Tabs value={panel} onValueChange={next => setPanel(next as typeof panel)}><TabsList aria-label="예제 안내"><TabsTrigger value="usage">사용법</TabsTrigger><TabsTrigger value="settings">예제 설정</TabsTrigger><TabsTrigger value="code">코드</TabsTrigger></TabsList>
       <TabsContent value="settings"><div className="grid gap-3 py-4">
         <label className="flex min-h-11 items-center gap-3"><Checkbox checked={disabled} onCheckedChange={next => { setDisabled(next === true); if (next === true) setOpen(false); }}/>사용할 수 없는 상태</label>

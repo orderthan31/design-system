@@ -11,7 +11,7 @@ const evidence = process.env.CORE02_EVIDENCE_DIR;
 assert.ok(evidence, 'Require designated CORE02 scratch');
 const payload = path.join(root, 'packages/core/payload');
 const manifest = JSON.parse(fs.readFileSync(path.join(payload, 'manifest.json')));
-const installer = pathToFileURL(path.join(root, 'packages/cli/src/installer.mjs')).href;
+const installer = pathToFileURL(path.join(root, 'packages/core/src/tools/installer.mjs')).href;
 const wrapper = `import {runInstaller} from ${JSON.stringify(installer)};process.exitCode=runInstaller(process.argv.slice(1),{payloadRoot:${JSON.stringify(payload)}});`;
 const vite = "import {defineConfig} from 'vite';import tailwindcss from '@tailwindcss/vite';export default defineConfig({plugins:[tailwindcss()]});\n";
 function host() {
@@ -65,34 +65,34 @@ test('installed settings, changed flags and edited integration cannot be silentl
     const dir=host();run(dir,['init'],0);
     if(change==='flag') {rejected(dir,['init','--source-root','other/ui']);continue;}
     if(['header','tail'].includes(change)) {
-      const file=path.join(dir,'src/gyeol.css');
+      const file=path.join(dir,'src/hangyeol.css');
       const text=fs.readFileSync(file,'utf8');
-      fs.writeFileSync(file,change==='header'?text.replace('@source "./gyeol";','@source "./elsewhere";'):text+'\n/* owner edit */\n');
-    } else {const file=path.join(dir,'gyeol.json'),config=JSON.parse(fs.readFileSync(file));config[change]=change==='basePath'?'/changed/':change==='alias'?'@changed':'changed/path';fs.writeFileSync(file,JSON.stringify(config,null,2)+'\n');}
+      fs.writeFileSync(file,change==='header'?text.replace('@source "./hangyeol";','@source "./elsewhere";'):text+'\n/* owner edit */\n');
+    } else {const file=path.join(dir,'hangyeol.json'),config=JSON.parse(fs.readFileSync(file));config[change]=change==='basePath'?'/changed/':change==='alias'?'@changed':'changed/path';fs.writeFileSync(file,JSON.stringify(config,null,2)+'\n');}
     rejected(dir);
   }
 });
 
 test('init dry-run and repeat preserve full bytes/mtime snapshot including useful host CSS', () => {
-  const dir=host();fs.mkdirSync(path.join(dir,'src'));const body='body { color: chocolate; }\n.native-sentinel { padding: 13px; }\n';fs.writeFileSync(path.join(dir,'src/gyeol.css'),body);
+  const dir=host();fs.mkdirSync(path.join(dir,'src'));const body='body { color: chocolate; }\n.native-sentinel { padding: 13px; }\n';fs.writeFileSync(path.join(dir,'src/hangyeol.css'),body);
   const before=snapshot(dir);run(dir,['init','--dry-run'],0);assert.deepEqual(snapshot(dir),before);
-  run(dir,['init'],0);assert.ok(fs.readFileSync(path.join(dir,'src/gyeol.css'),'utf8').endsWith(body));
+  run(dir,['init'],0);assert.ok(fs.readFileSync(path.join(dir,'src/hangyeol.css'),'utf8').endsWith(body));
   const installed=snapshot(dir);run(dir,['init'],0);assert.deepEqual(snapshot(dir),installed);
 });
 
 test('unsafe roots, symlinks, reset integration and unknown flags fail before writes', () => {
-  for(const args of [ ['--source-root','../outside'],['--source-root','node_modules/ui'],['--source-root','.Git'],['--public-root','SRC/gyeol'],['--style-path','package.json'],['--font-path','../fonts'],['--wat'],['--base-path'],['--source-root','a','--source-root','b'] ]) {const dir=host();rejected(dir,['init',...args]);}
-  for(const css of ['@import "tailwindcss";\n','@import url(tailwindcss);\n','@import "tailwindcss/index.css";\n','@import "tailwindcss/preflight.css";\n','@tailwind base;\n','* { margin:0; padding:0; }\n']) {const dir=host();fs.mkdirSync(path.join(dir,'src'));fs.writeFileSync(path.join(dir,'src/gyeol.css'),css);rejected(dir);}
+  for(const args of [ ['--source-root','../outside'],['--source-root','node_modules/ui'],['--source-root','.Git'],['--public-root','SRC/hangyeol'],['--style-path','package.json'],['--font-path','../fonts'],['--wat'],['--base-path'],['--source-root','a','--source-root','b'] ]) {const dir=host();rejected(dir,['init',...args]);}
+  for(const css of ['@import "tailwindcss";\n','@import url(tailwindcss);\n','@import "tailwindcss/index.css";\n','@import "tailwindcss/preflight.css";\n','@tailwind base;\n','* { margin:0; padding:0; }\n']) {const dir=host();fs.mkdirSync(path.join(dir,'src'));fs.writeFileSync(path.join(dir,'src/hangyeol.css'),css);rejected(dir);}
   const dir=host(),target=host();fs.symlinkSync(target,path.join(dir,'public'));rejected(dir);
 });
 
 test('generated host config edits, ambiguous TS aliases and file ancestors reject atomically', () => {
   for (const filename of ['vite.config.ts','tsconfig.json']) {
-    const dir=host();run(dir,['init','--alias','@gyeol'],0);
+    const dir=host();run(dir,['init','--alias','@hangyeol'],0);
     fs.appendFileSync(path.join(dir,filename),'\n ');rejected(dir);
   }
-  for (const compilerOptions of [{baseUrl:'src'},{paths:{'@gyeol/*':['./elsewhere/*']}}]) {
-    const dir=host();fs.writeFileSync(path.join(dir,'tsconfig.json'),JSON.stringify({compilerOptions}));rejected(dir,['init','--alias','@gyeol']);
+  for (const compilerOptions of [{baseUrl:'src'},{paths:{'@hangyeol/*':['./elsewhere/*']}}]) {
+    const dir=host();fs.writeFileSync(path.join(dir,'tsconfig.json'),JSON.stringify({compilerOptions}));rejected(dir,['init','--alias','@hangyeol']);
   }
   const dir=host();fs.writeFileSync(path.join(dir,'blocked'),'file');rejected(dir,['init','--source-root','blocked/ui']);
 });
@@ -108,7 +108,7 @@ test('all Vite config filenames and explicit host overrides are discovered befor
 test('pre-authored settings and real matching alias config are honored without flags', () => {
   const dir=host();
   const config={schemaVersion:1,sourceRoot:'ui/system',stylePath:'styles/theme.css',publicRoot:'static',fontPath:'assets/type',basePath:'/design/',alias:'@hangyeol'};
-  fs.writeFileSync(path.join(dir,'gyeol.json'),JSON.stringify(config,null,2)+'\n');
+  fs.writeFileSync(path.join(dir,'hangyeol.json'),JSON.stringify(config,null,2)+'\n');
   const text="import {defineConfig} from 'vite';import {fileURLToPath} from 'node:url';import tw from '@tailwindcss/vite';export default defineConfig({base:'/design/',publicDir:'static',resolve:{alias:{'@hangyeol':fileURLToPath(new URL('./ui/system',import.meta.url))}},plugins:[tw()]});\n";
   fs.writeFileSync(path.join(dir,'vite.config.ts'),text);
   run(dir,['init'],0);assert.equal(fs.readFileSync(path.join(dir,'vite.config.ts'),'utf8'),text);
@@ -119,12 +119,12 @@ test('pre-authored settings and real matching alias config are honored without f
 });
 
 test('planned file/directory target overlaps fail before creating any source', () => {
-  for(const stylePath of ['src','src/gyeol/lib','src/gyeol/foundation']) {
+  for(const stylePath of ['src','src/hangyeol/lib','src/hangyeol/foundation']) {
     const dir=host();rejected(dir,['init','--style-path',stylePath]);
   }
 });
 
-const matchingAlias="import {defineConfig} from 'vite';import {fileURLToPath} from 'node:url';import tw from '@tailwindcss/vite';export default defineConfig({resolve:{alias:{'@hangyeol':fileURLToPath(new URL('./src/gyeol',import.meta.url))}},plugins:[tw()]});\n";
+const matchingAlias="import {defineConfig} from 'vite';import {fileURLToPath} from 'node:url';import tw from '@tailwindcss/vite';export default defineConfig({resolve:{alias:{'@hangyeol':fileURLToPath(new URL('./src/hangyeol',import.meta.url))}},plugins:[tw()]});\n";
 test('review fix1 rejects a custom plugin with effective configuration override hooks without executing it',()=>{
   const dir=host();
   fs.writeFileSync(path.join(dir,'override.mjs'),"import fs from 'node:fs';fs.writeFileSync('plugin-executed','bad');export default ()=>({name:'override',config(){return {base:'/other/',publicDir:'other',resolve:{alias:{'@hangyeol':'./elsewhere'}}}},configResolved(config){config.base='/changed/';config.publicDir='other';config.resolve.alias=[];}});\n");
@@ -203,12 +203,12 @@ test('review fix2 preserves omitted and explicit enabled build options with stri
 });
 
 const fix3Flags=['--source-root','ui/system','--style-path','styles/theme.css','--public-root','static','--font-path','assets/type','--base-path','/design/','--alias','@hangyeol'];
-const fix3Vite=matchingAlias.replace("./src/gyeol","./ui/system").replace('resolve:',"base:'/design/',publicDir:'static',resolve:");
+const fix3Vite=matchingAlias.replace("./src/hangyeol","./ui/system").replace('resolve:',"base:'/design/',publicDir:'static',resolve:");
 function sourceTailwindAlias(name) {
   const dir=host(),text=fix3Vite.replace('alias:{',`alias:{'${name}':'/absolute/alternate-tailwind',`);
   fs.writeFileSync(path.join(dir,'vite.config.ts'),text);
   fs.writeFileSync(path.join(dir,'package-lock.json'),JSON.stringify({name:'core02-source-host',lockfileVersion:3,packages:{}})+'\n');
-  for(const [file,body] of [['styles/theme.css','body { color: chocolate; }\n'],['ui/system/owner.txt','existing source\n'],['static/assets/type/owner.txt','existing asset\n'],['.gyeol-backups/owner/checkpoint.txt','existing backup\n']]){fs.mkdirSync(path.dirname(path.join(dir,file)),{recursive:true});fs.writeFileSync(path.join(dir,file),body);}
+  for(const [file,body] of [['styles/theme.css','body { color: chocolate; }\n'],['ui/system/owner.txt','existing source\n'],['static/assets/type/owner.txt','existing asset\n'],['.hangyeol-backups/owner/checkpoint.txt','existing backup\n']]){fs.mkdirSync(path.dirname(path.join(dir,file)),{recursive:true});fs.writeFileSync(path.join(dir,file),body);}
   const trap=path.join(dir,'fixture-bin'),trace=path.join(evidence,`fix3-source-npm-trace-${process.hrtime.bigint()}.txt`);
   fs.mkdirSync(trap);fs.writeFileSync(trace,'');fs.writeFileSync(path.join(trap,'npm'),'#!/bin/sh\nprintf "npm invoked\\n" >> "$CORE02_NPM_TRACE"\nexit 93\n');fs.chmodSync(path.join(trap,'npm'),0o755);
   try {rejected(dir,['init',...fix3Flags],/alias .*intercepts mandatory Tailwind import.*remove or rename/i,{...process.env,PATH:trap+path.delimiter+process.env.PATH,CORE02_NPM_TRACE:trace});}
@@ -232,9 +232,9 @@ const p2Settings={schemaVersion:1,sourceRoot:'ui/system',stylePath:'styles/theme
 function p2SourceHost(base,mode) {
   const dir=host(),config={...p2Settings,basePath:base};
   fs.writeFileSync(path.join(dir,'package-lock.json'),JSON.stringify({lockfileVersion:3,packages:{'':JSON.parse(fs.readFileSync(path.join(dir,'package.json')))}})+'\n');
-  for(const [file,bytes] of [['styles/theme.css',Buffer.from('body { color: chocolate; }\n')],['ui/system/lib/cn.ts',fs.readFileSync(path.join(payload,'source/lib/cn.ts'))],['static/assets/type/owner.txt',Buffer.from('owner asset\n')],['.gyeol-backups/sentinel/owner.txt',Buffer.from('owner backup\n')],['node_modules/owner.txt',Buffer.from('source-only fixture sentinel\n')],['owner-metadata.json',Buffer.from('{"owner":"sentinel"}\n')]]){fs.mkdirSync(path.dirname(path.join(dir,file)),{recursive:true});fs.writeFileSync(path.join(dir,file),bytes);}
+  for(const [file,bytes] of [['styles/theme.css',Buffer.from('body { color: chocolate; }\n')],['ui/system/lib/cn.ts',fs.readFileSync(path.join(payload,'source/lib/cn.ts'))],['static/assets/type/owner.txt',Buffer.from('owner asset\n')],['.hangyeol-backups/sentinel/owner.txt',Buffer.from('owner backup\n')],['node_modules/owner.txt',Buffer.from('source-only fixture sentinel\n')],['owner-metadata.json',Buffer.from('{"owner":"sentinel"}\n')]]){fs.mkdirSync(path.dirname(path.join(dir,file)),{recursive:true});fs.writeFileSync(path.join(dir,file),bytes);}
   fs.symlinkSync('owner-metadata.json',path.join(dir,'owner-link'));
-  if(mode==='config')fs.writeFileSync(path.join(dir,'gyeol.json'),JSON.stringify(config,null,2)+'\n');
+  if(mode==='config')fs.writeFileSync(path.join(dir,'hangyeol.json'),JSON.stringify(config,null,2)+'\n');
   const flags=mode==='config'?[]:['--source-root',config.sourceRoot,'--style-path',config.stylePath,'--public-root',config.publicRoot,'--font-path',config.fontPath,'--alias',config.alias,'--base-path',base];
   const trap=path.join(dir,'fixture-bin'),trace=path.join(evidence,`p2-source-npm-${process.hrtime.bigint()}.txt`);fs.mkdirSync(trap);fs.writeFileSync(trace,'');fs.writeFileSync(path.join(trap,'npm'),'#!/bin/sh\nprintf "npm invoked\\n" >> "$CORE02_NPM_TRACE"\nexit 93\n');fs.chmodSync(path.join(trap,'npm'),0o755);
   return {dir,base,mode,config,flags,trace,env:{...process.env,PATH:trap+path.delimiter+process.env.PATH,CORE02_NPM_TRACE:trace}};
@@ -243,7 +243,7 @@ function p2SourceCall(fixture,args) {
   const {dir,base,mode,trace,env}=fixture,command=[process.execPath,'--input-type=module','-e',wrapper,...args],before=snapshot(dir),started=new Date().toISOString(),start=performance.now();
   const result=spawnSync(command[0],command.slice(1),{cwd:dir,encoding:'utf8',env}),after=snapshot(dir),file=path.join(dir,'ui/system/foundation/fonts.css');
   const origin='https://host.example',urls=fs.existsSync(file)?[...fs.readFileSync(file,'utf8').matchAll(/url\("([^"\n]+)"\)/g)].map(([,input])=>{const url=new URL(input,origin);return {input,origin:url.origin,pathname:url.pathname};}):[];
-  fs.writeFileSync(path.join(evidence,`p2-source-call-${process.hrtime.bigint()}.json`),JSON.stringify({runner:'source',base,mode,input:fixture.config,args,command,cwd:dir,started,durationMs:performance.now()-start,runtime:process.version,exit:result.status,stdout:result.stdout,stderr:result.stderr,before,after,npmTrace:trace,npmInvocations:fs.readFileSync(trace,'utf8'),generatedFontURLs:urls,installerSha256:createHash('sha256').update(fs.readFileSync(path.join(root,'packages/cli/src/installer.mjs'))).digest('hex'),fixtureKind:'source subprocess with predeclared dependencies/synthetic lock; not installed acceptance'},null,2));
+  fs.writeFileSync(path.join(evidence,`p2-source-call-${process.hrtime.bigint()}.json`),JSON.stringify({runner:'source',base,mode,input:fixture.config,args,command,cwd:dir,started,durationMs:performance.now()-start,runtime:process.version,exit:result.status,stdout:result.stdout,stderr:result.stderr,before,after,npmTrace:trace,npmInvocations:fs.readFileSync(trace,'utf8'),generatedFontURLs:urls,installerSha256:createHash('sha256').update(fs.readFileSync(path.join(root,'packages/core/src/tools/installer.mjs'))).digest('hex'),fixtureKind:'source subprocess with predeclared dependencies/synthetic lock; not installed acceptance'},null,2));
   return {result,before,after,urls};
 }
 for(const base of ['//','//cdn/'])for(const mode of ['flags','config'])test(`basePath P2 refuses source ${mode} ${base} atomically`,()=>{

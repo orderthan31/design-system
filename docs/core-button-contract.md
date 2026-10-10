@@ -19,26 +19,26 @@ npm install --offline --save-dev --save-exact <actual-tarball-path>
 
 기본 `sourceRoot`의 Button UI 그래프는 다음 세 파일입니다.
 
-- `src/gyeol/primitives/button.tsx`: 원본 native Button API와 ref/props를 가진 편집 가능한 소스
-- `src/gyeol/lib/cn.ts`: clsx / tailwind-merge와 semantic utility 충돌 그룹
-- `src/gyeol/foundation/theme.css`: scoped base와 semantic theme
+- `src/hangyeol/primitives/button.tsx`: 원본 native Button API와 ref/props를 가진 편집 가능한 소스
+- `src/hangyeol/lib/cn.ts`: clsx / tailwind-merge와 semantic utility 충돌 그룹
+- `src/hangyeol/foundation/theme.css`: scoped base와 semantic theme
 
 `init`은 별도로 `foundation/fonts.css`, Pretendard 400/500/600/700 woff2, 실제 OFL LICENSE/provenance, 호스트 stylesheet integration/config를 설치합니다. `add button`은 이 초기화와 구분됩니다. Button 추가는 Chart, Recharts, react-is, 다른 컴포넌트, docs, index/full barrel 또는 Radix 런타임 의존성을 요청하지 않습니다. core tarball은 다른 선택적 컴포넌트 payload와 lint 도구도 보유하지만 소비자의 Button UI 그래프로 복사하지 않습니다. lint 도구의 전이 의존성과 UI의 직접 런타임 의존성은 구분합니다.
 
 ```tsx
-import { Button } from './gyeol/primitives/button';
-import './gyeol.css';
+import { Button } from './hangyeol/primitives/button';
+import './hangyeol.css';
 ```
 
-커스텀 경로는 `gyeol.json`을 따릅니다. `sourceRoot`, `stylePath`, `publicRoot`, `fontPath`, `basePath`, alias/source scan과 호스트 body 보존 정책은 [CORE-02 init contract](./core-init-contract.md)를 그대로 적용합니다. 전체 Tailwind/Preflight reset은 추가하지 않습니다.
+커스텀 경로는 `hangyeol.json`을 따릅니다. `sourceRoot`, `stylePath`, `publicRoot`, `fontPath`, `basePath`, alias/source scan과 호스트 body 보존 정책은 [CORE-02 init contract](./core-init-contract.md)를 그대로 적용합니다. 전체 Tailwind/Preflight reset은 추가하지 않습니다.
 
 ## Editing and add safety
 
-초기화된 theme/helper는 소비자가 편집할 수 있습니다. `add`와 `add --overwrite`는 해당 로컬 바이트를 그대로 유지하며, `gyeol.json`의 기존 템플릿 version/hash 기록을 편집된 바이트의 해시로 갱신하지 않습니다. 계획에는 보존 파일을 `noop`로 포함하므로 경로/심볼릭 링크와 실행 직전 변경 확인을 건너뛰지 않습니다. 계획 수집 중 내용이 달라져 replace가 필요한 경우에도 중단합니다.
+초기화된 theme/helper는 소비자가 편집할 수 있습니다. `add`와 `add --overwrite`는 해당 로컬 바이트를 그대로 유지하며, `hangyeol.json`의 기존 템플릿 version/hash 기록을 편집된 바이트의 해시로 갱신하지 않습니다. 계획에는 보존 파일을 `noop`로 포함하므로 경로/심볼릭 링크와 실행 직전 변경 확인을 건너뛰지 않습니다. 계획 수집 중 내용이 달라져 replace가 필요한 경우에도 중단합니다.
 
 보존에는 동일 payload 버전 및 원본 템플릿 해시의 공통 파일 설치 기록과 실제 일반 파일이 필요합니다. 기록이 없거나 호환되지 않거나 파일이 누락/디렉터리/심볼릭 링크이면 변경과 npm 실행 전에 실패합니다. 임의의 미소유 공통 파일을 자동 채택하지 않습니다. 설정 변경, init 충돌, payload 해시, 경로, mandatory Tailwind alias 및 basePath 가드도 유지합니다. 이 동작은 업데이트/병합 엔진이 아닙니다. `init`을 다시 실행해 편집된 공통 소스를 새 템플릿으로 채택하는 정책도 추가하지 않습니다.
 
-Button 자체를 편집하면 기본 `add button`은 충돌로 실패하고 전체 호스트를 보존합니다. 명시적인 `--overwrite`는 정확한 편집 바이트를 백업한 뒤 Button만 원본으로 교체하며 theme/helper를 되돌리지 않습니다. 설치 상태가 바뀌는 경우 기존 정책에 따른 `gyeol.json` 메타데이터 백업은 별도로 남을 수 있습니다. 동일한 추가와 dry-run은 파일/mtime를 변경하지 않습니다.
+Button 자체를 편집하면 기본 `add button`은 충돌로 실패하고 전체 호스트를 보존합니다. 명시적인 `--overwrite`는 정확한 편집 바이트를 백업한 뒤 Button만 원본으로 교체하며 theme/helper를 되돌리지 않습니다. 설치 상태가 바뀌는 경우 기존 정책에 따른 `hangyeol.json` 메타데이터 백업은 별도로 남을 수 있습니다. 동일한 추가와 dry-run은 파일/mtime를 변경하지 않습니다.
 
 ## Bounded verification
 
