@@ -394,5 +394,71 @@
       "icon-button",
       "tooltip"
     ]
+  },
+  "table": {
+    "files": [
+      "components/table.tsx"
+    ],
+    "requires": []
+  },
+  "pagination": {
+    "files": [
+      "components/pagination.tsx"
+    ],
+    "requires": [
+      "button",
+      "icon"
+    ]
+  },
+  "alert": {
+    "files": [
+      "components/alert.tsx"
+    ],
+    "requires": [
+      "icon",
+      "icon-button"
+    ]
+  },
+  "error-state": {
+    "files": [
+      "components/error-state.tsx"
+    ],
+    "requires": [
+      "alert",
+      "button"
+    ]
+  },
+  "result": {
+    "files": [
+      "components/result.tsx"
+    ],
+    "requires": [
+      "empty-state",
+      "error-state",
+      "icon",
+      "button"
+    ]
+  },
+  "progress-stepper": {
+    "files": [
+      "components/progress-stepper.tsx"
+    ],
+    "requires": [
+      "icon"
+    ]
+  },
+  "breadcrumb": {
+    "files": [
+      "components/breadcrumb.tsx"
+    ],
+    "requires": [
+      "icon"
+    ]
+  },
+  "bubble": {
+    "files": [
+      "components/bubble.tsx"
+    ],
+    "requires": []
   }
 }

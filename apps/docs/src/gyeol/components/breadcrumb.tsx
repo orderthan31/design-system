@@ -1,0 +1,6 @@
+import { forwardRef, type HTMLAttributes, type ReactNode } from 'react';
+import { Icon } from '../primitives/icon';
+import { cn } from '../lib/cn';
+export type BreadcrumbItem={label:ReactNode;href?:string;current?:boolean};
+export type BreadcrumbProps=HTMLAttributes<HTMLElement>&{items:BreadcrumbItem[]};
+export const Breadcrumb=forwardRef<HTMLElement,BreadcrumbProps>(function Breadcrumb({items,className,...props},ref){return <nav {...props} ref={ref} aria-label={props['aria-label']??'현재 위치'} className={cn('min-w-0',className)}><ol className="flex min-w-0 flex-wrap items-center gap-2 text-g-small">{items.map((item,index)=>{const current=item.current??index===items.length-1;return <li key={index} className="flex min-w-0 items-center gap-2">{index>0&&<Icon name="chevronRight" size="small" className="text-g-soft"/>}{item.href&&!current?<a href={item.href} className="inline-flex min-h-11 min-w-0 items-center break-words rounded-g-control px-1 text-g-soft hover:text-g-ink focus-visible:outline-3 focus-visible:outline-g-focus">{item.label}</a>:<span aria-current={current?'page':undefined} className="inline-flex min-h-11 min-w-0 items-center break-words px-1 text-g-ink">{item.label}</span>}</li>;})}</ol></nav>;});
