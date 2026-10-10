@@ -460,5 +460,221 @@
       "components/bubble.tsx"
     ],
     "requires": []
+  },
+  "menu": {
+    "files": [
+      "primitives/menu.tsx",
+      "primitives/portal.tsx"
+    ],
+    "requires": [
+      "theme"
+    ],
+    "runtime": {
+      "@radix-ui/react-dropdown-menu": "2.1.25"
+    }
+  },
+  "accordion": {
+    "files": [
+      "primitives/accordion.tsx"
+    ],
+    "requires": [
+      "icon"
+    ],
+    "runtime": {
+      "@radix-ui/react-accordion": "1.2.21"
+    }
+  },
+  "collapse": {
+    "files": [
+      "primitives/collapse.tsx"
+    ],
+    "requires": [],
+    "runtime": {
+      "@radix-ui/react-collapsible": "1.1.21"
+    }
+  },
+  "confirm": {
+    "files": [
+      "primitives/confirm.tsx",
+      "primitives/portal.tsx"
+    ],
+    "requires": [
+      "button",
+      "theme"
+    ],
+    "runtime": {
+      "@radix-ui/react-alert-dialog": "1.1.24"
+    }
+  },
+  "drawer": {
+    "files": [
+      "components/drawer.tsx"
+    ],
+    "requires": [
+      "dialog",
+      "icon-button"
+    ]
+  },
+  "bottom-sheet": {
+    "files": [
+      "components/bottom-sheet.tsx"
+    ],
+    "requires": [
+      "dialog",
+      "icon-button"
+    ]
+  },
+  "list-row": {
+    "files": [
+      "components/list-row.tsx"
+    ],
+    "requires": []
+  },
+  "grid-list": {
+    "files": [
+      "components/grid-list.tsx"
+    ],
+    "requires": []
+  },
+  "gnb": {
+    "files": [
+      "components/gnb.tsx"
+    ],
+    "requires": []
+  },
+  "lnb": {
+    "files": [
+      "components/lnb.tsx"
+    ],
+    "requires": [
+      "drawer",
+      "button"
+    ]
+  },
+  "shell": {
+    "files": [
+      "components/shell.tsx"
+    ],
+    "requires": [
+      "container",
+      "drawer",
+      "button"
+    ]
+  },
+  "toast": {
+    "files": [
+      "components/toast.tsx",
+      "primitives/portal.tsx"
+    ],
+    "requires": [
+      "button",
+      "icon-button",
+      "theme"
+    ],
+    "runtime": {
+      "@radix-ui/react-toast": "1.2.24"
+    }
+  },
+  "date-picker": {
+    "files": [
+      "components/date-picker.tsx",
+      "components/calendar-grid.tsx",
+      "components/calendar-controls.tsx",
+      "lib/date-utils.ts",
+      "lib/use-field-state.ts"
+    ],
+    "requires": [
+      "text-field",
+      "button",
+      "popover",
+      "input",
+      "select"
+    ]
+  },
+  "month-picker": {
+    "files": [
+      "components/month-picker.tsx",
+      "lib/date-utils.ts",
+      "lib/use-field-state.ts"
+    ],
+    "requires": [
+      "text-field",
+      "button",
+      "popover",
+      "input"
+    ]
+  },
+  "time-input": {
+    "files": [
+      "components/time-input.tsx",
+      "lib/date-utils.ts",
+      "lib/use-field-state.ts"
+    ],
+    "requires": [
+      "text-field",
+      "select"
+    ]
+  },
+  "date-time-input": {
+    "files": [
+      "components/date-time-input.tsx",
+      "lib/date-utils.ts",
+      "lib/use-field-state.ts"
+    ],
+    "requires": [
+      "date-picker",
+      "time-input",
+      "button"
+    ]
+  },
+  "date-range-picker": {
+    "files": [
+      "components/date-range-picker.tsx",
+      "components/calendar-grid.tsx",
+      "components/calendar-controls.tsx",
+      "lib/date-utils.ts",
+      "lib/use-field-state.ts"
+    ],
+    "requires": [
+      "date-picker",
+      "button",
+      "popover"
+    ]
+  },
+  "data-table": {
+    "files": [
+      "components/data-table.tsx"
+    ],
+    "requires": [
+      "table",
+      "search-field",
+      "checkbox",
+      "select",
+      "button",
+      "pagination",
+      "empty-state",
+      "error-state"
+    ]
+  },
+  "chart": {
+    "files": [
+      "components/chart.tsx"
+    ],
+    "requires": [
+      "table",
+      "empty-state",
+      "error-state"
+    ],
+    "runtime": {
+      "recharts": "3.10.1"
+    }
+  },
+  "bottom-cta": {
+    "files": [
+      "components/bottom-cta.tsx"
+    ],
+    "requires": [
+      "action-group"
+    ]
   }
 }

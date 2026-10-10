@@ -1,0 +1,7 @@
+import { forwardRef, type ReactNode } from 'react';
+import { Dialog, DialogTrigger, DialogClose, DialogTitle, DialogDescription, DialogContent, type DialogContentProps } from '../primitives/dialog';
+import { IconButton } from '../primitives/icon-button';
+import { cn } from '../lib/cn';
+export {Dialog as Drawer,DialogTrigger as DrawerTrigger,DialogClose as DrawerClose};
+export type DrawerContentProps=Omit<DialogContentProps,'asChild'> & {title:string;description?:string;side?:'left'|'right';actions?:ReactNode};
+export const DrawerContent=forwardRef<HTMLDivElement,DrawerContentProps>(function DrawerContent({title,description,side='right',actions,children,className,...props},ref){return <DialogContent {...props} {...(!description&&!props['aria-describedby']?{'aria-describedby':undefined}:{})} ref={ref} className={cn('inset-x-0 top-0 bottom-0 mx-0 flex h-dvh w-full max-w-none flex-col gap-4 overflow-hidden rounded-none p-4 sm:top-0 sm:inset-x-auto sm:w-96',side==='left'?'sm:left-0 sm:rounded-r-g-panel':'sm:right-0 sm:rounded-l-g-panel',className)}><header className="flex shrink-0 items-start justify-between gap-3"><div className="grid min-w-0 gap-2"><DialogTitle>{title}</DialogTitle>{description&&<DialogDescription>{description}</DialogDescription>}</div><DialogClose asChild><IconButton variant="quiet" icon="close" label="패널 닫기"/></DialogClose></header><div className="min-h-0 flex-1 overflow-y-auto break-words">{children}</div>{actions&&<footer className="flex shrink-0 flex-wrap gap-3">{actions}</footer>}</DialogContent>;});

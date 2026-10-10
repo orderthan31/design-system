@@ -12,8 +12,10 @@ import { ControlPage, controlNames, controlDescriptions, type ControlName } from
 import { InputPage, inputNames, inputDescriptions, type InputName } from './input-pages';
 import { SelectionPage, selectionNames, selectionDescriptions, type SelectionName } from './selection-pages';
 import { NativePage, nativeNames, nativeDescriptions, type NativeName } from './native-pages';
+import { InteractionPage, interactionNames, interactionDescriptions, type InteractionName } from './interaction-pages';
+import { DateDataPage, dateDataNames, dateDataDescriptions, type DateDataName } from './date-data-pages';
 
-const components = [...(['Badge','Button','Dialog','FormSection','Input','Layout','List','ListItem','ListPanel','Row','Select','Stack','Tabs','TextField'] as const), ...controlNames, ...inputNames, ...selectionNames, ...nativeNames].sort();
+const components = [...(['Badge','Button','Dialog','FormSection','Input','Layout','List','ListItem','ListPanel','Row','Select','Stack','Tabs','TextField'] as const), ...controlNames, ...inputNames, ...selectionNames, ...nativeNames, ...interactionNames, ...dateDataNames].sort();
 type ComponentName = typeof components[number];
 const pages = ['Overview','GettingStarted','Foundations',...foundationNames,...components,'TaskExample','Customization'] as const;
 type Page = typeof pages[number];
@@ -55,7 +57,7 @@ export default function DocsApp() {
   if(destination){pendingFocus.current=destination;setMenuOpen(false);if(destination===page){pendingFocus.current=null;headingRef.current?.focus();window.scrollTo({top:0});}}
  };
  const query=search.trim().toLocaleLowerCase();
- const match=(name:Page)=>`${labels[name]} ${name} ${foundationDescriptions[name as FoundationName]??componentDescriptions[name as ComponentName]??controlDescriptions[name as ControlName]??inputDescriptions[name as InputName]??selectionDescriptions[name as SelectionName]??nativeDescriptions[name as NativeName]??''}`.toLocaleLowerCase().includes(query);
+ const match=(name:Page)=>`${labels[name]} ${name} ${foundationDescriptions[name as FoundationName]??componentDescriptions[name as ComponentName]??controlDescriptions[name as ControlName]??inputDescriptions[name as InputName]??selectionDescriptions[name as SelectionName]??nativeDescriptions[name as NativeName]??interactionDescriptions[name as InteractionName]??dateDataDescriptions[name as DateDataName]??''}`.toLocaleLowerCase().includes(query);
  return <Theme mode={mode} palette={palette} className="docs-shell min-h-screen">
   <a href="#docs-main" className="docs-skip" onClick={event=>{event.preventDefault();document.getElementById('docs-main')?.focus();}}>본문으로 바로 가기</a>
   <header className="docs-header">
@@ -76,7 +78,7 @@ export default function DocsApp() {
    </aside>
    <main id="docs-main" tabIndex={-1} className="docs-main">
     <div className="docs-page-heading"><p className="text-g-small text-g-soft">{components.includes(page as ComponentName)?'컴포넌트':page==='TaskExample'||page==='Customization'?'함께 사용하기':page==='Foundations'||foundationNames.includes(page as FoundationName)?'파운데이션':'한결디자인'}</p><h1 ref={headingRef} tabIndex={-1}>{labels[page]}</h1></div>
-    {page==='Overview'?<Overview/>:page==='GettingStarted'?<GettingStarted/>:page==='Foundations'?<Foundations/>:foundationNames.includes(page as FoundationName)?<FoundationPage key={page} name={page as FoundationName}/>:page==='TaskExample'?<CompositionExamples/>:page==='Customization'?<Customization/>:nativeNames.includes(page as NativeName)?<NativePage key={page} name={page as NativeName}/>:selectionNames.includes(page as SelectionName)?<SelectionPage key={page} name={page as SelectionName}/>:inputNames.includes(page as InputName)?<InputPage key={page} name={page as InputName}/>:controlNames.includes(page as ControlName)?<ControlPage key={page} name={page as ControlName}/>:<ComponentPage key={page} name={page as ComponentName}/>}
+    {page==='Overview'?<Overview/>:page==='GettingStarted'?<GettingStarted/>:page==='Foundations'?<Foundations/>:foundationNames.includes(page as FoundationName)?<FoundationPage key={page} name={page as FoundationName}/>:page==='TaskExample'?<CompositionExamples/>:page==='Customization'?<Customization/>:dateDataNames.includes(page as DateDataName)?<DateDataPage key={page} name={page as DateDataName}/>:interactionNames.includes(page as InteractionName)?<InteractionPage key={page} name={page as InteractionName}/>:nativeNames.includes(page as NativeName)?<NativePage key={page} name={page as NativeName}/>:selectionNames.includes(page as SelectionName)?<SelectionPage key={page} name={page as SelectionName}/>:inputNames.includes(page as InputName)?<InputPage key={page} name={page as InputName}/>:controlNames.includes(page as ControlName)?<ControlPage key={page} name={page as ControlName}/>:<ComponentPage key={page} name={page as ComponentName}/>}
     <footer className="docs-footer">한결디자인</footer>
    </main>
   </div>

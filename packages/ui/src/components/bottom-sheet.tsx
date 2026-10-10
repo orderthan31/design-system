@@ -1,0 +1,7 @@
+import { forwardRef, type ReactNode } from 'react';
+import { Dialog, DialogTrigger, DialogClose, DialogTitle, DialogDescription, DialogContent, type DialogContentProps } from '../primitives/dialog';
+import { IconButton } from '../primitives/icon-button';
+import { cn } from '../lib/cn';
+export {Dialog as BottomSheet,DialogTrigger as BottomSheetTrigger,DialogClose as BottomSheetClose};
+export type BottomSheetContentProps=Omit<DialogContentProps,'asChild'> & {title:string;description?:string;actions?:ReactNode};
+export const BottomSheetContent=forwardRef<HTMLDivElement,BottomSheetContentProps>(function BottomSheetContent({title,description,actions,children,className,...props},ref){return <DialogContent {...props} {...(!description&&!props['aria-describedby']?{'aria-describedby':undefined}:{})} ref={ref} className={cn('inset-x-0 top-auto bottom-0 mx-auto flex max-h-dvh w-full max-w-2xl flex-col gap-4 overflow-hidden rounded-b-none p-4 sm:top-auto pb-[max(1rem,env(safe-area-inset-bottom))]',className)}><header className="flex shrink-0 items-start justify-between gap-3"><div className="grid min-w-0 gap-2"><DialogTitle>{title}</DialogTitle>{description&&<DialogDescription>{description}</DialogDescription>}</div><DialogClose asChild><IconButton variant="quiet" icon="close" label="하단 패널 닫기"/></DialogClose></header><div className="min-h-0 flex-1 overflow-y-auto break-words">{children}</div>{actions&&<footer className="flex shrink-0 flex-wrap gap-3">{actions}</footer>}</DialogContent>;});

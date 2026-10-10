@@ -1,0 +1,5 @@
+import { forwardRef, useEffect, useState, type HTMLAttributes } from 'react';
+import { ActionGroup } from './action-group';
+import { cn } from '../lib/cn';
+export const BottomCTA=forwardRef<HTMLDivElement,HTMLAttributes<HTMLDivElement>>(function BottomCTA({children,className,...props},ref){const [editing,setEditing]=useState(false);useEffect(()=>{let alive=true;const update=()=>{if(alive)setEditing(Boolean(document.activeElement?.matches('input:not([type=checkbox]):not([type=radio]):not([type=button]):not([type=submit]):not([type=reset]):not([type=range]):not([type=file]),textarea,[contenteditable=true]')));};const afterBlur=()=>queueMicrotask(update);update();document.addEventListener('focusin',update);document.addEventListener('focusout',afterBlur);return()=>{alive=false;document.removeEventListener('focusin',update);document.removeEventListener('focusout',afterBlur);};},[]);
+ return <div {...props} ref={ref} className={cn('min-w-0 border-t border-solid border-g-line bg-g-surface p-4 pb-[max(1rem,env(safe-area-inset-bottom))] sm:static',editing?'static':'sticky bottom-0',className)}><ActionGroup>{children}</ActionGroup></div>;});
