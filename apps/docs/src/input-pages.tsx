@@ -1,3 +1,4 @@
+import { ComponentContext, ExamplePurpose } from './component-content';
 import { useRef, useState } from 'react';
 import { Button } from './gyeol/primitives/button';
 import { Checkbox } from './gyeol/primitives/checkbox';
@@ -46,7 +47,7 @@ const usage: Record<InputName, string[]> = {
   Rating: ['value와 defaultValue는 정수입니다. 기본 max는 5이며 1~10개 별을 지원합니다. 반별 입력은 지원하지 않습니다.', '별을 누르거나 방향키로 점수를 고릅니다. name이 있으면 선택한 점수 하나만 제출합니다. required는 점수 선택을 필수로 만듭니다.', 'readOnly는 별과 점수만 보여주며 조작하지 않습니다. disabled는 선택과 폼 제출을 막습니다. 직접 value를 관리할 때 초기화도 화면에서 처리하세요.'],
   SearchField: ['onSearch는 Enter를 눌렀을 때 양끝 공백을 뺀 검색어를 받습니다. 빈 검색어도 전달하므로 전체 결과로 돌아가는 정책은 사용하는 화면에서 정하세요.', '한글 등 글자 조합 중인 Enter는 검색이나 상위 폼 제출을 실행하지 않습니다. 검색 결과나 통신은 이 입력이 직접 처리하지 않습니다.', '기본 clearable은 true입니다. 지우기 후 입력으로 초점이 돌아오며 readOnly와 disabled일 때는 지우거나 검색할 수 없습니다.'],
 };
-export function InputPage({ name, initialPanel = 'settings' }: { name: InputName; initialPanel?: 'settings' | 'code' | 'usage' }) {
+export function InputPage({ name, initialPanel = 'usage' }: { name: InputName; initialPanel?: 'settings' | 'code' | 'usage' }) {
   const form = useRef<HTMLFormElement>(null);
   const [panel, setPanel] = useState(initialPanel), [disabled, setDisabled] = useState(false), [readOnly, setReadOnly] = useState(false), [error, setError] = useState(false);
   const [text, setText] = useState(defaults[name] ?? ''), [selected, setSelected] = useState(['email']), [rating, setRating] = useState(3), [address, setAddress] = useState(addressDefault), [feedback, setFeedback] = useState('');
@@ -81,6 +82,7 @@ export function InputPage({ name, initialPanel = 'settings' }: { name: InputName
   const resetExample = () => { setDisabled(false); setReadOnly(false); setError(false); setText(defaults[name] ?? ''); setSelected(['email']); setRating(3); setAddress(addressDefault); setFeedback(''); form.current?.reset(); };
   return <div className="space-y-8">
     <p className="docs-intro">{inputDescriptions[name]}</p>
+    <ComponentContext name={name}/><ExamplePurpose name={name}/>
     <section className="docs-demo" aria-label={`${name} 사용 예제`}>
       <form ref={form} className="grid gap-4" onReset={() => { setText(defaults[name] ?? ''); setSelected(['email']); setRating(3); setAddress(addressDefault); setFeedback(''); }} onSubmit={event => {
         event.preventDefault(); const data = new FormData(event.currentTarget);
@@ -89,7 +91,7 @@ export function InputPage({ name, initialPanel = 'settings' }: { name: InputName
       {name === 'AddressField' && <p className="mt-4 text-g-small text-g-soft">주소 검색은 예시 주소를 채웁니다. 실제 주소 서비스는 연결하지 않았습니다.</p>}
     </section>
     <Tabs value={panel} onValueChange={next => setPanel(next as typeof panel)}>
-      <TabsList aria-label="예제 안내"><TabsTrigger value="settings">예제 설정</TabsTrigger><TabsTrigger value="code">코드</TabsTrigger><TabsTrigger value="usage">사용법</TabsTrigger></TabsList>
+      <TabsList aria-label="예제 안내"><TabsTrigger value="usage">사용법</TabsTrigger><TabsTrigger value="settings">예제 설정</TabsTrigger><TabsTrigger value="code">코드</TabsTrigger></TabsList>
       <TabsContent value="settings"><div className="grid gap-3 py-4">
         <label className="flex min-h-11 items-center gap-3"><Checkbox checked={disabled} onCheckedChange={next => setDisabled(next === true)}/>사용할 수 없는 상태</label>
         {supportsReadOnly && <label className="flex min-h-11 items-center gap-3"><Checkbox checked={readOnly} onCheckedChange={next => setReadOnly(next === true)}/>읽기 전용</label>}

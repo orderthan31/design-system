@@ -45,7 +45,8 @@
       "primitives/portal.tsx"
     ],
     "requires": [
-      "theme"
+      "theme",
+      "icon"
     ],
     "runtime": {
       "@radix-ui/react-select": "2.3.8"

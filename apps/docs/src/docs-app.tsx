@@ -2,8 +2,10 @@ import { useEffect, useId, useRef, useState, type MouseEvent } from 'react';
 import { Theme } from './gyeol/foundation/theme';
 import { Button } from './gyeol/primitives/button';
 import { Input } from './gyeol/primitives/input';
-import { Select } from './gyeol/primitives/select';
-import { Overview, Foundations, GettingStarted, Customization } from './visitor-pages';
+import { Icon } from './gyeol/primitives/icon';
+import { Moon, Sun } from 'lucide-react';
+import { Overview, GettingStarted, Customization } from './visitor-pages';
+import { Foundations, FoundationPage, foundationNames, foundationLabels, foundationDescriptions, type FoundationName } from './foundation-pages';
 import { ComponentPage, CompositionExamples, componentDescriptions } from './component-pages';
 import { ControlPage, controlNames, controlDescriptions, type ControlName } from './control-pages';
 import { InputPage, inputNames, inputDescriptions, type InputName } from './input-pages';
@@ -11,10 +13,10 @@ import { SelectionPage, selectionNames, selectionDescriptions, type SelectionNam
 
 const components = [...(['Badge','Button','Dialog','FormSection','Input','Layout','List','ListItem','ListPanel','Row','Select','Stack','Tabs','TextField'] as const), ...controlNames, ...inputNames, ...selectionNames].sort();
 type ComponentName = typeof components[number];
-const pages = ['Overview','GettingStarted','Foundations',...components,'TaskExample','Customization'] as const;
+const pages = ['Overview','GettingStarted','Foundations',...foundationNames,...components,'TaskExample','Customization'] as const;
 type Page = typeof pages[number];
-const labels: Record<Page,string> = { Overview:'소개', GettingStarted:'시작하기', Foundations:'파운데이션', TaskExample:'조합 예제', Customization:'스타일 바꾸기', ...Object.fromEntries(components.map(name=>[name,name])) } as Record<Page,string>;
-const groups = [ { name:'둘러보기', entries:['Overview','GettingStarted','Foundations'] }, { name:'컴포넌트', entries:components }, { name:'함께 사용하기', entries:['TaskExample','Customization'] } ] as const;
+const labels: Record<Page,string> = { Overview:'소개', GettingStarted:'시작하기', Foundations:'파운데이션', TaskExample:'조합 예제', Customization:'스타일 바꾸기', ...foundationLabels, ...Object.fromEntries(components.map(name=>[name,name])) } as Record<Page,string>;
+const groups = [ { name:'둘러보기', entries:['Overview','GettingStarted'] }, { name:'파운데이션', entries:['Foundations',...foundationNames] }, { name:'컴포넌트', entries:components }, { name:'함께 사용하기', entries:['TaskExample','Customization'] } ] as const;
 const palettes = ['Indigo','Silver','Forest','Amber','Rose'];
 const paletteLabels: Record<string,string> = {Indigo:'인디고',Silver:'실버',Forest:'포레스트',Amber:'앰버',Rose:'로즈'};
 function parsePage(hash:string):Page { try { const value=decodeURIComponent(hash.slice(1)); return pages.find(page=>page===value) ?? 'Overview'; } catch { return 'Overview'; } }
@@ -51,14 +53,14 @@ export default function DocsApp() {
   if(destination){pendingFocus.current=destination;setMenuOpen(false);if(destination===page){pendingFocus.current=null;headingRef.current?.focus();window.scrollTo({top:0});}}
  };
  const query=search.trim().toLocaleLowerCase();
- const match=(name:Page)=>`${labels[name]} ${name} ${componentDescriptions[name as ComponentName]??controlDescriptions[name as ControlName]??inputDescriptions[name as InputName]??selectionDescriptions[name as SelectionName]??''}`.toLocaleLowerCase().includes(query);
+ const match=(name:Page)=>`${labels[name]} ${name} ${foundationDescriptions[name as FoundationName]??componentDescriptions[name as ComponentName]??controlDescriptions[name as ControlName]??inputDescriptions[name as InputName]??selectionDescriptions[name as SelectionName]??''}`.toLocaleLowerCase().includes(query);
  return <Theme mode={mode} palette={palette} className="docs-shell min-h-screen">
   <a href="#docs-main" className="docs-skip" onClick={event=>{event.preventDefault();document.getElementById('docs-main')?.focus();}}>본문으로 바로 가기</a>
   <header className="docs-header">
-   <a href="#Overview" className="docs-name" onClick={navigate}>한결디자인</a>
+   <a href="#Overview" className="docs-brand-link" aria-label="한결디자인 소개" onClick={navigate}><img src="/brand/hangyeol-ci.png" width="313" height="82" alt="한결디자인 — HANGYEOL DESIGN"/></a>
    <div className="docs-header-actions">
-    <div className="docs-palette"><Select label="팔레트" value={palette} onValueChange={setPalette} options={palettes.map(value=>({value,label:paletteLabels[value]}))}/></div>
-    <Button variant="quiet" size="small" aria-label={mode==='light'?'어두운 화면으로 바꾸기':'밝은 화면으로 바꾸기'} onClick={()=>setMode(current=>current==='light'?'dark':'light')}>{mode==='light'?'어두운 화면':'밝은 화면'}</Button>
+    <fieldset className="docs-theme-picker"><legend className="docs-visually-hidden">팔레트</legend>{palettes.map(value=><Theme key={value} mode={mode} palette={value}><label className="docs-swatch-option" title={paletteLabels[value]}><input type="radio" name={id+'-palette'} value={value} checked={palette===value} aria-label={paletteLabels[value]+' 팔레트'} onChange={()=>setPalette(value)}/><span className="docs-palette-swatch">{palette===value&&<Icon name="check" size="small"/>}</span></label></Theme>)}</fieldset>
+    <Button variant="quiet" size="small" aria-label={mode==='light'?'어두운 화면으로 바꾸기':'밝은 화면으로 바꾸기'} title={mode==='light'?'어두운 화면':'밝은 화면'} onClick={()=>setMode(current=>current==='light'?'dark':'light')}>{mode==='light'?<Moon size={20} aria-hidden="true"/>:<Sun size={20} aria-hidden="true"/>}</Button>
     {!desktop&&<Button ref={triggerRef} variant="secondary" size="small" aria-label="문서 메뉴" aria-expanded={menuOpen} aria-controls={id} onClick={()=>{if(menuOpen)closeMenu();else{pendingFocus.current='search';setMenuOpen(true);}}}>메뉴</Button>}
    </div>
   </header>
@@ -71,9 +73,9 @@ export default function DocsApp() {
     </nav>
    </aside>
    <main id="docs-main" tabIndex={-1} className="docs-main">
-    <div className="docs-page-heading"><p className="text-g-small text-g-soft">{components.includes(page as ComponentName)?'컴포넌트':page==='TaskExample'||page==='Customization'?'함께 사용하기':'한결디자인'}</p><h1 ref={headingRef} tabIndex={-1}>{page==='Overview'?'한결디자인':labels[page]}</h1></div>
-    {page==='Overview'?<Overview/>:page==='GettingStarted'?<GettingStarted/>:page==='Foundations'?<Foundations/>:page==='TaskExample'?<CompositionExamples/>:page==='Customization'?<Customization/>:selectionNames.includes(page as SelectionName)?<SelectionPage key={page} name={page as SelectionName}/>:inputNames.includes(page as InputName)?<InputPage key={page} name={page as InputName}/>:controlNames.includes(page as ControlName)?<ControlPage key={page} name={page as ControlName}/>:<ComponentPage key={page} name={page as ComponentName}/>}
-    <footer className="docs-footer">한결디자인 · 필요한 요소를 골라, 내 화면에 맞게.</footer>
+    <div className="docs-page-heading"><p className="text-g-small text-g-soft">{components.includes(page as ComponentName)?'컴포넌트':page==='TaskExample'||page==='Customization'?'함께 사용하기':page==='Foundations'||foundationNames.includes(page as FoundationName)?'파운데이션':'한결디자인'}</p><h1 ref={headingRef} tabIndex={-1}>{labels[page]}</h1></div>
+    {page==='Overview'?<Overview/>:page==='GettingStarted'?<GettingStarted/>:page==='Foundations'?<Foundations/>:foundationNames.includes(page as FoundationName)?<FoundationPage key={page} name={page as FoundationName}/>:page==='TaskExample'?<CompositionExamples/>:page==='Customization'?<Customization/>:selectionNames.includes(page as SelectionName)?<SelectionPage key={page} name={page as SelectionName}/>:inputNames.includes(page as InputName)?<InputPage key={page} name={page as InputName}/>:controlNames.includes(page as ControlName)?<ControlPage key={page} name={page as ControlName}/>:<ComponentPage key={page} name={page as ComponentName}/>}
+    <footer className="docs-footer">한결디자인</footer>
    </main>
   </div>
  </Theme>;

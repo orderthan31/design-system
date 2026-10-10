@@ -1,3 +1,4 @@
+import { ComponentContext, ExamplePurpose } from './component-content';
 import { useId, useState, type ReactNode } from 'react';
 import { Button } from './gyeol/primitives/button';
 
@@ -69,7 +70,7 @@ function Option({ children, checked, onChange }: { children: ReactNode; checked:
   const id = useId();
   return <label htmlFor={id} className="flex min-h-11 items-center gap-3 text-g-small"><Checkbox id={id} checked={checked} onCheckedChange={value => onChange(value === true)}/>{children}</label>;
 }
-export function ControlPage({ name, initialPanel = 'settings' }: { name: ControlName; initialPanel?: 'settings' | 'code' | 'usage' }) {
+export function ControlPage({ name, initialPanel = 'usage' }: { name: ControlName; initialPanel?: 'settings' | 'code' | 'usage' }) {
   const id = useId();
   const [panel, setPanel] = useState(initialPanel);
   const [disabled, setDisabled] = useState(false), [readOnly, setReadOnly] = useState(false), [error, setError] = useState(false);
@@ -113,9 +114,9 @@ export function ControlPage({ name, initialPanel = 'settings' }: { name: Control
     addImport(name, `primitives/${name === 'Skeleton' ? 'skeleton' : 'loading-spinner'}`);
     body = loading ? name === 'Skeleton' ? '<div className="grid gap-4" aria-busy><Skeleton shape="circle"/><Skeleton/><Skeleton shape="block"/><p role="status">프로필을 불러오는 중입니다.</p></div>' : '<div className="flex items-center gap-3" aria-busy><LoadingSpinner label="프로필을 불러오는 중입니다."/><span>프로필을 불러오는 중입니다.</span></div>' : '<div aria-busy={false}><h3>김한결</h3><p>주말에는 책을 읽거나 가까운 동네를 산책해요.</p></div>';
   } else if (name === 'Container') {
-    live = <Container width={width}><h3 className="font-semibold">내 공간을 정리하는 작은 습관</h3><p className="mt-3 leading-7 text-g-soft">자주 사용하는 물건은 가까이에 두고, 계절이 바뀌면 필요한 물건을 다시 골라 보세요. 작은 정리만으로도 공간을 편하게 사용할 수 있어요.</p></Container>;
+    live = <Container width={width}><h3 className="font-semibold">본문 너비와 좌우 여백</h3><p className="mt-3 leading-7 text-g-soft">Container는 본문의 최대 너비를 제한하고 가운데 정렬합니다. 너비 옵션을 바꾸어도 부모 영역을 넘지 않으며, 긴 본문은 reading 너비로 읽는 길이를 조절할 수 있습니다.</p></Container>;
     settings = <Select label="본문 너비" value={width} onValueChange={next => setWidth(next as typeof width)} options={[{ value: 'reading', label: '읽기 편한 너비' }, { value: 'content', label: '기본 본문 너비' }, { value: 'wide', label: '넓은 너비' }, { value: 'full', label: '전체 너비' }]}/>;
-    addImport('Container', 'primitives/container'); body = `<Container width="${width}"><h3 className="font-semibold">내 공간을 정리하는 작은 습관</h3><p className="mt-3 leading-7 text-g-soft">자주 사용하는 물건은 가까이에 두고, 계절이 바뀌면 필요한 물건을 다시 골라 보세요. 작은 정리만으로도 공간을 편하게 사용할 수 있어요.</p></Container>`;
+    addImport('Container', 'primitives/container'); body = `<Container width="${width}"><h3 className="font-semibold">본문 너비와 좌우 여백</h3><p className="mt-3 leading-7 text-g-soft">Container는 본문의 최대 너비를 제한하고 가운데 정렬합니다. 너비 옵션을 바꾸어도 부모 영역을 넘지 않으며, 긴 본문은 reading 너비로 읽는 길이를 조절할 수 있습니다.</p></Container>`;
   } else if (name === 'Grid') {
     live = <Grid columns={columns}>{['사진', '메모', '할 일'].map(title => <article key={title} className="grid gap-2 rounded-g-panel bg-g-muted p-4"><h3 className="font-medium">{title}</h3><p className="text-g-small text-g-soft">자주 사용하는 내용을 한곳에 모아 보세요.</p></article>)}</Grid>;
     settings = <Select label="넓은 화면의 열 수" value={String(columns)} onValueChange={next => setColumns(Number(next) as typeof columns)} options={[1, 2, 3, 4].map(count => ({ value: String(count), label: `${count}열` }))}/>;
@@ -156,5 +157,5 @@ export function ControlPage({ name, initialPanel = 'settings' }: { name: Control
   }
   const reset = () => { setDisabled(false); setReadOnly(false); setError(false); setChecked(false); setValue(name === 'FormField' ? 'hangyeol@example.com' : '주말에는 책을 읽거나 가까운 동네를 산책해요.'); setVolume(45); setRange([20, 80]); setLoading(name === 'Skeleton' || name === 'LoadingSpinner'); setFeedback(''); setQuery('한결'); setCaseSensitive(false); setColumns(3); setWidth('reading'); setIcon('star'); setOrientation('horizontal'); };
   const code = (declarations ? "import { useId, useState } from 'react';\n" : '') + imports.join('\n') + `\n\nexport function ${name}Example() {\n  ${declarations}\n  return ${body};\n}`;
-  return <div className="docs-page"><p className="docs-lead">{controlDescriptions[name]}</p><section className="docs-demo" aria-label={`${name} 예제`}>{live}</section><Tabs value={panel} onValueChange={next => setPanel(next as typeof panel)}><div className="flex flex-wrap items-center justify-between gap-3"><TabsList aria-label="예제 설명"><TabsTrigger value="settings">예제 설정</TabsTrigger><TabsTrigger value="code">코드</TabsTrigger><TabsTrigger value="usage">사용법</TabsTrigger></TabsList><Button variant="quiet" size="small" onClick={reset}>예제 되돌리기</Button></div><TabsContent value="settings" className="mt-6"><div className="docs-controls">{settings || <p className="text-g-small text-g-soft">위 예제를 살펴보세요.</p>}</div></TabsContent><TabsContent value="code" className="mt-6"><CodeBlock>{code}</CodeBlock></TabsContent><TabsContent value="usage" className="mt-6"><ul className="docs-usage">{usage[name].map(text => <li key={text}>{text}</li>)}</ul><p className="mt-6 text-g-small text-g-soft">코드는 설치된 로컬 소스 경로를 사용합니다. 예제의 데이터와 저장·조회 동작은 컴포넌트 자체 기능이 아닙니다.</p></TabsContent></Tabs></div>;
+  return <div className="docs-page"><p className="docs-lead">{controlDescriptions[name]}</p><ComponentContext name={name}/><ExamplePurpose name={name}/><section className="docs-demo" aria-label={`${name} 예제`}>{live}</section><Tabs value={panel} onValueChange={next => setPanel(next as typeof panel)}><div className="flex flex-wrap items-center justify-between gap-3"><TabsList aria-label="예제 설명"><TabsTrigger value="usage">사용법</TabsTrigger><TabsTrigger value="settings">예제 설정</TabsTrigger><TabsTrigger value="code">코드</TabsTrigger></TabsList><Button variant="quiet" size="small" onClick={reset}>예제 되돌리기</Button></div><TabsContent value="settings" className="mt-6"><div className="docs-controls">{settings || <p className="text-g-small text-g-soft">위 예제를 살펴보세요.</p>}</div></TabsContent><TabsContent value="code" className="mt-6"><CodeBlock>{code}</CodeBlock></TabsContent><TabsContent value="usage" className="mt-6"><ul className="docs-usage">{usage[name].map(text => <li key={text}>{text}</li>)}</ul><p className="mt-6 text-g-small text-g-soft">코드는 설치된 로컬 소스 경로를 사용합니다. 예제의 데이터와 저장·조회 동작은 컴포넌트 자체 기능이 아닙니다.</p></TabsContent></Tabs></div>;
 }

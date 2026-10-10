@@ -17,6 +17,10 @@
   --text-g-small: .875rem;
   --text-g-caption: .75rem;
   --text-g-title: 1.75rem;
+  --leading-g-title: 1.3;
+  --leading-g-heading: 1.4;
+  --leading-g-label: 1.4;
+  --leading-g-body: 1.5;
   --radius-g-control: .375rem;
   --radius-g-panel: .75rem;
   --spacing-g-control: 1rem;

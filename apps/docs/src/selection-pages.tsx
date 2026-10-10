@@ -1,3 +1,4 @@
+import { ComponentContext, ExamplePurpose } from './component-content';
 import { useState } from 'react';
 import { RadioGroup } from './gyeol/primitives/radio-group';
 import { SegmentedControl } from './gyeol/components/segmented-control';
@@ -36,7 +37,7 @@ const usage: Record<SelectionName, string[]> = {
   Popover: ['Popover 안에 PopoverTrigger와 PopoverContent를 둡니다. asChild를 쓰면 Button 같은 기존 요소를 트리거로 사용합니다. 콘텐츠에는 aria-label이나 PopoverTitle로 이름을 제공하세요.', '기본은 비모달이며 화면의 다른 요소를 막지 않습니다. 목록 밖을 누르거나 Escape로 닫고, 닫기 버튼에는 PopoverClose를 사용합니다. open과 onOpenChange로 펼침 상태를 직접 관리할 수도 있습니다.', 'PopoverContent의 side, align, sideOffset, collisionPadding으로 위치를 조정합니다. 주변 공간에 따라 위치를 바꾸며 긴 내용은 내부에서 스크롤합니다. 중첩한 테마와 사용자 정의 색상은 콘텐츠에도 이어집니다.', '간단한 설정이나 버튼이 필요한 설명에는 Popover를, 짧은 비대화형 설명에는 Tooltip을 사용하세요. 전체 작업을 가로막아야 하는 경우는 Dialog가 적합합니다.'],
   Tooltip: ['기존 버튼을 Tooltip으로 감싸고 content에 보조 설명을 넣습니다. 마우스를 올리거나 키보드로 초점을 맞추면 표시하며 Escape로 닫습니다. 버튼 이름은 버튼 자체에도 남겨 두세요.', 'delayDuration은 표시 지연 시간입니다. side와 align으로 위치를 조정합니다. 여러 트리거의 표시 정책을 함께 관리하려면 TooltipProvider, TooltipRoot, TooltipTrigger, TooltipContent를 조합할 수 있습니다.', '툴팁에는 버튼이나 입력 같은 조작 요소를 넣지 마세요. 터치 화면과 비활성 버튼에서는 설명을 발견하기 어려우므로, 중요한 안내나 오류는 툴팁뿐 아니라 보이는 본문에도 제공합니다.'],
 };
-export function SelectionPage({ name, initialPanel = 'settings' }: { name: SelectionName; initialPanel?: 'settings' | 'code' | 'usage' }) {
+export function SelectionPage({ name, initialPanel = 'usage' }: { name: SelectionName; initialPanel?: 'settings' | 'code' | 'usage' }) {
   const [panel, setPanel] = useState(initialPanel), [disabled, setDisabled] = useState(false), [error, setError] = useState(false), [readOnly, setReadOnly] = useState(false), [required, setRequired] = useState(false);
   const [current, setCurrent] = useState(name === 'SegmentedControl' ? 'week' : name === 'Combobox' ? 'design' : 'email'), [selected, setSelected] = useState(['email']);
   const [showTags, setShowTags] = useState(true), [allowEmpty, setAllowEmpty] = useState(false), [limit, setLimit] = useState(2), [showLabel, setShowLabel] = useState(false), [loading, setLoading] = useState(false);
@@ -65,13 +66,14 @@ export function SelectionPage({ name, initialPanel = 'settings' }: { name: Selec
   else { declarations = `const [open, setOpen] = useState(${open});`; body = `<Tooltip content=${JSON.stringify(tooltipText)} delayDuration={${delay}} open={open} onOpenChange={setOpen}><Button variant="secondary" ${disabledAttr}>항목 고정</Button></Tooltip>`; onReset += ' setOpen(false);'; }
   const code = `import { useState } from 'react';\nimport { ${name}${extraImports} } from './gyeol/${files[name]}';\nimport { Button } from './gyeol/primitives/button';\n${name === 'Popover' ? "import { Checkbox } from './gyeol/primitives/checkbox';\n" : ''}\nexport function Example() {\n  ${declarations}\n  const [result, setResult] = useState("");\n  return <form onReset={() => { ${onReset} }} onSubmit={event => {\n    event.preventDefault();\n    setResult(JSON.stringify(Array.from(new FormData(event.currentTarget).entries())));\n  }}>\n    ${body}\n    <Button type="submit">제출 값 보기</Button>\n    <Button type="reset" variant="secondary">예제 값 초기화</Button>\n    <p role="status">{result}</p>\n  </form>;\n}`;
   return <div className="space-y-8"><p className="docs-intro">{selectionDescriptions[name]}</p>
+    <ComponentContext name={name}/><ExamplePurpose name={name}/>
     <section className="docs-demo" aria-label={`${name} 사용 예제`}><form className="grid gap-4" onReset={resetValues} onSubmit={event => { event.preventDefault(); setFeedback(JSON.stringify(Array.from(new FormData(event.currentTarget).entries()))); }}>{demo}
       {name === 'IconAction' && <p role="status" className="text-g-small text-g-soft">{clicks}번 누름 · 저장하지 않는 예제</p>}
       {inputLike && <div className="flex flex-wrap gap-2"><Button type="submit">제출 값 보기</Button><Button type="reset" variant="secondary">입력 초기화</Button></div>}
       {inputLike && <p role="status" className="break-all text-g-small text-g-soft">{feedback || '선택한 값만 확인합니다. 서버에 저장하지 않습니다.'}</p>}
       {name === 'Tooltip' && <p className="text-g-small text-g-soft">중요한 안내는 화면에도 보이게 제공합니다. 터치 화면에서는 툴팁만으로 안내하지 않습니다.</p>}
     </form></section>
-    <Tabs value={panel} onValueChange={next => setPanel(next as typeof panel)}><TabsList aria-label="예제 안내"><TabsTrigger value="settings">예제 설정</TabsTrigger><TabsTrigger value="code">코드</TabsTrigger><TabsTrigger value="usage">사용법</TabsTrigger></TabsList>
+    <Tabs value={panel} onValueChange={next => setPanel(next as typeof panel)}><TabsList aria-label="예제 안내"><TabsTrigger value="usage">사용법</TabsTrigger><TabsTrigger value="settings">예제 설정</TabsTrigger><TabsTrigger value="code">코드</TabsTrigger></TabsList>
       <TabsContent value="settings"><div className="grid gap-3 py-4">
         <label className="flex min-h-11 items-center gap-3"><Checkbox checked={disabled} onCheckedChange={next => { setDisabled(next === true); if (next === true) setOpen(false); }}/>사용할 수 없는 상태</label>
         {supportsError && <label className="flex min-h-11 items-center gap-3"><Checkbox checked={error} onCheckedChange={next => setError(next === true)}/>오류 안내 표시</label>}
