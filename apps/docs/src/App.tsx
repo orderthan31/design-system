@@ -553,19 +553,65 @@ function StandardExampleWorkbench({page}:{page:string}){
 }
 function Foundations(){return <div className="grid gap-8"><p className="text-g-soft leading-7">한결디자인은 정보와 행동의 관계를 읽기 쉽게 만드는 디자인 시스템입니다. 따뜻한 바탕, 분명한 잉크, 절제된 올리브 액션을 사용합니다. Pretendard와 여유 있는 행간으로 긴 한국어 문장을 편하게 읽습니다.</p><section className="grid grid-cols-2 gap-4 sm:grid-cols-4"><div className="bg-g-surface border border-solid border-g-line p-4"><p className="font-medium">Surface</p><p className="text-g-small text-g-soft">내용의 자리</p></div><div className="bg-g-muted p-4"><p className="font-medium">Muted</p><p className="text-g-small text-g-soft">보조 영역</p></div><div className="bg-g-action text-g-on-action p-4"><p className="font-medium">Action</p><p className="text-g-small">중요한 다음 행동</p></div><div className="border border-solid border-g-line p-4"><p className="text-g-danger font-medium">Error</p><p className="text-g-small text-g-soft">복구할 수 있는 안내</p></div></section><div className="grid gap-3"><h2 className="text-g-title font-semibold">여백으로 구분하고, 글로 설명합니다.</h2><p className="text-g-body">본문 16px · 작은 설명 14px · 제목 32px</p><p className="text-g-small text-g-soft">44px 이상의 조작 영역, 별도의 focus outline과 error border. Root/중첩 테마는 portal에도 이어집니다.</p></div><Button>다음 작업으로</Button></div>;}
 function Overview(){
- return <div className="grid gap-8">
-  <p className="text-g-body leading-7 text-g-soft">필수 개발 도구는 core로 설치하고, UI 소스는 내 프로젝트에서 직접 수정합니다.</p>
-  <div className="flex flex-wrap items-center gap-4">
-   <a href="https://github.com/orderthan31/design-system/blob/f5138d67c86f965747ba2d1b187a69c008caf68b/docs/source-installation.md#core11-quickstart" className="text-g-action underline underline-offset-4">설치 안내</a>
-   <a href={pageHref('Button')} className="inline-flex min-h-11 items-center justify-center gap-2 rounded-g-control border border-solid border-g-line bg-g-surface px-g-control py-2 text-g-body font-medium text-g-ink leading-6 no-underline transition-colors hover:bg-g-muted focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-g-focus">컴포넌트 문서</a>
-   <a href={pageHref('TaskExample')} className="inline-flex min-h-11 items-center justify-center gap-2 rounded-g-control border border-solid border-transparent bg-transparent px-g-control py-2 text-g-body font-medium text-g-soft leading-6 no-underline transition-colors hover:bg-g-muted hover:text-g-ink focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-g-focus">대표 소비 예제</a>
+ const inputId=useId();
+ const [message,setMessage]=useState('반가워요, 한결디자인'),[preview,setPreview]=useState(''),[tab,setTab]=useState('colors');
+ return <div className="grid gap-8 min-w-0 break-keep wrap-anywhere">
+  <div className="grid gap-4">
+   <p className="text-g-body leading-7 text-g-soft">화면을 만드는 데 필요한 색상, 글자, 컴포넌트를 살펴보세요.</p>
+   <nav aria-label="소개에서 둘러보기" className="flex flex-wrap gap-3">
+    <a href={pageHref('Foundations')} className="inline-flex min-h-11 items-center justify-center rounded-g-control border border-solid border-g-line bg-g-surface px-g-control py-2 text-g-body font-medium text-g-ink no-underline hover:bg-g-muted focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-g-focus">파운데이션 살펴보기</a>
+    <a href={pageHref('Button')} className="inline-flex min-h-11 items-center justify-center rounded-g-control border border-solid border-g-line bg-g-surface px-g-control py-2 text-g-body font-medium text-g-ink no-underline hover:bg-g-muted focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-g-focus">컴포넌트 보기</a>
+   </nav>
   </div>
+  <div className="grid gap-6 min-w-0 sm:grid-cols-2">
+   <section aria-labelledby={inputId+'-colors'} className="grid content-start gap-3 min-w-0">
+    <h2 id={inputId+'-colors'} className="text-g-body font-medium">색상</h2>
+    <ul className="grid grid-cols-2 gap-3 text-g-small">
+     <li className="grid gap-2"><span aria-hidden="true" className="block min-h-11 rounded-g-control border border-solid border-g-line bg-g-surface"/>바탕</li>
+     <li className="grid gap-2"><span aria-hidden="true" className="block min-h-11 rounded-g-control bg-g-muted"/>보조 바탕</li>
+     <li className="grid gap-2"><span aria-hidden="true" className="block min-h-11 rounded-g-control bg-g-action"/>주요 행동</li>
+     <li className="grid gap-2"><span aria-hidden="true" className="block min-h-11 rounded-g-control bg-g-danger"/>오류 안내</li>
+    </ul>
+   </section>
+   <section aria-labelledby={inputId+'-type'} className="grid content-start gap-3 min-w-0">
+    <h2 id={inputId+'-type'} className="text-g-body font-medium">글자</h2>
+    <h3 className="text-g-title">읽기 편한 화면</h3>
+    <p className="text-g-body">필요한 내용을 차분하게 읽고, 다음 행동을 찾아보세요.</p>
+    <p className="text-g-small text-g-soft">작은 안내도 또렷하게 전합니다.</p>
+   </section>
+  </div>
+  <section aria-labelledby={inputId+'-components'} className="grid gap-4 min-w-0">
+   <h2 id={inputId+'-components'} className="text-g-body font-medium">컴포넌트</h2>
+   <div className="grid gap-3 min-w-0">
+    <label htmlFor={inputId} className="text-g-small">미리 볼 문구</label>
+    <div className="flex flex-wrap items-end gap-3 min-w-0">
+     <div className="grow min-w-0"><Input id={inputId} value={message} onChange={event=>setMessage(event.target.value)}/></div>
+     <Button type="button" variant="primary" size="medium" onClick={()=>setPreview(message.trim()?'미리보기: '+message:'미리 볼 문구를 입력해 주세요.')}>문구 미리보기</Button>
+    </div>
+    <p role="status" className="text-g-small text-g-soft">{preview||'문구를 바꾸고 버튼을 눌러 보세요.'}</p>
+   </div>
+   <Tabs value={tab} onValueChange={setTab}>
+    <TabsList aria-label="디자인 살펴보기"><TabsTrigger value="colors">색상</TabsTrigger><TabsTrigger value="type">글자</TabsTrigger></TabsList>
+    <TabsContent value="colors" className="mt-3"><p className="text-g-body text-g-soft">색상으로 내용의 자리를 구분하고, 중요한 행동을 알려 주세요.</p></TabsContent>
+    <TabsContent value="type" className="mt-3"><p className="text-g-body text-g-soft">제목으로 내용을 예고하고, 본문과 작은 안내로 자세히 전해 주세요.</p></TabsContent>
+   </Tabs>
+  </section>
+  <details className="border-0 border-t border-solid border-g-line pt-4">
+   <summary className="min-h-11 cursor-pointer text-g-small text-g-soft focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-g-focus">설치와 사용 안내</summary>
+   <div className="grid gap-6 pt-4">
+    <p className="text-g-body leading-7 text-g-soft">필수 개발 도구는 core로 설치하고, UI 소스는 내 프로젝트에서 직접 수정합니다.</p>
+    <div className="flex flex-wrap items-center gap-4">
+     <a href="https://github.com/orderthan31/design-system/blob/f5138d67c86f965747ba2d1b187a69c008caf68b/docs/source-installation.md#core11-quickstart" className="inline-flex min-h-11 items-center text-g-action underline underline-offset-4 focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-g-focus">설치 안내</a>
+     <a href={pageHref('TaskExample')} className="inline-flex min-h-11 items-center text-g-action underline underline-offset-4 focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-g-focus">조합 예제</a>
+    </div>
   <section aria-label="소스 설치와 편집" className="grid gap-7">
    <div className="grid gap-2"><h2 className="text-lg font-semibold">개발 도구는 core로</h2><p className="leading-7 text-g-soft"><code>hangyeol-core</code>를 버전이 고정된 devDependency로 설치합니다. 프로젝트의 로컬 <code>node_modules/.bin/hangyeol</code> 명령으로 초기 설정을 만들고, 필요한 컴포넌트 소스만 선택해 추가합니다.</p></div>
    <div className="grid gap-2"><h2 className="text-lg font-semibold">UI는 내 프로젝트의 소스로</h2><p className="leading-7 text-g-soft">선택한 컴포넌트와 공통 helper, theme은 프로젝트에 복사되는 편집 가능한 로컬 파일입니다. 컴포넌트 문서에서 공개 API를 확인하고, 프로젝트에 맞게 소스를 직접 수정하세요.</p></div>
    <div className="grid gap-2"><h2 className="text-lg font-semibold">팔레트도 직접 편집</h2><p className="leading-7 text-g-soft">제공된 팔레트의 값을 바꾸거나 새 팔레트를 추가할 수 있습니다. light와 dark 테마, 의미와 상태를 나타내는 토큰도 프로젝트에서 관리합니다.</p></div>
   </section>
-  <p className="text-g-small leading-6 text-g-soft">현재 설치 안내는 준비된 캐시(prepared-cache)와 설치 스크립트 비활성화(scripts-off)를 사용한 검증 범위를 설명합니다. 안내를 읽으려면 저장소 접근 권한이 필요합니다.</p>
+  <p className="text-g-small leading-6 text-g-soft">설치 방법과 사용 조건은 설치 안내에서 확인하세요. 안내를 보려면 저장소 접근 권한이 필요합니다.</p>
+   </div>
+  </details>
  </div>;
 }
 const menuGroups=['Introduction / foundations','Components','Examples / verification'] as const;
@@ -663,7 +709,7 @@ export default function App(){
    <p className="mt-8 text-g-small text-g-soft hidden lg:block">작업에 필요한 만큼.<br/>소스는 당신의 프로젝트에.</p>
   </aside>
   <main className="min-w-0 px-5 py-8 sm:px-10 lg:col-span-4 lg:px-14 lg:py-12">
-   <div className="mb-8 flex items-baseline justify-between gap-3"><h1 ref={headingRef} tabIndex={-1} className="text-g-title font-semibold tracking-tight focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-g-focus">{page==='Overview'?'한결디자인':page}</h1><span className="text-g-small text-g-soft">한결디자인 · 01</span></div>
+   <div className="mb-8 flex items-baseline justify-between gap-3"><h1 ref={headingRef} tabIndex={-1} className="text-g-title font-semibold tracking-tight focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-g-focus">{page==='Overview'?'한결디자인':page}</h1>{page!=='Overview'&&<span className="text-g-small text-g-soft">한결디자인 · 01</span>}</div>
    {page==='Overview'?<Overview/>:page==='TaskExample'?<TaskExample/>:page==='Foundations'?<Foundations/>:page==='Customization'?<div className="grid gap-6"><p className="text-g-soft">이 페이지는 설치된 소스의 className 병합 계약을 검증하는 명시적인 예외입니다. 일반 문서는 공개 variant/size를 사용합니다.</p><Customization/></div>:page==='Behavior'?<BehaviorProofs/>:<ExampleWorkbench key={page} page={page}/>}
   </main>
  </div></Theme>;
