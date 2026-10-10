@@ -1,4 +1,5 @@
 import { ComponentContext, ExamplePurpose } from './component-content';
+import { Checkbox } from './gyeol/primitives/checkbox';
 import { useEffect, useId, useState, type ReactNode } from 'react';
 import { Button, type ButtonProps } from './gyeol/primitives/button';
 import { Input } from './gyeol/primitives/input';
@@ -37,7 +38,7 @@ export function CodeBlock({children,language='React'}:{children:string;language?
  useEffect(()=>{setCopied(false);setFailed(false);},[children]);
  return <div className="docs-code"><div className="docs-code-toolbar"><span>{language}</span><Button variant="quiet" size="small" onClick={async()=>{try{await navigator.clipboard.writeText(children);setCopied(true);setFailed(false);}catch{setFailed(true);}}}>{copied?'복사됨':'코드 복사'}</Button></div><pre><code>{children}</code></pre>{failed&&<p role="status" className="text-g-small">자동 복사를 사용할 수 없습니다. 코드를 선택해서 복사하세요.</p>}</div>;
 }
-function Toggle({label,checked,onChange}:{label:string;checked:boolean;onChange:(value:boolean)=>void}){return <label className="docs-toggle"><input type="checkbox" checked={checked} onChange={event=>onChange(event.target.checked)}/>{label}</label>;}
+function Toggle({label,checked,onChange}:{label:string;checked:boolean;onChange:(value:boolean)=>void}){return <label className="docs-toggle"><Checkbox checked={checked} aria-label={label} onCheckedChange={value=>onChange(value===true)}/>{label}</label>;}
 const notifications=[{id:'delivery',title:'배송이 시작됐어요',description:'주문한 무선 키보드가 오늘 출발했습니다.',date:'10월 10일'},{id:'notice',title:'새로운 소식을 확인해 보세요',description:'이번 달에 추가된 상품과 혜택을 모았습니다.',date:'10월 9일'}];
 export function NotificationList({empty=false,divider=true}:{empty?:boolean;divider?:boolean}){
  return <div><List aria-label="알림 목록" divider={divider}>{!empty&&notifications.map(item=><ListItem key={item.id}><div className="grid gap-1 min-w-0 flex-1"><h3 className="font-medium">{item.title}</h3><p className="text-g-small text-g-soft">{item.description}</p></div><span className="text-g-caption text-g-soft">{item.date}</span></ListItem>)}</List>{empty&&<p className="text-g-soft py-4">새 알림이 없습니다.</p>}</div>;

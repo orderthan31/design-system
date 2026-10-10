@@ -13,5 +13,5 @@ export const PopoverContent = forwardRef<HTMLDivElement, PopoverContentProps>(fu
   const container = usePortalContainer(), theme = usePortalTheme(), contentRef = usePortalRef(ref, props.style);
   const [destination, setDestination] = useState<HTMLDivElement | null>(null);
   return <Primitive.Portal container={container ?? undefined}><Primitive.Content {...props} {...theme} ref={contentRef} sideOffset={sideOffset} collisionPadding={collisionPadding}
-    className={cn('z-50 grid w-72 max-w-full max-h-(--radix-popover-content-available-height) gap-3 overflow-auto rounded-g-panel border border-solid border-g-line bg-g-surface p-4 text-g-body text-g-ink shadow-lg focus-visible:outline-3 focus-visible:outline-g-focus', className)}><PortalContext.Provider value={destination}>{children}<div ref={setDestination} className="contents"/></PortalContext.Provider></Primitive.Content></Primitive.Portal>;
+    className={cn('z-50 grid w-72 max-w-full max-h-(--radix-popover-content-available-height) gap-3 overflow-auto rounded-g-panel border border-solid border-g-line bg-g-surface p-4 text-g-body text-g-ink shadow-md focus-visible:outline-3 focus-visible:outline-g-focus', className)}><PortalContext.Provider value={destination}>{children}<div ref={setDestination} className="contents"/></PortalContext.Provider></Primitive.Content></Primitive.Portal>;
 });

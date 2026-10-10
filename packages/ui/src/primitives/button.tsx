@@ -1,8 +1,8 @@
 import { forwardRef, type ButtonHTMLAttributes } from 'react';
 import { cn } from '../lib/cn';
 const variants = {
-  primary: 'bg-g-action text-g-on-action border-g-focus hover:bg-g-action-hover',
-  secondary: 'bg-g-surface text-g-ink border-g-line hover:bg-g-muted',
+  primary: 'bg-g-action text-g-on-action border-transparent hover:bg-g-action-hover',
+  secondary: 'bg-g-surface text-g-ink border-g-line enabled:hover:border-g-line-hover hover:bg-g-muted',
   quiet: 'bg-transparent text-g-soft border-transparent hover:bg-g-muted hover:text-g-ink',
 } satisfies Record<string, string>;
 const sizes = { small: 'min-h-11 px-3 py-2 text-g-small', medium: 'min-h-11 px-g-control py-2 text-g-body' } satisfies Record<string, string>;

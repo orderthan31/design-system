@@ -9,7 +9,7 @@ export type TooltipContentProps = ComponentPropsWithoutRef<typeof Primitive.Cont
 export const TooltipContent = forwardRef<HTMLDivElement, TooltipContentProps>(function TooltipContent({ className, sideOffset = 8, collisionPadding = 8, ...props }, ref) {
   const container = usePortalContainer(), theme = usePortalTheme(), contentRef = usePortalRef(ref, props.style);
   return <Primitive.Portal container={container ?? undefined}><Primitive.Content {...props} {...theme} ref={contentRef} sideOffset={sideOffset} collisionPadding={collisionPadding}
-    className={cn('z-50 max-w-xs break-words rounded-g-control border border-solid border-g-line bg-g-surface px-3 py-2 text-g-small text-g-ink shadow-lg', className)}/></Primitive.Portal>;
+    className={cn('z-50 max-w-xs break-words rounded-g-control border border-solid border-g-line bg-g-surface px-3 py-2 text-g-small text-g-ink shadow-md', className)}/></Primitive.Portal>;
 });
 export type TooltipProps = Omit<ComponentPropsWithoutRef<typeof Primitive.Root>, 'children'> & { children: ReactElement; content: ReactNode; side?: TooltipContentProps['side']; align?: TooltipContentProps['align'] };
 export function Tooltip({ children, content, side, align, ...props }: TooltipProps) {

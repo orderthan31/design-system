@@ -14,7 +14,7 @@ export const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>(function R
       className={cn(orientation === 'horizontal' ? 'flex min-w-0 flex-wrap gap-4' : 'grid min-w-0 gap-2', className)}>
       {options.map((option, index) => <label key={option.value} htmlFor={id + '-' + index} className="flex min-h-11 items-center gap-3 text-g-body text-g-ink">
         <Primitive.Item id={id + '-' + index} value={option.value} disabled={props.disabled || option.disabled}
-          className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-solid border-g-line bg-g-surface text-g-action data-[state=checked]:border-g-focus focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-g-focus disabled:opacity-50">
+          className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-solid border-g-line bg-g-surface data-[state=unchecked]:enabled:hover:border-g-line-hover transition-colors motion-reduce:transition-none text-g-action data-[state=checked]:border-g-focus focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-g-focus disabled:opacity-50">
           <Primitive.Indicator className="h-3 w-3 rounded-full bg-current"/>
         </Primitive.Item>{option.label}
       </label>)}
