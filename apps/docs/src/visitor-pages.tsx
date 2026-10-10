@@ -1,5 +1,6 @@
 import { useId, useState, type CSSProperties } from 'react';
 import { Theme, useThemeScope } from './gyeol/foundation/theme';
+import { BrandCI } from './brand-ci';
 import { Button } from './gyeol/primitives/button';
 import { TextField } from './gyeol/components/text-field';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from './gyeol/primitives/tabs';
@@ -7,9 +8,8 @@ import { Row } from './gyeol/primitives/layout';
 import { CodeBlock } from './component-pages';
 
 export function Overview(){
- const {mode}=useThemeScope();
  return <div className="docs-page docs-overview">
-  <div className="docs-brand-intro"><img src={mode==='dark'?'/brand/hangyeol-ci-dark.svg':'/brand/hangyeol-ci.svg'} width="313" height="82" alt="한결디자인 — HANGYEOL DESIGN"/><p className="docs-lead">다른 제품에서도 같은 판단 기준으로 이어 만드는 React 디자인 시스템.</p></div>
+  <div className="docs-brand-intro"><BrandCI intro/><p className="docs-lead">다른 제품에서도 같은 판단 기준으로 이어 만드는 React 디자인 시스템.</p></div>
   <section className="docs-section"><h2>한결디자인</h2><div className="docs-brand-copy"><p>한결디자인은 서로 다른 제품에서도 읽기·입력·행동의 관계를 일관되게 이어 가기 위한 React 디자인 시스템입니다. 버튼과 입력, 목록의 역할을 공통 기준으로 설명하고, 개발자가 소스를 읽고 제품에 맞게 수정하는 방식을 중심에 둡니다.</p><p>한글 인터페이스와 PC·모바일의 맥락을 함께 살피며, 제품의 색과 업무 규칙은 소비 프로젝트의 선택으로 남깁니다. 공통 기준은 모든 화면을 같은 모습으로 만드는 규칙이 아니라 다음 화면을 판단할 수 있는 기준입니다.</p></div></section>
   <section className="docs-section"><h2>디자인 원칙</h2><dl className="docs-brand-principles"><div><dt>명료함</dt><dd>정보와 행동을 구분하고, 현재 상태와 다음 행동이 읽히게 합니다.</dd></div><div><dt>일관된 관계</dt><dd>같은 역할의 입력, 버튼과 목록은 공통된 크기·간격·상태 기준을 따릅니다.</dd></div><div><dt>이어 만들기</dt><dd>소스와 팔레트를 프로젝트 안에서 소유하고 제품의 맥락에 맞게 수정합니다.</dd></div></dl></section>
  </div>;
