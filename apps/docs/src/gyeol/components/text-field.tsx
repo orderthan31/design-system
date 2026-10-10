@@ -1,26 +1,29 @@
-import { forwardRef, useId, useRef, useState, useImperativeHandle, type HTMLAttributes } from 'react';
+import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef, useState, type HTMLAttributes, type ReactNode } from 'react';
 import { Input, type InputProps } from '../primitives/input';
 import { Button } from '../primitives/button';
-import { cn } from '../lib/cn';
-export type TextFieldProps = Omit<InputProps, 'onChange'> & { label: string; hint?: string; error?: string; clearable?: boolean; onValueChange?: (value:string)=>void; onChange?: InputProps['onChange']; wrapperProps?: HTMLAttributes<HTMLDivElement> };
-export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(function TextField({label,hint,error,clearable,onValueChange,onChange,value,defaultValue,id:providedId,wrapperProps,...props},ref) {
- const generated=useId(),id=providedId || generated,inner=useRef<HTMLInputElement>(null);
- const [local,setLocal]=useState(defaultValue ?? '');
- const controlled=value!==undefined,current=controlled?value:local;
- useImperativeHandle(ref,()=>inner.current!,[]);
- const resetDefault=useRef(defaultValue ?? '');
- // An uncontrolled wrapper owns state; native form reset restores its original default.
- const attach=(node:HTMLInputElement|null)=>{inner.current=node;};
- const [form,setForm]=useState<HTMLFormElement|null>(null);
- // Ref callback tracks form ownership without DOM queries or value mutation.
- const inputRef=(node:HTMLInputElement|null)=>{attach(node);if(node && node.form!==form)setForm(node.form);};
- useNativeReset(form,()=>{if(!controlled)setLocal(resetDefault.current);});
- return <div {...wrapperProps} className={cn('grid gap-2 min-w-0',wrapperProps?.className)}>
-  <label htmlFor={id} className="text-g-small font-medium">{label}</label>
-  <div className="flex items-start gap-2"><Input {...props} id={id} ref={inputRef} value={current} invalid={!!error || props.invalid} aria-describedby={error||hint?`${id}-help`:props['aria-describedby']} onChange={event=>{if(!controlled)setLocal(event.target.value);onValueChange?.(event.target.value);onChange?.(event);}} />
-   {clearable && <Button variant="quiet" size="small" className="shrink-0 whitespace-nowrap" disabled={props.disabled || props.readOnly || !String(current)} aria-label={`${label} 지우기`} onClick={()=>{if(!controlled)setLocal('');onValueChange?.('');inner.current?.focus();}}>지우기</Button>}
-  </div>{(error||hint) && <p id={`${id}-help`} role={error?'alert':undefined} className={cn('text-g-small',error?'text-g-danger':'text-g-soft')}>{error||hint}</p>}
- </div>;
+import { FormField } from './form-field';
+export type TextFieldProps = Omit<InputProps, 'onChange' | 'prefix'> & { label: string; hint?: string; error?: string; prefix?: ReactNode; suffix?: ReactNode; trailing?: ReactNode; clearable?: boolean; onValueChange?: (value: string) => void; onChange?: InputProps['onChange']; wrapperProps?: HTMLAttributes<HTMLDivElement> };
+export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(function TextField({ label, hint, error, prefix, suffix, trailing, clearable, onValueChange, onChange, value, defaultValue, id, wrapperProps, ...props }, ref) {
+  const inner = useRef<HTMLInputElement>(null);
+  const [local, setLocal] = useState(defaultValue ?? '');
+  const [form, setForm] = useState<HTMLFormElement | null>(null);
+  const [composing, setComposing] = useState(false);
+  const controlled = value !== undefined, current = controlled ? value : local;
+  useImperativeHandle(ref, () => inner.current!, []);
+  const inputRef = useCallback((node: HTMLInputElement | null) => { inner.current = node; if (node) setForm(node.form); }, []);
+  useEffect(() => {
+    if (!form) return;
+    const reset = (event: Event) => queueMicrotask(() => { if (!event.defaultPrevented && !controlled) setLocal(defaultValue ?? ''); });
+    form.addEventListener('reset', reset); return () => form.removeEventListener('reset', reset);
+  }, [form, controlled, defaultValue]);
+  return <FormField {...wrapperProps} label={label} hint={hint} error={error} inputProps={{ ...props, id, value: current,
+    onChange: event => { if (!controlled) setLocal(event.target.value); onValueChange?.(event.target.value); onChange?.(event); },
+    onCompositionStart: event => { setComposing(true); props.onCompositionStart?.(event); },
+    onCompositionEnd: event => { setComposing(false); props.onCompositionEnd?.(event); }
+  }}>{fieldProps => <div className="flex min-w-0 items-center gap-2">
+    {prefix && <span className="shrink-0 text-g-small text-g-soft">{prefix}</span>}
+    <Input {...fieldProps} ref={inputRef}/>
+    {suffix && <span className="shrink-0 text-g-small text-g-soft">{suffix}</span>}{trailing}
+    {clearable && <Button variant="quiet" size="small" className="shrink-0 whitespace-nowrap" disabled={props.disabled || props.readOnly || composing || !String(current)} aria-label={`${label} 지우기`} onClick={() => { if (!controlled) setLocal(''); onValueChange?.(''); inner.current?.focus(); }}>지우기</Button>}
+  </div>}</FormField>;
 });
-import { useEffect } from 'react';
-function useNativeReset(form:HTMLFormElement|null,reset:()=>void){useEffect(()=>{if(!form)return;const listener=(event:Event)=>queueMicrotask(()=>{if(!event.defaultPrevented)reset();});form.addEventListener('reset',listener);return()=>form.removeEventListener('reset',listener);},[form,reset]);}

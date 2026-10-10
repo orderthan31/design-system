@@ -1,12 +1,218 @@
 {
-  "badge": {"files":["primitives/badge.tsx"],"requires":[]},
-  "button": {"files":["primitives/button.tsx"],"requires":[]},
-  "input": {"files":["primitives/input.tsx"],"requires":[]},
-  "theme": {"files":["foundation/theme.tsx"],"requires":[]},
-  "layout": {"files":["primitives/layout.tsx"],"requires":[]},
-  "text-field": {"files":["components/text-field.tsx"],"requires":["input","button"]},
-  "select": {"files":["primitives/select.tsx","primitives/portal.tsx"],"requires":["theme"],"runtime":{"@radix-ui/react-select":"2.3.8"}},
-  "tabs": {"files":["primitives/tabs.tsx"],"requires":[],"runtime":{"@radix-ui/react-tabs":"1.1.22"}},
-  "dialog": {"files":["primitives/dialog.tsx","primitives/portal.tsx"],"requires":["theme"],"runtime":{"@radix-ui/react-dialog":"1.2.0"}},
-  "composition": {"files":["components/composition.tsx"],"requires":["layout"]}
+  "badge": {
+    "files": [
+      "primitives/badge.tsx"
+    ],
+    "requires": []
+  },
+  "button": {
+    "files": [
+      "primitives/button.tsx"
+    ],
+    "requires": []
+  },
+  "input": {
+    "files": [
+      "primitives/input.tsx"
+    ],
+    "requires": []
+  },
+  "theme": {
+    "files": [
+      "foundation/theme.tsx"
+    ],
+    "requires": []
+  },
+  "layout": {
+    "files": [
+      "primitives/layout.tsx"
+    ],
+    "requires": []
+  },
+  "text-field": {
+    "files": [
+      "components/text-field.tsx"
+    ],
+    "requires": [
+      "input",
+      "button",
+      "form-field"
+    ]
+  },
+  "select": {
+    "files": [
+      "primitives/select.tsx",
+      "primitives/portal.tsx"
+    ],
+    "requires": [
+      "theme"
+    ],
+    "runtime": {
+      "@radix-ui/react-select": "2.3.8"
+    }
+  },
+  "tabs": {
+    "files": [
+      "primitives/tabs.tsx"
+    ],
+    "requires": [],
+    "runtime": {
+      "@radix-ui/react-tabs": "1.1.22"
+    }
+  },
+  "dialog": {
+    "files": [
+      "primitives/dialog.tsx",
+      "primitives/portal.tsx"
+    ],
+    "requires": [
+      "theme"
+    ],
+    "runtime": {
+      "@radix-ui/react-dialog": "1.2.0"
+    }
+  },
+  "composition": {
+    "files": [
+      "components/composition.tsx"
+    ],
+    "requires": [
+      "layout",
+      "action-group",
+      "list-header",
+      "list-footer"
+    ]
+  },
+  "checkbox": {
+    "files": [
+      "primitives/checkbox.tsx"
+    ],
+    "requires": [],
+    "runtime": {
+      "@radix-ui/react-checkbox": "1.3.12"
+    }
+  },
+  "switch": {
+    "files": [
+      "primitives/switch.tsx"
+    ],
+    "requires": [],
+    "runtime": {
+      "@radix-ui/react-switch": "1.3.8"
+    }
+  },
+  "textarea": {
+    "files": [
+      "primitives/textarea.tsx"
+    ],
+    "requires": []
+  },
+  "slider": {
+    "files": [
+      "primitives/slider.tsx"
+    ],
+    "requires": [],
+    "runtime": {
+      "@radix-ui/react-slider": "1.5.0"
+    }
+  },
+  "progress": {
+    "files": [
+      "primitives/progress.tsx"
+    ],
+    "requires": [],
+    "runtime": {
+      "@radix-ui/react-progress": "1.1.17"
+    }
+  },
+  "separator": {
+    "files": [
+      "primitives/separator.tsx"
+    ],
+    "requires": []
+  },
+  "skeleton": {
+    "files": [
+      "primitives/skeleton.tsx"
+    ],
+    "requires": []
+  },
+  "loading-spinner": {
+    "files": [
+      "primitives/loading-spinner.tsx"
+    ],
+    "requires": []
+  },
+  "container": {
+    "files": [
+      "primitives/container.tsx"
+    ],
+    "requires": []
+  },
+  "grid": {
+    "files": [
+      "primitives/grid.tsx"
+    ],
+    "requires": []
+  },
+  "highlight": {
+    "files": [
+      "primitives/highlight.tsx"
+    ],
+    "requires": []
+  },
+  "icon": {
+    "files": [
+      "primitives/icon.tsx"
+    ],
+    "requires": [],
+    "runtime": {
+      "lucide-react": "1.52.0"
+    }
+  },
+  "icon-button": {
+    "files": [
+      "primitives/icon-button.tsx"
+    ],
+    "requires": [
+      "button",
+      "icon"
+    ]
+  },
+  "form-field": {
+    "files": [
+      "components/form-field.tsx"
+    ],
+    "requires": [
+      "input"
+    ]
+  },
+  "action-group": {
+    "files": [
+      "components/action-group.tsx"
+    ],
+    "requires": []
+  },
+  "list-header": {
+    "files": [
+      "components/list-header.tsx"
+    ],
+    "requires": [
+      "action-group"
+    ]
+  },
+  "list-footer": {
+    "files": [
+      "components/list-footer.tsx"
+    ],
+    "requires": [
+      "action-group"
+    ]
+  },
+  "empty-state": {
+    "files": [
+      "components/empty-state.tsx"
+    ],
+    "requires": []
+  }
 }
