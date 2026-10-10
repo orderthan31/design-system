@@ -1,4 +1,4 @@
-/* No host reset: only the installed Gyeol scope and themed portal boundaries. */
+/* Editable foundations shared by components and the documentation. */
 @theme inline {
   --font-g-sans: Pretendard, sans-serif;
   --color-g-canvas: var(--g-canvas);
@@ -16,43 +16,44 @@
   --text-g-body: 1rem;
   --text-g-small: .875rem;
   --text-g-caption: .75rem;
-  --text-g-title: 2rem;
-  --radius-g-control: .5rem;
-  --radius-g-panel: .875rem;
+  --text-g-title: 1.75rem;
+  --radius-g-control: .375rem;
+  --radius-g-panel: .75rem;
   --spacing-g-control: 1rem;
 }
 @layer base {
   [data-gyeol] {
     --g-canvas: #F8FAFC;
     --g-surface: #FFFFFF;
-    --g-muted: #ebe9e1;
-    --g-line: #d7d5cb;
-    --g-ink: #282e28;
-    --g-soft: #636b61;
-    --g-action: #514b83;
-    --g-action-hover: #403b6b;
-    --g-on-action: #fffefb;
-    --g-focus: #7770b3;
-    --g-danger: #a3352a;
-    --g-overlay: #20281fb3;
+    --g-muted: #F1F5F9;
+    --g-line: #64748B;
+    --g-ink: #0F172A;
+    --g-soft: #475569;
+    --g-action: #4359DB;
+    --g-action-hover: #3547B8;
+    --g-on-action: #FFFFFF;
+    --g-focus: #4359DB;
+    --g-danger: #B91C1C;
+    --g-overlay: #0F172AB3;
     font-family: Pretendard, sans-serif;
     color: var(--g-ink);
     line-height: 1.5;
     font-size: 1rem;
+    color-scheme: light;
   }
   [data-gyeol][data-theme="dark"] {
     --g-canvas: #0F172A;
     --g-surface: #1E293B;
-    --g-muted: #363e34;
-    --g-line: #596154;
-    --g-ink: #f1f0e7;
-    --g-soft: #bbc2b4;
-    --g-action: #c0b9f0;
-    --g-action-hover: #d3cef8;
-    --g-on-action: #27233f;
-    --g-focus: #c0b9f0;
-    --g-danger: #ffa99d;
-    --g-overlay: #0f140ed9;
+    --g-muted: #334155;
+    --g-line: #94A3B8;
+    --g-ink: #F8FAFC;
+    --g-soft: #CBD5E1;
+    --g-action: #7C93FF;
+    --g-action-hover: #90A3FF;
+    --g-on-action: #0F172A;
+    --g-focus: #7C93FF;
+    --g-danger: #FCA5A5;
+    --g-overlay: #0F172AD9;
     color-scheme: dark;
   }
   [data-gyeol], [data-gyeol] *, [data-gyeol] *::before, [data-gyeol] *::after { box-sizing: border-box; }
@@ -63,59 +64,36 @@
   [data-gyeol] :where(ul,ol) { padding: 0; list-style: none; }
   [data-gyeol] :where(a) { color: inherit; }
 }
-
-/* Editable palette accents; neutral/status roles inherit the consumer scheme. */
+/* Palette and light/dark scheme are independent; explicit consumer values win. */
 @layer base {
   [data-gyeol][data-palette="Indigo"][data-theme="light"] {
+    --g-action: #4359DB; --g-action-hover: #3547B8; --g-on-action: #FFFFFF; --g-focus: #4359DB;
   }
   [data-gyeol][data-palette="Indigo"][data-theme="dark"] {
+    --g-action: #7C93FF; --g-action-hover: #90A3FF; --g-on-action: #0F172A; --g-focus: #7C93FF;
   }
   [data-gyeol][data-palette="Silver"][data-theme="light"] {
-    --g-action: #535c63;
-    --g-action-hover: #3d464d;
-    --g-on-action: #fffefb;
-    --g-focus: #677d8c;
+    --g-action: #64748B; --g-action-hover: #475569; --g-on-action: #FFFFFF; --g-focus: #475569;
   }
   [data-gyeol][data-palette="Silver"][data-theme="dark"] {
-    --g-action: #c7cfd5;
-    --g-action-hover: #dde3e7;
-    --g-on-action: #252c31;
-    --g-focus: #c7cfd5;
+    --g-action: #94A3B8; --g-action-hover: #A4B1C3; --g-on-action: #0F172A; --g-focus: #94A3B8;
   }
   [data-gyeol][data-palette="Forest"][data-theme="light"] {
-    --g-action: #465c36;
-    --g-action-hover: #34472a;
-    --g-on-action: #fffefb;
-    --g-focus: #8c6232;
+    --g-action: #166534; --g-action-hover: #14532D; --g-on-action: #FFFFFF; --g-focus: #166534;
   }
   [data-gyeol][data-palette="Forest"][data-theme="dark"] {
-    --g-action: #c4d5a5;
-    --g-action-hover: #d4e1bc;
-    --g-on-action: #253021;
-    --g-focus: #e4b77a;
+    --g-action: #4ADE80; --g-action-hover: #65E393; --g-on-action: #0F172A; --g-focus: #4ADE80;
   }
   [data-gyeol][data-palette="Amber"][data-theme="light"] {
-    --g-action: #795516;
-    --g-action-hover: #60400e;
-    --g-on-action: #fffefb;
-    --g-focus: #9a6d25;
+    --g-action: #F59E0B; --g-action-hover: #FBBF24; --g-on-action: #0F172A; --g-focus: #92400E;
   }
   [data-gyeol][data-palette="Amber"][data-theme="dark"] {
-    --g-action: #edc87c;
-    --g-action-hover: #f5dba0;
-    --g-on-action: #33280f;
-    --g-focus: #edc87c;
+    --g-action: #FCD34D; --g-action-hover: #FCDA68; --g-on-action: #0F172A; --g-focus: #FCD34D;
   }
   [data-gyeol][data-palette="Rose"][data-theme="light"] {
-    --g-action: #86475c;
-    --g-action-hover: #6b3548;
-    --g-on-action: #fffefb;
-    --g-focus: #a9647e;
+    --g-action: #E11D48; --g-action-hover: #BE123C; --g-on-action: #FFFFFF; --g-focus: #BE123C;
   }
   [data-gyeol][data-palette="Rose"][data-theme="dark"] {
-    --g-action: #efb8ca;
-    --g-action-hover: #f6cfdb;
-    --g-on-action: #3e2530;
-    --g-focus: #efb8ca;
+    --g-action: #F472B6; --g-action-hover: #F687C1; --g-on-action: #0F172A; --g-focus: #F472B6;
   }
 }
