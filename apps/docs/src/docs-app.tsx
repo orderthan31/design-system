@@ -7,8 +7,9 @@ import { Overview, Foundations, GettingStarted, Customization } from './visitor-
 import { ComponentPage, CompositionExamples, componentDescriptions } from './component-pages';
 import { ControlPage, controlNames, controlDescriptions, type ControlName } from './control-pages';
 import { InputPage, inputNames, inputDescriptions, type InputName } from './input-pages';
+import { SelectionPage, selectionNames, selectionDescriptions, type SelectionName } from './selection-pages';
 
-const components = [...(['Badge','Button','Dialog','FormSection','Input','Layout','List','ListItem','ListPanel','Row','Select','Stack','Tabs','TextField'] as const), ...controlNames, ...inputNames].sort();
+const components = [...(['Badge','Button','Dialog','FormSection','Input','Layout','List','ListItem','ListPanel','Row','Select','Stack','Tabs','TextField'] as const), ...controlNames, ...inputNames, ...selectionNames].sort();
 type ComponentName = typeof components[number];
 const pages = ['Overview','GettingStarted','Foundations',...components,'TaskExample','Customization'] as const;
 type Page = typeof pages[number];
@@ -50,7 +51,7 @@ export default function DocsApp() {
   if(destination){pendingFocus.current=destination;setMenuOpen(false);if(destination===page){pendingFocus.current=null;headingRef.current?.focus();window.scrollTo({top:0});}}
  };
  const query=search.trim().toLocaleLowerCase();
- const match=(name:Page)=>`${labels[name]} ${name} ${componentDescriptions[name as ComponentName]??controlDescriptions[name as ControlName]??inputDescriptions[name as InputName]??''}`.toLocaleLowerCase().includes(query);
+ const match=(name:Page)=>`${labels[name]} ${name} ${componentDescriptions[name as ComponentName]??controlDescriptions[name as ControlName]??inputDescriptions[name as InputName]??selectionDescriptions[name as SelectionName]??''}`.toLocaleLowerCase().includes(query);
  return <Theme mode={mode} palette={palette} className="docs-shell min-h-screen">
   <a href="#docs-main" className="docs-skip" onClick={event=>{event.preventDefault();document.getElementById('docs-main')?.focus();}}>본문으로 바로 가기</a>
   <header className="docs-header">
@@ -71,7 +72,7 @@ export default function DocsApp() {
    </aside>
    <main id="docs-main" tabIndex={-1} className="docs-main">
     <div className="docs-page-heading"><p className="text-g-small text-g-soft">{components.includes(page as ComponentName)?'컴포넌트':page==='TaskExample'||page==='Customization'?'함께 사용하기':'한결디자인'}</p><h1 ref={headingRef} tabIndex={-1}>{page==='Overview'?'한결디자인':labels[page]}</h1></div>
-    {page==='Overview'?<Overview/>:page==='GettingStarted'?<GettingStarted/>:page==='Foundations'?<Foundations/>:page==='TaskExample'?<CompositionExamples/>:page==='Customization'?<Customization/>:inputNames.includes(page as InputName)?<InputPage key={page} name={page as InputName}/>:controlNames.includes(page as ControlName)?<ControlPage key={page} name={page as ControlName}/>:<ComponentPage key={page} name={page as ComponentName}/>}
+    {page==='Overview'?<Overview/>:page==='GettingStarted'?<GettingStarted/>:page==='Foundations'?<Foundations/>:page==='TaskExample'?<CompositionExamples/>:page==='Customization'?<Customization/>:selectionNames.includes(page as SelectionName)?<SelectionPage key={page} name={page as SelectionName}/>:inputNames.includes(page as InputName)?<InputPage key={page} name={page as InputName}/>:controlNames.includes(page as ControlName)?<ControlPage key={page} name={page as ControlName}/>:<ComponentPage key={page} name={page as ComponentName}/>}
     <footer className="docs-footer">한결디자인 · 필요한 요소를 골라, 내 화면에 맞게.</footer>
    </main>
   </div>
