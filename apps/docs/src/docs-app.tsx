@@ -57,7 +57,7 @@ export default function DocsApp() {
  return <Theme mode={mode} palette={palette} className="docs-shell min-h-screen">
   <a href="#docs-main" className="docs-skip" onClick={event=>{event.preventDefault();document.getElementById('docs-main')?.focus();}}>본문으로 바로 가기</a>
   <header className="docs-header">
-   <a href="#Overview" className="docs-brand-link" aria-label="한결디자인 소개" onClick={navigate}><img src={mode==='dark'?'/brand/hangyeol-ci-dark.svg':'/brand/hangyeol-ci.svg'} width="313" height="82" alt="한결디자인 — HANGYEOL DESIGN"/></a>
+   <a href="#Overview" className="docs-brand-link" aria-label="한결디자인 소개" onClick={navigate}><span className="docs-brand-mark" aria-hidden="true"/></a>
    <div className="docs-header-actions">
     <fieldset className="docs-theme-picker"><legend className="docs-visually-hidden">팔레트</legend>{palettes.map(value=><Theme key={value} mode={mode} palette={value}><label className="docs-swatch-option" title={paletteLabels[value]}><input type="radio" name={id+'-palette'} value={value} checked={palette===value} aria-label={paletteLabels[value]+' 팔레트'} onChange={()=>setPalette(value)}/><span className="docs-palette-swatch">{palette===value&&<Icon name="check" size="small"/>}</span></label></Theme>)}</fieldset>
     <Button variant="quiet" size="small" aria-label={mode==='light'?'어두운 화면으로 바꾸기':'밝은 화면으로 바꾸기'} title={mode==='light'?'어두운 화면':'밝은 화면'} onClick={()=>setMode(current=>current==='light'?'dark':'light')}>{mode==='light'?<Moon size={20} aria-hidden="true"/>:<Sun size={20} aria-hidden="true"/>}</Button>
