@@ -19,9 +19,191 @@ export function Overview(){
   <section className="docs-section"><h2>디자인 원칙</h2><dl className="docs-brand-principles"><div><dt>명료함</dt><dd>정보와 행동을 구분하고, 현재 상태와 다음 행동이 읽히게 합니다.</dd></div><div><dt>일관된 관계</dt><dd>같은 역할의 입력, 버튼과 목록은 공통된 크기·간격·상태 기준을 따릅니다.</dd></div><div><dt>이어 만들기</dt><dd>소스와 팔레트를 프로젝트 안에서 소유하고 제품의 맥락에 맞게 수정합니다.</dd></div></dl></section>
  </div>;
 }
-export function GettingStarted(){
- const example=`import { Theme } from './hangyeol/foundation/theme';\nimport { TextField } from './hangyeol/components/text-field';\nimport { Button } from './hangyeol/primitives/button';\nimport './hangyeol.css';\n\nexport function App() {\n  return <Theme mode="light" palette="Indigo" className="grid gap-4 p-6">\n    <TextField label="이름" name="name" defaultValue="김한결" clearable />\n    <Button type="button">확인</Button>\n  </Theme>;\n}`;
- return <div className="docs-page"><p className="docs-lead">필요한 컴포넌트 소스를 프로젝트에 추가하고, 직접 편집해 사용하세요.</p><section className="docs-section"><h2>준비하기</h2><p className="text-g-soft leading-7">React 19, Vite, Tailwind CSS 4 프로젝트에서 사용할 수 있습니다. Node.js 22.22.2 환경을 기준으로 합니다. 소스 설치에 사용하는 <code>hangyeol-core</code> 패키지는 별도로 전달받아 준비하세요. 현재 자동 다운로드 설치는 제공하지 않습니다.</p><p className="text-g-small text-g-soft">패키지와 UI 소스의 사용 조건을 확인하세요. 별도로 공개된 이용 라이선스가 없는 파일은 외부 제품에 사용하기 전에 권한을 확인해야 합니다.</p></section><section className="docs-section"><h2>패키지를 설치하고 소스 추가하기</h2><p className="text-g-soft leading-7">아래 패키지 경로는 전달받은 파일의 실제 경로로 바꿔 주세요. 초기 설정을 확인한 뒤 필요한 컴포넌트를 추가합니다. <code>text-field</code>를 추가하면 입력과 버튼도 함께 준비됩니다.</p><CodeBlock language="Shell">{'npm install --save-dev --save-exact /path/to/hangyeol-core.tgz\n./node_modules/.bin/hangyeol init --dry-run\n./node_modules/.bin/hangyeol init\n./node_modules/.bin/hangyeol add text-field'}</CodeBlock><p className="text-g-small text-g-soft">초기 설정과 설치 계획에 표시되는 의존성을 준비하세요. 소스의 기본 위치는 <code>src/hangyeol</code>, 스타일 진입점은 <code>src/hangyeol.css</code>입니다. 기존 파일이 있을 때는 변경 내용을 확인한 뒤 진행하세요.</p></section><section className="docs-section"><h2>화면에서 사용하기</h2><p className="text-g-soft leading-7">스타일은 앱 진입점에서 한 번 가져옵니다. Theme 안에 컴포넌트를 배치하고 프로젝트 구조에 맞게 import 경로를 조정하세요.</p><CodeBlock>{example}</CodeBlock></section><section className="docs-section"><h2>글꼴과 직접 편집</h2><p className="text-g-soft leading-7">초기 설정은 Pretendard 글꼴과 라이선스를 준비합니다. 기본 글꼴 경로는 <code>public/fonts/hangyeol</code>입니다. 설치한 컴포넌트와 테마는 프로젝트의 로컬 파일이므로 소스를 직접 수정할 수 있습니다. 팔레트의 값과 구성도 자유롭게 바꿀 수 있어요.</p><Row><Link variant="text"  href="#Button">컴포넌트 사용법 보기 →</Link><Link variant="text"  href="#Customization">스타일 바꾸기 →</Link></Row></section><section className="docs-section"><h2>이 문서를 로컬에서 실행하기</h2><p className="text-g-soft leading-7">한결디자인 저장소를 받은 경우 루트 폴더에서 실행하세요.</p><CodeBlock language="Shell">{'npm ci\nnpm run dev --workspace=@hangyeol/docs'}</CodeBlock></section></div>;
+export function GettingStarted() {
+  const cli = 'npm exec --no -- hangyeol';
+  const example = `import { Theme } from './hangyeol/foundation/theme';
+import { TextField } from './hangyeol/components/text-field';
+import { Button } from './hangyeol/primitives/button';
+import './hangyeol.css';
+
+export function App() {
+  return (
+    <Theme mode="light" palette="Indigo" className="grid gap-4 p-6">
+      <TextField label="이름" name="name" defaultValue="김한결" clearable />
+      <Button type="button">확인</Button>
+    </Theme>
+  );
+}`;
+  return (
+    <div className="docs-page">
+      <p className="docs-lead">
+        한결 core로 공통 설정을 준비하고, 필요한 컴포넌트만 프로젝트에 설치하세요.
+      </p>
+      <section className="docs-section">
+        <h2>설치 방식 이해하기</h2>
+        <p className="text-g-soft leading-7">
+          <code>hangyeol-core</code>는 컴포넌트 소스를 설치하고 검사하는 개발 도구입니다.
+          패키지를 설치한 뒤 <code>init</code>으로 테마 CSS·글꼴·설정을 준비하고,{' '}
+          <code>add</code>로 필요한 컴포넌트를 추가합니다. 화면에서는 core 자체가 아니라
+          프로젝트에 설치된 로컬 소스를 import합니다.
+        </p>
+        <p className="text-g-small text-g-soft">
+          아래 명령은 모두 소비 프로젝트의 package.json이 있는 폴더에서 실행하세요. npm
+          exec의 --no 옵션은 도구가 없을 때 다른 패키지를 자동 다운로드하지 않도록 합니다.
+        </p>
+      </section>
+      <section className="docs-section">
+        <h2>1. 프로젝트 준비하기</h2>
+        <p className="text-g-soft leading-7">
+          Node.js 22.12 이상, React 19, Vite, Tailwind CSS 4가 필요합니다. 아래는 현재
+          문서 예제에서 사용하는 정확한 버전입니다. 기존 프로젝트에서 다른 버전을
+          사용한다면 먼저 호환성을 확인하세요. 설치 도구는 버전 충돌을 자동으로 덮어쓰지
+          않습니다.
+        </p>
+        <CodeBlock language="Shell">
+          {
+            'npm install --save-exact react@19.2.0 react-dom@19.2.0\nnpm install --save-dev --save-exact vite@7.3.6 typescript@5.9.3 tailwindcss@4.3.3 @tailwindcss/vite@4.3.3 @types/react@19.2.2 @types/react-dom@19.2.2'
+          }
+        </CodeBlock>
+        <p className="text-g-soft leading-7">
+          현재 초기화 도구는 아래와 같은 정적 Vite 설정을 지원합니다. 기존 설정이 있다면
+          Tailwind 플러그인을 실제로 호출해야 합니다. React 플러그인·동적 설정 등 지원
+          범위를 벗어나는 구성은 진단 후 중단되며, 도구가 임의로 삭제하거나 바꾸지
+          않습니다.
+        </p>
+        <CodeBlock language="TypeScript">
+          {
+            "import { defineConfig } from 'vite';\nimport tailwindcss from '@tailwindcss/vite';\n\nexport default defineConfig({\n  plugins: [tailwindcss()],\n});"
+          }
+        </CodeBlock>
+        <p className="text-g-small text-g-soft">
+          기존 스타일의 Tailwind Preflight·reset은 분리한 뒤 초기화하세요. 기본값은 Vite의
+          루트 경로와 public 폴더입니다. 패키지와 UI 소스의 이용 조건도 확인하세요. 별도로
+          부여된 라이선스가 없다면 외부 제품에 사용하기 전에 권한을 확인해야 합니다.
+        </p>
+      </section>
+      <section className="docs-section">
+        <h2>2. 한결 core 설치하기</h2>
+        <p className="text-g-soft leading-7">
+          현재 안내는 전달받은 패키지 파일로 설치하는 방식입니다. 파일 경로는 실제로 받은
+          파일의 위치로 바꿔 주세요. 설치만으로 UI 소스가 생성되지는 않습니다.
+        </p>
+        <CodeBlock language="Shell">{`npm install --save-dev --save-exact ./hangyeol-core-0.1.0-s2.1.tgz\n${cli} --version\n${cli} --help`}</CodeBlock>
+        <p className="text-g-small text-g-soft">
+          GitHub Packages를 이용할 때는 별도로 안내된 배포 이름·버전·scope의 레지스트리
+          설정과 인증이 필요합니다. GitHub Packages의 공개 npm 패키지도 설치 인증이
+          필요하므로, 레지스트리 설치 안내가 제공된 경우에만 해당 명령을 사용하세요.
+        </p>
+        <Link
+          variant="text"
+          href="https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-npm-registry"
+          target="_blank"
+          rel="noreferrer"
+        >
+          GitHub Packages 설치·인증 안내 →
+        </Link>
+      </section>
+      <section className="docs-section">
+        <h2>3. 공통 설정 초기화하기</h2>
+        <p className="text-g-soft leading-7">
+          먼저 dry-run으로 생성 파일과 필요한 의존성을 확인하고, 문제가 없을 때 초기화를
+          적용합니다. 적용 과정에서 누락된 의존성은 npm으로 정확한 버전을 설치합니다.
+        </p>
+        <CodeBlock language="Shell">{`${cli} init --dry-run\n${cli} init`}</CodeBlock>
+        <ul className="text-g-soft leading-7">
+          <li>
+            <code>hangyeol.json</code>: 경로·설치 항목·원본 해시 기록
+          </li>
+          <li>
+            <code>src/hangyeol</code>: 테마 CSS와 공통 소스, 이후 추가할 컴포넌트
+          </li>
+          <li>
+            <code>src/hangyeol.css</code>: 앱에서 가져올 공통 스타일 진입점
+          </li>
+          <li>
+            <code>public/fonts/hangyeol</code>: Pretendard 글꼴·라이선스·출처 정보
+          </li>
+        </ul>
+      </section>
+      <section className="docs-section">
+        <h2>4. 필요한 컴포넌트 추가하기</h2>
+        <p className="text-g-soft leading-7">
+          컴포넌트의 설치 이름은 button, text-field처럼 소문자와 하이픈으로 작성합니다.
+          여러 항목을 한 번에 추가할 수도 있습니다. 아래 화면 예제의 Theme도 사용할 수
+          있도록 theme를 함께 설치합니다. 필요한 공통 소스와 연결된 컴포넌트·런타임·타입
+          의존성도 함께 준비됩니다.
+        </p>
+        <CodeBlock language="Shell">{`${cli} add theme text-field --dry-run\n${cli} add theme text-field\n\n# 다른 컴포넌트도 필요할 때 추가\n${cli} add button dialog --dry-run\n${cli} add button dialog`}</CodeBlock>
+        <p className="text-g-small text-g-soft">
+          text-field는 Input·Button·FormField도 추가합니다. 기존 파일과 내용이 충돌하면
+          설치가 중단됩니다. 같은 원본 파일은 다시 복사하지 않습니다.
+        </p>
+      </section>
+      <section className="docs-section">
+        <h2>5. 화면에서 사용하기</h2>
+        <p className="text-g-soft leading-7">
+          앱 진입점에서 공통 스타일을 한 번 가져오고, Theme 안에 설치된 컴포넌트를
+          배치하세요. 아래 예제는 src/App.tsx 기준입니다. core나 Radix를 페이지에서 직접
+          조합할 필요는 없습니다.
+        </p>
+        <CodeBlock>{example}</CodeBlock>
+        <Row>
+          <Link variant="text" href="#Button">
+            컴포넌트 사용법 보기 →
+          </Link>
+          <Link variant="text" href="#Customization">
+            스타일 바꾸기 →
+          </Link>
+        </Row>
+      </section>
+      <section className="docs-section">
+        <h2>설치 후 검사 명령어</h2>
+        <CodeBlock language="Shell">{`# 설치된 core의 소스·도구 구성 확인\n${cli} inspect\n\n# 설치 기록·의존성·Vite 연결 검사\n${cli} doctor\n\n# 설정된 sourceRoot의 정적 코드 검사\n${cli} lint\n${cli} lint inspect\n\n# 실제 프로젝트 CSS의 의미 토큰 검사\n${cli} tokens validate\n${cli} tokens inspect`}</CodeBlock>
+        <p className="text-g-small text-g-soft">
+          doctor는 자동 수리 명령이 아닙니다. lint는 설정된 sourceRoot의 TS/TSX를 검사하며
+          앱 전체나 브라우저 동작을 검증하지 않습니다. lint inspect와 tokens inspect는
+          도구·패키지 원본 확인이고, 실제 프로젝트 검사는 각각 lint와 tokens validate로
+          실행합니다.
+        </p>
+      </section>
+      <section className="docs-section">
+        <h2>팔레트 확인과 토큰 내보내기</h2>
+        <CodeBlock language="Shell">{`${cli} tokens presets\n${cli} tokens export --format json\n${cli} tokens export --preset Indigo --format css --output exports/indigo.css`}</CodeBlock>
+        <p className="text-g-small text-g-soft">
+          --output이 없으면 결과를 표준 출력으로 보여줍니다. 지정하면 별도 파일을 만들며,
+          기존에 수정한 파일이나 프로젝트 입력 파일을 덮어쓰지 않습니다. preset 내보내기는
+          앱 팔레트를 자동 변경하지 않습니다.
+        </p>
+      </section>
+      <section className="docs-section">
+        <h2>경로를 바꿔 초기화하기</h2>
+        <p className="text-g-soft leading-7">
+          기본 경로 대신 다른 위치나 alias를 사용하려면 최초 init에 지정하세요. 다음
+          예제는 기본 초기화 대신 사용하는 대안입니다. 기존 hangyeol.json의 설치 경로를
+          바꾸는 명령은 아닙니다. 기존 Vite 설정이 있다면 먼저 같은 alias를 sourceRoot에
+          연결해야 합니다. Vite 설정이 없을 때는 init이 연결 설정을 생성합니다. Alias를
+          지정할 때는 extends·references 없는 단일 tsconfig.json과 정적 Vite 설정이
+          필요합니다. 경로를 바꾼 경우 화면 코드의 import도 alias와 stylePath에 맞춰
+          바꿔 주세요. 이 대안에서는 컴포넌트 경로가 @hangyeol/components/text-field,
+          스타일 경로가 ./styles/hangyeol.css가 됩니다.
+        </p>
+        <CodeBlock language="Shell">{`${cli} init --source-root src/ui/hangyeol --style-path src/styles/hangyeol.css --alias "@hangyeol" --dry-run\n${cli} init --source-root src/ui/hangyeol --style-path src/styles/hangyeol.css --alias "@hangyeol"`}</CodeBlock>
+      </section>
+      <section className="docs-section">
+        <h2>직접 편집한 소스 보호하기</h2>
+        <p className="text-g-soft leading-7">
+          설치된 컴포넌트와 테마는 프로젝트가 소유하는 로컬 파일입니다. 직접 수정할 수
+          있고, add는 충돌한 파일을 기본적으로 덮어쓰지 않습니다. 원본으로 교체해야 할
+          때만 버전 관리로 변경을 보관한 뒤, 선택 항목의 overwrite 계획을 확인하세요.
+        </p>
+        <CodeBlock language="Shell">{`${cli} add button --overwrite --dry-run`}</CodeBlock>
+        <p className="text-g-small text-g-soft">
+          --overwrite는 선택 항목과 연결된 설치 파일의 교체를 허용합니다. 계획을 검토하기
+          전에는 dry-run을 빼지 마세요. 현재 자동 update·reset 명령은 제공하지 않습니다.
+        </p>
+      </section>
+    </div>
+  );
 }
 function StylePreview({fontSize=16,gap=16}:{fontSize?:number;gap?:number}){
  const [value,setValue]=useState('김한결'),[message,setMessage]=useState('');
